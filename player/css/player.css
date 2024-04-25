@@ -1,0 +1,34 @@
+body {
+    background-color: #323232;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    background-color: #975AA8;
+    padding: 5px;
+}
+
+main {
+    text-align: center;
+}
+
+img#song-cover {
+    margin: 5% 0;
+}
+
+div#audio-controls > button {
+    background-color: inherit;
+    border: none;
+    width: 50px;
+    height: 50px;
+}
+
+button#play-button > img {
+    height: 80%;
+}
+
+button#skip-back-button > img, button#skip-forward-button > img {
+    height: 80%;
+}
+
