@@ -3,6 +3,7 @@ const progressBar = document.getElementById("audio-progress-bar")
 const currentTimeLabel = document.getElementById("current-time-label")
 const missingTimeLabel = document.getElementById("missing-time-label")
 const playBtn = document.getElementById("play-button")
+const rewindBtn = document.getElementById("rewind-button")
 
 function convertSeconds(sec) {
     let m = Math.floor(sec / 60);
@@ -10,23 +11,31 @@ function convertSeconds(sec) {
     return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
 }
 
-player.addEventListener("loadedmetadata", function () {
+function updateLabels() {
     currentTimeLabel.innerText = convertSeconds(Math.floor(player.currentTime))
-    missingTimeLabel.innerText = "-" + convertSeconds(Math.floor(player.duration))
+    missingTimeLabel.innerText = "-" + convertSeconds(Math.floor(player.duration) - Math.floor(player.currentTime))
+}
+
+player.addEventListener("loadedmetadata", function () {
+    updateLabels()
 })
 
 player.addEventListener("timeupdate", function () {
     progressBar.setAttribute("value", `${this.currentTime / this.duration}`)
-    currentTimeLabel.innerText = convertSeconds(Math.floor(this.currentTime))
-    missingTimeLabel.innerText = "-" + convertSeconds(Math.floor(this.duration) - Math.floor(this.currentTime))
+    updateLabels()
 })
 
 playBtn.addEventListener("click", function () {
     if (player.paused) {
         player.play()
-        playBtn.innerHTML = `<img src="images/pause-icon.png" alt="Pause Button"/>`
+        playBtn.innerHTML = `<img src="images/pause-icon.svg" alt="Pause Button"/>`
     } else {
         player.pause()
-        playBtn.innerHTML = `<img src="images/play-icon.png" alt="Play Button"/>`
+        playBtn.innerHTML = `<img src="images/play-icon.svg" alt="Play Button"/>`
     }
+})
+
+rewindBtn.addEventListener("click", function () {
+    player.currentTime = 0
+    updateLabels()
 })
