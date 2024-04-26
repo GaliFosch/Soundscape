@@ -6,7 +6,11 @@ body {
 
 nav {
     background-color: #975AA8;
-    padding: 5px;
+    padding: 10px;
+}
+
+nav > a > i {
+    color: #000000;
 }
 
 main {
@@ -14,14 +18,29 @@ main {
 }
 
 img#song-cover {
-    margin: 5% 0;
+    margin: 5% 0 1% 0;
 }
 
-div#audio-controls > button {
+div.progress-bar-wrapper {
+    display: block;
+    margin: 2% 0;
+}
+
+div.progress-bar-wrapper > p {
+    display: inline-block;
+    color: white;
+    margin: 0 1%;
+}
+
+#audio-controls > button {
     background-color: inherit;
     border: none;
     width: 50px;
     height: 50px;
+}
+
+#audio-controls > button > i {
+    color: #E28AB9;
 }
 
 button#play-button > img {
