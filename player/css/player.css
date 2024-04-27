@@ -9,8 +9,8 @@ nav {
     padding: 10px;
 }
 
-nav > a > i {
-    color: #000000;
+nav > a > em {
+    color: black;
 }
 
 main {
