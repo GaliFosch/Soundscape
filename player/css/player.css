@@ -1,23 +1,54 @@
+html {
+    height: 100%;
+}
+
 body {
     background-color: #323232;
+    height: inherit;
     margin: 0;
     box-sizing: border-box;
 }
 
 nav {
-    background-color: #975AA8;
-    padding: 10px;
+    float: left;
+    height: inherit;
+    width: 20%;
+    background-color: #4A4A4A;
 }
 
-nav > a > em {
-    color: black;
+nav ul {
+    list-style: none;
+    height: inherit;
+    padding: 0 5%;
+}
+
+nav img {
+    height: 7%;
+    padding: 5% 0 0 5%;
+}
+
+nav li {
+    height: 5%;
+    padding: 2%;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav em {
+    color: white;
+    margin: 0 5% 0 0;
 }
 
 main {
     text-align: center;
+    width: 80%;
+    margin-left: 15%;
 }
 
-img#song-cover {
+#song-cover {
     margin: 5% 0 1% 0;
 }
 
