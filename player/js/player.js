@@ -5,6 +5,10 @@ const missingTimeLabel = document.getElementById("missing-time-label")
 const playBtn = document.getElementById("play-button")
 const rewindBtn = document.getElementById("rewind-button")
 
+/*
+ * Converts audio current time and duration to MM:SS format
+ * Code taken from: https://stackoverflow.com/a/68988997
+ */
 function convertSeconds(sec) {
     let m = Math.floor(sec / 60);
     let s  = sec % 60;
@@ -37,5 +41,16 @@ playBtn.addEventListener("click", function () {
 
 rewindBtn.addEventListener("click", function () {
     player.currentTime = 0
+    updateLabels()
+})
+
+/*
+ * To make audio progress bar clickable and choose the point of the audio to go to
+ * Code taken from: https://stackoverflow.com/a/32804559
+ */
+progressBar.addEventListener("click", function (event) {
+    let ratio = event.offsetX / this.offsetWidth
+    progressBar.value = ratio / 100
+    player.currentTime = ratio * player.duration
     updateLabels()
 })
