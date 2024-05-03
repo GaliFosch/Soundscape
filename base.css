@@ -136,6 +136,8 @@ section>p {
 }
 
 .fa-heart {
+    padding: 0px;
+    font-size: 25px;
     color:#E91E63;
 }
 
