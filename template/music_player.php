@@ -1,9 +1,19 @@
 <!-- Player -->
 <main>
+    <?php $track = $template["track"]; ?>
     <div class="song-data">
-        <img id="song-cover" src="images/song-cover-placeholder.png" alt=""/>
-        <strong id="song-title">Song title</strong>
-        <em id="artist-name">Artist name</em>
+        <?php if (($track != null) && ($track["CoverImage"] != null)): ?>
+            <img id="song-cover" src="<?php echo $track["CoverImage"]; ?>" alt=""/>
+        <?php else: ?>
+            <img id="song-cover" src="images/song-cover-placeholder.png" alt=""/>
+        <?php endif; ?>
+        <?php if ($track != null): ?>
+            <strong id="song-title"><?php echo $track["Name"]; ?></strong>
+            <em id="artist-name"><?php echo $track["Creator"]; ?></em>
+        <?php else: ?>
+            <strong id="song-title">Song title</strong>
+            <em id="artist-name">Artist name</em>
+        <?php endif; ?>
     </div>
     <div class="progress-bar-wrapper">
         <p id="current-time-label"></p>
@@ -11,7 +21,7 @@
         <p id="missing-time-label"></p>
     </div>
     <audio id="audio-player" preload="metadata">
-        <source src="audio/example_audio_file.mp3" type="audio/mpeg"/>
+        <source src="audio/<?php echo $track["AudioFile"]; ?>" type="audio/mpeg"/>
     </audio>
     <div id="audio-controls">
         <button id="rewind-button"><img src="images/rewind-icon.svg" alt="Rewind"/></button>

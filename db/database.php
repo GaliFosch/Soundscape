@@ -33,7 +33,7 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i', $postID);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC)[0];
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function getSponsoredTrack($postID) {
@@ -41,9 +41,15 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i', $postID);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        return (count($result) != 0) ? $result[0] : null;
+        return $stmt->get_result()->fetch_assoc();
+    }
 
+    public function getTrackByID($trackID) {
+        $query = "SELECT * FROM single_track WHERE TrackID = ?;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $trackID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 
 }

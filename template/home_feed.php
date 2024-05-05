@@ -25,7 +25,7 @@
                         <p><strong><?php echo $track["Name"]; ?></strong></p>
                         <p><?php echo $track["Creator"]; ?></p>
                     </section>
-                    <a href="#"><em class="fa-solid fa-play"></em></a>
+                    <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>"><em class="fa-solid fa-play"></em></a>
                 <?php endif; ?>
             </section>
             <section class="post-interaction">
