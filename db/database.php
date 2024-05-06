@@ -52,4 +52,12 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getMatchingUsers($search_input) {
+        $query = "SELECT * FROM user WHERE Username LIKE CONCAT('%', ?, '%')";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $search_input);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
