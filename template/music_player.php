@@ -6,7 +6,7 @@
         endif;
     ?>
     <div class="song-data">
-        <?php if (isset($track) && ($track["CoverImage"] != null)): ?>
+        <?php if (isset($track) && isset($track["CoverImage"])): ?>
             <img id="song-cover" src="<?php echo $track["CoverImage"]; ?>" alt=""/>
         <?php else: ?>
             <img id="song-cover" src="images/song-cover-placeholder.png" alt=""/>
