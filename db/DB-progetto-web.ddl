@@ -79,17 +79,17 @@ create table Image (
 create table SINGLE_TRACK (
      AudioFile varchar(50) not null,
      TrackID int not null,
-     Nome varchar(30) not null,
-     CoverImage varchar(50) not null,
+     Name varchar(30) not null,
+     CoverImage varchar(50),
      TimeLength time not null,
      CreationDate date not null,
-     Creatore varchar(30) not null,
+     Creator varchar(30) not null,
      constraint ID_SINGLE_TRACK_ID primary key (TrackID));
 
 create table USER (
      Username varchar(30) not null,
      Biography Text not null,
-     ProfileImage varchar(50) not null,
+     ProfileImage varchar(50),
      Email varchar(30) not null,
      Password varchar(30) not null,
      NumFollwer int not null,
