@@ -1,13 +1,17 @@
 <!-- Player -->
 <main>
-    <?php $track = $template["track"]; ?>
+    <?php
+        if (isset($template["track"])):
+            $track = $template["track"];
+        endif;
+    ?>
     <div class="song-data">
-        <?php if (($track != null) && ($track["CoverImage"] != null)): ?>
+        <?php if (isset($track) && ($track["CoverImage"] != null)): ?>
             <img id="song-cover" src="<?php echo $track["CoverImage"]; ?>" alt=""/>
         <?php else: ?>
             <img id="song-cover" src="images/song-cover-placeholder.png" alt=""/>
         <?php endif; ?>
-        <?php if ($track != null): ?>
+        <?php if (isset($track)): ?>
             <strong id="song-title"><?php echo $track["Name"]; ?></strong>
             <em id="artist-name"><?php echo $track["Creator"]; ?></em>
         <?php else: ?>
@@ -21,7 +25,9 @@
         <p id="missing-time-label"></p>
     </div>
     <audio id="audio-player" preload="metadata">
-        <source src="audio/<?php echo $track["AudioFile"]; ?>" type="audio/mpeg"/>
+        <?php if (isset($track)): ?>
+            <source src="audio/<?php echo $track["AudioFile"]; ?>" type="audio/mpeg"/>
+        <?php endif; ?>
     </audio>
     <div id="audio-controls">
         <button id="rewind-button"><img src="images/rewind-icon.svg" alt="Rewind"/></button>
