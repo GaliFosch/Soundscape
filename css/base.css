@@ -116,7 +116,7 @@ article {
     display: flex;
     flex-direction: column;
     background-color: #4A4A4A;
-    margin: 8px 0;
+    margin: 0 8px;
     padding: 16px;
 }
 
@@ -230,6 +230,31 @@ header input[type=submit] {
     margin: 0 3px 0 0;
 }
 
+.search-results {
+    text-align: left;
+}
+
+.search-results > h1 {
+    margin: 2% 3%;
+}
+
+.result-preview {
+    display: inline;
+    text-align: center;
+    margin: 0 2% 0 2%;
+}
+
+.result-preview > a {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    width: 10%;
+}
+
+.result-preview figure {
+    width: 5%;
+}
+
 /*
  * Player page style
  */
@@ -305,6 +330,20 @@ header input[type=submit] {
     main {
         width: 85%;
         margin-left: 15%;
+    }
+
+    header {
+        padding: 3% 21%;
+    }
+
+    header input[type=search] {
+        width: 50%;
+        padding: 3px;
+        margin: 0 3px;
+    }
+
+    .search-results > h1 {
+        margin-left: 5%;
     }
 
 }
