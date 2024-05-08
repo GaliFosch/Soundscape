@@ -28,7 +28,7 @@ create table Belonging (
      constraint ID_Belonging_ID primary key (GenreTag, TrackID));
 
 create table COMMENT (
-     CommentID int not null,
+     CommentID int not null auto_increment,
      CommentText varchar(500) not null,
      CommentTimestamp Timestamp not null,
      Parent int,
@@ -41,7 +41,7 @@ create table GENRE (
      constraint ID_GENRE_ID primary key (GenreTag));
 
 create table NOTIFICATION (
-     NotificationID int not null,
+     NotificationID int not null auto_increment,
      CommentID int,
      NotificationTimestamp timestamp not null,
      Type enum("Follower", "Post", "Post_Interaction", "Reply") not null,
@@ -53,16 +53,16 @@ create table NOTIFICATION (
 
 create table PLAYLIST (
      NumTracks int not null,
-     PlaylistID int not null,
+     PlaylistID int not null auto_increment,
      Nome varchar(30) not null,
      CoverImage varchar(50) not null,
      TimeLength time not null,
      CreationDate date not null,
-     Creatore varchar(30) not null,
+     Creator varchar(30) not null,
      constraint ID_PLAYLIST_ID primary key (PlaylistID));
 
 create table POST (
-     PostID int not null,
+     PostID int not null auto_increment,
      Caption varchar(500) not null,
      NumLike int not null,
      NumComments int not null,
@@ -78,21 +78,21 @@ create table Image (
 
 create table SINGLE_TRACK (
      AudioFile varchar(50) not null,
-     TrackID int not null,
-     Nome varchar(30) not null,
-     CoverImage varchar(50) not null,
+     TrackID int not null auto_increment,
+     Name varchar(30) not null,
+     CoverImage varchar(50),
      TimeLength time not null,
      CreationDate date not null,
-     Creatore varchar(30) not null,
+     Creator varchar(30) not null,
      constraint ID_SINGLE_TRACK_ID primary key (TrackID));
 
 create table USER (
      Username varchar(30) not null,
      Biography Text not null,
-     ProfileImage varchar(50) not null,
+     ProfileImage varchar(50),
      Email varchar(30) not null,
      Password varchar(30) not null,
-     NumFollwer int not null,
+     NumFollower int not null,
      NumFollowing int not null,
      constraint ID_USER_ID primary key (Username));
 
@@ -152,7 +152,7 @@ alter table NOTIFICATION add constraint REF_NOTIF_POST_FK
      references POST(PostID);
 
 alter table PLAYLIST add constraint REF_PLAYL_USER_FK
-     foreign key (Creatore)
+     foreign key (Creator)
      references USER(Username);
 
 alter table POST add constraint REF_POST_SINGL_FK
@@ -172,7 +172,7 @@ alter table Image add constraint REF_Image_POST_FK
      references POST(PostID);
 
 alter table SINGLE_TRACK add constraint REF_SINGL_USER_FK
-     foreign key (Creatore)
+     foreign key (Creator)
      references USER(Username);
 
 alter table Follow add constraint REF_Follo_USER_1_FK
@@ -243,7 +243,7 @@ create unique index ID_PLAYLIST_IND
      on PLAYLIST (PlaylistID);
 
 create index REF_PLAYL_USER_IND
-     on PLAYLIST (Creatore);
+     on PLAYLIST (Creator);
 
 create unique index ID_POST_IND
      on POST (PostID);
@@ -267,7 +267,7 @@ create unique index ID_SINGLE_TRACK_IND
      on SINGLE_TRACK (TrackID);
 
 create index REF_SINGL_USER_IND
-     on SINGLE_TRACK (Creatore);
+     on SINGLE_TRACK (Creator);
 
 create unique index ID_USER_IND
      on USER (Username);

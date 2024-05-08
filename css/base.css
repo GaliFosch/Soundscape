@@ -8,13 +8,9 @@ html {
 }
 
 body {
-    /* width: 100%; */
-    /* height: fit-content; */
     height: inherit;
     margin: 0;
     background-color: #323232;
-    /* display: flex; */
-    /* flex-direction: column; */
     box-sizing: border-box;
 }
 
@@ -22,12 +18,30 @@ body {
  * Navigation menu style
  */
 
-nav {
+ nav, nav.desktop {
     float: left;
     height: inherit;
     width: 20%;
-    /* height: 48px; */
-    background-color: #4A4A4A;
+    background-color: #3E3455;
+}
+
+nav.mobile {
+    height: 4%;
+    width: -webkit-fill-available;
+    text-align: center;
+    margin: 0;
+    padding: 1% 2%;
+}
+
+nav.mobile-full {
+    height: 100%; 
+    width: -webkit-fill-available; 
+    text-align: center; 
+    z-index: 1; 
+    overflow: hidden; 
+    position: fixed; 
+    left: 0; 
+    top: 0;
 }
 
 nav img {
@@ -44,12 +58,6 @@ nav ul {
 nav li {
     height: 5%;
 }
-
-/*
-nav a {
-    padding: 12px 6px;
-}
-*/
 
 nav a {
     text-decoration: none;
@@ -71,24 +79,6 @@ nav .fa-solid {
     /* font-size: 24px; */
     margin: 0 5% 0 0;
 }
-
-/*
-nav a:nth-child(-n+2) {
-    float: left;
-}
-*/
-
-/*
-nav a:nth-child(3) {
-    padding: 6px;
-}
-*/
-
-/*
-nav > a:nth-last-child(-n+3) {
-    float: right;
-}
-*/
 
 /*
  * Main container style
@@ -301,6 +291,16 @@ header input[type=submit] {
     height: 80%;
 }
 
+.fa-bars, .fa-xmark {
+    display: none;
+    font-size: 24px
+}
+
+.fa-xmark {
+    display: none;
+    font-size: 30px;
+}
+
 @media screen and (min-width: 800px) {
     main {
         width: 70%;
@@ -316,14 +316,31 @@ header input[type=submit] {
     
 }
 
+@media screen and (min-width: 768px) {
+
+    #open-menu-icon, #close-menu-icon {
+        font-size: 0;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
 
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
     nav {
-        width: 15%;
+        height: 4%;
+        width: -webkit-fill-available;
         text-align: center;
+        margin: 0;
+        padding: 1% 2%;
     }
 
     nav img {
+        display: none;
         height: initial;
         width: 70%;
         max-width: 60px;
@@ -332,15 +349,17 @@ header input[type=submit] {
 
     nav ul {
         text-align: center;
+        display: none;
+        flex-direction: column;
     }
 
-    nav p {
-        font-size: 0;
+    .fa-bars {
+        display: flex;
     }
 
     main {
-        width: 85%;
-        margin-left: 15%;
+        width: 100%;
+        margin: 0;
     }
 
     header {
@@ -353,7 +372,7 @@ header input[type=submit] {
         margin: 0 3px;
     }
 
-    .content-container > h2 {
+    .search-results > h1 {
         margin-left: 5%;
     }
 
