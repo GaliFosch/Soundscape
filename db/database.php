@@ -20,6 +20,18 @@ class DatabaseHelper {
         }
     }
 
+    public function autenticate($username, $password){
+        $query = "SELECT Username FROM user WHERE username = ? AND password = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows===0){
+            return false;
+        }
+        return $result->fetch_assoc();
+    }
+
     public function getPostByID($postID) {
         $query = "SELECT * FROM post WHERE PostID = ?";
         $stmt = $this->db->prepare($query);

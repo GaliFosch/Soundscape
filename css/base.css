@@ -102,6 +102,37 @@ main {
 }
 
 /*
+ * Login page style
+ */
+
+main > form {
+    padding-top: 30%;
+}
+
+main > form > ul {
+    list-style: none;
+}
+
+main > form > ul li{
+    margin-bottom: 3%;
+    background-color: #E28AB9;
+    border-radius: 10px;
+    width: 50%;
+}
+
+main > form > ul li input {
+    background-color: transparent;
+    border: none;
+    margin: 5px;
+    width: 80%;
+}
+
+main > form > ul li input::placeholder{
+    color: black;
+    opacity: 65%;
+}
+
+/*
  * Home page style
  */
 
