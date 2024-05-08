@@ -21,12 +21,32 @@ body {
  * Navigation menu style
  */
 
-nav {
+ nav, nav.desktop {
     float: left;
     height: inherit;
     width: 20%;
     /* height: 48px; */
-    background-color: #4A4A4A;
+    background-color: #3E3455;
+}
+
+nav.mobile {
+    height: 4%;
+    width: -webkit-fill-available;
+    text-align: center;
+    margin: 0%;
+    padding: 1% 2%;
+}
+
+nav.mobile-full {
+    height: 100%; 
+    width: -webkit-fill-available; 
+    text-align: center; 
+    z-index: 1; 
+    overflow: hidden; 
+    position: fixed; 
+    left: 0; 
+    top: 0; 
+    overflow-x: hidden;
 }
 
 nav img {
@@ -265,6 +285,16 @@ header input[type=submit] {
     height: 80%;
 }
 
+.fa-bars, .fa-xmark {
+    display: none;
+    font-size: 24px
+}
+
+.fa-xmark {
+    display: none;
+    font-size: 30px;
+}
+
 @media screen and (min-width: 800px) {
     main {
         width: 70%;
@@ -282,12 +312,21 @@ header input[type=submit] {
 
 @media screen and (max-width: 768px) {
 
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
     nav {
-        width: 15%;
+        height: 4%;
+        width: -webkit-fill-available;
         text-align: center;
+        margin: 0%;
+        padding: 1% 2%;
     }
 
     nav img {
+        display: none;
         height: initial;
         width: 70%;
         max-width: 60px;
@@ -296,15 +335,17 @@ header input[type=submit] {
 
     nav ul {
         text-align: center;
+        display: none;
+        flex-direction: column;
     }
 
-    nav p {
-        font-size: 0;
+    .fa-bars {
+        display: flex;
     }
 
     main {
-        width: 85%;
-        margin-left: 15%;
+        width: 100%;
+        margin: 0%;
     }
 
 }
