@@ -92,7 +92,7 @@ create table USER (
      ProfileImage varchar(50),
      Email varchar(30) not null,
      Password varchar(30) not null,
-     NumFollwer int not null,
+     NumFollower int not null,
      NumFollowing int not null,
      constraint ID_USER_ID primary key (Username));
 
