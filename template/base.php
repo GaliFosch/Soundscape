@@ -5,9 +5,11 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php
-            if (!empty($template["style"])) {
-                echo "<link href=\"". "css/" . $template["style"] ."\" type=\"text/css\" rel=\"stylesheet\" />";
-            }
+            if (!empty($template["stylesheets"])):
+                foreach ($template["stylesheets"] as $stylesheet):
+                    echo "<link href=\"". "css/" . $stylesheet ."\" type=\"text/css\" rel=\"stylesheet\" />";
+                endforeach;
+            endif;
         ?>
         <link rel="icon" type="image/x-icon" href="/images/logo.ico">
     </head>

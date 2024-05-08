@@ -3,7 +3,7 @@
 require_once("bootstrap.php");
 
 $template["title"] = "Soundscape - Player";
-$template["style"] = "base.css";
+$template["stylesheets"] = ["base.css", "player.css"];
 $template["content"] = "template/music_player.php";
 
 if (isset($_GET["trackid"])) {

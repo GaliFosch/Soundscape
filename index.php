@@ -3,7 +3,7 @@
 require_once("bootstrap.php");
 
 $template["title"] = "Soundscape - Home";
-$template["style"] = "base.css";
+$template["stylesheets"] = ["base.css", "index.css"];
 $template["content"] = "template/home_feed.php";
 $template["posts"] = $dbh->getPostByID(1);  // for testing purposes
 

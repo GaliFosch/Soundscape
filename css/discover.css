@@ -1,0 +1,87 @@
+header {
+    padding: 1% 21%;
+}
+
+header .fa-solid {
+    margin: 0 0 0 3px;
+}
+
+header label {
+    font-size: 0;
+}
+
+header input {
+    border-radius: 10px;
+}
+
+header input[type=search] {
+    padding: 3px;
+    margin: 0 3px;
+    color: black;
+}
+
+header input[type=submit] {
+    padding: 3px 10px;
+    margin: 0 3px 0 0;
+    color: black;
+}
+
+#discover-title {
+    text-align: left;
+    margin-left: 2%;
+    font-size: 30px;
+}
+
+.content-container {
+    text-align: left;
+}
+
+.content-container > h2 {
+    font-size: 23px;
+    margin: 2% 3%;
+}
+
+.preview {
+    display: inline;
+    text-align: center;
+    margin: 0 2% 0 2%;
+}
+
+.preview > a {
+    text-decoration: none;
+    display: inline-block;
+    width: 10%;
+}
+
+.picture {
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+}
+
+.preview h3 {
+    font-size: 15px;
+}
+
+.preview figure {
+    width: 5%;
+}
+
+@media screen and (max-width: 768px) {
+
+    header {
+        padding: 3% 21%;
+    }
+
+    header input[type=search] {
+        width: 50%;
+        padding: 3px;
+        margin: 0 3px;
+    }
+
+    .search-results > h1 {
+        margin-left: 5%;
+    }
+
+}
