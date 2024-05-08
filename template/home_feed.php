@@ -4,9 +4,9 @@
             <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
             <h1>
                 <?php if ($user["ProfileImage"] != null): ?>
-                    <img class="profile-picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
+                    <img class="picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                 <?php else: ?>
-                    <img class="profile-picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                    <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
                 <?php endif; ?>
                 <?php echo $user["Username"]; ?>
             </h1>

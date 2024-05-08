@@ -1,5 +1,6 @@
 * {
     font-family: Arial, sans-serif;
+    color: white;
 }
 
 html {
@@ -51,7 +52,6 @@ nav a {
 */
 
 nav a {
-    color: white;
     text-decoration: none;
     display: block;
     margin: 5% 0;
@@ -69,7 +69,6 @@ nav a:hover {
 
 nav .fa-solid {
     /* font-size: 24px; */
-    color: white;
     margin: 0 5% 0 0;
 }
 
@@ -105,7 +104,7 @@ main {
  * Home page style
  */
 
-.profile-picture {
+.picture {
     border-radius: 100%;
     width: 36px;
     height: 36px;
@@ -144,8 +143,8 @@ h2 {
     flex-direction: row;
     background-color: #E28AB9;
     padding: 16px;
-    align-items: center; 
-    border-radius: 18px;   
+    align-items: center;
+    border-radius: 18px;
     box-shadow: 0 4px 9px #222;
 }
 
@@ -165,6 +164,10 @@ section>p {
 .music-info {
     display: flex;
     flex-direction: column;
+}
+
+.music-info > p, .music-info strong {
+    color: black;
 }
 
 .music-box>a {
@@ -208,7 +211,6 @@ header {
 }
 
 header .fa-solid {
-    color: white;
     margin: 0 0 0 3px;
 }
 
@@ -223,35 +225,46 @@ header input {
 header input[type=search] {
     padding: 3px;
     margin: 0 3px;
+    color: black;
 }
 
 header input[type=submit] {
     padding: 3px 10px;
     margin: 0 3px 0 0;
+    color: black;
 }
 
-.search-results {
+#discover-title {
+    margin-left: 2%;
+    font-size: 30px;
+}
+
+.content-container {
     text-align: left;
 }
 
-.search-results > h1 {
+.content-container > h2 {
+    font-size: 25px;
     margin: 2% 3%;
 }
 
-.result-preview {
+.preview {
     display: inline;
     text-align: center;
     margin: 0 2% 0 2%;
 }
 
-.result-preview > a {
+.preview > a {
     text-decoration: none;
-    color: white;
     display: inline-block;
     width: 10%;
 }
 
-.result-preview figure {
+.preview h3 {
+    font-size: 15px;
+}
+
+.preview figure {
     width: 5%;
 }
 
@@ -265,7 +278,6 @@ header input[type=submit] {
 
 #song-title, #artist-name {
     display: block;
-    color: white;
 }
 
 .progress-bar-wrapper {
@@ -275,7 +287,6 @@ header input[type=submit] {
 
 .progress-bar-wrapper > p {
     display: inline-block;
-    color: white;
     margin: 0 1%;
 }
 
@@ -342,7 +353,7 @@ header input[type=submit] {
         margin: 0 3px;
     }
 
-    .search-results > h1 {
+    .content-container > h2 {
         margin-left: 5%;
     }
 
