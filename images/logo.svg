@@ -1,0 +1,23 @@
+<svg width="191" height="191" viewBox="0 0 191 191" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="95.5" cy="95.5" r="95.5" fill="url(#paint0_linear_68_246)"/>
+<line x1="13.998" y1="137.658" x2="13.998" y2="114.219" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="32.2609" y1="137.666" x2="32.2609" y2="99.001" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="50.9044" y1="137.656" x2="50.9044" y2="65.5215" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="69.1673" y1="137.654" x2="69.1673" y2="53.3467" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="87.4302" y1="137.654" x2="87.4302" y2="79.2192" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="105.693" y1="137.657" x2="105.693" y2="103.566" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="123.956" y1="137.667" x2="123.956" y2="122.587" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="142.219" y1="137.654" x2="142.219" y2="99.0041" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="160.482" y1="137.654" x2="160.482" y2="116.506" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<line x1="178.745" y1="137.661" x2="178.745" y2="124.87" stroke="black" stroke-width="7.76892" stroke-linecap="round"/>
+<defs>
+<linearGradient id="paint0_linear_68_246" x1="95.5" y1="0" x2="95.5" y2="191" gradientUnits="userSpaceOnUse">
+<stop stop-color="#442F5A"/>
+<stop offset="0.290917" stop-color="#975AA8"/>
+<stop offset="0.495917" stop-color="#E28AB9"/>
+<stop offset="0.705917" stop-color="#E28AB9" stop-opacity="0.06"/>
+<stop offset="0.800917" stop-color="#E28AB9" stop-opacity="0"/>
+<stop offset="0.935917" stop-color="#E28AB9" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
