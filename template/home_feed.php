@@ -22,15 +22,17 @@
                     <?php endif; ?>
                     <!--Inner section delle info della music-->
                     <section class="music-info">
-                        <p><strong><?php echo $track["Name"]; ?></strong></p>
+                        <header><strong><?php echo $track["Name"]; ?></strong></header>
                         <p><?php echo $track["Creator"]; ?></p>
                     </section>
-                    <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>"><em class="fa-solid fa-play"></em></a>
+                    <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
+                        <em class="fa-solid fa-play"></em>
+                    </a>
                 <?php endif; ?>
             </section>
             <section class="post-interaction">
-                <a href="#"><em class="fa-regular fa-message"></em></a>
-                <a href="#"><em class="fa-solid fa-heart"></em></a>
+                <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message"></em></a>
+                <a href="#" aria-label="Like post" title="Like post"><em class="fa-solid fa-heart"></em></a>
             </section>
         </article>
     <?php endforeach; ?>

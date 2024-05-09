@@ -58,6 +58,7 @@ section>p {
 .music-info {
     display: flex;
     flex-direction: column;
+    text-align: left
 }
 
 .music-box>a {
@@ -65,7 +66,11 @@ section>p {
     margin-left: auto;
 }
 
-.music-info > p, .music-info strong {
+.music-info > header {
+    font-size: 13px;
+}
+
+.music-info strong, .music-info > p {
     color: black;
 }
 
