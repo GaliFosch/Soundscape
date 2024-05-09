@@ -1,5 +1,5 @@
-
 <main>
+    <img src="images/logo.svg" alt=""/>
     <form action="#" method="post">
         <ul>
             <li>

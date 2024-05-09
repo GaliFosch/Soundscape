@@ -104,20 +104,22 @@ main {
 /*
  * Login page style
  */
-
-main > form {
-    padding-top: 30%;
+main > img {
+    margin-top: 15%;
+    width: 25%;
 }
+
 
 main > form > ul {
     list-style: none;
+    margin-left: 15%;
 }
 
 main > form > ul li{
     margin-bottom: 3%;
     background-color: #E28AB9;
     border-radius: 10px;
-    width: 50%;
+    width: 60%;
 }
 
 main > form > ul li input {
