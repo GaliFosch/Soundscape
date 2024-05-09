@@ -32,6 +32,20 @@ class DatabaseHelper {
         return $result->fetch_assoc();
     }
 
+    public function getUserByUsername($username){
+        $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
+                FROM user 
+                WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows===0){
+            return false;
+        }
+        return $result->fetch_assoc();
+    }
+
     public function getPostByID($postID) {
         $query = "SELECT * FROM post WHERE PostID = ?";
         $stmt = $this->db->prepare($query);
