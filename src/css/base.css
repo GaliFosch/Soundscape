@@ -39,7 +39,7 @@ nav.mobile {
 
 nav.mobile-full {
     height: 100%; 
-    width: -webkit-fill-available; 
+    width: 40%; 
     text-align: center; 
     z-index: 1; 
     overflow: hidden; 
