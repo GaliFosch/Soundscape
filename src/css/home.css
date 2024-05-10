@@ -115,7 +115,34 @@ section>p {
     font-size: 28px;
 }
 
-.fa-regular {
+.post-interaction {
+    padding-top: 8px;
+}
+
+.post-interaction>a {
+    margin: 0;
+    padding: 0;
+}
+
+.post-interaction em {
+    font-size: 22px;
+    color: #fff;
+    text-align: center;
+}
+
+.post-interaction.focus em {
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    margin: 1px 2px;
+}
+
+.fa-heart{
+    color: #E91E63;
+}
+
+
+/*.fa-regular {
     color: #fff;
     font-size: 22px;
 }
@@ -126,13 +153,14 @@ section>p {
 
 .fa-heart {
     padding: 0;
+    margin: 0;
     font-size: 25px;
     color:#E91E63;
 }
 
 .fa-heart.focus {
     font-size: 17px;
-}
+}*/
 
 aside {
     display: none;
@@ -244,8 +272,8 @@ img.artist-photo {
         width: initial;
         height: initial;
         position: absolute;
-        margin-top: 12%;
-        padding-bottom: 15%;
+        top: 7%;
+        padding-bottom: 12%;
     }
 
     main {
