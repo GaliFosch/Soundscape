@@ -139,8 +139,11 @@ section>p {
 
 .fa-heart{
     color: #E91E63;
+    
 }
-
+.fa-heart:hover{
+    cursor: pointer;
+}
 
 /*.fa-regular {
     color: #fff;
