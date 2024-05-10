@@ -47,6 +47,7 @@ nav.mobile-full {
     left: 0; 
     top: 0; 
     overflow-x: hidden;
+    z-index: 2;
 }
 
 nav img {
@@ -187,13 +188,12 @@ header input[type=submit] {
     height: 80%;
 }
 
-.fa-bars, .fa-xmark {
+.fa-bars, .close-hamburger {
     display: none;
     font-size: 24px
 }
 
 .fa-xmark {
-    display: none;
     font-size: 30px;
 }
 
@@ -215,6 +215,8 @@ header input[type=submit] {
 @media screen and (max-width: 768px) {
 
     body {
+        width: 100%;
+        margin: 0;
         display: flex;
         flex-direction: column;
     }

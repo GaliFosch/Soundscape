@@ -1,5 +1,6 @@
+/*This part deals with the navbar*/
 var hamburgerMenu = document.querySelector(".fa-bars");
-var closeHamburgerMenu = document.querySelector(".fa-xmark");
+var closeHamburgerMenu = document.querySelector(".close-hamburger");
 var mobileMenu = document.querySelector(".mobile-menu");
 var navbar = document.querySelector(".navbar");
 

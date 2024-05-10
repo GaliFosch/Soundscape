@@ -68,8 +68,8 @@ h2 {
 }
 
 .song.focus {
-    width: 10rem;
-    height: 10rem;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     aspect-ratio: 1 / 1;
     margin: 0px;
@@ -135,9 +135,17 @@ section>p {
 }
 
 aside {
+    display: none;
     width: 20%;
     margin: 0%;
-    height: fit-content
+    height: fit-content;
+    padding-bottom: 4%;
+}
+
+.close-focus {
+    font-size: 20px;
+    color: #fff;
+    justify-self: end;
 }
 
 .song.focus {
@@ -183,6 +191,7 @@ section.artist-info {
     grid-template: auto auto auto / auto;
     border-radius: 18px;
     margin-top: 16px;
+    box-shadow: 0 4px 9px #222;
 }
 
 h2.info {
@@ -194,8 +203,8 @@ h2.info {
 }
 
 img.artist-photo {
-    width: 12rem;
-    height: 10rem;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     margin: 0px;
     grid-row-start: 1;
@@ -221,4 +230,27 @@ img.artist-photo {
 
 .artist-description {
     margin: 8px;
+}
+
+@media screen and (max-width: 768px) {
+
+    body {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    aside {
+        width: initial;
+        height: initial;
+        position: absolute;
+        margin-top: 12%;
+        padding-bottom: 15%;
+    }
+
+    main {
+        width: 100%;
+        margin: 0%;
+    }
+
 }
