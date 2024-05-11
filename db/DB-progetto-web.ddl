@@ -110,6 +110,7 @@ create table PostLike (
 create table Tracklist (
      TrackID int not null,
      PlaylistID int not null,
+     Position int not null,
      constraint ID_Tracklist_ID primary key (TrackID, PlaylistID));
 
 
