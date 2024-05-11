@@ -1,0 +1,156 @@
+* {
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: inherit;
+    margin: 0;
+    background-color: #323232;
+    box-sizing: border-box;
+}
+
+/*
+ * Navigation menu style
+ */
+
+nav, nav.desktop {
+    float: left;
+    height: inherit;
+    width: 20%;
+    background-color: #3E3455;
+}
+
+nav.mobile {
+    height: 4%;
+    width: -webkit-fill-available;
+    text-align: center;
+    margin: 0;
+    padding: 1% 2%;
+}
+
+nav.mobile-full {
+    height: 100%;
+    width: -webkit-fill-available;
+    text-align: center;
+    z-index: 1;
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+nav img {
+    height: 7%;
+    padding: 5% 5% 0 5%;
+}
+
+nav ul {
+    list-style: none;
+    height: inherit;
+    padding: 0 5%;
+}
+
+nav li {
+    height: 5%;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    margin: 5% 0;
+    padding: 4% 2% 5% 2%;
+}
+
+nav p {
+    display: inline;
+}
+
+nav a:hover {
+    background-color: #A2A2A2;
+    color: black;
+}
+
+nav .fa-solid {
+    color: white;
+    margin: 0 5% 0 0;
+}
+
+/*
+ * Main container style
+ */
+
+main {
+    text-align: center;
+    width: 80%;
+    margin-left: 20%;
+}
+
+
+@media screen and (min-width: 800px) {
+    main {
+        width: 70%;
+        align-self: center;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    main {
+        width: 60%;
+        align-self: center;
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+
+    #open-menu-icon, #close-menu-icon {
+        font-size: 0;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav {
+        height: 4%;
+        width: -webkit-fill-available;
+        text-align: center;
+        margin: 0;
+        padding: 1% 2%;
+    }
+
+    nav img {
+        display: none;
+        height: initial;
+        width: 70%;
+        max-width: 60px;
+        padding-top: 10%;
+    }
+
+    nav ul {
+        text-align: center;
+        display: none;
+        flex-direction: column;
+    }
+
+    .fa-bars {
+        display: flex;
+    }
+
+    main {
+        width: 100%;
+        margin: 0;
+    }
+
+}

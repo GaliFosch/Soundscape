@@ -1,0 +1,40 @@
+#song-cover {
+    margin: 5% 0 1% 0;
+}
+
+#song-title, #artist-name {
+    display: block;
+    color: white;
+}
+
+.progress-bar-wrapper {
+    display: block;
+    margin: 1% 0;
+}
+
+.progress-bar-wrapper > p {
+    display: inline-block;
+    color: white;
+    margin: 0 1%;
+}
+
+#audio-controls > button {
+    background-color: inherit;
+    border: none;
+    width: 50px;
+    height: 50px;
+}
+
+#play-button > img, #skip-back-button > img, #skip-forward-button > img {
+    height: 80%;
+}
+
+.fa-bars, .fa-xmark {
+    display: none;
+    font-size: 24px
+}
+
+.fa-xmark {
+    display: none;
+    font-size: 30px;
+}
