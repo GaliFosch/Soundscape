@@ -68,4 +68,15 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getLatestAlbums($n) {
+        $query = "SELECT * FROM playlist
+                  WHERE isAlbum = true 
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $n);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
