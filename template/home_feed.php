@@ -31,9 +31,45 @@
                 <?php endif; ?>
             </section>
             <section class="post-interaction">
-                <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message"></em></a>
-                <a href="#" aria-label="Like post" title="Like post"><em class="fa-solid fa-heart"></em></a>
+                <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
+                <em class="fa-regular fa-heart fa-fw"></em>
             </section>
         </article>
     <?php endforeach; ?>
 </main>
+
+<aside>
+        <em class="fa-solid fa-xmark close-focus"></em>
+        <h1>
+            <img class="profile-picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+            Utente
+            <span>gg/mm/aaaa</span>
+        </h1>
+
+        <p>Ho appena ascoltato questa canzone, TOP TIER! 
+            Ascoltatela tutti!
+        </p>
+        <section class="music-box focus">
+            <img class="song focus" src="images/placeholder-image.jpg" alt="Song cover image"/>
+            <a href="#" class="music-player focus"><em class="fa-solid fa-play focus"></em></a>
+            <!--Inner section delle info della music-->
+            <section class="music-info focus">
+                <p class="info focus"><b>The Cat</b></p>
+                <p class="info focus">Cat Lover</p>
+            </section>
+        </section>
+
+        <section class="post-interaction focus">
+            <a href="#"><em class="fa-regular fa-message focus"></em></a>
+            <em class="fa-regular fa-heart focus"></em>
+        </section>
+
+        <section class="artist-info">
+            <h2 class="info">Informazioni sull'artista</h2>
+            <img class="artist-photo" src="images/placeholder-image.jpg" alt="User profile image"/>
+            <em class="fa-solid fa-user-plus"></em>
+            <em class="fa-solid fa-user-check"></em>
+            <p class="artist-name"><b>Cat Girl</b></p>
+            <p class="artist-description">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullamco laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+        <!--Outer section of music box-->
+    </aside>
