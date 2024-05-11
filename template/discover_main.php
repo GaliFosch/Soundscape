@@ -100,7 +100,7 @@
                 </section>
             <?php endforeach; ?>
             <form action="#" method="GET">
-                <input id="new-tracks" class="show-more" type="submit" value="Show more"/>
+                <input id="new-tracks" class="show-more" type="button" value="Show more"/>
             </form>
         </section>
         <section class="discover-section">

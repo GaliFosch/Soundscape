@@ -33,5 +33,5 @@ switch ($preview_type) {
     </section>
 <?php endforeach; ?>
 <form action="#" method="GET">
-    <input id="<?php echo $preview_type; ?>" class="show-more" type="submit" value="Show more"/>
+    <input id="<?php echo $preview_type; ?>" class="show-more" type="button" value="Show more"/>
 </form>
