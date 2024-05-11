@@ -54,11 +54,12 @@ create table NOTIFICATION (
 create table PLAYLIST (
      NumTracks int not null,
      PlaylistID int not null auto_increment,
-     Nome varchar(30) not null,
-     CoverImage varchar(50) not null,
+     Name varchar(30) not null,
+     CoverImage varchar(50),
      TimeLength time not null,
      CreationDate date not null,
      Creator varchar(30) not null,
+     IsAlbum bool not null,
      constraint ID_PLAYLIST_ID primary key (PlaylistID));
 
 create table POST (
@@ -109,6 +110,7 @@ create table PostLike (
 create table Tracklist (
      TrackID int not null,
      PlaylistID int not null,
+     Position int not null,
      constraint ID_Tracklist_ID primary key (TrackID, PlaylistID));
 
 
