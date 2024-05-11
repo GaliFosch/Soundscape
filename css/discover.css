@@ -32,11 +32,11 @@ header input[type=submit] {
     font-size: 30px;
 }
 
-.content-container {
+.discover-section {
     text-align: left;
 }
 
-.content-container > h2 {
+.discover-section > h2 {
     font-size: 23px;
     margin: 2% 3%;
 }

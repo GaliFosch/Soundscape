@@ -60,6 +60,30 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getMatchingTracks($search_input) {
+        $query = "SELECT * FROM single_track WHERE Name LIKE CONCAT('%', ?, '%')";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $search_input);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getMatchingAlbums($search_input) {
+        $query = "SELECT * FROM playlist WHERE isAlbum = true AND Name LIKE CONCAT('%', ?, '%')";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $search_input);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getMatchingPlaylists($search_input) {
+        $query = "SELECT * FROM playlist WHERE isAlbum = false AND Name LIKE CONCAT('%', ?, '%')";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $search_input);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getLatestTracks($n) {
         $query = "SELECT * FROM single_track ORDER BY CreationDate DESC LIMIT ?";
         $stmt = $this->db->prepare($query);
@@ -70,7 +94,18 @@ class DatabaseHelper {
 
     public function getLatestAlbums($n) {
         $query = "SELECT * FROM playlist
-                  WHERE isAlbum = true 
+                  WHERE isAlbum = true
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $n);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLatestPlaylists($n) {
+        $query = "SELECT * FROM playlist
+                  WHERE isAlbum = false
                   ORDER BY CreationDate DESC 
                   LIMIT ?";
         $stmt = $this->db->prepare($query);
