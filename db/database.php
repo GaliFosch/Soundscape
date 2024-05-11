@@ -84,10 +84,13 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLatestTracks($n) {
-        $query = "SELECT * FROM single_track ORDER BY CreationDate DESC LIMIT ?";
+    public function getLatestTracks($nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM single_track
+                  ORDER BY CreationDate DESC
+                  LIMIT ?, ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i', $n);
+        $stmt->bind_param("ii",  $nToSkip,$nToShow);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }

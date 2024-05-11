@@ -86,7 +86,7 @@
     <?php else: ?>
         <section class="discover-section">
             <h2>New tracks</h2>
-            <?php $tracks = $dbh->getLatestTracks(10); ?>
+            <?php $tracks = $dbh->getLatestTracks(2); ?>
             <?php foreach ($tracks as $track): ?>
                 <section class="preview">
                     <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>">
@@ -99,10 +99,13 @@
                     </a>
                 </section>
             <?php endforeach; ?>
+            <form action="#" method="GET">
+                <input id="new-tracks" class="show-more" type="submit" value="Show more"/>
+            </form>
         </section>
         <section class="discover-section">
             <h2>New albums</h2>
-            <?php $albums = $dbh->getLatestAlbums(10); ?>
+            <?php $albums = $dbh->getLatestAlbums(2); ?>
             <?php foreach ($albums as $album): ?>
                 <section class="preview">
                     <a href="#">
@@ -118,7 +121,7 @@
         </section>
         <section class="discover-section">
             <h2>New playlists</h2>
-            <?php $playlists = $dbh->getLatestPlaylists(10); ?>
+            <?php $playlists = $dbh->getLatestPlaylists(2); ?>
             <?php foreach ($playlists as $playlist): ?>
                 <section class="preview">
                     <a href="#">
@@ -134,3 +137,4 @@
         </section>
     <?php endif; ?>
 </main>
+<script src="js/discover.js"></script>

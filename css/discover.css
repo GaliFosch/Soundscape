@@ -34,6 +34,7 @@ header input[type=submit] {
 
 .discover-section {
     text-align: left;
+    margin-top: 1rem;
 }
 
 .discover-section > h2 {
@@ -44,7 +45,7 @@ header input[type=submit] {
 .preview {
     display: inline;
     text-align: center;
-    margin: 0 0 0 2rem;
+    margin-left: 2rem;
 }
 
 .preview > a {
@@ -65,6 +66,14 @@ header input[type=submit] {
 
 .preview figure {
     width: 5%;
+}
+
+.show-more {
+    color: #098AFF;
+    background: none;
+    border: 0;
+    margin-left: 2rem;
+    font-size: 1rem;
 }
 
 @media screen and (max-width: 768px) {
