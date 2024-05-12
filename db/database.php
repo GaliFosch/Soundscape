@@ -20,16 +20,72 @@ class DatabaseHelper {
         }
     }
 
-    public function autenticate($username, $password){
-        $query = "SELECT Username FROM user WHERE username = ? AND password = ?";
+    public function checkLogin($username, $login_string){
+        $user_browser = $_SERVER['HTTP_USER_AGENT'];
+        $query = "SELECT Password FROM User WHERE username = ? LIMIT 1";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("ss", $username, $password);
+        if($stmt==false){
+            return false; //Prepare function error
+        }
+        $stmt->bind_param("s", $username);
         $stmt->execute();
-        $result = $stmt->get_result();
-        if($result->num_rows===0){
+        $stmt->store_result();
+        if($stmt->num_rows != 1){
+            return false; //User not found
+        }
+        $stmt->bind_result($password);
+        $stmt->fetch();
+        $login_check = hash("sha512", $password.$user_browser);
+        if($login_check == $login_string){
+            return true;
+        }
+    }
+
+    public function login($username, $password){
+        $query = "SELECT Email, Password, Salt FROM User WHERE Username = ? LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        if($stmt == false){
+            return false; //Error in the prepare function
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->bind_result($email,$db_password, $salt);
+        $stmt->fetch();
+        if($stmt->num_rows != 1){
+            return false; //User do not exists
+        }
+        if($this->isUserDisabled($username)){
+            //TODO: invia mail per avvisare l'utente
+            return false; //User is disabled
+        }
+        $password = hash('sha512', $password.$salt);
+        if($db_password == $password){
+            $user_browser = $_SERVER['HTTP_USER_AGENT'];
+            return hash('sha512', $password.$user_browser);
+        } else {
+            $now = time();
+            $query = "INSERT INTO LoginAttempts(username, time) VALUES (?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
             return false;
         }
-        return $result->fetch_assoc();
+
+    }
+
+    private function isUserDisabled($username){
+        $now = time();
+        $valid_attempts = $now - (2 * 60 * 60);
+        $query = "SELECT Time FROM LoginAttempts WHERE Username = ? AND time > '$valid_attempts'";
+        if($stmt = $this->db->prepare($query)){
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows > 5){
+                return false;
+            }else{
+                return true;
+            }
+        }
     }
 
     public function getUserByUsername($username){
