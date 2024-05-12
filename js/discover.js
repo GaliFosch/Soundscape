@@ -5,9 +5,13 @@ let toShowCount = 2
 let shownCount = 2
 
 for (let button of showMoreButtons) {
+
     button.addEventListener("click", function() {
-        let request = new XMLHttpRequest()
-        let previewsType = button.id
+
+        const request = new XMLHttpRequest()
+        const previewsType = button.id
+        const section = button.parentElement.parentElement
+
         request.open(
             "GET",
             "template/get_previews.php?type=" + previewsType + "&show=" + toShowCount + "&skip=" + shownCount,
@@ -15,11 +19,14 @@ for (let button of showMoreButtons) {
         )
         request.onreadystatechange = function() {
             if ((this.readyState === 4) && (this.status === 200)) {
-                let section = button.parentElement.parentElement
+                // Add requested previews to section
                 section.innerHTML += this.response
                 shownCount += 2
             }
         }
         request.send()
+
+        // Remove the clicked 'show more' button
+        button.remove()
     })
 }

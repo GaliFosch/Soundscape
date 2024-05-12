@@ -86,7 +86,8 @@
     <?php else: ?>
         <section class="discover-section">
             <h2>New tracks</h2>
-            <?php $tracks = $dbh->getLatestTracks(2); ?>
+            <?php $nToShow = 2; ?>
+            <?php $tracks = $dbh->getLatestTracks($nToShow); ?>
             <?php foreach ($tracks as $track): ?>
                 <section class="preview">
                     <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>">
@@ -99,9 +100,11 @@
                     </a>
                 </section>
             <?php endforeach; ?>
-            <form action="#" method="GET">
-                <input id="new-tracks" class="show-more" type="button" value="Show more"/>
-            </form>
+            <?php if (count($tracks) == $nToShow): ?>
+                <form action="#" method="GET">
+                    <input id="new-tracks" class="show-more" type="button" value="Show more"/>
+                </form>
+            <?php endif; ?>
         </section>
         <section class="discover-section">
             <h2>New albums</h2>

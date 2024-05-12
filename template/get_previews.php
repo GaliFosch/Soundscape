@@ -32,6 +32,8 @@ switch ($preview_type) {
         </a>
     </section>
 <?php endforeach; ?>
-<form action="#" method="GET">
-    <input id="<?php echo $preview_type; ?>" class="show-more" type="button" value="Show more"/>
-</form>
+<?php if (count($previews) == $previewsToShow): ?>
+    <form action="#" method="GET">
+        <input id="<?php echo $preview_type; ?>" class="show-more" type="button" value="Show more"/>
+    </form>
+<?php endif; ?>
