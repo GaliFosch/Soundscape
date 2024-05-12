@@ -12,8 +12,9 @@
     <?php $nPreviewsToShow = 2; ?>
     <h1 id="discover-title">Discover</h1>
     <?php if (isset($_GET["query"]) && ($_GET["query"] != "")): ?>
+        <?php $_SESSION["search-query"] = $_GET["query"]; ?>
         <section class="discover-section">
-            <?php $users = $dbh->getMatchingUsers($_GET["query"]); ?>
+            <?php $users = $dbh->getMatchingUsers($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($users) != 0): ?>
                 <h2>Users</h2>
                 <?php foreach ($users as $user): ?>
@@ -28,10 +29,15 @@
                         </a>
                     </section>
                 <?php endforeach; ?>
+                <?php if (count($users) == $nPreviewsToShow): ?>
+                    <form action="#" method="GET">
+                        <input id="matching-users" class="show-more" type="button" value="Show more"/>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </section>
         <section class="discover-section">
-            <?php $tracks = $dbh->getMatchingTracks($_GET["query"]); ?>
+            <?php $tracks = $dbh->getMatchingTracks($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($tracks) != 0): ?>
                 <h2>Tracks</h2>
                 <?php foreach ($tracks as $track): ?>
@@ -46,10 +52,15 @@
                         </a>
                     </section>
                 <?php endforeach; ?>
+                <?php if (count($tracks) == $nPreviewsToShow): ?>
+                    <form action="#" method="GET">
+                        <input id="matching-tracks" class="show-more" type="button" value="Show more"/>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </section>
         <section class="discover-section">
-            <?php $albums = $dbh->getMatchingAlbums($_GET["query"]); ?>
+            <?php $albums = $dbh->getMatchingAlbums($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($albums) != 0): ?>
                 <h2>Albums</h2>
                 <?php foreach ($albums as $album): ?>
@@ -64,10 +75,15 @@
                         </a>
                     </section>
                 <?php endforeach; ?>
+                <?php if (count($albums) == $nPreviewsToShow): ?>
+                    <form action="#" method="GET">
+                        <input id="matching-albums" class="show-more" type="button" value="Show more"/>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </section>
         <section class="discover-section">
-            <?php $playlists = $dbh->getMatchingPlaylists($_GET["query"]); ?>
+            <?php $playlists = $dbh->getMatchingPlaylists($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($playlists) != 0): ?>
                 <h2>Playlists</h2>
                 <?php foreach ($playlists as $playlist): ?>
@@ -82,6 +98,11 @@
                         </a>
                     </section>
                 <?php endforeach; ?>
+                <?php if (count($playlists) == $nPreviewsToShow): ?>
+                    <form action="#" method="GET">
+                        <input id="matching-playlists" class="show-more" type="button" value="Show more"/>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </section>
     <?php else: ?>
