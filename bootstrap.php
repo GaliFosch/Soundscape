@@ -1,7 +1,9 @@
 <?php
 
+require_once("utils/functions.php");
+
 // Require database helper class and create an instance
 require_once("db/database.php");
 $dbh = new DatabaseHelper("localhost", "root", "", "soundscapedb");
 
-session_start();
+sec_session_start();
