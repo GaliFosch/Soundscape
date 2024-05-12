@@ -39,6 +39,7 @@ class DatabaseHelper {
         if($login_check == $login_string){
             return true;
         }
+        return false;
     }
 
     public function login($username, $password){
