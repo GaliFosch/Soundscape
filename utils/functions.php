@@ -16,3 +16,10 @@ function sec_session_start(){
     session_start();
     session_regenerate_id();
 }
+
+function checkLogin($dbh){
+    if(isset($_SESSION['Username'], $_SESSION['login_string'])){
+        return $dbh->checkLogin($_SESSION['Username'], $_SESSION['login_string']);
+    }
+    return false;
+}
