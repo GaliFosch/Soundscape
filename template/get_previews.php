@@ -16,6 +16,25 @@ switch ($preview_type) {
             $preview["link"] = "player.php?trackid=" . $track["TrackID"];
             $previews[] = $preview;
         }
+        break;
+    case "new-albums":
+        $albums = $dbh->getLatestAlbums($previewsToShow, $previewsToSkip);
+        foreach ($albums as $album) {
+            $preview["title"] = $album["Name"];
+            $preview["image"] = $album["CoverImage"];
+            $preview["link"] = "#";
+            $previews[] = $preview;
+        }
+        break;
+    case "new-playlists":
+        $playlists = $dbh->getLatestPlaylists($previewsToShow, $previewsToSkip);
+        foreach ($playlists as $playlist) {
+            $preview["title"] = $playlist["Name"];
+            $preview["image"] = $playlist["CoverImage"];
+            $preview["link"] = "#";
+            $previews[] = $preview;
+        }
+        break;
 }
 
 ?>

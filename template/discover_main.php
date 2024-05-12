@@ -9,6 +9,7 @@
 </header>
 <!-- Search results and suggestions -->
 <main>
+    <?php $nPreviewsToShow = 2; ?>
     <h1 id="discover-title">Discover</h1>
     <?php if (isset($_GET["query"]) && ($_GET["query"] != "")): ?>
         <section class="discover-section">
@@ -86,8 +87,7 @@
     <?php else: ?>
         <section class="discover-section">
             <h2>New tracks</h2>
-            <?php $nToShow = 2; ?>
-            <?php $tracks = $dbh->getLatestTracks($nToShow); ?>
+            <?php $tracks = $dbh->getLatestTracks($nPreviewsToShow); ?>
             <?php foreach ($tracks as $track): ?>
                 <section class="preview">
                     <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>">
@@ -100,7 +100,7 @@
                     </a>
                 </section>
             <?php endforeach; ?>
-            <?php if (count($tracks) == $nToShow): ?>
+            <?php if (count($tracks) == $nPreviewsToShow): ?>
                 <form action="#" method="GET">
                     <input id="new-tracks" class="show-more" type="button" value="Show more"/>
                 </form>
@@ -108,7 +108,7 @@
         </section>
         <section class="discover-section">
             <h2>New albums</h2>
-            <?php $albums = $dbh->getLatestAlbums(2); ?>
+            <?php $albums = $dbh->getLatestAlbums($nPreviewsToShow); ?>
             <?php foreach ($albums as $album): ?>
                 <section class="preview">
                     <a href="#">
@@ -121,10 +121,15 @@
                     </a>
                 </section>
             <?php endforeach; ?>
+            <?php if (count($albums) == $nPreviewsToShow): ?>
+                <form action="#" method="GET">
+                    <input id="new-albums" class="show-more" type="button" value="Show more"/>
+                </form>
+            <?php endif; ?>
         </section>
         <section class="discover-section">
             <h2>New playlists</h2>
-            <?php $playlists = $dbh->getLatestPlaylists(2); ?>
+            <?php $playlists = $dbh->getLatestPlaylists($nPreviewsToShow); ?>
             <?php foreach ($playlists as $playlist): ?>
                 <section class="preview">
                     <a href="#">
@@ -137,6 +142,11 @@
                     </a>
                 </section>
             <?php endforeach; ?>
+            <?php if (count($playlists) == $nPreviewsToShow): ?>
+                <form action="#" method="GET">
+                    <input id="new-playlists" class="show-more" type="button" value="Show more"/>
+                </form>
+            <?php endif; ?>
         </section>
     <?php endif; ?>
 </main>
