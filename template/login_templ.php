@@ -1,6 +1,6 @@
 <main>
     <img src="images/logo.svg" alt=""/>
-    <form action="#" method="post">
+    <form action="process_login.php" method="post">
         <ul>
             <li>
                 <label for="username" hidden>Username</label>
