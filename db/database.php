@@ -52,18 +52,83 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function getMatchingUsers($search_input) {
-        $query = "SELECT * FROM user WHERE Username LIKE CONCAT('%', ?, '%')";
+    public function getMatchingUsers($search_input, $nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM user 
+                  WHERE Username LIKE CONCAT('%', ?, '%')
+                  LIMIT ?, ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $search_input);
+        $stmt->bind_param('sii', $search_input, $nToSkip, $nToShow);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLatestTracks($n) {
-        $query = "SELECT * FROM single_track ORDER BY CreationDate DESC LIMIT ?";
+    public function getMatchingTracks($search_input, $nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM single_track 
+                  WHERE Name LIKE CONCAT('%', ?, '%')
+                  LIMIT ?, ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('i', $n);
+        $stmt->bind_param('sii', $search_input, $nToSkip, $nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getMatchingAlbums($search_input, $nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM playlist 
+                  WHERE isAlbum = true 
+                    AND Name LIKE CONCAT('%', ?, '%')
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sii', $search_input, $nToSkip, $nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getMatchingPlaylists($search_input, $nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM playlist 
+                  WHERE isAlbum = false 
+                    AND Name LIKE CONCAT('%', ?, '%')
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sii', $search_input, $nToSkip, $nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLatestTracks($nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM single_track
+                  ORDER BY CreationDate DESC
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii",  $nToSkip,$nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLatestAlbums($nToShow, $nToSkip = 0) {
+        $query = "SELECT * 
+                  FROM playlist
+                  WHERE isAlbum = true
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $nToSkip,$nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getLatestPlaylists($nToShow, $nToSkip = 0) {
+        $query = "SELECT *
+                  FROM playlist
+                  WHERE isAlbum = false
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $nToSkip, $nToShow);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }

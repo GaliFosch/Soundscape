@@ -57,7 +57,7 @@ create table PLAYLIST (
      Name varchar(30) not null,
      CoverImage varchar(50),
      TimeLength time not null,
-     CreationDate date not null,
+     CreationDate datetime not null,
      Creator varchar(30) not null,
      IsAlbum bool not null,
      constraint ID_PLAYLIST_ID primary key (PlaylistID));
@@ -83,7 +83,7 @@ create table SINGLE_TRACK (
      Name varchar(30) not null,
      CoverImage varchar(50),
      TimeLength time not null,
-     CreationDate date not null,
+     CreationDate datetime not null,
      Creator varchar(30) not null,
      constraint ID_SINGLE_TRACK_ID primary key (TrackID));
 
