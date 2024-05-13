@@ -5,6 +5,7 @@ var closeFocus = document.querySelector(".close-focus");
 
 posts.forEach((post) => {
   post.addEventListener("click", () => {
+    console.log("Mi hai cliccato");
     postFocus.style.display = postFocus.style.display === "none" ? "grid" : "grid";
   });
 });

@@ -1,6 +1,6 @@
 /*This part deals with the navbar*/
-var hamburgerMenu = document.querySelector(".fa-bars");
-var closeHamburgerMenu = document.querySelector(".close-hamburger");
+var hamburgerMenu = document.querySelector("#open-menu-icon");
+var closeHamburgerMenu = document.querySelector("#close-menu-icon");
 var mobileMenu = document.querySelector(".mobile-menu");
 var navbar = document.querySelector(".navbar");
 

@@ -236,6 +236,10 @@ img.artist-photo {
     margin: 8px;
 }
 
+.open-focus::hover {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
 
     body {
