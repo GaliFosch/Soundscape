@@ -50,11 +50,12 @@ class DatabaseHelper {
         }
         $stmt->bind_param("s", $username);
         $stmt->execute();
-        $stmt->bind_result($email,$db_password, $salt);
-        $stmt->fetch();
+        $stmt->store_result();
         if($stmt->num_rows != 1){
             return false; //User do not exists
         }
+        $stmt->bind_result($email,$db_password, $salt);
+        $stmt->fetch();
         if($this->isUserDisabled($username)){
             //TODO: invia mail per avvisare l'utente
             return false; //User is disabled
@@ -65,8 +66,9 @@ class DatabaseHelper {
             return hash('sha512', $password.$user_browser);
         } else {
             $now = time();
-            $query = "INSERT INTO LoginAttempts(username, time) VALUES (?,?)";
+            $query = "INSERT INTO LoginAttempt(username, time) VALUES (?,?)";
             $stmt = $this->db->prepare($query);
+            $stmt->bind_param("si", $username, $now);
             $stmt->execute();
             return false;
         }
@@ -76,15 +78,15 @@ class DatabaseHelper {
     private function isUserDisabled($username){
         $now = time();
         $valid_attempts = $now - (2 * 60 * 60);
-        $query = "SELECT Time FROM LoginAttempts WHERE Username = ? AND time > '$valid_attempts'";
+        $query = "SELECT Time FROM LoginAttempt WHERE Username = ? AND time > '$valid_attempts'";
         if($stmt = $this->db->prepare($query)){
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $stmt->store_result();
             if($stmt->num_rows > 5){
-                return false;
-            }else{
                 return true;
+            }else{
+                return false;
             }
         }
     }

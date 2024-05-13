@@ -2,7 +2,7 @@
 
 require_once("bootstrap.php");
 
-if(!isset($_POST["username"], $_POST["password"])){
+if(isset($_POST["username"], $_POST["password"])){
     $result = $dbh->login($_POST["username"], $_POST["password"]);
     if($result != false){
         $_SESSION["username"] = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $_POST["username"]);
