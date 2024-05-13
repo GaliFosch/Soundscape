@@ -66,9 +66,9 @@ class DatabaseHelper {
             return hash('sha512', $password.$user_browser);
         } else {
             $now = time();
-            $query = "INSERT INTO LoginAttempt(username, time) VALUES (?,?)";
+            $query = "INSERT INTO LoginAttempt(username, time) VALUES ( ? , ? )";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param("si", $username, $now);
+            $stmt->bind_param("ss", $username, $now);
             $stmt->execute();
             return false;
         }

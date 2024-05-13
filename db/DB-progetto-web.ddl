@@ -99,7 +99,7 @@ create table USER (
 
 create table LoginAttempt (
      Username varchar(30) not null,
-     Time timestamp not null,
+     Time varchar(30) not null,
      constraint ID_LoginAttempt_ID primary key (Username, Time));
 
 create table Follow (
