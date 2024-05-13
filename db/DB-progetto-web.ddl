@@ -92,10 +92,16 @@ create table USER (
      Biography Text not null,
      ProfileImage varchar(50),
      Email varchar(30) not null,
-     Password varchar(30) not null,
-     NumFollower int not null,
-     NumFollowing int not null,
+     NumFollower int not null default '0',
+     NumFollowing int not null default '0',
+     Password char(128) not null,
+     Salt char(128) not null,
      constraint ID_USER_ID primary key (Username));
+
+create table LoginAttempt (
+     Username varchar(30) not null,
+     Time varchar(30) not null,
+     constraint ID_LoginAttempt_ID primary key (Username, Time));
 
 create table Follow (
      Following varchar(30) not null,
@@ -112,7 +118,6 @@ create table Tracklist (
      PlaylistID int not null,
      Position int not null,
      constraint ID_Tracklist_ID primary key (TrackID, PlaylistID));
-
 
 -- Constraints Section
 -- ___________________
@@ -175,6 +180,10 @@ alter table Image add constraint REF_Image_POST_FK
 
 alter table SINGLE_TRACK add constraint REF_SINGL_USER_FK
      foreign key (Creator)
+     references USER(Username);
+
+alter table LoginAttempt add constraint REF_LoginA_USER_FK
+     foreign key (Username)
      references USER(Username);
 
 alter table Follow add constraint REF_Follo_USER_1_FK
@@ -273,6 +282,9 @@ create index REF_SINGL_USER_IND
 
 create unique index ID_USER_IND
      on USER (Username);
+
+create unique index ID_LOGINATTEMPT_IND
+     on LoginAttempt(Username, Time);
 
 create unique index ID_Follow_IND
      on Follow (Following, Follower);
