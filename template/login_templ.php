@@ -15,4 +15,5 @@
     </form>
     <script type="text/javascript" src="js/sha512.js"></script>
     <script type="text/javascript" src="js/forms.js"></script>
+    <p>You dont have an account? <a href="register.php">register</a></p>
 </main>
