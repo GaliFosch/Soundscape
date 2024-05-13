@@ -57,7 +57,9 @@ class DatabaseHelper {
         $stmt->bind_result($email,$db_password, $salt);
         $stmt->fetch();
         if($this->isUserDisabled($username)){
-            //TODO: invia mail per avvisare l'utente
+            // $subject = "Multipli Tentati accessi sull'account Soundscape";
+            // $message = "Il tuo account SoundScape è stato sospeso temporaneamente.\nVerrà riattivato in 2 ore.";
+            // mail($email, $subject, $message);
             return false; //User is disabled
         }
         $password = hash('sha512', $password.$salt);

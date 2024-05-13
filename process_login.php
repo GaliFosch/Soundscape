@@ -12,4 +12,4 @@ if(isset($_POST["username"], $_POST["c_password"])){
         header("Location: login.php?error=1");
     }
 } 
-//TODO error check
+echo "Post variables not set!";
