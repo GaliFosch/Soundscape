@@ -51,7 +51,7 @@ class DatabaseHelper {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
-        if($stmt->num_rows != 1){
+        if($stmt->num_rows() != 1){
             return false; //User do not exists
         }
         $stmt->bind_result($email,$db_password, $salt);
@@ -91,6 +91,22 @@ class DatabaseHelper {
         }
     }
 
+    public function register($username, $password, $email, $biography, $image){
+        if($this->getUserByUsername($username) != false){
+            return false;//username already in use
+        }
+        $salt = hash('sha512', uniqid(mt_rand(1,mt_getrandmax()), true));
+        $password = hash('sha512', $password.$salt);
+        $query = "INSERT INTO user(username, password, salt, email, biography, profileimage) VALUES(?,?,?,?,?,?)";
+        $stmt = $this->db->prepare($query);
+        if($stmt == false){
+            return false;//Error into prepare function
+        }
+        $stmt->bind_param("ssssss", $username, $password, $salt, $email, $biography, $image);
+        $stmt->execute();
+        return true;
+    }
+
     public function getUserByUsername($username){
         $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
                 FROM user 
@@ -99,7 +115,7 @@ class DatabaseHelper {
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        if($result->num_rows===0){
+        if($result->num_rows==0){
             return false;
         }
         return $result->fetch_assoc();

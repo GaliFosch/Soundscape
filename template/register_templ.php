@@ -1,6 +1,6 @@
 <main>
     <h2>Registration</h2>
-    <form action="#" method="POST">
+    <form action="process_register.php" method="POST">
         <ul>
             <li>
                 <label for="username" hidden>Username</label>
@@ -16,7 +16,7 @@
             </li>
             <li>
                 <label for="biography" hidden>Biography</label>
-                <textarea name="biography" id="biography" placeholder="Write here your biography"></textarea>
+                <textarea name="biography" id="biography" placeholder="Write here your biography" required></textarea>
             </li>
             <li>
                 <label for="image">Image</label>

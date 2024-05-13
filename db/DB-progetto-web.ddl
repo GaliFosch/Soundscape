@@ -91,8 +91,8 @@ create table USER (
      Biography Text not null,
      ProfileImage varchar(50),
      Email varchar(30) not null,
-     NumFollower int not null,
-     NumFollowing int not null,
+     NumFollower int not null default '0',
+     NumFollowing int not null default '0',
      Password char(128) not null,
      Salt char(128) not null,
      constraint ID_USER_ID primary key (Username));
