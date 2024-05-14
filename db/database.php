@@ -20,6 +20,109 @@ class DatabaseHelper {
         }
     }
 
+    public function checkLogin($username, $login_string){
+        $user_browser = $_SERVER['HTTP_USER_AGENT'];
+        $query = "SELECT Password FROM User WHERE username = ? LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        if($stmt==false){
+            return false; //Prepare function error
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows != 1){
+            return false; //User not found
+        }
+        $stmt->bind_result($password);
+        $stmt->fetch();
+        $login_check = hash("sha512", $password.$user_browser);
+        if($login_check == $login_string){
+            return true;
+        }
+        return false;
+    }
+
+    public function login($username, $password){
+        $query = "SELECT Email, Password, Salt FROM User WHERE Username = ? LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        if($stmt == false){
+            return false; //Error in the prepare function
+        }
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows() != 1){
+            return false; //User do not exists
+        }
+        $stmt->bind_result($email,$db_password, $salt);
+        $stmt->fetch();
+        if($this->isUserDisabled($username)){
+            // $subject = "Multipli Tentati accessi sull'account Soundscape";
+            // $message = "Il tuo account SoundScape è stato sospeso temporaneamente.\nVerrà riattivato in 2 ore.";
+            // mail($email, $subject, $message);
+            return false; //User is disabled
+        }
+        $password = hash('sha512', $password.$salt);
+        if($db_password == $password){
+            $user_browser = $_SERVER['HTTP_USER_AGENT'];
+            return hash('sha512', $password.$user_browser);
+        } else {
+            $now = time();
+            $query = "INSERT INTO LoginAttempt(username, time) VALUES ( ? , ? )";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $username, $now);
+            $stmt->execute();
+            return false;
+        }
+
+    }
+
+    private function isUserDisabled($username){
+        $now = time();
+        $valid_attempts = $now - (2 * 60 * 60);
+        $query = "SELECT Time FROM LoginAttempt WHERE Username = ? AND time > '$valid_attempts'";
+        if($stmt = $this->db->prepare($query)){
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows > 5){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public function register($username, $password, $email, $biography, $image){
+        if($this->getUserByUsername($username) != false){
+            return false;//username already in use
+        }
+        $salt = hash('sha512', uniqid(mt_rand(1,mt_getrandmax()), true));
+        $password = hash('sha512', $password.$salt);
+        $query = "INSERT INTO user(username, password, salt, email, biography, profileimage) VALUES(?,?,?,?,?,?)";
+        $stmt = $this->db->prepare($query);
+        if($stmt == false){
+            return false;//Error into prepare function
+        }
+        $stmt->bind_param("ssssss", $username, $password, $salt, $email, $biography, $image);
+        $stmt->execute();
+        return true;
+    }
+
+    public function getUserByUsername($username){
+        $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
+                FROM user 
+                WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows==0){
+            return false;
+        }
+        return $result->fetch_assoc();
+    }
+
     public function getPostByID($postID) {
         $query = "SELECT * FROM post WHERE PostID = ?";
         $stmt = $this->db->prepare($query);
