@@ -1,5 +1,5 @@
 <main>
-    <img src="images/logo.svg" alt=""/>
+    <img id="front-logo" src="images/logo.svg" alt=""/>
     <form action="process_login.php" method="post">
         <ul>
             <li>
@@ -15,5 +15,5 @@
     </form>
     <script type="text/javascript" src="js/sha512.js"></script>
     <script type="text/javascript" src="js/forms.js"></script>
-    <p>You dont have an account? <a href="register.php">register</a></p>
+    <p>You don't have an account? <a href="register.php">Register</a></p>
 </main>

@@ -1,5 +1,5 @@
 <main>
-    <h2>Registration</h2>
+    <h1>Registration</h1>
     <form action="process_register.php" method="POST">
         <ul>
             <li>
@@ -16,10 +16,10 @@
             </li>
             <li>
                 <label for="biography" hidden>Biography</label>
-                <textarea name="biography" id="biography" placeholder="Write here your biography" required></textarea>
+                <textarea name="biography" id="biography" rows="5" placeholder="Write here your biography" required></textarea>
             </li>
             <li>
-                <label for="image">Image</label>
+                <label for="image">Profile image: </label>
                 <input type="file" name="image" id="image"/>
             </li>
         </ul>

@@ -1,0 +1,16 @@
+main {
+    padding-top: 2rem;
+}
+
+textarea {
+    margin-top: 1rem;
+    width: 30%;
+}
+
+textarea::placeholder {
+    color: black;
+}
+
+input[type=file] {
+    margin-top: 1rem;
+}
