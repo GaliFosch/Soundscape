@@ -10,7 +10,7 @@ $post = $dbh->getPostByID($postID)[0];
 $user = $dbh->getPostAuthor($postID);
 $track = $dbh->getSponsoredTrack($postID);
 $artistID = $track["Creator"];
-$artist = $dbh->getUserByID($artistID)[0];
+$artist = $dbh->getUserByUsername($artistID);
 ?>
 
 <aside class="post-focus">
