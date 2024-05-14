@@ -1,4 +1,5 @@
 <main>
+    <img id="front-logo" src="images/logo.svg" alt=""/>
     <h1>Registration</h1>
     <form action="process_register.php" method="POST">
         <ul>
@@ -25,6 +26,6 @@
         </ul>
         <input type="submit" value="Register"/>
     </form>
-    <script type="text/javascript" src="js/sha512.js"></script>
-    <script type="text/javascript" src="js/forms.js"></script>
+    <script src="js/sha512.js"></script>
+    <script src="js/forms.js"></script>
 </main>
