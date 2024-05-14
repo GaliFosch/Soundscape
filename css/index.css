@@ -139,7 +139,7 @@ em.fa-heart{
 }
 
 aside {
-    display: none;
+    display: grid;
     width: 20%;
     margin: 0%;
     height: fit-content;
