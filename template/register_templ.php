@@ -1,7 +1,7 @@
 <main>
     <img id="front-logo" src="images/logo.svg" alt=""/>
     <h1>Registration</h1>
-    <form action="process_register.php" method="POST">
+    <form id="user-info-form" action="process_register.php" method="POST">
         <ul>
             <li>
                 <label for="username" hidden>Username</label>
@@ -24,7 +24,7 @@
                 <input type="file" name="image" id="image"/>
             </li>
         </ul>
-        <input type="submit" value="Register"/>
+        <input id="submit-btn" type="submit" value="Register"/>
     </form>
     <script src="js/sha512.js"></script>
     <script src="js/forms.js"></script>

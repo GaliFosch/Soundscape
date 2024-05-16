@@ -2,8 +2,8 @@
 
 require_once("bootstrap.php");
 
-if(isset($_POST["username"], $_POST["password"])){
-    $result = $dbh->login($_POST["username"], $_POST["password"]);
+if(isset($_POST["username"], $_POST["c_password"])){
+    $result = $dbh->login($_POST["username"], $_POST["c_password"]);
     if (($result == STMT_ERR) || ($result == USER_NOT_FOUND) || ($result == USER_ACCESS_DISABLED) || ($result == WRONG_PASSWORD)) {
         header("Location: login.php?error=${result}");
     } else {
