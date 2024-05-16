@@ -1,5 +1,10 @@
 <?php
 
+const STMT_ERR = 1;
+const USER_NOT_FOUND = 2;
+const USER_ACCESS_DISABLED = 3;
+const WRONG_PASSWORD = 4;
+
 class DatabaseHelper {
 
     private $db;
@@ -46,13 +51,13 @@ class DatabaseHelper {
         $query = "SELECT Email, Password, Salt FROM User WHERE Username = ? LIMIT 1";
         $stmt = $this->db->prepare($query);
         if($stmt == false){
-            return false; //Error in the prepare function
+            return STMT_ERR; //Error in the prepare function
         }
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $stmt->store_result();
         if($stmt->num_rows() != 1){
-            return false; //User do not exists
+            return USER_NOT_FOUND; //User do not exists
         }
         $stmt->bind_result($email,$db_password, $salt);
         $stmt->fetch();
@@ -60,7 +65,7 @@ class DatabaseHelper {
             // $subject = "Multipli Tentati accessi sull'account Soundscape";
             // $message = "Il tuo account SoundScape è stato sospeso temporaneamente.\nVerrà riattivato in 2 ore.";
             // mail($email, $subject, $message);
-            return false; //User is disabled
+            return USER_ACCESS_DISABLED; //User is disabled
         }
         $password = hash('sha512', $password.$salt);
         if($db_password == $password){
@@ -72,7 +77,7 @@ class DatabaseHelper {
             $stmt = $this->db->prepare($query);
             $stmt->bind_param("ss", $username, $now);
             $stmt->execute();
-            return false;
+            return WRONG_PASSWORD;
         }
 
     }

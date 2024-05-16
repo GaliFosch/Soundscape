@@ -35,12 +35,13 @@
                     </a></li>
                 <?php endif; ?>
             </ul>
-            <?php if (!isset($_SESSION["userid"])): ?>
+            <?php if (!isset($_SESSION["username"])): ?>
                 <div class="access-buttons">
                     <form id="login" action="login.php" method="POST"><input type="submit" value="Login"/></form>
                      or <form id="register" action="register.php" method="POST"><input type="submit" value="Register"/></form>
                 </div>
             <?php endif; ?>
+            <!-- TODO: logout button -->
         </nav>
         <!-- Content -->
         <?php require($template["content"]); ?>
