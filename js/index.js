@@ -1,7 +1,4 @@
-/*This part deals with the aside*/
 var posts = document.querySelectorAll(".open-focus");
-//var postFocus = document.querySelector("aside");
-//var closeFocus = document.querySelector(".close-focus");
 
 posts.forEach((post) => {
   post.addEventListener("click", () => {
@@ -14,26 +11,34 @@ posts.forEach((post) => {
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
-              console.log("hey")
               document.body.innerHTML += this.responseText;
+              addCloseListener();
+              addLikeFunction();
           }
       }
         xhttp.send();
+        
         });
 });
 
-/*closeFocus.addEventListener("click", () => {
-  postFocus.style.display = postFocus.style.display === "none" ? "grid" : "none";
-});*/
+addLikeFunction();
+
+function addCloseListener() {
+  let postFocus = document.querySelector(".post-focus");
+  let closeFocus = document.querySelector(".close-focus");
+  closeFocus.addEventListener("click", () => {
+      postFocus.style.display =  "none";
+  });
+}
 
 /*This part deals with the heart button*/
-var heartFull = document.querySelectorAll(".fa-regular.fa-heart");
-var heartEmpty = document.querySelectorAll(".fa-solid.fa-heart");
+function addLikeFunction() {
+  let heartIcon = document.querySelectorAll(".fa-heart");
 
-heartFull.forEach((heart) => {
-  heart.addEventListener("click", () => {
-    console.log("Mi hai cliccato");
-    heart.classList.toggle('fa-solid');
-    heart.classList.toggle('fa-regular');
-  })
-});
+  heartIcon.forEach((heart) => {
+    heart.addEventListener("click", () => {
+      heart.classList.toggle('fa-solid');
+      heart.classList.toggle('fa-regular');
+    })
+  });
+}
