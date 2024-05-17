@@ -28,22 +28,29 @@ nav, nav.desktop {
 }
 
 nav.mobile {
-    height: 4%;
+    height: 3rem;
     width: -webkit-fill-available;
     text-align: center;
     margin: 0;
     padding: 1% 2%;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-content: center;
 }
 
 nav.mobile-full {
     height: 100%;
-    width: 40%; 
+    width: 15rem; 
     text-align: center;
     position: fixed;
     left: 0;
     top: 0;
     overflow-x: hidden;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 2rem;
 }
 
 nav img {
@@ -80,12 +87,22 @@ nav a:hover {
 
 nav .fa-solid {
     color: white;
+    font-size: 1.5em;
     margin: 0 5% 0 0;
+}
+
+.fa-bars {
+    justify-self: start;
+}
+
+.fa-xmark {
+    font-size: 2em;;
 }
 
 .access-buttons {
     padding: 0 1rem;
     font-size: 15px;
+    justify-self: end;
 }
 
 .access-buttons > form {
@@ -147,11 +164,14 @@ main {
     }
 
     nav {
-        height: 4%;
+        height: 3rem;
         width: -webkit-fill-available;
         text-align: center;
         margin: 0;
         padding: 1% 2%;
+        display: grid;
+        grid-template-columns: auto auto;
+        align-content: center;
     }
 
     nav img {
@@ -170,6 +190,10 @@ main {
 
     .fa-bars {
         display: flex;
+    }
+
+    #close-menu-icon {
+        display: none;
     }
 
     main {

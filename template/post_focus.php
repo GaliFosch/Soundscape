@@ -57,5 +57,14 @@ $artist = $dbh->getUserByUsername($artistID);
     <p><?php echo $artist["Username"]; ?></p>
     <p><?php echo $artist["Biography"]; ?></p>
 <!--Outer section of music box-->
+<script>
+    var postFocus = document.querySelector("aside");
+    var closeFocus = document.querySelector(".close-focus");
+    closeFocus.addEventListener("click", () => {
+    console.log("Grazie");
+    postFocus.style.display =  "none";
+    });
+</script>
 </aside>
-<script src="js/index.js"></script>
+
+
