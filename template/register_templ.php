@@ -1,6 +1,7 @@
 <main>
-    <h2>Registration</h2>
-    <form action="process_register.php" method="POST">
+    <img id="front-logo" src="images/logo.svg" alt=""/>
+    <h1>Registration</h1>
+    <form id="user-info-form" action="process_register.php" method="POST">
         <ul>
             <li>
                 <label for="username" hidden>Username</label>
@@ -16,15 +17,15 @@
             </li>
             <li>
                 <label for="biography" hidden>Biography</label>
-                <textarea name="biography" id="biography" placeholder="Write here your biography" required></textarea>
+                <textarea name="biography" id="biography" rows="5" placeholder="Write here your biography" required></textarea>
             </li>
             <li>
-                <label for="image">Image</label>
+                <label for="image">Profile image: </label>
                 <input type="file" name="image" id="image"/>
             </li>
         </ul>
-        <input type="submit" value="Register"/>
+        <input id="submit-btn" type="submit" value="Register"/>
     </form>
-    <script type="text/javascript" src="js/sha512.js"></script>
-    <script type="text/javascript" src="js/forms.js"></script>
+    <script src="js/sha512.js"></script>
+    <script src="js/forms.js"></script>
 </main>

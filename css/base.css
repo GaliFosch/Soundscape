@@ -1,6 +1,7 @@
 * {
     font-family: Arial, sans-serif;
     color: white;
+    box-sizing: border-box;
 }
 
 html {
@@ -11,7 +12,6 @@ body {
     height: inherit;
     margin: 0;
     background-color: #323232;
-    box-sizing: border-box;
 }
 
 /*
@@ -23,6 +23,8 @@ nav, nav.desktop {
     height: inherit;
     width: 20%;
     background-color: #3E3455;
+    position: fixed;
+    padding-bottom: 1.5rem;
 }
 
 nav.mobile {
@@ -45,13 +47,13 @@ nav.mobile-full {
 }
 
 nav img {
-    height: 7%;
+    height: 10%;
     padding: 5% 5% 0 5%;
 }
 
 nav ul {
     list-style: none;
-    height: inherit;
+    height: 80%;
     padding: 0 5%;
 }
 
@@ -81,9 +83,30 @@ nav .fa-solid {
     margin: 0 5% 0 0;
 }
 
-/*
- * Main container style
- */
+.access-buttons {
+    padding: 0 1rem;
+    font-size: 15px;
+}
+
+.access-buttons > form {
+    display: inline-block;
+}
+
+.access-buttons input {
+    font-size: 15px;
+    border-radius: 10px;
+    border: 0;
+    padding: 5px 15px;
+}
+
+#login > input {
+    color: white;
+    background-color: #098AFF;
+}
+
+#register > input {
+    color: black;
+}
 
 main {
     text-align: center;
