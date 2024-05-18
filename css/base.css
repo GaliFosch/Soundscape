@@ -19,9 +19,8 @@ body {
  */
 
 nav, nav.desktop {
-    float: left;
     height: inherit;
-    width: 20%;
+    width: 10rem;
     background-color: #3E3455;
     position: fixed;
     padding-bottom: 1.5rem;

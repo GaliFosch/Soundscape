@@ -48,14 +48,14 @@ $artist = $dbh->getUserByUsername($artistID);
 <section class="artist-info">
     <h2 class="info">Informazioni sull'artista</h2>
     <?php if ($artist["ProfileImage"] != null): ?>
-        <img class="picture" src="<?php echo $artist["ProfileImage"]; ?>" alt="Artist profile image"/>
+        <img class="artist-photo" src="<?php echo $artist["ProfileImage"]; ?>" alt="Artist profile image"/>
     <?php else: ?>
-        <img class="picture" src="images/placeholder-image.jpg" alt="Artist profile image"/>
+        <img class="artist-photo" src="images/placeholder-image.jpg" alt="Artist profile image"/>
     <?php endif; ?>
     <em class="fa-solid fa-user-plus"></em>
     <em class="fa-solid fa-user-check"></em>
-    <p><?php echo $artist["Username"]; ?></p>
-    <p><?php echo $artist["Biography"]; ?></p>
+    <p class="artist-name"><?php echo $artist["Username"]; ?></p>
+    <p class="artist-description"><?php echo $artist["Biography"]; ?></p>
 <!--Outer section of music box-->
 
 </aside>

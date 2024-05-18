@@ -1,6 +1,6 @@
 <main>
     <?php foreach ($template["posts"] as $post): ?>
-        <article class="open-focus" post-id="<?php echo $post['PostID']; ?>">
+        <article>
             <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
             <!--Utente e foto utente-->
             <h1>
@@ -12,7 +12,7 @@
                 <?php echo $user["Username"]; ?>
             </h1>
             <!--Post caption-->
-            <p><?php echo $post["Caption"]; ?></p>
+            <p class="open-focus" post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
             <!--Outer section of music box-->
             <section class="music-box">
                 <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
