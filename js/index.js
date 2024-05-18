@@ -11,7 +11,7 @@ posts.forEach((post) => {
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
-              document.body.innerHTML += this.responseText;
+              showPopover(this.responseText);
               addCloseListener();
               addLikeFunction();
           }
@@ -22,6 +22,13 @@ posts.forEach((post) => {
 });
 
 addLikeFunction();
+
+function showPopover(content) {
+  var popover = document.createElement('div');
+  popover.classList.add('popover');
+  popover.innerHTML = content;
+  document.body.appendChild(popover);
+}
 
 function addCloseListener() {
   let postFocus = document.querySelector(".post-focus");

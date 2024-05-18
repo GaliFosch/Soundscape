@@ -13,7 +13,7 @@ $artistID = $track["Creator"];
 $artist = $dbh->getUserByUsername($artistID);
 ?>
 
-<aside class="post-focus">
+<aside class="post-focus popover-content">
 <em class="fa-solid fa-xmark close-focus"></em>
 <h1>
     <?php if ($user["ProfileImage"] != null): ?>
