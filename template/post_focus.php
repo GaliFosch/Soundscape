@@ -41,7 +41,15 @@ $artist = $dbh->getUserByUsername($artistID);
 
 <section class="post-interaction focus">
     <a href="#"><em class="fa-regular fa-message focus"></em></a>
-    <em class="fa-regular fa-heart focus"></em>
+    <?php if(isset($_SESSION['username'])): ?>
+        <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
+            <em class="fa-solid fa-heart fa-fw focus"></em>
+        <?php else: ?>
+            <em class="fa-regular fa-heart fa-fw focus"></em>
+        <?php endif; ?>
+    <?php else: ?>
+        <em class="fa-regular fa-heart fa-fw focus"></em>
+    <?php endif; ?>
 </section>
 
 <section class="artist-info">

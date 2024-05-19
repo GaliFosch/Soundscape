@@ -2,22 +2,20 @@
 
 require_once("..\bootstrap.php");
 
-$template["stylesheets"] = ["index.css"];
+if (isset($_GET["post"])) {
+    $postID = $_GET["post"];
+    $userID = $_SESSION['username'];
 
-$postID = $_GET["post"];
-$userID = $_SESSION['username'];
-
-if($userID != null) {
-    if($dbh->hasUserLiked($postID,$userID)) {
-        if($dbh->removeLike($postID,$userID)) {
-            echo "removed";
-            //non so se ci dovrei mettere qualcosa qua
-        } else {
+    if(isset($userID)) {
+        if($dbh->hasUserLiked($postID,$userID)) {
+            if($dbh->removeLike($postID,$userID)) {
+                echo "change";
+            } 
+        }else {
             $dbh->addLike($postID,$userID);
-            echo "added";
+            echo "change";
         }
+    } else {
+        echo "Effettua il login";
     }
-} else {
-    echo "Effettua il login";
 }
-

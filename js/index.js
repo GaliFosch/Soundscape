@@ -1,10 +1,15 @@
 var posts = document.querySelectorAll(".open-focus");
 
 posts.forEach((post) => {
+  let heartIcon = document.querySelectorAll(".fa-heart");
+
+  heartIcon.forEach((heart) => {
+    heart.addEventListener('click', (event) => toggleColor(event,post))
+  });
+
+
   post.addEventListener("click", () => {
-    console.log("Cliccato");
         let postId = post.getAttribute('post-id');
-        console.log(postId);
         var xhttp;    
         xhttp = new XMLHttpRequest();
         xhttp.open("GET", "template/post_focus.php?post="+postId, true);
@@ -13,23 +18,9 @@ posts.forEach((post) => {
               // Add requested previews to section
               showPopover(this.responseText);
               addCloseListener();
-              let heartIcon = document.querySelectorAll(".fa-heart.focus");
-
-              heartIcon.forEach((heart) => {
-                heart.addEventListener("click", () => {
-                  let postId = post.getAttribute('post-id');
-                  let innerXhttp;    
-                  innerXhttp = new XMLHttpRequest();
-                  innerXhttp.open("GET", "template/like_handler.php?post="+postId, true);
-                  innerXhttp.onreadystatechange = function() {
-                    if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-                        console.log(ok);
-                        heart.classList.toggle('fa-solid');
-                        heart.classList.toggle('fa-regular');
-                      }
-                    }
-                    innerXhttp.send();
-                })
+              let focusHeartIcon = document.querySelectorAll(".fa-heart.focus");
+              focusHeartIcon.forEach((focus) => {
+                focus.addEventListener('click', (event) => toggleColor(event,post));
               });
           }
       }
@@ -37,8 +28,6 @@ posts.forEach((post) => {
         
         });
 });
-
-addLikeFunction();
 
 function showPopover(content) {
   let popover = document.createElement('aside');
@@ -56,24 +45,32 @@ function addCloseListener() {
 }
 
 /*This part deals with the heart button*/
-function addLikeFunction(post) {
-  let heartIcon = document.querySelectorAll(".fa-heart");
+function toggleColor(event, post) {
+  console.log("grazie del clik");
 
-  heartIcon.forEach((heart) => {
-    heart.addEventListener("click", () => {
+      let targetHeart = event.target;
+      let pairHeart = targetHeart.closest('.post-article') ? document.querySelector('.fa-heart.focus') : document.querySelector('.fa-heart.article');
+
       let postId = post.getAttribute('post-id');
       let xhttp;    
       xhttp = new XMLHttpRequest();
       xhttp.open("GET", "template/like_handler.php?post="+postId, true);
       xhttp.onreadystatechange = function() {
         if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-            console.log(ok);
-            heart.classList.toggle('fa-solid');
-            heart.classList.toggle('fa-regular');
+          console.log(this.responseText);
+            if(this.responseText==="change") {
+              console.log("grazie ");
+                targetHeart.classList.toggle('fa-solid');
+                targetHeart.classList.toggle('fa-regular');
+                if(pairHeart!=null) {
+                  pairHeart.classList.toggle('fa-solid');
+                  pairHeart.classList.toggle('fa-regular');
+                }
+              }
+              
+            }
+            
           }
-        }
       xhttp.send();  
-    }
-    );
-  });
 }
+

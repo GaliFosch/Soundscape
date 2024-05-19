@@ -32,16 +32,16 @@
                     </a>
                 <?php endif; ?>
             </section>
-            <section class="post-interaction">
+            <section class="post-interaction post-article">
                 <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
                 <?php if(isset($_SESSION['username'])): ?>
                     <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
-                        <em class="fa-solid fa-heart fa-fw"></em>
+                        <em class="fa-solid fa-heart fa-fw article"></em>
                     <?php else: ?>
-                        <em class="fa-regular fa-heart fa-fw"></em>
+                        <em class="fa-regular fa-heart fa-fw article"></em>
                     <?php endif; ?>
                 <?php else: ?>
-                    <em class="fa-regular fa-heart fa-fw"></em>
+                    <em class="fa-regular fa-heart fa-fw article"></em>
                 <?php endif; ?>
             </section>
         </article>
