@@ -1,8 +1,12 @@
 body {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 13rem auto 13rem;
 }
 
+main {
+    grid-column-start: 2;
+    margin: 0;
+}
 
 .picture {
     border-radius: 100%;

@@ -328,4 +328,19 @@ class DatabaseHelper {
             return false;
         }
     }
+
+    public function getPersonalizedHomeFeed() {
+
+    }
+
+    public function getGeneralHomeFeed() {
+        $query = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    ORDER BY user.NumFollower DESC";
+        $stmt =  $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    }
 }
