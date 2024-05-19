@@ -16,6 +16,7 @@
         ?>
         <ul>
             <?php
+                print_r($template["profile"]["Username"]);
                 foreach ($tracks as $track){
             ?>
             <li>

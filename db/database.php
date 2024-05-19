@@ -229,14 +229,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getUserLatestTracks($username, $nToShow, $nToSkip = 0){
+    public function getUserLatestTracks($username, $nToShow){
         $query = "SELECT TrackID, Name, CoverImage
                     FROM single_track
                     WHERE Creator = ?
                     ORDER BY CreationDate DESC
-                    LIMIT ?, ?";
+                    LIMIT ?";
         $stm = $this->db->prepare($query);
-        $stm->bind_param("sii", $username, $nToShow, $nToSkip);
+        $stm->bind_param("si", $username, $nToShow);
         $stm->execute();
         return $stm->get_result()->fetch_all(MYSQLI_ASSOC);
     }
