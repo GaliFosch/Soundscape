@@ -13,7 +13,6 @@ $artistID = $track["Creator"];
 $artist = $dbh->getUserByUsername($artistID);
 ?>
 
-<aside class="post-focus popover-content">
 <em class="fa-solid fa-xmark close-focus"></em>
 <h1>
     <?php if ($user["ProfileImage"] != null): ?>
@@ -57,16 +56,4 @@ $artist = $dbh->getUserByUsername($artistID);
     <p class="artist-name"><?php echo $artist["Username"]; ?></p>
     <p class="artist-description"><?php echo $artist["Biography"]; ?></p>
 <!--Outer section of music box-->
-
-</aside>
-<script>
-        let postFocus = document.querySelector(".post-focus");
-        console.log(postFocus);
-        let closeFocus = document.querySelector(".close-focus");
-        console.log(closeFocus);
-        closeFocus.addEventListener("click", () => {
-            console.log("Grazie");
-            postFocus.style.display =  "none";
-        });
-</script>
 

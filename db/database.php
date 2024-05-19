@@ -241,4 +241,40 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function hasUserLiked($postID, $userID) {
+        $query =    "SELECT *
+                    FROM postlike
+                    WHERE PostID = ?
+                    AND Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is',$postID,$userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc()!=null ? true : false;
+    }
+
+    public function removeLike($postID, $userID) {
+        $query =    "DELETE 
+                    FROM postlike
+                    WHERE PostID = ?
+                    AND Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is',$postID,$userID);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addLike($postID, $userID) {
+        $query =    "INSERT INTO postlike
+                    VALUES ? , ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is',$postID,$userID);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
