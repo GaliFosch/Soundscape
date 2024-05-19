@@ -144,6 +144,18 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getBestUserPosts($username, $nToShow){
+        $query = "SELECT * 
+                    FROM post
+                    WHERE Username = ?
+                    ORDER BY NumLike + NumComments DESC
+                    LIMIT ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('si', $username, $nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getSponsoredTrack($postID) {
         $query = "SELECT * FROM post p, single_track t WHERE (p.TrackID = t.TrackID) AND (p.PostID = ?);";
         $stmt = $this->db->prepare($query);
@@ -217,6 +229,18 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserLatestTracks($username, $nToShow, $nToSkip = 0){
+        $query = "SELECT TrackID, Name, CoverImage
+                    FROM single_track
+                    WHERE Creator = ?
+                    ORDER BY CreationDate DESC
+                    LIMIT ?, ?";
+        $stm = $this->db->prepare($query);
+        $stm->bind_param("sii", $username, $nToShow, $nToSkip);
+        $stm->execute();
+        return $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getLatestAlbums($nToShow, $nToSkip = 0) {
         $query = "SELECT * 
                   FROM playlist
@@ -229,6 +253,18 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserLatestAlbums($username, $nToShow, $nToSkip = 0) {
+        $query = "SELECT PlaylistID, Name, CoverImage
+                  FROM playlist
+                  WHERE Creator = ? AND isAlbum = true
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sii', $username, $nToSkip, $nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getLatestPlaylists($nToShow, $nToSkip = 0) {
         $query = "SELECT *
                   FROM playlist
@@ -237,6 +273,18 @@ class DatabaseHelper {
                   LIMIT ?, ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ii', $nToSkip, $nToShow);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUserLatestPlaylists($username, $nToShow, $nToSkip = 0) {
+        $query = "SELECT PlaylistID, Name, CoverImage
+                  FROM playlist
+                  WHERE Creator = ? AND isAlbum = false
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sii', $username, $nToSkip, $nToShow);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
