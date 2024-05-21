@@ -9,6 +9,9 @@
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
+    <div>
+        <em class="fa-solid fa-user-plus"></em>
+    </div>
     <section>
         <header>
             <h3>Canzoni Pubblicate</h3>
