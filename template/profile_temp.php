@@ -119,7 +119,7 @@
                     </a>
                 <?php endif; ?>
             </section>
-            <section>
+            <section class="post-interaction">
                 <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
                 <em class="fa-regular fa-heart fa-fw"></em>
             </section>

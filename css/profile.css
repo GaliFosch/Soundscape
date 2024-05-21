@@ -3,23 +3,23 @@ ul{
 }
 
 header img{
-    width: 15em;
-    height: 15em;
+    width: 15rem;
+    height: 15rem;
     border-radius: 50%;
     object-fit: cover;
-    margin-top: 5em;
+    margin-top: 5rem;
     margin-bottom: 0;
 }
 
 header h2{
-    font-size: 2em;
-    margin-top: 0.2em;
+    font-size: 2rem;
+    margin-top: 0.2rem;
     text-align: center;
 }
 
 main>section h3{
     text-align: left;
-    font-size: 1em;
+    font-size: 1rem;
     opacity: 0.6;
     margin-bottom: 0;
 }
@@ -27,7 +27,7 @@ main>section h3{
 main>section div{
     overflow-x: auto;
     white-space: nowrap;
-    height: 10em;
+    height: 10rem;
 }
 
 main>section a{
@@ -36,29 +36,29 @@ main>section a{
 
 main>section article{
     display: inline-block;
-    width: 9em;
-    height: 10em;
+    width: 9rem;
+    height: 10rem;
     margin-left: 0;
     margin-right: 0;
 }
 
 main>section article img{
     display: block;
-    width: 7em;
-    height: 7em;
+    width: 7rem;
+    height: 7rem;
     object-fit: cover;
-    border-radius: 1em;
-    margin-top: 1em;
-    margin-left: 1em;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
     margin-bottom: 0;
 }
 
 main>section article h4 {
-    margin-top: 0.5em;
-    margin-left: 1em;
-    margin-right: 1em;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     margin-bottom: 0;
-    width: 7em;
+    width: 7rem;
     white-space: nowrap;
     overflow: hidden;
     text-align: center;
@@ -69,12 +69,13 @@ article.post{
     background-color: #4A4A4A;
     width: 100%;
     height: auto;
-    margin-top: 0.5em;
+    margin-top: 0.5rem;
 }
 
 article.post h4{
-    margin-top: 0.5em;
-    margin-left: 1em;
+    margin-top: 0.5rem;
+    margin-left: 0;
+    padding-left: 1rem;
     display: flex;
     align-items: center;
     width:100%;
@@ -83,9 +84,9 @@ article.post h4{
 article.post h4 img{
     margin-top: 0;
     margin-left: 0;
-    margin-right: 0.5em;
-    width: 2.5em;
-    height: 2.5em;
+    margin-right: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     overflow: hidden;
     border-radius: 50%;
 }
@@ -93,23 +94,23 @@ article.post h4 img{
 article.post h4 p{
     display: inline-block;
     vertical-align: middle;
-    font-size: 2em;
+    font-size: 2rem;
     margin-top: 0;
     margin-bottom: 0;
 }
 
 article.post>p{
     text-align: left;
-    margin-left: 1em;
-    margin-top: 0.5em;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
 }
 
 section.music-box{
-    height: 6em;
+    height: 6rem;
     width: 90%;
     margin-left: 5%;
     background-color: #E28AB9;
-    border-radius: 1em;
+    border-radius: 1rem;
     display: flex;
     align-items: center;
 }
@@ -119,34 +120,46 @@ section.music-box>*{
 }
 
 section.music-box img{
-    height: 4em;
-    width: 4em;
+    height: 4rem;
+    width: 4rem;
     border-radius: 0%;
 }
 
 section.music-box>section {
     display: inline-block;
     vertical-align: middle;
-    margin-left: 0.5em;
+    margin-left: 0.5rem;
     text-align: left;
 }
 
 section.music-box>section header{
-    font-size: 1.3em;
+    font-size: 1.3rem;
 }
 
 section.music-box>section p{
     margin: 0;
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 section.music-box a{
     align-self: center;
     margin-left: auto;
-    margin-right: 1em;
+    margin-right: 1rem;
 }
 
 section.music-box a em{
-    font-size: 2em;
+    font-size: 2rem;
     color: #000;
+}
+
+section.post-interaction{
+    margin-top: 0.5rem;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+section.post-interaction a{
+    margin-left: auto;
 }
