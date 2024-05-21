@@ -17,15 +17,17 @@ header h2{
     text-align: center;
 }
 
-main>section div{
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
 main>section h3{
     text-align: left;
     font-size: 1em;
     opacity: 0.6;
+    margin-bottom: 0;
+}
+
+main>section div{
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 10em;
 }
 
 main>section a{
@@ -35,6 +37,7 @@ main>section a{
 main>section article{
     display: inline-block;
     width: 9em;
+    height: 10em;
     margin-left: 0;
     margin-right: 0;
 }
@@ -52,5 +55,98 @@ main>section article img{
 
 main>section article h4 {
     margin-top: 0.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 0;
+    width: 7em;
+    white-space: nowrap;
+    overflow: hidden;
     text-align: center;
+    text-overflow: ellipsis;
+}
+
+article.post{
+    background-color: #4A4A4A;
+    width: 100%;
+    height: auto;
+    margin-top: 0.5em;
+}
+
+article.post h4{
+    margin-top: 0.5em;
+    margin-left: 1em;
+    display: flex;
+    align-items: center;
+    width:100%;
+}
+
+article.post h4 img{
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0.5em;
+    width: 2.5em;
+    height: 2.5em;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+article.post h4 p{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+article.post>p{
+    text-align: left;
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
+section.music-box{
+    height: 6em;
+    width: 90%;
+    margin-left: 5%;
+    background-color: #E28AB9;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+}
+
+section.music-box>*{
+    margin-top: 0;
+}
+
+section.music-box img{
+    height: 4em;
+    width: 4em;
+    border-radius: 0%;
+}
+
+section.music-box>section {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.5em;
+    text-align: left;
+}
+
+section.music-box>section header{
+    font-size: 1.3em;
+}
+
+section.music-box>section p{
+    margin: 0;
+    font-size: 1em;
+}
+
+section.music-box a{
+    align-self: center;
+    margin-left: auto;
+    margin-right: 1em;
+}
+
+section.music-box a em{
+    font-size: 2em;
+    color: #000;
 }
