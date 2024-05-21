@@ -10,7 +10,10 @@
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
     <section>
-        <h3>Canzoni Pubblicate</h3>
+        <header>
+            <h3>Canzoni Pubblicate</h3>
+            <a href="#">more</a>
+        </header>
         <div>
             <?php
                 $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5);
@@ -34,7 +37,10 @@
         </div>
     </section>
     <section>
-        <h3>Playlist Pubblicate</h3>
+        <header>
+            <h3>Playlist Pubblicate</h3>
+            <a href="#">more</a>
+        </header>
         <?php
             $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"],5);
         ?>
@@ -58,7 +64,10 @@
         </div> 
     </section>
     <section>
-        <h3>Album Pubblicati</h3>
+        <header>
+            <h3>Album Pubblicati</h3>
+            <a href="#">more</a>
+        </header>
         <?php
             $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"],5);
         ?>
@@ -82,7 +91,10 @@
         </div>
     </section>
     <section>
-        <h3>Migliori Post</h3>
+        <header>
+            <h3>Migliori Post</h3>
+            <a href="#">more</a>
+        </header>
         <?php 
             $bestPosts = $dbh->getBestUserPosts($template["profile"]["Username"],5);
             foreach ($bestPosts as $post): 
