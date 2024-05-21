@@ -1,0 +1,56 @@
+ul{
+    list-style: none;
+}
+
+header img{
+    width: 15em;
+    height: 15em;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 5em;
+    margin-bottom: 0;
+}
+
+header h2{
+    font-size: 2em;
+    margin-top: 0.2em;
+    text-align: center;
+}
+
+main>section div{
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+main>section h3{
+    text-align: left;
+    font-size: 1em;
+    opacity: 0.6;
+}
+
+main>section a{
+    text-decoration: none;
+}
+
+main>section article{
+    display: inline-block;
+    width: 9em;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+main>section article img{
+    display: block;
+    width: 7em;
+    height: 7em;
+    object-fit: cover;
+    border-radius: 1em;
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-bottom: 0;
+}
+
+main>section article h4 {
+    margin-top: 0.5em;
+    text-align: center;
+}

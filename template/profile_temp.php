@@ -4,26 +4,34 @@
             if(!empty($template["profile"]["ProfileImage"])){
                 echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" \>";
             }else{
-                //playsolder
+                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" \>";
             }
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
     <section>
         <h3>Canzoni Pubblicate</h3>
-        <?php
-            $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5);
-        ?>
-        <ul>
+        <div>
             <?php
-                print_r($template["profile"]["Username"]);
+                $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5);
+            ?>
+            <?php
                 foreach ($tracks as $track){
             ?>
-            <li>
-                <a href="player.php?trackid=<?php echo $track["TrackID"]?>"><?php echo $track["Name"]?></a>
-            </li>
+                <article>
+                    <a href="player.php?trackid=<?php echo $track["TrackID"]?>">
+                        <?php
+                            if(!empty($track["CoverImage"])) {
+                                echo "<img src=\"{$track["CoverImage"]}\" alt=\"\" \>";
+                            }else{
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" \>";
+                            }
+                        ?>
+                        <h4><?php echo $track["Name"]?></h4>
+                    </a>
+                </article>
             <?php }?>
-        </ul>
+        </div>
     </section>
     <section>
         <h3>Playlist Pubblicate</h3>
@@ -62,7 +70,7 @@
             foreach ($bestPosts as $post): 
         ?>
         <article>
-            <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
+            <?php $user = $template["profile"]; ?>
             <!--Utente e foto utente-->
             <h1>
                 <?php if ($user["ProfileImage"] != null): ?>
