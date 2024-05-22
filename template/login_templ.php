@@ -20,7 +20,7 @@
             </li>
             <li>
                 <label for="password" hidden>Password</label>
-                <input type="text" name="password" id="password" placeholder="Password" required/>
+                <input type="password" name="password" id="password" placeholder="Password" required/>
             </li>
         </ul>
         <input id="submit-btn" type="submit" value="Login"/>
