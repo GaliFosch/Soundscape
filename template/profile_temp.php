@@ -11,8 +11,9 @@
     </header>
     <?php if(!$template["isLogged"]):?>
         <div>
-            <em class="fa-solid fa-user-plus"></em>
+            <em id="follow" class="fa-solid fa-user-plus"></em>
         </div>
+        <script src="js/follow.js"></script>
     <?php endif;?>
     <section>
         <header>
