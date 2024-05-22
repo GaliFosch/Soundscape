@@ -17,6 +17,16 @@ header h2{
     text-align: center;
 }
 
+main>div{
+    display: flex;
+    justify-content: end;
+}
+
+main>div em{
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
 main>section>header{
     display: flex;
     justify-content: space-between;
