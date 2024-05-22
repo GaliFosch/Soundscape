@@ -5,6 +5,7 @@ require_once("bootstrap.php");
 if(!isset($_GET["profile"])){
     if(!checkLogin($dbh)){
         $template["profile"] = $dbh->getUserByUsername($_SESSION["username"]);
+        $template["isLogged"] = true;
     }else{
         header("Location: login.php");
     }
@@ -13,6 +14,7 @@ if(!isset($_GET["profile"])){
     if($template["profile"] == false){
         //TODO: ERRORE
     }
+    $template["isLogged"] = false;
 }
 
 $template["title"] = "Soundscape - {$template["profile"]["Username"]}";

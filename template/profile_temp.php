@@ -9,9 +9,11 @@
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
-    <div>
-        <em class="fa-solid fa-user-plus"></em>
-    </div>
+    <?php if(!$template["isLogged"]):?>
+        <div>
+            <em class="fa-solid fa-user-plus"></em>
+        </div>
+    <?php endif;?>
     <section>
         <header>
             <h3>Canzoni Pubblicate</h3>
