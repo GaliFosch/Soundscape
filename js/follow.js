@@ -1,7 +1,17 @@
+const searchParams = new URLSearchParams(window.location.search);
+
 function followProcedure(follow){
+    let req = new XMLHttpRequest()
+    let target = searchParams.get("profile")
     if(follow.classList.contains("fa-user-plus")){
-        follow.classList.remove("fa-user-plus")
-        follow.classList.add("fa-user-check")
+        req.onload = function() {
+            if(req.responseText === "true"){
+                follow.classList.remove("fa-user-plus")
+                follow.classList.add("fa-user-check")
+            }
+        }
+        req.open("GET", "process_follow.php?target=" + target)
+        req.send()
     }else{
         follow.classList.remove("fa-user-check")
         follow.classList.add("fa-user-plus")

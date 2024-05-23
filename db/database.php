@@ -114,6 +114,34 @@ class DatabaseHelper {
         return true;
     }
 
+    public function follow($follower, $followed){
+        $usrFollowed = $this->getUserByUsername($followed);
+        if($usrFollowed == false){
+            return false;
+        }
+        $this->db->begin_transaction();
+        try{
+            $query = "INSERT INTO follow(Following, Follower) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $followed, $follower);
+            $stmt->execute();
+
+            $newValue = $usrFollowed["NumFollower"] + 1;
+            $query = "UPDATE user
+                        SET NumFollower = ?
+                        WHERE Username = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $newValue, $followed);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $exception) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
     public function getUserByUsername($username){
         $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
                 FROM user 
