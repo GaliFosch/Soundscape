@@ -4,56 +4,82 @@
             if(!empty($template["profile"]["ProfileImage"])){
                 echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" \>";
             }else{
-                //playsolder
+                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" \>";
             }
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
     <section>
         <h3>Canzoni Pubblicate</h3>
-        <?php
-            $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5);
-        ?>
-        <ul>
+        <div>
             <?php
-                print_r($template["profile"]["Username"]);
-                foreach ($tracks as $track){
+                $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5);
             ?>
-            <li>
-                <a href="player.php?trackid=<?php echo $track["TrackID"]?>"><?php echo $track["Name"]?></a>
-            </li>
-            <?php }?>
-        </ul>
+            <?php
+                foreach ($tracks as $track):
+            ?>
+                <article>
+                    <a href="player.php?trackid=<?php echo $track["TrackID"]?>">
+                        <?php
+                            if(!empty($track["CoverImage"])) {
+                                echo "<img src=\"{$track["CoverImage"]}\" alt=\"\" \>";
+                            }else{
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" \>";
+                            }
+                        ?>
+                        <h4><?php echo $track["Name"]?></h4>
+                    </a>
+                </article>
+            <?php endforeach;?>
+        </div>
     </section>
     <section>
         <h3>Playlist Pubblicate</h3>
         <?php
             $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"],5);
         ?>
-        <ul>
+        <div>
             <?php
-                foreach ($playlists as $playlist){
+                foreach ($playlists as $playlist):
             ?>
-            <li>
-                <a href="#"><?php echo $playlist["Name"]?></a>
-            </li>
-            <?php }?>
-        </ul>
+                <article>
+                    <a href="#">
+                        <?php
+                            if(!empty($playlist["CoverImage"])) {
+                                echo "<img src=\"{$playlist["CoverImage"]}\" alt=\"\" \>";
+                            }else{
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" \>";
+                            }
+                        ?>
+                        <h4><?php echo $playlist["Name"]?></h4>
+                    </a>
+                </article>
+            <?php endforeach;?>
+        </div> 
     </section>
     <section>
         <h3>Album Pubblicati</h3>
         <?php
             $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"],5);
         ?>
-        <ul>
+        <div>
             <?php
-                foreach ($albums as $album){
+                foreach ($albums as $album):
             ?>
-            <li>
-                <a href="#"><?php echo $album["Name"]?></a>
-            </li>
-            <?php }?>
-        </ul>
+                <article>
+                    <a href="#">
+                        <?php
+                            if(!empty($album["CoverImage"])) {
+                                echo "<img src=\"{$album["CoverImage"]}\" alt=\"\" \>";
+                            }else{
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" \>";
+                            }
+                        ?>
+                        <h4><?php echo $album["Name"]?></h4>
+                    </a>
+                </article>
+            <?php endforeach;?>
+        </div>
     </section>
     <section>
         <h3>Migliori Post</h3>
@@ -61,30 +87,30 @@
             $bestPosts = $dbh->getBestUserPosts($template["profile"]["Username"],5);
             foreach ($bestPosts as $post): 
         ?>
-        <article>
-            <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
+        <article class = "post">
+            <?php $user = $template["profile"]; ?>
             <!--Utente e foto utente-->
-            <h1>
+            <h4>
                 <?php if ($user["ProfileImage"] != null): ?>
-                    <img class="picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
+                    <img src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                 <?php else: ?>
-                    <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                    <img src="images/placeholder-image.jpg" alt="User profile image"/>
                 <?php endif; ?>
-                <?php echo $user["Username"]; ?>
-            </h1>
+                <p><?php echo $user["Username"]; ?></p>
+            </h4>
             <!--Post caption-->
-            <p class="open-focus" post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
+            <p post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
             <!--Outer section of music box-->
-            <section class="music-box">
+            <section class = "music-box">
                 <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
                 <?php if ($track != null): ?>
                     <?php if ($track["CoverImage"] != null): ?>
-                        <img class="song" src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
+                        <img src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
                     <?php else: ?>
-                        <img class="song" src="images/placeholder-image.jpg" alt="Song cover image"/>
+                        <img src="images/placeholder-image.jpg" alt="Song cover image"/>
                     <?php endif; ?>
                     <!--Inner section delle info della music-->
-                    <section class="music-info">
+                    <section>
                         <header><strong><?php echo $track["Name"]; ?></strong></header>
                         <p><?php echo $track["Creator"]; ?></p>
                     </section>
