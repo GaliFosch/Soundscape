@@ -122,7 +122,7 @@ nav .fa-solid {
     background-color: #098AFF;
 }
 
-#register > input {
+#register > input, #logout > input {
     color: black;
 }
 
