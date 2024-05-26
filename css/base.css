@@ -19,8 +19,10 @@ body {
  */
 
 nav, nav.desktop {
+    display: flex;
+    flex-direction: column;
     height: inherit;
-    width: 10rem;
+    width: 13rem;
     background-color: #3E3455;
     position: fixed;
     padding-bottom: 1.5rem;

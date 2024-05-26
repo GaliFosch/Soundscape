@@ -13,7 +13,6 @@ $artistID = $track["Creator"];
 $artist = $dbh->getUserByUsername($artistID);
 ?>
 
-<aside class="post-focus">
 <em class="fa-solid fa-xmark close-focus"></em>
 <h1>
     <?php if ($user["ProfileImage"] != null): ?>
@@ -42,7 +41,15 @@ $artist = $dbh->getUserByUsername($artistID);
 
 <section class="post-interaction focus">
     <a href="#"><em class="fa-regular fa-message focus"></em></a>
-    <em class="fa-regular fa-heart focus"></em>
+    <?php if(isset($_SESSION['username'])): ?>
+        <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
+            <em class="fa-solid fa-heart fa-fw focus"></em>
+        <?php else: ?>
+            <em class="fa-regular fa-heart fa-fw focus"></em>
+        <?php endif; ?>
+    <?php else: ?>
+        <em class="fa-regular fa-heart fa-fw focus"></em>
+    <?php endif; ?>
 </section>
 
 <section class="artist-info">
@@ -57,16 +64,4 @@ $artist = $dbh->getUserByUsername($artistID);
     <p class="artist-name"><?php echo $artist["Username"]; ?></p>
     <p class="artist-description"><?php echo $artist["Biography"]; ?></p>
 <!--Outer section of music box-->
-
-</aside>
-<script>
-        let postFocus = document.querySelector(".post-focus");
-        console.log(postFocus);
-        let closeFocus = document.querySelector(".close-focus");
-        console.log(closeFocus);
-        closeFocus.addEventListener("click", () => {
-            console.log("Grazie");
-            postFocus.style.display =  "none";
-        });
-</script>
 
