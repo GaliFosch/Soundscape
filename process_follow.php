@@ -3,7 +3,7 @@
 require_once("bootstrap.php");
 require_once("utils/functions.php");
 
-if(!checkLogin($dbh)){
+if(checkLogin($dbh)){
     if(isset($_GET["target"])){
         $res = $dbh->follow($_SESSION["username"], $_GET["target"]);
         if(!$res){

@@ -2,10 +2,12 @@
 
 require_once("bootstrap.php");
 
+$template["isUserLogged"] = checkLogin($dbh);
+
 if(!isset($_GET["profile"])){
-    if(!checkLogin($dbh)){
+    if($template["isUserLogged"]){
         $template["profile"] = $dbh->getUserByUsername($_SESSION["username"]);
-        $template["isLogged"] = true;
+        $template["isProfileLogged"] = true;
     }else{
         header("Location: login.php");
     }
@@ -14,7 +16,12 @@ if(!isset($_GET["profile"])){
     if($template["profile"] == false){
         //TODO: ERRORE
     }
-    $template["isLogged"] = false;
+    $template["isProfileLogged"] = false;
+    if($template["isUserLogged"]){
+        if($_SESSION["username"] == $_GET["profile"]){
+            $template["isProfileLogged"] = true;
+        }
+    }
 }
 
 $template["title"] = "Soundscape - {$template["profile"]["Username"]}";

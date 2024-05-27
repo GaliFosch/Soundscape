@@ -114,6 +114,15 @@ class DatabaseHelper {
         return true;
     }
 
+    public function isFollowing($follower, $followed){
+        $query = "SELECT * FROM follow WHERE Follower = ? AND Following = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss",$follower, $followed);
+        $stmt->execute();
+        $stmt->store_result();
+        return $stmt->num_rows() != 0;
+    }
+
     public function follow($follower, $followed){
         $usrFollowed = $this->getUserByUsername($followed);
         if($usrFollowed == false){
