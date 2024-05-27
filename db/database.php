@@ -151,6 +151,39 @@ class DatabaseHelper {
         }
     }
 
+    public function unfollow($follower, $followed){
+        $usrFollowed = $this->getUserByUsername($followed);
+        if($usrFollowed == false){
+            return false;
+        }
+        $this->db->begin_transaction();
+        try{
+            $query = "DELETE FROM follow WHERE Follower = ? AND Following = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $follower, $followed);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows()==0){
+                $this->db->rollback();
+                return false;
+            }
+
+            $newValue = $usrFollowed["NumFollower"] - 1;
+            $query = "UPDATE user
+                        SET NumFollower = ?
+                        WHERE Username = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $newValue, $followed);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $exception) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
     public function getUserByUsername($username){
         $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
                 FROM user 
