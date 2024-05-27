@@ -343,4 +343,26 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
     }
+
+    public function getAllComments($postID) {
+        $query = "SELECT CommentText, Username
+                    FROM comment
+                    WHERE PostID = ?
+                    ORDER BY CommentTimestamp";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i',$postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllLikes($postID) {
+        $query = "SELECT postlike.Username, user.ProfileImage
+                        FROM postlike
+                        INNER JOIN user ON postlike.Username = user.Username
+                        WHERE postlike.PostID = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i',$postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            }
 }

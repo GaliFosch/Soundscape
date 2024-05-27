@@ -2,11 +2,16 @@ let posts = document.querySelectorAll(".open-focus");
 let asideOpen = false;
 let heartPairs = new Map();
 
+const Popover = Object.freeze({
+  Aside: 0,
+  Footer:1
+});
+
+//Down here it deals with the post, the aside and the like functionality
 posts.forEach((post) => {
 
   const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
   console.log(closestHeart)
-  let heartIcon = post.querySelector(".fa-heart");
   closestHeart.addEventListener('click', (event) => toggleColor(event,post));
 
 
@@ -20,7 +25,7 @@ posts.forEach((post) => {
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
-              showPopover(this.responseText);
+              showPopover(this.responseText, Popover.Aside);
               let focusHeartIcon = document.querySelector(".fa-heart.focus");
               addCloseListener(closestHeart,focusHeartIcon);
               heartPairs.set(closestHeart,focusHeartIcon);
@@ -36,8 +41,16 @@ posts.forEach((post) => {
       
 });
 
-function showPopover(content) {
-  let popover = document.createElement('aside');
+function showPopover(content, ver) {
+  let popover;
+  switch (ver) {
+    case Popover.Aside:
+      popover = document.createElement('aside');
+      break;
+    case Popover.Footer:
+      popover = document.createElement('footer');
+      break;
+  }
   popover.classList.add('popover');
   popover.innerHTML = content;
   document.body.appendChild(popover);
@@ -49,11 +62,13 @@ function addCloseListener(heartIcon, heartIconPair) {
   closeFocus.addEventListener("click", () => {
       postFocus.remove();
       asideOpen = !asideOpen;
-      heartPairs.delete(heartIcon);
-      heartPairs.delete(heartIconPair);
+      if(heartIcon!=null && heartIconPair!=null) {
+        heartPairs.delete(heartIcon);
+        heartPairs.delete(heartIconPair);
+      }
+      
   });
 }
-
 /*This part deals with the heart button*/
 function toggleColor(event, post) {
   console.log("grazie del clik");
@@ -84,6 +99,48 @@ function toggleColor(event, post) {
             }
             
           }
+        console.log("Senza il login non puoi mettere like!");
       xhttp.send();  
 }
 
+//Down here it deals with the comment section
+let comments = document.querySelectorAll(".fa-message");
+
+comments.forEach((comm) => {
+  comm.addEventListener("click", () => {
+    console.log("Stop Licking the damn thing");
+        let postId = comm.getAttribute('post-id');
+    console.log(postId);
+        var xhttp;    
+        xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "template/comments.php?post="+postId, true);
+        xhttp.onreadystatechange = function() {
+          if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
+              // Add requested previews to section
+              showPopover(this.responseText, Popover.Footer);
+              interactionViewerChanger();
+              addCloseListener();
+          }
+      }
+        xhttp.send();
+   });
+})
+
+function interactionViewerChanger() {
+  let comment = document.querySelector(".comment-changer");
+  let like = document.querySelector(".like-changer");
+  let likeDiv = document.querySelector(".likes")
+  let commentDiv = document.querySelector(".comments")
+
+  comment.addEventListener("click", () => {
+    console.log("Changint to comment")
+    likeDiv.style.display="none";
+    commentDiv.style.display="block";
+  })
+
+  like.addEventListener("click", () => {
+    console.log("Changint to heart")
+    commentDiv.style.display="none";
+    likeDiv.style.display="block";
+  })
+}
