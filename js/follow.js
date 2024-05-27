@@ -13,8 +13,14 @@ function followProcedure(follow){
         req.open("GET", "process_follow.php?target=" + target)
         req.send()
     }else{
-        follow.classList.remove("fa-user-check")
-        follow.classList.add("fa-user-plus")
+        req.onload = function() {
+            if(req.responseText === "true"){
+                follow.classList.remove("fa-user-check")
+                follow.classList.add("fa-user-plus")
+            }
+        }
+        req.open("GET", "process_unfollow.php?target=" + target)
+        req.send()
     }
 }
 

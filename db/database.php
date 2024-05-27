@@ -153,7 +153,7 @@ class DatabaseHelper {
 
     public function unfollow($follower, $followed){
         $usrFollowed = $this->getUserByUsername($followed);
-        if($usrFollowed == false){
+        if($usrFollowed == false || !$this->isFollowing($follower, $followed)){
             return false;
         }
         $this->db->begin_transaction();
@@ -162,11 +162,6 @@ class DatabaseHelper {
             $stmt = $this->db->prepare($query);
             $stmt->bind_param("ss", $follower, $followed);
             $stmt->execute();
-            $stmt->store_result();
-            if($stmt->num_rows()==0){
-                $this->db->rollback();
-                return false;
-            }
 
             $newValue = $usrFollowed["NumFollower"] - 1;
             $query = "UPDATE user
