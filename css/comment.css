@@ -1,5 +1,6 @@
 footer {
     background-color: #323232;
+    padding: 0.5rem;
 }
 
 section.interaction-changer {
@@ -7,6 +8,40 @@ section.interaction-changer {
     margin: 0.5rem 0;
     border-bottom: 0.1rem solid white;
     padding: 0.5rem 0;
+    display: flex;
+    flex-direction: row;
+}
+
+section.interaction-changer > section {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.separator {
+    border: 0.05rem solid white;
+    height: inherit;
+    margin: 0 0.5rem;
+}
+
+em.comment-changer, em.like-changer {
+    color: #FFF;
+}
+
+.comment-changer-section.selected {
+    border-bottom: 0.2rem solid #1D70AD;
+}
+
+.comment-changer-section.selected>em, .comment-changer-section.selected>p {
+    color: #1D70AD;
+}
+
+.like-changer-section.selected {
+    border-bottom: 0.2rem solid #E91E63;
+}
+
+.like-changer-section.selected>em, .like-changer-section.selected>p {
+    color: #E91E63;
 }
 
 textarea {
@@ -83,7 +118,7 @@ article.people-like {
 
     footer {
         position: absolute;
-        height: inherit;
+        height: 100%;
         width: -webkit-fill-available;
         margin-top: 3rem;
     }

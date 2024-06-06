@@ -46,9 +46,11 @@ function showPopover(content, ver) {
   switch (ver) {
     case Popover.Aside:
       popover = document.createElement('aside');
+      popover.classList.add('popover-aside');
       break;
     case Popover.Footer:
       popover = document.createElement('footer');
+      popover.classList.add('popover-comment');
       break;
   }
   popover.classList.add('popover');
@@ -57,16 +59,20 @@ function showPopover(content, ver) {
 }
 
 function addCloseListener(heartIcon, heartIconPair) {
-  let postFocus = document.querySelector(".popover");
+  let postFocus = document.querySelector(".popover-aside");
+  let commentFocus = document.querySelector(".popover-comment");
   let closeFocus = document.querySelector(".close-focus");
   closeFocus.addEventListener("click", () => {
+    if(postFocus!=null) {
       postFocus.remove();
       asideOpen = !asideOpen;
       if(heartIcon!=null && heartIconPair!=null) {
         heartPairs.delete(heartIcon);
         heartPairs.delete(heartIconPair);
       }
-      
+    } else if(commentFocus!=null) {
+      commentFocus.remove();
+    }
   });
 }
 /*This part deals with the heart button*/
@@ -103,6 +109,41 @@ function toggleColor(event, post) {
       xhttp.send();  
 }
 
+function addSelectedListener() {
+  let heart = document.querySelector(".like-changer-section");
+  let comment = document.querySelector(".comment-changer-section");
+  let selected = document.querySelector(".selected");
+
+  heart.addEventListener("click", () => {
+    selected.style.borderBottom = "0 solid";
+  selected.querySelector("p").color = "#FFF";
+  selected.querySelector("em").color = "#FFF";
+
+    comment.classList.toggle('selected');
+    heart.classList.toggle('selected');
+
+    let sel = document.querySelector(".selected");
+    sel.style.borderBottom = "0.2rem solid #E91E63";
+
+    selected = sel;
+  });
+
+  comment.addEventListener("click", () => {
+    selected.style.borderBottom = "0 solid";
+  selected.querySelector("p").color = "#FFF";
+  selected.querySelector("em").color = "#FFF";
+
+    comment.classList.toggle('selected');
+    heart.classList.toggle('selected');
+
+    let sel = document.querySelector(".selected");
+    sel.style.borderBottom = "0.2rem solid #1D70AD";
+
+    selected = sel;
+  });
+  
+}
+
 //Down here it deals with the comment section
 let comments = document.querySelectorAll(".fa-message");
 
@@ -120,6 +161,7 @@ comments.forEach((comm) => {
               showPopover(this.responseText, Popover.Footer);
               interactionViewerChanger();
               addCloseListener();
+              addSelectedListener();
           }
       }
         xhttp.send();
