@@ -1,4 +1,5 @@
 let posts = document.querySelectorAll(".open-focus");
+let comments = document.querySelectorAll(".fa-message");
 let asideOpen = false;
 let heartPairs = new Map();
 
@@ -13,8 +14,6 @@ posts.forEach((post) => {
   const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
   console.log(closestHeart)
   closestHeart.addEventListener('click', (event) => toggleColor(event,post));
-
-
   post.addEventListener("click", () => {
     if(!asideOpen) {
         let postId = post.getAttribute('post-id');
@@ -41,6 +40,7 @@ posts.forEach((post) => {
       
 });
 
+//This code deals with the popovers, both aside and footer
 function showPopover(content, ver) {
   let popover;
   switch (ver) {
@@ -56,8 +56,9 @@ function showPopover(content, ver) {
   popover.classList.add('popover');
   popover.innerHTML = content;
   document.body.appendChild(popover);
-}
+};
 
+//This code deals with the close function both of the aside and the footer
 function addCloseListener(heartIcon, heartIconPair) {
   let postFocus = document.querySelector(".popover-aside");
   let commentFocus = document.querySelector(".popover-comment");
@@ -74,7 +75,8 @@ function addCloseListener(heartIcon, heartIconPair) {
       commentFocus.remove();
     }
   });
-}
+};
+
 /*This part deals with the heart button*/
 function toggleColor(event, post) {
   console.log("grazie del clik");
@@ -107,8 +109,10 @@ function toggleColor(event, post) {
           }
         console.log("Senza il login non puoi mettere like!");
       xhttp.send();  
-}
+};
 
+//This code deals with the selection of the comments section or likes sections
+//This is on a GUI type of way (it changes the colors and such)
 function addSelectedListener() {
   let heart = document.querySelector(".like-changer-section");
   let comment = document.querySelector(".comment-changer-section");
@@ -142,32 +146,8 @@ function addSelectedListener() {
     selected = sel;
   });
   
-}
-
-//Down here it deals with the comment section
-let comments = document.querySelectorAll(".fa-message");
-
-comments.forEach((comm) => {
-  comm.addEventListener("click", () => {
-    console.log("Stop Licking the damn thing");
-        let postId = comm.getAttribute('post-id');
-    console.log(postId);
-        var xhttp;    
-        xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "template/comments.php?post="+postId, true);
-        xhttp.onreadystatechange = function() {
-          if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-              // Add requested previews to section
-              showPopover(this.responseText, Popover.Footer);
-              interactionViewerChanger();
-              addCloseListener();
-              addSelectedListener();
-          }
-      }
-        xhttp.send();
-   });
-})
-
+};
+//This is on a basic way, hide likes if comments and vice versa
 function interactionViewerChanger() {
   let comment = document.querySelector(".comment-changer");
   let like = document.querySelector(".like-changer");
@@ -185,4 +165,55 @@ function interactionViewerChanger() {
     commentDiv.style.display="none";
     likeDiv.style.display="block";
   })
+};
+
+//Down here it deals with the comment section
+comments.forEach((comm) => {
+  comm.addEventListener("click", () => {
+    console.log("Stop Licking the damn thing");
+        let postId = comm.getAttribute('post-id');
+    console.log(postId);
+        var xhttp;    
+        xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "template/comments.php?post="+postId, true);
+        xhttp.onreadystatechange = function() {
+          if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
+              // Add requested previews to section
+              showPopover(this.responseText, Popover.Footer);
+              interactionViewerChanger();
+              addCloseListener();
+              addSelectedListener();
+              sendCommentButton();
+          }
+      }
+        xhttp.send();
+   });
+});
+
+//This code deals with comments reopening when a comment or like is added
+function sendCommentButton() {
+  let subButton = document.querySelector(".subButton");
+  subButton.addEventListener("submit", function(event) {
+    let postComment = subButton.getAttribute('post-id');
+    event.preventDefault();
+    subButton.submit();
+    comments.forEach((comm) => {
+        if(postComment == comm.getAttribute('post-id')) {
+          var xhttp;    
+          xhttp = new XMLHttpRequest();
+          xhttp.open("GET", "template/comments.php?post="+postId, true);
+          xhttp.onreadystatechange = function() {
+            if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
+                // Add requested previews to section
+                showPopover(this.responseText, Popover.Footer);
+                addCommentSender(postId);
+                interactionViewerChanger();
+                addCloseListener();
+                addSelectedListener();
+            }
+        }
+          xhttp.send();
+        }
+    });
+  });
 }

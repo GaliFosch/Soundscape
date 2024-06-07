@@ -44,7 +44,7 @@ em.comment-changer, em.like-changer {
     color: #E91E63;
 }
 
-textarea {
+.comment-text {
     resize: none;
     width: -webkit-fill-available;
     margin: 0.3rem;
@@ -53,9 +53,14 @@ textarea {
     font-size: 1em;
     border-radius: 18px;
     padding: 0.5rem;
+    word-wrap:break-word;
 }
 
-textarea:focus {
+section.comment-text {
+    border: none;
+}
+
+.comment-text:focus {
     outline: none;
 }
 
@@ -69,6 +74,16 @@ form {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+}
+
+label {
+    display: none;
 }
 
 .picture.comment-form {
@@ -113,10 +128,7 @@ article.people-like {
 @media screen and (max-width: 768px) {
 
     footer {
-        overflow: hidden;
-    }
-
-    footer {
+        z-index: 1;
         position: absolute;
         height: 100%;
         width: -webkit-fill-available;

@@ -344,6 +344,15 @@ class DatabaseHelper {
 
     }
 
+    public function addComment($text, $userID, $postID) {
+        $timestamp = date('Y-m-d H:i:s');
+        $query = "INSERT INTO comment (CommentText, CommentTimestamp, Username, PostID)
+                    VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sssi', $text, $timestamp,$userID, $postID);
+        $stmt->execute();
+    }
+
     public function getAllComments($postID) {
         $query = "SELECT CommentText, Username
                     FROM comment
