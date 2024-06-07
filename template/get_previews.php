@@ -3,7 +3,9 @@
 require_once("..\bootstrap.php");
 
 $preview_type = $_GET["type"];
-$query_str = $_SESSION["search-query"];
+if (isset($_SESSION["search-query"])) {
+    $query_str = $_SESSION["search-query"];
+}
 $previews_to_show = (int) $_GET["show"];
 $previews_to_skip = (int) $_GET["skip"];
 $previews = array();
