@@ -15,7 +15,7 @@ $user = $dbh->getUserByUsername($_SESSION["username"]);
     <em class="fa-solid fa-xmark close-focus"></em>
     <section class="interaction-changer">
         <section class="comment-changer-section selected">
-            <em class="fa-regular fa-message fa-fw comment-changer "></em>
+            <em class="fa-regular fa-message fa-fw comment-changer"></em>
             <p><?php echo sizeof($comments) ?></p>
         </section>
         <div class="separator"></div>
@@ -30,7 +30,7 @@ $user = $dbh->getUserByUsername($_SESSION["username"]);
         
         <!--Inserisci il tuo commento-->
         <section class="user-comment">
-            <form action="template/process_comment.php?post=<?php echo $postID; ?>" method="POST">
+            <form class="comment-form" action="template/process_comment.php?post=<?php echo $postID; ?>" method="POST" post-id="<?php echo $postID; ?>">
             <?php if ($user["ProfileImage"] != null): ?>
                     <img class="picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                 <?php else: ?>
@@ -38,7 +38,7 @@ $user = $dbh->getUserByUsername($_SESSION["username"]);
             <?php endif; ?>
             <label for="write-comment">Write your comment:</label>
             <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard"></textarea>
-            <button class="subButton" post-id="<?php echo $post['PostID']; ?>" type="submit">
+            <button type="submit">
                 <em class="fa-regular fa-paper-plane"></em>
             </button>
             </form>

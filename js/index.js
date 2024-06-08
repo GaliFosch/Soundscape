@@ -1,5 +1,6 @@
 let posts = document.querySelectorAll(".open-focus");
 let comments = document.querySelectorAll(".fa-message");
+let postComment = null;
 let asideOpen = false;
 let heartPairs = new Map();
 
@@ -73,6 +74,7 @@ function addCloseListener(heartIcon, heartIconPair) {
       }
     } else if(commentFocus!=null) {
       commentFocus.remove();
+      document.querySelector('body').style.overflow = "scroll";
     }
   });
 };
@@ -173,7 +175,13 @@ comments.forEach((comm) => {
     console.log("Stop Licking the damn thing");
         let postId = comm.getAttribute('post-id');
     console.log(postId);
-        var xhttp;    
+    openComment(postId);
+   });
+});
+
+//This code deals with the opening of the comment. It send the request XHTML request
+function openComment(postId) {
+  var xhttp;    
         xhttp = new XMLHttpRequest();
         xhttp.open("GET", "template/comments.php?post="+postId, true);
         xhttp.onreadystatechange = function() {
@@ -183,37 +191,21 @@ comments.forEach((comm) => {
               interactionViewerChanger();
               addCloseListener();
               addSelectedListener();
-              sendCommentButton();
+              document.querySelector('body').style.overflow = "hidden";
           }
       }
         xhttp.send();
-   });
-});
+}
 
 //This code deals with comments reopening when a comment or like is added
-function sendCommentButton() {
-  let subButton = document.querySelector(".subButton");
-  subButton.addEventListener("submit", function(event) {
-    let postComment = subButton.getAttribute('post-id');
-    event.preventDefault();
-    subButton.submit();
-    comments.forEach((comm) => {
-        if(postComment == comm.getAttribute('post-id')) {
-          var xhttp;    
-          xhttp = new XMLHttpRequest();
-          xhttp.open("GET", "template/comments.php?post="+postId, true);
-          xhttp.onreadystatechange = function() {
-            if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-                // Add requested previews to section
-                showPopover(this.responseText, Popover.Footer);
-                addCommentSender(postId);
-                interactionViewerChanger();
-                addCloseListener();
-                addSelectedListener();
-            }
-        }
-          xhttp.send();
-        }
-    });
-  });
+window.onload= () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('post');
+  comments.forEach((comm) => {
+    let postId = comm.getAttribute('post-id');
+    if(postId == myParam) {
+      openComment(postId);
+    }
+  })
 }
+    

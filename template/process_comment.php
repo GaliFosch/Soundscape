@@ -8,4 +8,4 @@ $user = $dbh->getUserByUsername($_SESSION["username"]);
 
 $dbh->addComment($text,$user["Username"],$postID);
 
-header('Location: ../index.php');
+header('Location: ../index.php?post='.$postID);
