@@ -60,8 +60,15 @@ header input[type=submit] {
     object-fit: cover;
 }
 
-.preview h3 {
-    font-size: 15px;
+.preview-title {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.author {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-top: 0;
 }
 
 .preview figure {
