@@ -17,17 +17,42 @@ header h2{
     text-align: center;
 }
 
+.section-header {
+    width: 100%;
+    text-align: left;
+
+}
+
+.section-title {
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+
+.show-all-btn-container {
+    display: inline-block;
+    width: 35%;
+    text-align: right;
+}
+
+.show-all-btn-container > a {
+    opacity: 0.7;
+}
+
+main > section {
+    margin-top: 2rem;
+}
+
 main>section h3{
     text-align: left;
-    font-size: 1rem;
-    opacity: 0.6;
     margin-bottom: 0;
 }
 
-main>section div{
+main > section > div {
     overflow-x: auto;
     white-space: nowrap;
     height: 10rem;
+    text-align: left;
 }
 
 main>section a{
