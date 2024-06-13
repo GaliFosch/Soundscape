@@ -17,7 +17,7 @@ ul {
     margin-top: 0;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
     background-color: #975AA8;
     width: 30%;
     border-radius: 20px;
