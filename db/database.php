@@ -330,6 +330,16 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getPlaylistByID($id) {
+        $query = "SELECT *
+                  FROM playlist
+                  WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike

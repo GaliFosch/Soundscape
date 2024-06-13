@@ -14,8 +14,9 @@ main > section {
 
 .preview {
     text-align: left;
-    margin-left: 2rem;
     display: block;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
 }
 
 .preview > a {
@@ -28,10 +29,13 @@ main > section {
     height: 5rem;
     object-fit: cover;
     display: inline;
+    margin-right: 0.5rem;
 }
+
 .preview-info {
-    display: inline-block;
-    margin: 0 0 0 0.5rem;
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
 }
 
 .preview-title {
@@ -42,7 +46,14 @@ main > section {
 
 .author {
     font-size: 1rem;
-    opacity: 0.7;
-    margin-top: 0;
+    opacity: 0.8;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+.track-length {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin: 0;
     display: block;
 }

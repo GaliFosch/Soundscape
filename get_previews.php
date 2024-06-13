@@ -34,6 +34,8 @@ switch ($preview_type) {
             $preview["title"] = $track["Name"];
             $preview["author"] = $track["Creator"];
             $preview["image"] = $track["CoverImage"];
+            $preview["year"] = date('Y', strtotime($track["CreationDate"]));
+            $preview["length"] = $track["TimeLength"];
             $preview["link"] = "player.php?trackid=" . $track["TrackID"];
             $previews[] = $preview;
         }
@@ -48,7 +50,8 @@ switch ($preview_type) {
             $preview["title"] = $album["Name"];
             $preview["author"] = $album["Creator"];
             $preview["image"] = $album["CoverImage"];
-            $preview["link"] = "#";
+            $preview["year"] = date('Y', strtotime($album["CreationDate"]));
+            $preview["link"] = "playlist.php?id=" . $album["PlaylistID"];
             $previews[] = $preview;
         }
         break;
@@ -62,7 +65,7 @@ switch ($preview_type) {
             $preview["title"] = $playlist["Name"];
             $preview["author"] = $playlist["Creator"];
             $preview["image"] = $playlist["CoverImage"];
-            $preview["link"] = "#";
+            $preview["link"] = "playlist.php?id=" . $playlist["PlaylistID"];
             $previews[] = $preview;
         }
         break;
@@ -91,7 +94,7 @@ switch ($preview_type) {
             $preview["title"] = $album["Name"];
             $preview["author"] = $album["Creator"];
             $preview["image"] = $album["CoverImage"];
-            $preview["link"] = "#";
+            $preview["link"] = "playlist.php?id=" . $album["PlaylistID"];
             $previews[] = $preview;
         }
         break;
@@ -101,7 +104,7 @@ switch ($preview_type) {
             $preview["title"] = $playlist["Name"];
             $preview["author"] = $playlist["Creator"];
             $preview["image"] = $playlist["CoverImage"];
-            $preview["link"] = "#";
+            $preview["link"] = "playlist.php?id=" . $playlist["PlaylistID"];
             $previews[] = $preview;
         }
         break;
@@ -121,6 +124,11 @@ switch ($preview_type) {
                 <h3 class="preview-title"><?php echo $preview["title"]; ?></h3>
                 <?php if (isset($preview["author"])): ?>
                     <h3 class="author"><?php echo $preview["author"]; ?></h3>
+                <?php endif; ?>
+                <?php if (isset($preview["year"]) && isset($preview["length"])): ?>
+                    <h3 class="track-length"><?php echo $preview["year"]; ?> - <?php echo $preview["length"]; ?></h3>
+                <?php elseif (isset($preview["year"])): ?>
+                    <h3 class="track-length"><?php echo $preview["year"]; ?></h3>
                 <?php endif; ?>
             </div>
         </a>
