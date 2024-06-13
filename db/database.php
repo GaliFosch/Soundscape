@@ -277,6 +277,7 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+
     public function getUserLatestPlaylists($username, $nToShow, $nToSkip = 0) {
         $query = "SELECT PlaylistID, Name, CoverImage
                   FROM playlist
@@ -289,4 +290,57 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function hasUserLiked($postID, $userID) {
+        $query =    "SELECT *
+                    FROM postlike
+                    WHERE EXISTS (SELECT * 
+                                    FROM postlike 
+                                    WHERE PostID = ?
+                                    AND Username = ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is',$postID,$userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function removeLike($postID, $userID) {
+        $query =    "DELETE 
+                    FROM postlike
+                    WHERE PostID = ?
+                    AND Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is',$postID,$userID);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function addLike($postID, $userID) {
+        $query = "INSERT INTO postlike (PostID, Username) 
+                    VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('is',$postID,$userID);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getPersonalizedHomeFeed() {
+
+    }
+
+    public function getGeneralHomeFeed() {
+        $query = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    ORDER BY user.NumFollower DESC";
+        $stmt =  $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    }
 }

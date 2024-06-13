@@ -1,6 +1,6 @@
 <main>
     <?php foreach ($template["posts"] as $post): ?>
-        <article>
+        <article class="post-article">
             <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
             <!--Utente e foto utente-->
             <h1>
@@ -32,9 +32,17 @@
                     </a>
                 <?php endif; ?>
             </section>
-            <section class="post-interaction">
+            <section class="post-interaction post-interaction">
                 <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
-                <em class="fa-regular fa-heart fa-fw"></em>
+                <?php if(isset($_SESSION['username'])): ?>
+                    <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
+                        <em class="fa-solid fa-heart fa-fw article"></em>
+                    <?php else: ?>
+                        <em class="fa-regular fa-heart fa-fw article"></em>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <em class="fa-regular fa-heart fa-fw article"></em>
+                <?php endif; ?>
             </section>
         </article>
     <?php endforeach; ?>
