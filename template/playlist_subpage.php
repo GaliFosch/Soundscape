@@ -9,4 +9,9 @@
         <h2 id="author"><?php echo $template["playlist"]["Creator"]; ?></h2>
         <h3 id="date-and-length"><?php echo "{$template["playlist"]["CreationDate"]} - {$template["playlist"]["TimeLength"]}"; ?></h3>
     </div>
+    <div id="audio-controls">
+        <button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button>
+        <em class="fa-solid fa-shuffle fa-2x"></em>
+    </div>
+    <hr>
 </header>
