@@ -68,7 +68,7 @@
                 <h2>Albums</h2>
                 <?php foreach ($albums as $album): ?>
                     <section class="preview">
-                        <a href="#">
+                        <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                             <?php if (isset($album["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $album["CoverImage"]; ?>" alt="Album cover image"/>
                             <?php else: ?>
@@ -94,7 +94,7 @@
                 <h2>Playlists</h2>
                 <?php foreach ($playlists as $playlist): ?>
                     <section class="preview">
-                        <a href="#">
+                        <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                             <?php if (isset($playlist["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="Playlist cover image"/>
                             <?php else: ?>
@@ -144,7 +144,7 @@
             <?php $albums = $dbh->getLatestAlbums($nPreviewsToShow); ?>
             <?php foreach ($albums as $album): ?>
                 <section class="preview">
-                    <a href="#">
+                    <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                         <?php if (isset($album["CoverImage"])): ?>
                             <img class="picture" src="<?php echo $album["CoverImage"]; ?>" alt="Album cover image"/>
                         <?php else: ?>
@@ -168,7 +168,7 @@
             <?php $playlists = $dbh->getLatestPlaylists($nPreviewsToShow); ?>
             <?php foreach ($playlists as $playlist): ?>
                 <section class="preview">
-                    <a href="#">
+                    <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                         <?php if (isset($playlist["CoverImage"])): ?>
                             <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="Playlist cover image"/>
                         <?php else: ?>

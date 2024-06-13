@@ -47,7 +47,7 @@
             foreach ($albums as $album):
                 ?>
                 <article>
-                    <a href="#">
+                    <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                         <?php
                             if (!empty($album["CoverImage"])) {
                                 echo "<img src=\"{$album["CoverImage"]}\" alt=\"\" \>";
@@ -74,7 +74,7 @@
                 foreach ($playlists as $playlist):
             ?>
                 <article>
-                    <a href="#">
+                    <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                         <?php
                             if (!empty($playlist["CoverImage"])) {
                                 echo "<img src=\"{$playlist["CoverImage"]}\" alt=\"\" />";
