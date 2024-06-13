@@ -211,6 +211,7 @@ function openComment(postId) {
         xhttp.send();
 }
 
+//This code deals with the finding of the nearest section, under which the comment section is to open
 function getSectionAbove(queryPostID) {
   comments.forEach((comm) => {
     let postId = comm.getAttribute('post-id');
@@ -223,7 +224,7 @@ function getSectionAbove(queryPostID) {
   });
 }
 
-//This code deals with comments reopening when a comment or like is added
+//This code deals with comments reopening when a comment is added
 window.onload= () => {
   const urlParams = new URLSearchParams(window.location.search);
   const myParam = urlParams.get('post');

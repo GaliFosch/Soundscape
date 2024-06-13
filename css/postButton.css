@@ -1,0 +1,13 @@
+button.post-button {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 100%;
+    background-color: #1D70AD;
+}
+
+em.post-creation {
+    font-size: 1.5em;
+}

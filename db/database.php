@@ -359,21 +359,27 @@ class DatabaseHelper {
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     INNER JOIN belonging ON post.TrackID = belonging.TrackId
-                    INNER JOIN likedGenre ON belonging.GenreTag = likedGenre.GenreTag
+                    INNER JOIN $likedGenre ON belonging.GenreTag = likedGenre.GenreTag
                     WHERE user.Username IS NOT ?
                     AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    ORDER BY likedGenre.TrackCount DESC";
+                    ORDER BY likedGenre.TrackCount DESC
+                    LIMIT ?, ?";
         
         $finalQuery = "SELECT * FROM (
-                            SELECT * FROM artistQuery
+                            SELECT * FROM $artistQuery
                             UNION 
-                            SELECT * FROM likedQuery
+                            SELECT * FROM $likedQuery
                             UNION 
-                            SELECT * FROM genreQuery
+                            SELECT * FROM $genreQuery
                         ) ORDER BY RAND()";
 
         $stmt = $this->db->prepare($finalQuery);
-        $stmt->bind_param("siisiis", $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip, $userID);
+        $stmt->bind_param("siisiisii", $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip);
+        if($stmt->execute()) {
+            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        } else {
+            $this->getGeneralHomeFeed();
+        }
     }
 
     public function getGeneralHomeFeed() {
@@ -384,7 +390,6 @@ class DatabaseHelper {
         $stmt =  $this->db->prepare($query);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
     }
 
     public function getFavouriteGenres($userID) {
