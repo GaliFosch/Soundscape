@@ -45,6 +45,13 @@ posts.forEach((post) => {
 function showPopover(content, ver, below) {
   console.log("ShowPopoover");
   console.log(below);
+  /*Voglio far si che quando apre i commenti il codice che viene aggiunto per mezzo del popover, non venga
+  messo al fondo del DOM, ma che sia inserito subito dopo il post in questione. Quindi praticamente quando 
+  viene cliccato il pulsante del commento viene cercato la sezione commento più vicina e si cerca di aggiungere
+  il codice sotto. Tuttavia prima di chiamare la funizone showPopover, che è quella che effettivamente aggiunge
+  il codice, viene trovato il tag sotto cui si deve aggiungere, viene stampato per controllare che non sia 
+  errato e poi viene chiamata showPopover. Nel momento in cui si entra nella funzione, si stampa il tag, ma 
+  risulta undefined.*/
   let popover;
   switch (ver) {
     case Popover.Aside:
