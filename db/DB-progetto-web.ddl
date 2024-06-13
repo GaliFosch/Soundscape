@@ -30,7 +30,7 @@ create table Belonging (
 create table COMMENT (
      CommentID int not null auto_increment,
      CommentText varchar(500) not null,
-     CommentTimestamp Timestamp not null,
+     CommentTimestamp Timestamp not null default current_timestamp,
      Parent int,
      Username varchar(30) not null,
      PostID int not null,
@@ -43,7 +43,7 @@ create table GENRE (
 create table NOTIFICATION (
      NotificationID int not null auto_increment,
      CommentID int,
-     NotificationTimestamp timestamp not null,
+     NotificationTimestamp timestamp not null default current_timestamp,
      Type enum("Follower", "Post", "Post_Interaction", "Reply") not null,
      Receiver varchar(30) not null,
      TriggeringUser varchar(30) not null,
@@ -52,21 +52,22 @@ create table NOTIFICATION (
      constraint SID_NOTIF_COMME_ID unique (CommentID));
 
 create table PLAYLIST (
-     NumTracks int not null,
+     NumTracks int not null default 0,
      PlaylistID int not null auto_increment,
      Name varchar(30) not null,
      CoverImage varchar(50),
-     TimeLength time not null,
-     CreationDate datetime not null,
+     TimeLength time not null default 0,
+     CreationDate datetime not null default current_timestamp,
      Creator varchar(30) not null,
-     IsAlbum bool not null,
+     IsAlbum bool not null default false,
      constraint ID_PLAYLIST_ID primary key (PlaylistID));
 
 create table POST (
      PostID int not null auto_increment,
      Caption varchar(500) not null,
-     NumLike int not null,
-     NumComments int not null,
+     NumLike int not null default 0,
+     NumComments int not null default 0,
+     PostTimestamp Timestamp not null default current_timestamp,
      TrackID int,
      PlaylistID int,
      Username varchar(30) not null,
@@ -83,7 +84,7 @@ create table SINGLE_TRACK (
      Name varchar(30) not null,
      CoverImage varchar(50),
      TimeLength time not null,
-     CreationDate datetime not null,
+     CreationDate datetime not null default current_timestamp,
      Creator varchar(30) not null,
      constraint ID_SINGLE_TRACK_ID primary key (TrackID));
 
@@ -244,7 +245,7 @@ create index REF_NOTIF_USER_1_IND
 create index REF_NOTIF_USER_IND
      on NOTIFICATION (TriggeringUser);
 
-create unique index belongingbelongingSID_NOTIF_COMME_IND
+create unique index SID_NOTIF_COMME_IND
      on NOTIFICATION (CommentID);
 
 create index REF_NOTIF_POST_IND
