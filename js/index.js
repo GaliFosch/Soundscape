@@ -25,7 +25,7 @@ posts.forEach((post) => {
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
-              showPopover(this.responseText, Popover.Aside);
+              showPopover(this.responseText, Popover.Aside, null);
               let focusHeartIcon = document.querySelector(".fa-heart.focus");
               addCloseListener(closestHeart,focusHeartIcon);
               heartPairs.set(closestHeart,focusHeartIcon);
@@ -42,7 +42,9 @@ posts.forEach((post) => {
 });
 
 //This code deals with the popovers, both aside and footer
-function showPopover(content, ver) {
+function showPopover(content, ver, below) {
+  console.log("ShowPopoover");
+  console.log(below);
   let popover;
   switch (ver) {
     case Popover.Aside:
@@ -56,7 +58,11 @@ function showPopover(content, ver) {
   }
   popover.classList.add('popover');
   popover.innerHTML = content;
-  document.body.appendChild(popover);
+  if(ver == Popover.Footer) {
+    below.insertAdjacentElement('afterend', popover);
+  } else {
+    document.body.appendChild(popover);
+  }
 };
 
 //This code deals with the close function both of the aside and the footer
@@ -173,7 +179,7 @@ function interactionViewerChanger() {
 comments.forEach((comm) => {
   comm.addEventListener("click", () => {
     console.log("Stop Licking the damn thing");
-        let postId = comm.getAttribute('post-id');
+    let postId = comm.getAttribute('post-id');
     console.log(postId);
     openComment(postId);
    });
@@ -187,7 +193,8 @@ function openComment(postId) {
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
-              showPopover(this.responseText, Popover.Footer);
+              let below = getSectionAbove(postId);
+              showPopover(this.responseText, Popover.Footer, below);
               interactionViewerChanger();
               addCloseListener();
               addSelectedListener();
@@ -195,6 +202,18 @@ function openComment(postId) {
           }
       }
         xhttp.send();
+}
+
+function getSectionAbove(queryPostID) {
+  comments.forEach((comm) => {
+    let postId = comm.getAttribute('post-id');
+    if(queryPostID==postId) {
+      console.log(queryPostID);
+      console.log("trovato");
+      console.log(comm.closest('section'))
+      return comm.closest('section');
+    }
+  });
 }
 
 //This code deals with comments reopening when a comment or like is added

@@ -1,6 +1,7 @@
 footer {
     background-color: #323232;
     padding: 0.5rem;
+    
 }
 
 section.interaction-changer {
@@ -149,10 +150,10 @@ article.people-like {
     }
 
     .comments, .likes {
-        height: -webkit-fill-available;
+        height: 100%;
         width: -webkit-fill-available;
-        display: block;
-        overflow: scroll;
+        overflow-y: scroll;
+        padding-bottom: 9rem;
     }
 
     .fa-xmark {

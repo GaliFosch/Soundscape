@@ -329,8 +329,51 @@ class DatabaseHelper {
         }
     }
 
-    public function getPersonalizedHomeFeed() {
+    public function getPersonalizedHomeFeed($userID, $nToShow, $nToSkip = 0) {
+        //This query return the posts of the followed artists, posted in the last 7 days.
+        $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    WHERE post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    AND user.Username IN (
+                        SELECT Following
+                        FROM follow
+                        WHERE Follower = ?
+                    )
+                    ORDER BY post.PostID DESC
+                    LIMIT ?, ?";
 
+        //This query returns the most liked posts of the last seven days
+        $likedQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    WHERE user.Username IS NOT ?
+                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    ORDER BY post.NumLike DESC
+                    LIMIT ?, ?";
+        
+        $likedGenre = $this->getFavouriteGenres($userID);
+
+        //This query returns random posts in which the song is of a genre generally listened by the user
+        $genreQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    INNER JOIN belonging ON post.TrackID = belonging.TrackId
+                    INNER JOIN likedGenre ON belonging.GenreTag = likedGenre.GenreTag
+                    WHERE user.Username IS NOT ?
+                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    ORDER BY likedGenre.TrackCount DESC";
+        
+        $finalQuery = "SELECT * FROM (
+                            SELECT * FROM artistQuery
+                            UNION 
+                            SELECT * FROM likedQuery
+                            UNION 
+                            SELECT * FROM genreQuery
+                        ) ORDER BY RAND()";
+
+        $stmt = $this->db->prepare($finalQuery);
+        $stmt->bind_param("siisiis", $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip, $userID);
     }
 
     public function getGeneralHomeFeed() {
@@ -342,6 +385,22 @@ class DatabaseHelper {
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
+    }
+
+    public function getFavouriteGenres($userID) {
+        $query = "SELECT genre.GenreTag, COUNT(belonging.TrackID) AS TrackCount
+                FROM belonging
+                INNER JOIN genre ON belonging.GenreTag = genre.GenreTag
+                WHERE belonging.TrackID IN (
+                    SELECT post.TrackID
+                    FROM post
+                    WHERE Post.Usernanme = ?)
+                GROUP BY genre.GenreTag
+                ORDER BY TrackCount DESC";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function addComment($text, $userID, $postID) {
