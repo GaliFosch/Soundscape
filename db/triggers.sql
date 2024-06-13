@@ -1,7 +1,6 @@
-Drop trigger after_post_insert;
 DELIMITER //
 
-CREATE TRIGGER after_post_insert
+CREATE TRIGGER notif_after_post_insert
 AFTER INSERT ON post
 FOR EACH ROW
 BEGIN
@@ -22,12 +21,19 @@ BEGIN
         IF done THEN
             LEAVE fetch_follower;
         END IF;
-		INSERT INTO notification (Receiver, Type, NotificationTimestamp, TriggeringUser, PostID) 
-		VALUES (follower, 'Post', current_timestamp(), NEW.Username, NEW.PostID);
+		INSERT INTO notification (Receiver, Type, TriggeringUser, PostID) 
+		VALUES (follower, 'Post', NEW.Username, NEW.PostID);
     END LOOP fetch_follower;
 
     CLOSE follower_cursor;
 
 END //
 
+CREATE TRIGGER notif_new_follower
+AFTER INSERT ON follow
+FOR EACH ROW
+BEGIN
+    INSERT INTO notification (Receiver, Type, TriggeringUser) 
+	VALUES (NEW.following, 'Follower', NEW.follower);
+END //
 DELIMITER ;
