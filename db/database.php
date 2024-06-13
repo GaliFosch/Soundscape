@@ -330,7 +330,7 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPlaylistByID($id) {
+    public function getPlaylistInfoByID($id) {
         $query = "SELECT *
                   FROM playlist
                   WHERE PlaylistID = ?";
@@ -338,6 +338,17 @@ class DatabaseHelper {
         $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getTracklistByPlaylistID($id) {
+        $query = "SELECT *
+                  FROM tracklist l, single_track t
+                  WHERE l.TrackID = t.TrackID
+                    AND l.PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function hasUserLiked($postID, $userID) {

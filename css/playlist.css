@@ -54,5 +54,43 @@ header img {
 hr {
     width: 90%;
     opacity: 0.5;
-    margin-left: 0;
+    margin: 1rem 0;
+}
+
+.tracklist {
+    text-align: left;
+}
+
+.tracklist-item {
+    display: block;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+}
+
+.tracklist-item:hover {
+    background-color: #4A4A4A;
+}
+
+.tracklist-item > * {
+    display: table-cell;
+}
+
+.track-position, .track-length {
+    text-align: center;
+    width: 5rem;
+    vertical-align: middle;
+}
+
+.track-details {
+    width: 25rem;
+    vertical-align: middle;
+}
+
+.track-details > * {
+    display: block;
+}
+
+.author {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
 }
