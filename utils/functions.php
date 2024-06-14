@@ -18,8 +18,8 @@ function sec_session_start(){
 }
 
 function checkLogin($dbh){
-    if(isset($_SESSION['Username'], $_SESSION['login_string'])){
-        return $dbh->checkLogin($_SESSION['Username'], $_SESSION['login_string']);
+    if(isset($_SESSION['username'], $_SESSION['loginString'])){
+        return $dbh->checkLogin($_SESSION['username'], $_SESSION['loginString']);
     }
     return false;
 }

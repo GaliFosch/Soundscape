@@ -17,11 +17,34 @@ header h2{
     text-align: center;
 }
 
-main>section h3{
+main>div{
+    display: flex;
+    justify-content: end;
+}
+
+main>div em{
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+main>section>header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+main>section>header h3{
     text-align: left;
     font-size: 1rem;
     opacity: 0.6;
+    margin-top: 0;
     margin-bottom: 0;
+    margin-left: 0.5rem;
+}
+
+main>section>header a{
+    text-align: right;
+    margin-right: 0.5rem;
 }
 
 main>section div{
