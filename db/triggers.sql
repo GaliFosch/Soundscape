@@ -130,7 +130,7 @@ BEGIN
     FROM user
     WHERE Username = NEW.following;
     
-    UPDATE post
+    UPDATE user
     SET NumFollower = nfollower +1
     WHERE Username = NEW.following;
 END //
@@ -146,7 +146,7 @@ BEGIN
     FROM user
     WHERE Username = OLD.following;
     
-    UPDATE post
+    UPDATE user
     SET NumFollower = nfollower -1
     WHERE Username = OLD.following;
 END //
@@ -162,7 +162,7 @@ BEGIN
     FROM user
     WHERE Username = NEW.follower;
     
-    UPDATE post
+    UPDATE user
     SET NumFollowing = nfollowing +1
     WHERE Username = NEW.follower;
 END //
@@ -178,7 +178,7 @@ BEGIN
     FROM user
     WHERE Username = OLD.follower;
     
-    UPDATE post
+    UPDATE user
     SET NumFollowing = nfollowing -1
     WHERE Username = OLD.follower;
 END //
