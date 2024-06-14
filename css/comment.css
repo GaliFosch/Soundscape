@@ -1,16 +1,22 @@
 footer {
-    background-color: #323232;
-    padding: 0.5rem;
-    
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px white solid;
+    margin: 1rem -1rem;
 }
 
 section.interaction-changer {
     font-size: 1.5em;
-    margin: 0.5rem 0;
-    border-bottom: 0.1rem solid white;
-    padding: 0.5rem 0;
+    margin: 0.5rem -1rem;
+    border-bottom: 1px solid white;
+    padding: 0.5rem 1rem;
     display: flex;
     flex-direction: row;
+}
+
+.close-focus {
+    align-self: start;
 }
 
 section.interaction-changer > section {
@@ -141,6 +147,7 @@ article.people-like {
 @media screen and (max-width: 768px) {
 
     footer {
+        background-color: #323232;
         position: fixed;
         height: -webkit-fill-available;
         width: -webkit-fill-available;
