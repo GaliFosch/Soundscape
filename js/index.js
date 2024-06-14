@@ -43,8 +43,8 @@ posts.forEach((post) => {
 
 //This code deals with the popovers, both aside and footer
 function showPopover(content, ver, below) {
-  console.log("ShowPopoover");
-  console.log(below);
+  // console.log("ShowPopoover");
+  // console.log(below);
   /*Voglio far si che quando apre i commenti il codice che viene aggiunto per mezzo del popover, non venga
   messo al fondo del DOM, ma che sia inserito subito dopo il post in questione. Quindi praticamente quando 
   viene cliccato il pulsante del commento viene cercato la sezione commento più vicina e si cerca di aggiungere
@@ -184,23 +184,25 @@ function interactionViewerChanger() {
 
 //Down here it deals with the comment section
 comments.forEach((comm) => {
-  comm.addEventListener("click", () => {
-    console.log("Stop Licking the damn thing");
-    let postId = comm.getAttribute('post-id');
-    console.log(postId);
-    openComment(postId);
+    // console.log("comment: ", comm)
+    comm.addEventListener("click", () => {
+        // console.log("Comment button clicked");
+        let postId = comm.getAttribute('post-id');
+        // console.log("Clicked post id: ", postId);
+        openComment(postId);
    });
 });
 
 //This code deals with the opening of the comment. It send the request XHTML request
 function openComment(postId) {
-  var xhttp;    
+        var xhttp;
         xhttp = new XMLHttpRequest();
         xhttp.open("GET", "template/comments.php?post="+postId, true);
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
               let below = getSectionAbove(postId);
+              // console.log("below object: ", below)
               showPopover(this.responseText, Popover.Footer, below);
               interactionViewerChanger();
               addCloseListener();
@@ -213,15 +215,17 @@ function openComment(postId) {
 
 //This code deals with the finding of the nearest section, under which the comment section is to open
 function getSectionAbove(queryPostID) {
-  comments.forEach((comm) => {
-    let postId = comm.getAttribute('post-id');
-    if(queryPostID==postId) {
-      console.log(queryPostID);
-      console.log("trovato");
-      console.log(comm.closest('section'))
-      return comm.closest('section');
+    // console.log("comments array: ", comments)
+    for (let i = 0; i < comments.length; i++) {
+        let postId = comments[i].getAttribute('post-id');
+        // console.log("post id: ", postId)
+        // console.log("queryPostID === postId: ", queryPostID === postId)
+        if(queryPostID === postId) {
+            // console.log("trovato");
+            // console.log(comments[i].closest('section'))
+            return comments[i].closest('section');
+        }
     }
-  });
 }
 
 //This code deals with comments reopening when a comment is added
