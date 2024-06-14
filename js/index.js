@@ -13,7 +13,6 @@ const Popover = Object.freeze({
 posts.forEach((post) => {
 
   const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
-  console.log(closestHeart)
   closestHeart.addEventListener('click', (event) => toggleColor(event,post));
   post.addEventListener("click", () => {
     if(!asideOpen) {
@@ -30,7 +29,6 @@ posts.forEach((post) => {
               addCloseListener(closestHeart,focusHeartIcon);
               heartPairs.set(closestHeart,focusHeartIcon);
               heartPairs.set(focusHeartIcon,closestHeart);
-              console.log(heartPairs);
               focusHeartIcon.addEventListener('click', (event) => toggleColor(event,post));
               asideOpen = !asideOpen;
           }
@@ -43,15 +41,6 @@ posts.forEach((post) => {
 
 //This code deals with the popovers, both aside and footer
 function showPopover(content, ver, below) {
-  // console.log("ShowPopoover");
-  // console.log(below);
-  /*Voglio far si che quando apre i commenti il codice che viene aggiunto per mezzo del popover, non venga
-  messo al fondo del DOM, ma che sia inserito subito dopo il post in questione. Quindi praticamente quando 
-  viene cliccato il pulsante del commento viene cercato la sezione commento più vicina e si cerca di aggiungere
-  il codice sotto. Tuttavia prima di chiamare la funizone showPopover, che è quella che effettivamente aggiunge
-  il codice, viene trovato il tag sotto cui si deve aggiungere, viene stampato per controllare che non sia 
-  errato e poi viene chiamata showPopover. Nel momento in cui si entra nella funzione, si stampa il tag, ma 
-  risulta undefined.*/
   let popover;
   switch (ver) {
     case Popover.Aside:
@@ -94,12 +83,8 @@ function addCloseListener(heartIcon, heartIconPair) {
 
 /*This part deals with the heart button*/
 function toggleColor(event, post) {
-  console.log("grazie del clik");
-
       let targetHeart = event.target;
       let pairHeart = heartPairs.get(targetHeart);
-      console.log(targetHeart);
-      console.log(pairHeart);
 
       let postId = post.getAttribute('post-id');
       let xhttp;    
@@ -113,7 +98,6 @@ function toggleColor(event, post) {
                 targetHeart.classList.toggle('fa-solid');
                 targetHeart.classList.toggle('fa-regular');
                 if(pairHeart!=null) {
-                  console.log("ghello");
                   pairHeart.classList.toggle('fa-solid');
                   pairHeart.classList.toggle('fa-regular');
                 }
@@ -170,13 +154,11 @@ function interactionViewerChanger() {
   let commentDiv = document.querySelector(".comments")
 
   comment.addEventListener("click", () => {
-    console.log("Changint to comment")
     likeDiv.style.display="none";
     commentDiv.style.display="block";
   })
 
   like.addEventListener("click", () => {
-    console.log("Changint to heart")
     commentDiv.style.display="none";
     likeDiv.style.display="block";
   })
@@ -184,11 +166,8 @@ function interactionViewerChanger() {
 
 //Down here it deals with the comment section
 comments.forEach((comm) => {
-    // console.log("comment: ", comm)
     comm.addEventListener("click", () => {
-        // console.log("Comment button clicked");
         let postId = comm.getAttribute('post-id');
-        // console.log("Clicked post id: ", postId);
         openComment(postId);
    });
 });
@@ -202,7 +181,6 @@ function openComment(postId) {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
               let below = getSectionAbove(postId);
-              // console.log("below object: ", below)
               showPopover(this.responseText, Popover.Footer, below);
               interactionViewerChanger();
               addCloseListener();
@@ -215,14 +193,9 @@ function openComment(postId) {
 
 //This code deals with the finding of the nearest section, under which the comment section is to open
 function getSectionAbove(queryPostID) {
-    // console.log("comments array: ", comments)
     for (let i = 0; i < comments.length; i++) {
         let postId = comments[i].getAttribute('post-id');
-        // console.log("post id: ", postId)
-        // console.log("queryPostID === postId: ", queryPostID === postId)
         if(queryPostID === postId) {
-            // console.log("trovato");
-            // console.log(comments[i].closest('section'))
             return comments[i].closest('section');
         }
     }
