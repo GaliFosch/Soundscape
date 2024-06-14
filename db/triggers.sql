@@ -41,9 +41,10 @@ BEGIN
 				FROM post
                 WHERE PostID = NEW.PostID
                 LIMIT 1);
-    IF rec <> NEW.username
-	INSERT INTO notification (Receiver, Type, TriggeringUser, PostID) 
-	VALUES (rec, 'Post_Interaction', NEW.Username, NEW.PostID);
+    IF rec != NEW.username THEN
+		INSERT INTO notification (Receiver, Type, TriggeringUser, PostID) 
+		VALUES (rec, 'Post_Interaction', NEW.Username, NEW.PostID);
+    END IF;
 END //
 
 CREATE TRIGGER notif_after_comment_post
@@ -55,8 +56,10 @@ BEGIN
 				FROM post
                 WHERE PostID = NEW.PostID
                 LIMIT 1);
-	INSERT INTO notification (Receiver, Type, TriggeringUser) 
-	VALUES (rec, 'Post_Interaction', NEW.Username);
+    IF rec != NEW.username THEN
+        INSERT INTO notification (Receiver, Type, TriggeringUser, PostID) 
+        VALUES (rec, 'Post_Interaction', NEW.Username, NEW.PostID);
+    END IF;
 END //
 
 CREATE TRIGGER notif_after_reply_comment
@@ -69,8 +72,10 @@ BEGIN
 					FROM comment
 					WHERE CommentID = NEW.Parent
 					LIMIT 1);
-		INSERT INTO notification (Receiver, Type, TriggeringUser, CommentID) 
-		VALUES (rec, 'Reply', NEW.Username, NEW.CommentID);
+        IF rec != NEW.username THEN
+            INSERT INTO notification (Receiver, Type, TriggeringUser, CommentID) 
+            VALUES (rec, 'Reply', NEW.Username, NEW.CommentID);
+        END IF;
     END IF;
 END //
 
