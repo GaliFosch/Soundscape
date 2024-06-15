@@ -1,11 +1,11 @@
 <main>
-    <section>
+    <section id="notification_list">
         <header>
             <h2>Notification List</h2>
         </header>
         <?php foreach ($template["notifications"] as $notif): ?>
             <article id="<?php echo $notif["NotificationID"]?>" class="notification">
-                <em class="fa-solid fa-xmark"></em>
+                <em class="fa-solid fa-xmark close"></em>
                 <?php switch($notif["Type"]):
                         case 'Follower': ?>
                             <h3>New Follower</h3>
@@ -32,6 +32,6 @@
                 </footer>
             </article>
         <?php endforeach; ?>
-
+        <script src="js/notification.js"></script>
     </section>
 </main>

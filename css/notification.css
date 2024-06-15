@@ -5,6 +5,7 @@ header {
 article {
     background-color: #4A4A4A;
     border-radius: 2rem;
+    margin-bottom: 1rem;
 }
 
 article>em{
