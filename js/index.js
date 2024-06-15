@@ -185,7 +185,9 @@ function openComment(postId) {
               interactionViewerChanger();
               addCloseListener();
               addSelectedListener();
-              document.querySelector('body').style.overflow = "hidden";
+              if(window.innerWidth<768) {
+                document.querySelector('body').style.overflow = "hidden";
+              }
           }
       }
         xhttp.send();

@@ -6,6 +6,7 @@
         <input id="search-bar" type="search" name="query"/>
         <input type="submit" value="Go"/>
     </form>
+    <section class="track-suggestions"></section>
 </header>
 <!-- Search results and suggestions -->
 <main>

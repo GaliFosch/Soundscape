@@ -437,5 +437,36 @@ class DatabaseHelper {
         $stmt->bind_param('i',$postID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            }
+    }
+
+    public function getTrackByNameAndCreator($trackName, $trackCreator) {
+        $query = "SELECT AudioFile, TrackID, Name, CoverImage, Creator
+                FROM single_track
+                WHERE (Name LIKE ? AND Creator LIKE ?)";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('s',$trackName);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getTrackByName($trackName, $trackCreator) {
+        $query = "SELECT AudioFile, TrackID, Name, CoverImage, Creator
+                FROM single_track
+                WHERE (Name IS ? AND Creator IS ?)";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('ss',$trackName, $trackCreator);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getSuggestedTracks($trackName) {
+        $bind = '%'.$trackName.'%';
+        $query = "SELECT  Name, CoverImage, Creator
+                FROM single_track
+                WHERE Name LIKE ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('s',$bind);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
