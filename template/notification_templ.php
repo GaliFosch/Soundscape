@@ -4,8 +4,8 @@
             <h2>Notification List</h2>
         </header>
         <?php foreach ($template["notifications"] as $notif): ?>
-            <article>
-                <em class="fa-solid fa-xmark close-focus"></em>
+            <article id="<?php echo $notif["NotificationID"]?>" class="notification">
+                <em class="fa-solid fa-xmark"></em>
                 <?php switch($notif["Type"]):
                         case 'Follower': ?>
                             <h3>New Follower</h3>

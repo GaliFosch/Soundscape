@@ -366,6 +366,14 @@ class DatabaseHelper {
          return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function removeNotification($id){
+        $query = "DELETE FROM Notification
+                    WHERE NotificationId = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike
