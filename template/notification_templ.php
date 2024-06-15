@@ -1,9 +1,11 @@
 <main>
     <section>
-        <h2>Notification List</h2>
-
+        <header>
+            <h2>Notification List</h2>
+        </header>
         <?php foreach ($template["notifications"] as $notif): ?>
             <article>
+                <em class="fa-solid fa-xmark close-focus"></em>
                 <?php switch($notif["Type"]):
                         case 'Follower': ?>
                             <h3>New Follower</h3>

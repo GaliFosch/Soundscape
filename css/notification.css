@@ -1,0 +1,30 @@
+header {
+    margin-top: 5rem;
+}
+
+article {
+    background-color: #4A4A4A;
+    border-radius: 2rem;
+}
+
+article>em{
+    float:right;
+    padding-top: 1rem;
+    padding-right: 1rem;
+}
+
+article h3{
+    padding-top: 1rem;
+    margin: 0;
+}
+
+article a {
+    text-decoration: none;
+    color: lightskyblue;
+}
+
+article footer {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
