@@ -29,6 +29,19 @@ player.addEventListener("timeupdate", function () {
     updateLabels()
 })
 
+player.addEventListener("ended", function() {
+    let urlString = window.location.toString()
+    let url = new URL(urlString)
+    let paramName = "pos"
+    let pos = parseInt(url.searchParams.get(paramName))
+    let newUrlString = urlString.replace(paramName + "=" + pos, paramName + "=" + (++pos))
+    if (url.searchParams.get("autoplay") == null) {
+        newUrlString += "&autoplay=true"
+    }
+    let newUrl = new URL(newUrlString)
+    window.location.replace(newUrl)
+})
+
 playBtn.addEventListener("click", function () {
     if (player.paused) {
         player.play()
@@ -38,6 +51,11 @@ playBtn.addEventListener("click", function () {
         playBtn.innerHTML = `<img src="images/play-icon.svg" alt="Play Button"/>`
     }
 })
+
+let url = new URL(window.location.toString())
+if (url.searchParams.get("autoplay") === 'true') {
+    playBtn.click()
+}
 
 rewindBtn.addEventListener("click", function () {
     player.currentTime = 0

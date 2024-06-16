@@ -34,15 +34,27 @@ if (isset($_GET["trackid"])) {
     }
 
     if (!isset($_SESSION["loaded_playlist_id"]) || ($_SESSION["loaded_playlist_id"] != $template["playlist_id"])) {
+
         if ($template["shuffle"] == "true") {
             $template["tracklist"] = $dbh->getShuffledTracklistByPlaylistID($template["playlist_id"]);
         } else {
             $template["tracklist"] = $dbh->getOrderedTracklistByPlaylistID($template["playlist_id"]);
         }
+
         $_SESSION["loaded_playlist_id"] = $template["playlist_id"];
         $_SESSION["tracklist"] = $template["tracklist"];
+
     } else {
         $template["tracklist"] = $_SESSION["tracklist"];
+    }
+
+    if ($template["pos"] == count($template["tracklist"])) {
+        // This condition is verified when the last track of the tracklist ends
+        // In this case, reload the last track played
+        header("Location: player.php?pid=" . $template["playlist_id"] . "&shuffle=" . $template["shuffle"] . "&pos=" . ($template["pos"] - 1));
+    } else if ($template["pos"] > count($template["tracklist"])) {
+        http_response_code(404);
+        exit();
     }
 
     $template["track"] = $template["tracklist"][$template["pos"]];
