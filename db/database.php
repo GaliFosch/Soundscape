@@ -116,6 +116,71 @@ class DatabaseHelper {
         return true;
     }
 
+    public function isFollowing($follower, $followed){
+        $query = "SELECT * FROM follow WHERE Follower = ? AND Following = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss",$follower, $followed);
+        $stmt->execute();
+        $stmt->store_result();
+        return $stmt->num_rows() != 0;
+    }
+
+    public function follow($follower, $followed){
+        $usrFollowed = $this->getUserByUsername($followed);
+        if($usrFollowed == false){
+            return false;
+        }
+        $this->db->begin_transaction();
+        try{
+            $query = "INSERT INTO follow(Following, Follower) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $followed, $follower);
+            $stmt->execute();
+
+            $newValue = $usrFollowed["NumFollower"] + 1;
+            $query = "UPDATE user
+                        SET NumFollower = ?
+                        WHERE Username = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $newValue, $followed);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $exception) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+    public function unfollow($follower, $followed){
+        $usrFollowed = $this->getUserByUsername($followed);
+        if($usrFollowed == false || !$this->isFollowing($follower, $followed)){
+            return false;
+        }
+        $this->db->begin_transaction();
+        try{
+            $query = "DELETE FROM follow WHERE Follower = ? AND Following = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $follower, $followed);
+            $stmt->execute();
+
+            $newValue = $usrFollowed["NumFollower"] - 1;
+            $query = "UPDATE user
+                        SET NumFollower = ?
+                        WHERE Username = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("is", $newValue, $followed);
+            $stmt->execute();
+
+            $this->db->commit();
+            return true;
+        } catch (mysqli_sql_exception $exception) {
+            $this->db->rollback();
+            return false;
+        }
+    }
+
     public function getUserByUsername($username){
         $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
                 FROM user 

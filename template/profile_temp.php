@@ -9,6 +9,22 @@
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
+    <?php if(!$template["isProfileLogged"]):?>
+        <?php if($template["isUserLogged"]):?>
+            <div>
+                <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
+                    <em id="follow" class="fa-solid fa-user-check"></em>
+                <?php else:?>
+                    <em id="follow" class="fa-solid fa-user-plus"></em>
+                <?php endif?>
+            </div>
+            <script src="js/follow.js"></script>
+        <?php else:?>
+            <div>
+                <em id="follow" class="fa-solid fa-user-plus"></em>
+            </div>
+        <?php endif?>
+    <?php endif;?>
     <section>
         <header class="section-header">
             <h3 class="section-title">Published Tracks</h3>
@@ -86,7 +102,7 @@
                     </a>
                 </article>
             <?php endforeach; ?>
-        </div> 
+        </div>
     </section>
     <section>
         <header class="section-header">
