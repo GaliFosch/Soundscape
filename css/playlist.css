@@ -37,17 +37,21 @@ header img {
     padding: 0.5rem 0;
 }
 
-#audio-controls > button {
+#play-button {
     background-color: inherit;
     border: none;
 }
 
-#audio-controls > button > img {
+#play-button > img {
     height: 2rem;
     width: auto;
 }
 
-#audio-controls > em {
+#audio-controls > a {
+    background-color: inherit;
+}
+
+#shuffle-button {
     color: #E28AB9;
 }
 
@@ -57,8 +61,9 @@ hr {
     margin: 1rem 0;
 }
 
-.tracklist {
-    text-align: left;
+#tracklist > a {
+    text-decoration: none;
+    background-color: inherit;
 }
 
 .tracklist-item {

@@ -10,20 +10,22 @@
         <h3 id="date-and-length"><?php echo "{$template["playlist"]["CreationDate"]} - {$template["playlist"]["TimeLength"]}"; ?></h3>
     </div>
     <div id="audio-controls">
-        <button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button>
-        <em class="fa-solid fa-shuffle fa-2x"></em>
+        <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=0&refresh=true"><button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button></a>
+        <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=true&pos=0&refresh=true"><em id="shuffle-button" class="fa-solid fa-shuffle fa-2x"></em></a>
     </div>
     <hr>
     <section id="tracklist">
         <?php foreach ($template["tracklist"] as $track): ?>
-            <section class="tracklist-item">
-                <p class="track-position"><?php echo $track["position"]; ?></p>
-                <div class="track-details">
-                    <strong class="track-title"><?php echo $track["Name"]; ?></strong>
-                    <p class="author"><?php echo $track["Creator"]; ?></p>
-                </div>
-                <p class="track-length"><?php echo $track["TimeLength"]; ?></p>
-            </section>
+            <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["position"] - 1); ?>">
+                <section class="tracklist-item">
+                    <p class="track-position"><?php echo $track["position"]; ?></p>
+                    <div class="track-details">
+                        <strong class="track-title"><?php echo $track["Name"]; ?></strong>
+                        <p class="author"><?php echo $track["Creator"]; ?></p>
+                    </div>
+                    <p class="track-length"><?php echo $track["TimeLength"]; ?></p>
+                </section>
+            </a>
         <?php endforeach; ?>
     </section>
 </header>

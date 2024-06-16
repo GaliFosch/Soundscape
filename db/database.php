@@ -311,7 +311,6 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-
     public function getUserLatestPlaylists($username, $nToShow) {
         $query = "SELECT *
                   FROM playlist
@@ -340,11 +339,23 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
-    public function getTracklistByPlaylistID($id) {
+    public function getOrderedTracklistByPlaylistID($id) {
         $query = "SELECT *
                   FROM tracklist l, single_track t
                   WHERE l.TrackID = t.TrackID
                     AND l.PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getShuffledTracklistByPlaylistID($id) {
+        $query = "SELECT *
+                  FROM tracklist l, single_track t
+                  WHERE l.TrackID = t.TrackID
+                    AND l.PlaylistID = ?
+                  ORDER BY RAND()";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
