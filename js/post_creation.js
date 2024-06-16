@@ -13,15 +13,45 @@ search.addEventListener('keydown', function(event) {
         xhttp.onreadystatechange = function() {
             if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
                 let results = JSON.parse(this.responseText);
-                let html = "";
+                console.log(results);
+                let html = '';
                 for(let i = 0; i < results.length; i++) {
-                    html += '<div>' + results[i].Name + '</div>';
+                    let start = '<li>';
+                    let end = '</li>';
+                    let img = results[i].CoverImage != null 
+                            ? '<img class="song-icon" src="' + results[i].CoverImage + '" alt="Song cover image" />' 
+                            : '<img class="song-icon" src="images/placeholder-image.jpg" alt="Song cover image"/>';
+                    let p = '<p>' + results[i].Name + ' - ' + results[i].Creator + '</p>';
+                    html += start + img + p + end;
                 }
                 sugg.innerHTML= html;
+                listEvent();
             }
         }
         xhttp.send();
     }
     
 });
+
+function listEvent() {
+    let list = document.querySelectorAll('li');
+    list.forEach((li) => {
+        li.addEventListener("click", (event)=>{
+            let target = event.target;
+            let text = target.closest('p').textContent;
+            let searchButton = document.querySelector(".searchButton");
+            search.value = text;
+            searchButton.click();
+        });
+
+        //idk why this doesn't work
+        li.addEventListener("mouseover", (event)=>{
+            li.style.backgroundColor = "#1D70AD";
+        });
+
+        li.addEventListener("mouseout", (event)=>{
+            li.style.backgroundColor = "";
+        });
+    });
+}
  
