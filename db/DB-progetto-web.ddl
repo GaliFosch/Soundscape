@@ -79,7 +79,7 @@ create table Image (
      constraint ID_Image_ID primary key (PostImage));
 
 create table SINGLE_TRACK (
-     AudioFile varchar(50) not null,
+     AudioFile varchar(150) not null,
      TrackID int not null auto_increment,
      Name varchar(30) not null,
      CoverImage varchar(150),
