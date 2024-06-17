@@ -24,15 +24,19 @@
                 <li><a href="discover.php" aria-label="Search" title="Search"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em><p>Discover</p></a></li>
                 <li><a href="notifications.php" aria-label="Go to notifications page" title="Go to notifications page"><em class="fa-solid fa-bell" aria-hidden="true"></em><p>Notifications</p></a></li>
                 <li><a href="player.php" aria-label="Go to music player" title="Go to music player"><em class="fa-solid fa-music" aria-hidden="true"></em><p>Music player</p></a></li>
-                <?php if (isset($_SESSION["username"])): ?>
+                <?php if (checkLogin($dbh)): ?>
                     <li><a href="profile.php" aria-label="Go to your profile" title="Go to your profile">
-                        <?php if(!empty($_SESSION['user']['Immagine'])): ?>
-                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($_SESSION['user']['Immagine']); ?>" alt="" />
+                        <?php
+                            $image = $dbh->getUserByUsername($_SESSION["username"])["ProfileImage"];
+                            if(!empty($image)): 
+                        ?>
+                            <img src="<?php echo $image?>" alt="" class="menu-profile-image"/>
                         <?php else: ?>
                             <em class="fa-solid fa-user" aria-hidden="true"></em>
                         <?php endif; ?>
                         <p>Your profile</p>
                     </a></li>
+                    <li><a href="createTrack.php"><em class="fa-solid fa-plus"></em><p>New Track</p></a></li>
                 <?php endif; ?>
             </ul>
             <?php if (isset($_SESSION["username"])): ?>

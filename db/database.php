@@ -449,11 +449,19 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    
     public function removeNotification($id){
         $query = "DELETE FROM Notification
                     WHERE NotificationId = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+    
+    public function addSingleTrack($title, $audio, $img, $creator){
+        $query = "INSERT INTO Single_Track(Name, AudioFile, CoverImage, Creator) VALUES (?,?,?,?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssss', $title, $audio, $img, $creator);
         return $stmt->execute();
     }
 

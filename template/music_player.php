@@ -28,7 +28,7 @@
     </div>
     <audio id="audio-player" preload="metadata">
         <?php if (isset($track)): ?>
-            <source src="audio/<?php echo $track["AudioFile"]; ?>" type="audio/mpeg"/>
+            <source src="<?php echo $track["AudioFile"]; ?>" type="audio/mpeg"/>
         <?php endif; ?>
     </audio>
     <div id="audio-controls">
