@@ -5,6 +5,11 @@ main {
 }
 
 .close-post-creation {
+    display: flex;
+    text-decoration: none;
+}
+
+.close-post-creation > * {
     font-size: 1.5em;
     align-self: start;
     margin: 0.5rem
@@ -143,23 +148,62 @@ li > p {
     grid-row-start: 1;
 }
 
-.music-info {
-    background-color: rgba(255, 255, 255, 75%);
-    width: 18rem;
+.music-box {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    min-height: 0rem;
+    max-height: -webkit-fill-available;
+    min-width: 0rem;
+    max-width: -webkit-fill-available;
+    background-color: #E28AB9;
     align-items: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 9px #222;
+    margin: 1.5rem 1.5rem 0 1.5rem;
 }
 
-.music-info > p, .music-info > p > strong {
+.music-box > * {
+    margin: 1rem 0.5rem;
+}
+
+.song {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    margin: 0 0 0 1rem;
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left
+}
+
+.music-box>a {
+    align-self: center;
+    margin-left: auto;
+}
+
+
+.music-info > header {
+    font-size: 1em;
+}
+
+.music-info strong, .music-info > p {
     color: black;
-    margin: 0.2rem;;
+    margin: 0 0.3rem;
+}
+
+.fa-play {
+    color: black;
+    font-size: 1.7em;
 }
 
 .options {
     width: -webkit-fill-available;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
+    margin: 0 2rem;
 }
 
 .options > p {

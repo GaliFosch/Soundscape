@@ -1,6 +1,7 @@
 
 let sugg = document.querySelector('.track-suggestions');
 let search = document.querySelector('#search-track');
+let remove = document.querySelector('.remove');
 let firstTime = 0;
 
 search.addEventListener('keydown', function(event) {
@@ -41,6 +42,7 @@ function listEvent() {
             let text = target.closest('p').textContent;
             let searchButton = document.querySelector(".searchButton");
             search.value = text;
+
             searchButton.click();
         });
 
@@ -53,5 +55,20 @@ function listEvent() {
             li.style.backgroundColor = "";
         });
     });
-}
+};
  
+if(remove!=null) {
+    remove.addEventListener("click", ()=> {
+        var url = window.location.href;
+
+        // Parse the URL
+        var urlParts = url.split('?');
+        var query = urlParts[1];
+
+        // Check if the query string contains 'track'
+        if (query.includes('track')) {
+        // Update the URL
+        window.location.href = urlParts[0];
+        }  
+    });  
+}

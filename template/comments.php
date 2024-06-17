@@ -8,7 +8,12 @@ $postID = $_GET["post"];
 
 $comments = $dbh->getAllComments($postID);
 $likes = $dbh->getAllLikes($postID);
-$user = $dbh->getUserByUsername($_SESSION["username"]);
+if(isset($_SESSION['username'])) {
+    $user = $dbh->getUserByUsername($_SESSION["username"]);
+} else {
+    $user = null;
+}
+
 ?>
 
 
@@ -27,7 +32,7 @@ $user = $dbh->getUserByUsername($_SESSION["username"]);
 </section>
 
 <div class="comments">
-    
+    <?php if(isset($_SESSION['username'])): ?>
     <!--Inserisci il tuo commento-->
     <section class="user-comment">
         <form class="comment-form" action="template/process_comment.php?post=<?php echo $postID; ?>" method="POST" post-id="<?php echo $postID; ?>">
@@ -43,6 +48,7 @@ $user = $dbh->getUserByUsername($_SESSION["username"]);
         </button>
         </form>
     </section>
+    <?php endif; ?>
 
     <!--Commenti degli altri-->
     <?php if(sizeof($comments)==0): ?>

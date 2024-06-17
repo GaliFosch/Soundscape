@@ -7,6 +7,7 @@ $template["stylesheets"] = ["base.css", "post_creation.css"];
 $template["content"] = "template/create_post.php";
 $template["track"] = null;
 
+
 if (isset($_GET["track"])) {
     $str = $_GET["track"];
     $parts = explode(" - ", $str);
