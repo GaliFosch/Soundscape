@@ -360,10 +360,21 @@ class DatabaseHelper {
                 FROM notification
                 WHERE Receiver = ?
                 ORDER BY NotificationTimestamp DESC";
-         $stmt = $this->db->prepare($query);
-         $stmt->bind_param('s', $username);
-         $stmt->execute();
-         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getNotification($id){
+        $query = "SELECT * 
+                FROM notification
+                WHERE NotificationId = ?
+                LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function removeNotification($id){
