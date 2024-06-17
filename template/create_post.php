@@ -5,9 +5,9 @@
     
 
     <form action="post_creation.php?" method="GET" class="comment" autocomplete="off">
-        <label for="search-track">Search for a music you want to post about</label>
-        <input id="search-track" type="search-bar" name="track" placeholder="Search for song"/>
-        <input class="searchButton" type="submit" value="Search"/>
+        <label for="track">Search for a music you want to post about</label>
+        <input type="search-bar" id="search-track"  name="track" placeholder="Search for song"/>
+        <input type="submit" class="searchButton" value="Search"/>
         <em class="fa-solid fa-magnifying-glass"></em>
     </form>
 
@@ -40,9 +40,10 @@
         <p>No song chosen</p>
     <?php endif; ?>
     
-    <form action="template/post_creation.php?track=<?php echo $template["track"]; ?>" method="POST" class="caption">
-        <label for="write-caption">Write your comment:</label>
+    <form action="post_creation.php" method="POST" class="caption">
+        <label for="write-caption">Write your post caption:</label>
         <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard"></textarea>
+        <input type="hidden" name="track" value="<?php echo $template['track']['TrackID']; ?>">
         <input type="submit" value="Post"/>
     </form>
 </main>

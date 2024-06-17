@@ -460,4 +460,13 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function addPost($track, $text, $userID) {
+        $timestamp = date('Y-m-d H:i:s');
+        $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
+                    VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
+        $stmt->execute();
+    }
+
 }
