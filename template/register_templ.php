@@ -9,7 +9,7 @@
             </li>
             <li>
                 <label for="password" hidden>Password</label>
-                <input type="text" name="password" id="password" placeholder="Password" required/>
+                <input type="password" name="password" id="password" placeholder="Password" required/>
             </li>
             <li>
                 <label for="email" hidden>Email</label>
