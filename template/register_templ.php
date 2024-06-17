@@ -1,7 +1,7 @@
 <main>
     <img id="front-logo" src="images/logo.svg" alt=""/>
     <h1>Registration</h1>
-    <form id="user-info-form" action="process_register.php" method="POST">
+    <form id="user-info-form" action="process_register.php" method="POST" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="username" hidden>Username</label>
