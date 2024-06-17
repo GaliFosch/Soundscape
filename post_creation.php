@@ -15,10 +15,12 @@ if(isset(($_POST["caption"]))) {
 
 if (isset($_GET["track"])) {
     $str = $_GET["track"];
-    $parts = explode(" - ", $str);
-    $trackName = $parts[0];
-    $trackCreator = $parts[1];
-    $template["track"] = $dbh->getTrackByName($trackName, $trackCreator);
+    if($str != "") {
+        $parts = explode(" - ", $str);
+        $trackName = $parts[0];
+        $trackCreator = $parts[1];
+        $template["track"] = $dbh->getTrackByName($trackName, $trackCreator);
+    }    
 }
 
 

@@ -22,7 +22,8 @@ search.addEventListener('keydown', function(event) {
                     let img = results[i].CoverImage != null 
                             ? '<img class="song-icon" src="' + results[i].CoverImage + '" alt="Song cover image" />' 
                             : '<img class="song-icon" src="images/placeholder-image.jpg" alt="Song cover image"/>';
-                    let p = '<p>' + results[i].Name + ' - ' + results[i].Creator + '</p>';
+                    let type = results[i].IsAlbum != null ? "Album" : (results[i].PlaylistId != null ? "Playlist" : "Track");
+                    let p = '<p>' + results[i].Name + ' - ' + results[i].Creator + ' - ' + type + '</p>';
                     html += start + img + p + end;
                 }
                 sugg.innerHTML= html;
@@ -42,8 +43,7 @@ function listEvent() {
             let text = target.closest('p').textContent;
             let searchButton = document.querySelector(".searchButton");
             search.value = text;
-
-            searchButton.click();
+            sugg.innerHTML = ""
         });
 
         //idk why this doesn't work

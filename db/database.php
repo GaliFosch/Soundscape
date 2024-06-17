@@ -451,13 +451,26 @@ class DatabaseHelper {
 
     public function getSuggestedTracks($trackName) {
         $bind = '%'.$trackName.'%';
-        $query = "SELECT  Name, CoverImage, Creator
-                FROM single_track
-                WHERE Name LIKE ?";
-        $stmt =  $this->db->prepare($query);
-        $stmt->bind_param('s',$bind);
+        $singleTrackQuery = "SELECT  Name, CoverImage, Creator
+                            FROM single_track
+                            WHERE Name LIKE ?";
+        $playlistQuery = "SELECT  Name, CoverImage, Creator, IsAlbum, PlaylistID
+                            FROM playlist
+                            WHERE Name LIKE ?";
+    
+        $stmt =  $this->db->prepare($singleTrackQuery);
+        $stmt->bind_param('s', $bind);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $singleTrackResult = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+        $stmt =  $this->db->prepare($playlistQuery);
+        $stmt->bind_param('s', $bind);
+        $stmt->execute();
+        $playlistResult = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+        $result = array_merge($singleTrackResult, $playlistResult);
+    
+        return $result;
     }
 
     public function addPost($track, $text, $userID) {

@@ -7,8 +7,8 @@
     <form action="post_creation.php?" method="GET" class="comment" autocomplete="off">
         <label for="track">Search for a music you want to post about</label>
         <input type="search-bar" id="search-track"  name="track" placeholder="Search for song"/>
-        <input type="submit" class="searchButton" value="Search"/>
-        <em class="fa-solid fa-magnifying-glass"></em>
+        <input type="submit" class="searchButton" value="Search" onclick="console.log('Scemo')"/>
+        <em class="fa-solid fa-magnifying-glass" onclick="console.log('buffone')"></em>
     </form>
 
     <section class="track-suggestions-section">
@@ -42,7 +42,7 @@
     
     <form action="post_creation.php" method="POST" class="caption">
         <label for="write-caption">Write your post caption:</label>
-        <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard"></textarea>
+        <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
         <input type="hidden" name="track" value="<?php echo $template['track']['TrackID']; ?>">
         <input type="submit" value="Post"/>
     </form>
