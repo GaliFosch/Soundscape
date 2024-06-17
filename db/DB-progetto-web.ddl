@@ -55,7 +55,7 @@ create table PLAYLIST (
      NumTracks int not null default 0,
      PlaylistID int not null auto_increment,
      Name varchar(30) not null,
-     CoverImage varchar(50),
+     CoverImage varchar(150),
      TimeLength time not null default 0,
      CreationDate datetime not null default current_timestamp,
      Creator varchar(30) not null,
@@ -74,7 +74,7 @@ create table POST (
      constraint ID_POST_ID primary key (PostID));
 
 create table Image (
-     PostImage varchar(50) not null,
+     PostImage varchar(150) not null,
      PostID int not null,
      constraint ID_Image_ID primary key (PostImage));
 
@@ -82,7 +82,7 @@ create table SINGLE_TRACK (
      AudioFile varchar(50) not null,
      TrackID int not null auto_increment,
      Name varchar(30) not null,
-     CoverImage varchar(50),
+     CoverImage varchar(150),
      TimeLength time not null,
      CreationDate datetime not null default current_timestamp,
      Creator varchar(30) not null,
@@ -91,7 +91,7 @@ create table SINGLE_TRACK (
 create table USER (
      Username varchar(30) not null,
      Biography Text not null,
-     ProfileImage varchar(50),
+     ProfileImage varchar(150),
      Email varchar(30) not null,
      NumFollower int not null default '0',
      NumFollowing int not null default '0',
