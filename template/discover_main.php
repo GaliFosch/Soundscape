@@ -48,7 +48,10 @@
                             <?php else: ?>
                                 <img class="picture" src="images/placeholder-image.jpg" alt="Track cover image"/>
                             <?php endif; ?>
-                            <h3><?php echo $track["Name"]; ?></h3>
+                            <div class="preview-info">
+                                <h3 class="preview-title"><?php echo $track["Name"]; ?></h3>
+                                <h3 class="author"><?php echo $track["Creator"]; ?></h3>
+                            </div>
                         </a>
                     </section>
                 <?php endforeach; ?>
@@ -65,13 +68,16 @@
                 <h2>Albums</h2>
                 <?php foreach ($albums as $album): ?>
                     <section class="preview">
-                        <a href="#">
+                        <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                             <?php if (isset($album["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $album["CoverImage"]; ?>" alt="Album cover image"/>
                             <?php else: ?>
                                 <img class="picture" src="images/placeholder-image.jpg" alt="Album cover image"/>
                             <?php endif; ?>
-                            <h3><?php echo $album["Name"]; ?></h3>
+                            <div class="preview-info">
+                                <h3 class="preview-title"><?php echo $album["Name"]; ?></h3>
+                                <h3 class="author"><?php echo $album["Creator"]; ?></h3>
+                            </div>
                         </a>
                     </section>
                 <?php endforeach; ?>
@@ -88,13 +94,16 @@
                 <h2>Playlists</h2>
                 <?php foreach ($playlists as $playlist): ?>
                     <section class="preview">
-                        <a href="#">
+                        <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                             <?php if (isset($playlist["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="Playlist cover image"/>
                             <?php else: ?>
                                 <img class="picture" src="images/placeholder-image.jpg" alt="Playlist cover image"/>
                             <?php endif; ?>
-                            <h3><?php echo $playlist["Name"]; ?></h3>
+                            <div class="preview-info">
+                                <h3 class="preview-title"><?php echo $playlist["Name"]; ?></h3>
+                                <h3 class="author"><?php echo $playlist["Creator"]; ?></h3>
+                            </div>
                         </a>
                     </section>
                 <?php endforeach; ?>
@@ -117,13 +126,16 @@
                         <?php else: ?>
                             <img class="picture" src="images/placeholder-image.jpg" alt="Track cover image"/>
                         <?php endif; ?>
-                        <h3><?php echo $track["Name"]; ?></h3>
+                        <div class="preview-info">
+                            <h3 class="preview-title"><?php echo $track["Name"]; ?></h3>
+                            <h3 class="author"><?php echo $track["Creator"]; ?></h3>
+                        </div>
                     </a>
                 </section>
             <?php endforeach; ?>
             <?php if (count($tracks) == $nPreviewsToShow): ?>
                 <form action="#" method="GET">
-                    <input id="new-tracks" class="show-more" type="button" value="Show more"/>
+                    <input id="tracks" class="show-more" type="button" value="Show more"/>
                 </form>
             <?php endif; ?>
         </section>
@@ -132,19 +144,22 @@
             <?php $albums = $dbh->getLatestAlbums($nPreviewsToShow); ?>
             <?php foreach ($albums as $album): ?>
                 <section class="preview">
-                    <a href="#">
+                    <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                         <?php if (isset($album["CoverImage"])): ?>
                             <img class="picture" src="<?php echo $album["CoverImage"]; ?>" alt="Album cover image"/>
                         <?php else: ?>
                             <img class="picture" src="images/placeholder-image.jpg" alt="Album cover image"/>
                         <?php endif; ?>
-                        <h3><?php echo $album["Name"]; ?></h3>
+                        <div class="preview-info">
+                            <h3 class="preview-title"><?php echo $album["Name"]; ?></h3>
+                            <h3 class="author"><?php echo $album["Creator"]; ?></h3>
+                        </div>
                     </a>
                 </section>
             <?php endforeach; ?>
             <?php if (count($albums) == $nPreviewsToShow): ?>
                 <form action="#" method="GET">
-                    <input id="new-albums" class="show-more" type="button" value="Show more"/>
+                    <input id="albums" class="show-more" type="button" value="Show more"/>
                 </form>
             <?php endif; ?>
         </section>
@@ -153,19 +168,22 @@
             <?php $playlists = $dbh->getLatestPlaylists($nPreviewsToShow); ?>
             <?php foreach ($playlists as $playlist): ?>
                 <section class="preview">
-                    <a href="#">
+                    <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                         <?php if (isset($playlist["CoverImage"])): ?>
                             <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="Playlist cover image"/>
                         <?php else: ?>
                             <img class="picture" src="images/placeholder-image.jpg" alt="Playlist cover image"/>
                         <?php endif; ?>
-                        <h3><?php echo $playlist["Name"]; ?></h3>
+                        <div class="preview-info">
+                            <h3 class="preview-title"><?php echo $playlist["Name"]; ?></h3>
+                            <h3 class="author"><?php echo $playlist["Creator"]; ?></h3>
+                        </div>
                     </a>
                 </section>
             <?php endforeach; ?>
             <?php if (count($playlists) == $nPreviewsToShow): ?>
                 <form action="#" method="GET">
-                    <input id="new-playlists" class="show-more" type="button" value="Show more"/>
+                    <input id="playlists" class="show-more" type="button" value="Show more"/>
                 </form>
             <?php endif; ?>
         </section>

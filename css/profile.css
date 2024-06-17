@@ -17,40 +17,42 @@ header h2{
     text-align: center;
 }
 
-main>div{
-    display: flex;
-    justify-content: end;
-}
-
-main>div em{
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-main>section>header{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0;
-}
-
-main>section>header h3{
+.section-header {
+    width: 100%;
     text-align: left;
-    font-size: 1rem;
-    opacity: 0.6;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0.5rem;
+
 }
 
-main>section>header a{
+.section-title {
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+
+.show-all-btn-container {
+    display: inline-block;
+    width: 35%;
     text-align: right;
-    margin-right: 0.5rem;
 }
 
-main>section div{
+.show-all-btn-container > a {
+    opacity: 0.7;
+}
+
+main > section {
+    margin-top: 2rem;
+}
+
+main>section h3{
+    text-align: left;
+    margin-bottom: 0;
+}
+
+main > section > div {
     overflow-x: auto;
     white-space: nowrap;
     height: 10rem;
+    text-align: left;
 }
 
 main>section a{
