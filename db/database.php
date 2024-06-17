@@ -355,6 +355,36 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getUserNotifications($username){
+        $query = "SELECT * 
+                FROM notification
+                WHERE Receiver = ?
+                ORDER BY NotificationTimestamp DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getNotification($id){
+        $query = "SELECT * 
+                FROM notification
+                WHERE NotificationId = ?
+                LIMIT 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function removeNotification($id){
+        $query = "DELETE FROM Notification
+                    WHERE NotificationId = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike
