@@ -79,6 +79,10 @@ header h2{
 
 #Biography p{
     text-align: left;
+    /*max-height: 3.6rem;*/
+    white-space: normal;
+    word-break: break-all;
+    overflow: hidden;
 }
 
 main > section {
