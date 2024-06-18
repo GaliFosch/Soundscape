@@ -25,6 +25,23 @@
             </div>
         <?php endif?>
     <?php endif;?>
+    <section id="Counts">
+        <div>
+            <h3>Followers</h3>
+            <p id="followerCount"><?php echo $template["profile"]["NumFollower"] ?></p>
+        </div><div>
+            <h3>Following</h3>
+            <p  id="followingCount"><?php echo $template["profile"]["NumFollowing"] ?></p>
+        </div>
+    </section>
+    <section id="Biography">
+        <header>
+            <h3>Biography</h3>
+        </header>
+        <p>
+            <?php echo $template["profile"]["Biography"]?>
+        </p>
+    </section>
     <section>
         <header class="section-header">
             <h3 class="section-title">Published Tracks</h3>
