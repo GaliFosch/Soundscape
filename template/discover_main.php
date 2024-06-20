@@ -19,7 +19,7 @@
                 <h2>Users</h2>
                 <?php foreach ($users as $user): ?>
                     <section class="preview">
-                        <a href="#">
+                        <a href="profile.php?profile=<?php echo $user["Username"]; ?>">
                             <?php if (isset($user["ProfileImage"])): ?>
                                 <img class="picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                             <?php else: ?>

@@ -77,7 +77,7 @@ switch ($preview_type) {
         foreach ($users as $user) {
             $preview["title"] = $user["Username"];
             $preview["image"] = $user["ProfileImage"];
-            $preview["link"] = "#";
+            $preview["link"] = "profile.php?profile=" . $user["Username"];
             $previews[] = $preview;
         }
         break;
