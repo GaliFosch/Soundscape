@@ -2,7 +2,9 @@
 let sugg = document.querySelector('.track-suggestions');
 let search = document.querySelector('#search-track');
 let remove = document.querySelector('.remove');
+let fileInput = document.getElementById('images');
 let firstTime = 0;
+let files ;
 
 search.addEventListener('keydown', function(event) {
     firstTime++;
@@ -22,7 +24,7 @@ search.addEventListener('keydown', function(event) {
                     let img = results[i].CoverImage != null 
                             ? '<img class="song-icon" src="' + results[i].CoverImage + '" alt="Song cover image" />' 
                             : '<img class="song-icon" src="images/placeholder-image.jpg" alt="Song cover image"/>';
-                    let type = results[i].IsAlbum != null ? "Album" : (results[i].PlaylistId != null ? "Playlist" : "Track");
+                    let type = results[i].IsAlbum != 0 ? "Album" : (results[i].PlaylistId != null ? "Playlist" : "Track");
                     let p = '<p>' + results[i].Name + ' - ' + results[i].Creator + ' - ' + type + '</p>';
                     html += start + img + p + end;
                 }
@@ -72,3 +74,42 @@ if(remove!=null) {
         }  
     });  
 }
+
+fileInput.addEventListener('change', (event) => {
+  files = event.target.files;
+  if (files.length > 10) {
+    alert('You can only select up to 10 files');
+    event.target.value = '';
+  } else {
+
+    let section = document.createElement('section');
+    section.classList.add = "selected-image-viewer";    
+    let main = document.querySelector('main');
+
+    files.forEach((element) => {   
+        let inner = document.createElement('section');
+        let img = document.createElement('img');
+        let em = document.createElement('em');
+
+        inner.classList.add = "inner-image-viewer"
+        img.classList.add = "selected-image";
+        em.classList.add = "fa-solid fa-xmark";
+        img.src = URL.createObjectURL(element);
+
+        inner.appendChild(img);
+        inner.appendChild(em);
+        section.appendChild(inner);
+    });
+    main.appendChild(section);
+
+    let deleteImage = section.querySelectorAll(".fa-close");
+    deleteImage.forEach((em) => {
+        em.addEventListener("click", (event) => {
+            let imageToDelete = event.target.closest("img");
+            imageToDelete.
+        } )
+    })
+
+  }
+  
+});

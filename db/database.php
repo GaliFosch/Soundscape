@@ -440,13 +440,34 @@ class DatabaseHelper {
     }
 
     public function getTrackByName($trackName, $trackCreator) {
-        $query = "SELECT AudioFile, TrackID, Name, CoverImage, Creator
+        $query = "SELECT AudioFile, Name, CoverImage, Creator
                 FROM single_track
                 WHERE Name = ? AND Creator = ?";
         $stmt =  $this->db->prepare($query);
         $stmt->bind_param('ss',$trackName, $trackCreator);
         $stmt->execute();
         return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getPlaylistByName($trackName, $trackCreator) {
+        $playlistQuery = "SELECT PlaylistID, Name, CoverImage, Creator, isAlbum
+                FROM playlist 
+                WHERE Name = ? AND Creator = ?";
+        $tracklistQuery = "SELECT S.Name, S.CoverImage, S.Creator
+                            FROM single_track as S
+                            INNER JOIN tracklist as T ON S.TrackID = T.TrackID
+                            INNER JOIN playlist as P ON P.PlaylistID = T.PlaylistID
+                            WHERE P.Name = ? AND P.Creator = ?";
+        $stmt =  $this->db->prepare($playlistQuery);
+        $stmt->bind_param('ss',$trackName, $trackCreator);
+        $stmt->execute();
+        $playlist = $stmt->get_result()->fetch_assoc();
+        $stmt =  $this->db->prepare($tracklistQuery);
+        $stmt->bind_param('ss',$trackName, $trackCreator);
+        $stmt->execute();
+        $tracklist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        
+        return array('playlist'=> $playlist, 'songs' => $tracklist);
     }
 
     public function getSuggestedTracks($trackName) {

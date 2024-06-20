@@ -149,6 +149,7 @@ ul.track-suggestions >li > p {
     justify-items: center; 
 }
 
+/*This part deals with the css for the track view*/
 .song {
     object-fit: cover;
     width: 18rem;
@@ -210,6 +211,72 @@ ul.track-suggestions >li > p {
     font-size: 1.7em;
 }
 
+/*This part deals with the css for the playlist view*/
+.playlist-box {
+    display: flex;
+    flex-direction: column;
+    min-height: 0rem;
+    max-height: 100%;
+    min-width: 0rem;
+    max-width: 100%;
+    align-items: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 9px #222;
+    margin: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.inner-playlist-box {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: auto auto auto;
+}
+
+.playlist {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    border-radius: 18px 18px 0 0;
+}
+
+.inner-playlist-box > .music-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    background-color: rgba(255, 255, 255, 75%);
+    align-self: end;
+    padding: 0.5rem 0.1rem;
+}
+
+.tracklist-section {
+    width: -webkit-fill-available;
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tracklist {
+    width: 100%;
+    list-style: decimal;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0.3rem 0;
+    overflow-y: scroll;
+}
+
+li.single-track {
+    display: flex;
+    flex-direction: row;
+    margin: 0.1rem;
+}
+
 .options {
     width: -webkit-fill-available;
     display: flex;
@@ -222,6 +289,16 @@ ul.track-suggestions >li > p {
     margin: 0.3rem;
     text-decoration: underline;
 }
+
+input[type="file"]::file-selector-button {
+    margin: 1rem;
+    background-color: #1D70AD;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: white;
+}
+
 
 @media screen and (max-width: 768px) {
     main {
