@@ -25,10 +25,17 @@
                     <label for="playlist-option">Playlist</label>
                 </div>
             </li>
-            <li>
-                <!-- TODO: track search and addition -->
-            </li>
         </ul>
-        <input type="submit" value="Create" />
     </form>
+    <form id="track-search-form" action="post_creation.php?" method="GET" class="comment" autocomplete="off">
+        <label for="track-search"></label>
+        <input id="track-search" type="search" name="track" placeholder="Search for song"/>
+        <input id="track-search-button" type="submit" class="searchButton" value="Search" />
+        <em class="fa-solid fa-magnifying-glass"></em>
+    </form>
+    <section class="track-suggestions-section">
+        <ul class="track-suggestions"></ul>
+    </section>
+    <input type="submit" value="Create" />
 </main>
+<script src="js/search_suggestions.js"></script>

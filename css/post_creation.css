@@ -99,51 +99,6 @@ form.caption > textarea:focus {
     outline: none;
 }
 
-/*This code deals with the search suggestion */
-.track-suggestions-section {
-    background-color: white;
-    min-width: 0;
-    max-width: 28rem;
-    max-height: 8rem;
-    min-height: 0;
-    margin: 0;
-    align-self: center;
-    overflow-y: scroll;
-}
-
-ul.track-suggestions {
-    list-style:none;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
-
-ul.track-suggestions > li {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 1.5rem;
-    width: 28rem;
-    border: 1px solid black;
-    color: black;
-    background-color: white;
-}
-
-ul.track-suggestions >li > p {
- font-size: 1em;
- color: black;
- margin: 0 0 0 0.3rem
-}
-
-.song-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
-    margin: 0 0.3rem;
-}
-/*Here ends the code that deals with the search suggestion */
-
 .music-box {
     height: auto;
     display: grid;
