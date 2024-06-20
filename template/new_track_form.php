@@ -1,10 +1,12 @@
 <main>
-    <h2>Create a Track</h2>
-    <form action="process_create_track.php" method="POST" enctype="multipart/form-data">
+    <header>
+        <h1>Upload a new track</h1>
+    </header>
+    <form id="new-resource-form" action="process_create_track.php" method="POST" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="title" hidden>Title</label>
-                <input type="text" name="title" id="title" placeholder="Title" require/>
+                <input type="text" name="title" id="title" placeholder="Title" required />
             </li>
             <li>
                 <label for="img">Select an Image</label>
@@ -12,9 +14,9 @@
             </li>
             <li>
                 <label for="audio">Select The File Audio</label>
-                <input type="file" name="audio" id="audio" require/>
+                <input type="file" name="audio" id="audio" required />
             </li>
         </ul>
-        <input type="submit" value="Send"/>
+        <input type="submit" value="Create" />
     </form>
 </main>
