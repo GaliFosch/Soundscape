@@ -17,13 +17,22 @@
         </ul>
         <input type="submit" value="Send"/>
     </form>
-    <h3>Genres</h3>
-    <div>
-        <?php 
-            $genres = $dbh->getAllGenres();
-            foreach ($genres as $genre):
-        ?>
-            <button class="genre">#<?php echo $genre["GenreTag"]?></button>
-        <?php endforeach;?>
-    </div>
+    <section>
+        <header>
+            <h3>Genres</h3>
+        </header>
+        <main id="GenreList">
+            <?php 
+                $genres = $dbh->getAllGenres();
+                $i = 0;
+                foreach ($genres as $genre):
+                    $i++;
+            ?>
+                <button class="genre" original-index = "<?php echo $i;?>">
+                    <em class="fa-solid fa-check"></em>
+                    #<?php echo $genre["GenreTag"]?>
+                </button>
+            <?php endforeach;?>
+        </main>
+    </section>
 </main>

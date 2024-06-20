@@ -35,3 +35,40 @@ label {
     margin-right: 2rem;
     text-align: left;
 }
+
+section{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#GenreList {
+    border-radius: 1rem;
+    background-color: #232323;
+    height: 20rem;
+    width: 20rem;
+    text-align: center;
+    margin: 0;
+}
+
+button.genre {
+    background-color: #975AA8;
+    color: black;
+    border-style: none;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.5rem;
+}
+
+button.genre em{
+    display: none;
+    margin-right: 0.5rem;
+    color: black;
+}
+
+button.selected {
+    background-color: #5EC479;
+}
+
+button.selected em{
+    display: initial;
+}
