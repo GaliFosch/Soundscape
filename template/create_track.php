@@ -17,4 +17,13 @@
         </ul>
         <input type="submit" value="Send"/>
     </form>
+    <h3>Genres</h3>
+    <div>
+        <?php 
+            $genres = $dbh->getAllGenres();
+            foreach ($genres as $genre):
+        ?>
+            <button class="genre">#<?php echo $genre["GenreTag"]?></button>
+        <?php endforeach;?>
+    </div>
 </main>

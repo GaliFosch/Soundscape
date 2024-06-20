@@ -449,6 +449,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getAllGenres(){
+        $query = "SELECT * 
+                FROM genre";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     
     public function removeNotification($id){
         $query = "DELETE FROM Notification
