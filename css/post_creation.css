@@ -1,0 +1,323 @@
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.close-post-creation {
+    display: flex;
+    text-decoration: none;
+}
+
+.close-post-creation > * {
+    font-size: 1.5em;
+    align-self: start;
+    margin: 0.5rem
+}
+
+form.comment {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-content: center
+}
+
+label {
+    display: none;
+}
+
+input[type=search-bar] {
+    margin: 0 auto;
+    width: 30rem;
+    height: 1.5rem;
+    border-radius: 18px;
+    border: 1px solid white;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 0.3rem;
+    color: black;
+}
+
+input[type=search-bar]:focus {
+    outline: none;
+}
+
+form.comment > input[type="submit"] {
+    background-color: white;
+    border: none;
+    font-size: 0;
+    padding: 0.7rem;
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    justify-self: end;
+    border-radius: 18px;
+}
+
+form.comment > .fa-magnifying-glass {
+    grid-row-start: 1;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    margin: 0 0.5rem;
+    justify-self: right;
+    font-size: 1.2em;
+    color: #1D70AD;
+    pointer-events: none;
+}
+
+form.caption {
+    display: flex;
+    width: -webkit-fill-available;
+    flex-direction: column;
+    margin: 1rem -0.5rem;
+    border-top: 1px solid white;
+}
+
+form.caption > textarea {
+    background-color: #323232;
+    border: none;
+    margin: 1rem;
+    font-size: 1em;
+    resize: none;
+}
+
+form.caption > input[type="submit"] {
+    background-color: #1D70AD;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    border: none;
+    color: white;
+    padding: 0.7rem;
+    margin: 1rem;
+    align-self: end;
+    font-size: 1em;
+}
+
+form.caption > textarea:focus {
+    outline: none;
+}
+
+/*This code deals with the search suggestion */
+.track-suggestions-section {
+    background-color: white;
+    min-width: 0;
+    max-width: 28rem;
+    max-height: 8rem;
+    min-height: 0;
+    margin: 0;
+    align-self: center;
+    overflow-y: scroll;
+}
+
+ul.track-suggestions {
+    list-style:none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+ul.track-suggestions > li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 1.5rem;
+    width: 28rem;
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+}
+
+ul.track-suggestions >li > p {
+ font-size: 1em;
+ color: black;
+ margin: 0 0 0 0.3rem
+}
+
+.song-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 0.3rem;
+}
+/*Here ends the code that deals with the search suggestion */
+
+.music-box {
+    height: auto;
+    display: grid;
+    grid-auto-rows: 17.1rem auto auto;   
+    justify-items: center; 
+}
+
+/*This part deals with the css for the track view*/
+.song {
+    object-fit: cover;
+    width: 18rem;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 2rem;
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.music-box {
+    display: flex;
+    flex-direction: row;
+    min-height: 0rem;
+    max-height: -webkit-fill-available;
+    min-width: 0rem;
+    max-width: -webkit-fill-available;
+    background-color: #E28AB9;
+    align-items: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 9px #222;
+    margin: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.music-box > * {
+    margin: 1rem 0.5rem;
+}
+
+.song {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    margin: 0 0 0 1rem;
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left
+}
+
+.music-box>a {
+    align-self: center;
+    margin-left: auto;
+}
+
+
+.music-info > header {
+    font-size: 1em;
+}
+
+.music-info strong, .music-info > p {
+    color: black;
+    margin: 0 0.3rem;
+}
+
+.fa-play {
+    color: black;
+    font-size: 1.7em;
+}
+
+/*This part deals with the css for the playlist view*/
+.playlist-box {
+    display: flex;
+    flex-direction: column;
+    min-height: 0rem;
+    max-height: 100%;
+    min-width: 0rem;
+    max-width: 100%;
+    align-items: center;
+    border-radius: 18px;
+    box-shadow: 0 4px 9px #222;
+    margin: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.inner-playlist-box {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-rows: auto auto auto;
+}
+
+.playlist {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    border-radius: 18px 18px 0 0;
+}
+
+.inner-playlist-box > .music-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    background-color: rgba(255, 255, 255, 75%);
+    align-self: end;
+    padding: 0.5rem 0.1rem;
+}
+
+.tracklist-section {
+    width: -webkit-fill-available;
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tracklist {
+    width: 100%;
+    list-style: decimal;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0.3rem 0;
+    overflow-y: scroll;
+}
+
+li.single-track {
+    display: flex;
+    flex-direction: row;
+    margin: 0.1rem;
+}
+
+.options {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 2rem;
+}
+
+.options > p {
+    color: #1D70AD;
+    margin: 0.3rem;
+    text-decoration: underline;
+}
+
+input[type="file"]::file-selector-button {
+    margin: 1rem;
+    background-color: #1D70AD;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+
+@media screen and (max-width: 768px) {
+    main {
+        margin-top: 3rem;
+    }
+
+    input[type=search-bar] {
+        width: 15rem;
+    }
+
+    .track-suggestions-section {
+        max-width: 14rem;
+        max-height: 8rem;
+    }
+
+    ul.track-suggestions > li {
+        width: 14rem;
+    }
+
+}
