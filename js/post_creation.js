@@ -6,6 +6,7 @@ let fileInput = document.getElementById('images');
 let firstTime = 0;
 let files ;
 
+/*This code deals with the search suggestion */
 search.addEventListener('keydown', function(event) {
     firstTime++;
     if(firstTime>1) {
@@ -37,13 +38,13 @@ search.addEventListener('keydown', function(event) {
     
 });
 
+/*This code deals with the search suggestion */
 function listEvent() {
     let list = document.querySelectorAll('li');
     list.forEach((li) => {
         li.addEventListener("click", (event)=>{
             let target = event.target;
             let text = target.closest('p').textContent;
-            let searchButton = document.querySelector(".searchButton");
             search.value = text;
             sugg.innerHTML = ""
         });
@@ -58,6 +59,7 @@ function listEvent() {
         });
     });
 };
+/*Here ends the code deals with the search suggestion */
  
 if(remove!=null) {
     remove.addEventListener("click", ()=> {
@@ -106,7 +108,6 @@ fileInput.addEventListener('change', (event) => {
     deleteImage.forEach((em) => {
         em.addEventListener("click", (event) => {
             let imageToDelete = event.target.closest("img");
-            imageToDelete.
         } )
     })
 

@@ -470,6 +470,7 @@ class DatabaseHelper {
         return array('playlist'=> $playlist, 'songs' => $tracklist);
     }
 
+    /*This code deals with the search suggestion */
     public function getSuggestedTracks($trackName) {
         $bind = '%'.$trackName.'%';
         $singleTrackQuery = "SELECT  Name, CoverImage, Creator
