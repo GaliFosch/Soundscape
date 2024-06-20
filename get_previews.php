@@ -51,6 +51,7 @@ switch ($preview_type) {
             $preview["author"] = $album["Creator"];
             $preview["image"] = $album["CoverImage"];
             $preview["year"] = date('Y', strtotime($album["CreationDate"]));
+            $preview["length"] = $album["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $album["PlaylistID"];
             $previews[] = $preview;
         }
@@ -65,6 +66,8 @@ switch ($preview_type) {
             $preview["title"] = $playlist["Name"];
             $preview["author"] = $playlist["Creator"];
             $preview["image"] = $playlist["CoverImage"];
+            $preview["year"] = date('Y', strtotime($playlist["CreationDate"]));
+            $preview["length"] = $playlist["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $playlist["PlaylistID"];
             $previews[] = $preview;
         }
@@ -84,6 +87,8 @@ switch ($preview_type) {
             $preview["title"] = $track["Name"];
             $preview["author"] = $track["Creator"];
             $preview["image"] = $track["CoverImage"];
+            $preview["year"] = date('Y', strtotime($track["CreationDate"]));
+            $preview["length"] = $track["TimeLength"];
             $preview["link"] = "player.php?trackid=" . $track["TrackID"];
             $previews[] = $preview;
         }
@@ -94,6 +99,8 @@ switch ($preview_type) {
             $preview["title"] = $album["Name"];
             $preview["author"] = $album["Creator"];
             $preview["image"] = $album["CoverImage"];
+            $preview["year"] = date('Y', strtotime($album["CreationDate"]));
+            $preview["length"] = $album["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $album["PlaylistID"];
             $previews[] = $preview;
         }
@@ -104,6 +111,8 @@ switch ($preview_type) {
             $preview["title"] = $playlist["Name"];
             $preview["author"] = $playlist["Creator"];
             $preview["image"] = $playlist["CoverImage"];
+            $preview["year"] = date('Y', strtotime($playlist["CreationDate"]));
+            $preview["length"] = $playlist["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $playlist["PlaylistID"];
             $previews[] = $preview;
         }
