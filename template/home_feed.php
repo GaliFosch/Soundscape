@@ -14,9 +14,9 @@
             <!--Post caption-->
             <p class="open-focus" post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
             <!--Outer section of music box-->
-            <section class="music-box">
-                <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
-                <?php if ($track != null): ?>
+            <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
+            <?php if ($track != null): ?>
+                <section class="music-box">
                     <?php if ($track["CoverImage"] != null): ?>
                         <img class="song" src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
                     <?php else: ?>
@@ -30,10 +30,10 @@
                     <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
                         <em class="fa-solid fa-play"></em>
                     </a>
-                <?php endif; ?>
+            <?php endif; ?>
             </section>
             <section class="post-interaction post-interaction">
-                <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
+                <em class="fa-regular fa-message fa-fw" post-id="<?php echo $post['PostID']; ?>"></em>
                 <?php if(isset($_SESSION['username'])): ?>
                     <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
                         <em class="fa-solid fa-heart fa-fw article"></em>

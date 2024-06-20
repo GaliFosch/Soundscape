@@ -504,8 +504,57 @@ class DatabaseHelper {
         }
     }
 
-    public function getPersonalizedHomeFeed() {
+    public function getPersonalizedHomeFeed($userID, $nToShow, $nToSkip = 0) {
+        //This query return the posts of the followed artists, posted in the last 7 days.
+        $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    WHERE post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    AND user.Username IN (
+                        SELECT Following
+                        FROM follow
+                        WHERE Follower = ?
+                    )
+                    ORDER BY post.PostID DESC
+                    LIMIT ?, ?";
 
+        //This query returns the most liked posts of the last seven days
+        $likedQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    WHERE user.Username IS NOT ?
+                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    ORDER BY post.NumLike DESC
+                    LIMIT ?, ?";
+        
+        $likedGenre = $this->getFavouriteGenres($userID);
+
+        //This query returns random posts in which the song is of a genre generally listened by the user
+        $genreQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    INNER JOIN belonging ON post.TrackID = belonging.TrackId
+                    INNER JOIN $likedGenre ON belonging.GenreTag = likedGenre.GenreTag
+                    WHERE user.Username IS NOT ?
+                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    ORDER BY likedGenre.TrackCount DESC
+                    LIMIT ?, ?";
+        
+        $finalQuery = "SELECT * FROM (
+                            SELECT * FROM $artistQuery
+                            UNION 
+                            SELECT * FROM $likedQuery
+                            UNION 
+                            SELECT * FROM $genreQuery
+                        ) ORDER BY RAND()";
+
+        $stmt = $this->db->prepare($finalQuery);
+        $stmt->bind_param("siisiisii", $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip);
+        if($stmt->execute()) {
+            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        } else {
+            $this->getGeneralHomeFeed();
+        }
     }
 
     public function getGeneralHomeFeed() {
@@ -516,6 +565,118 @@ class DatabaseHelper {
         $stmt =  $this->db->prepare($query);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
     }
+
+    public function getFavouriteGenres($userID) {
+        $query = "SELECT genre.GenreTag, COUNT(belonging.TrackID) AS TrackCount
+                FROM belonging
+                INNER JOIN genre ON belonging.GenreTag = genre.GenreTag
+                WHERE belonging.TrackID IN (
+                    SELECT post.TrackID
+                    FROM post
+                    WHERE Post.Usernanme = ?)
+                GROUP BY genre.GenreTag
+                ORDER BY TrackCount DESC";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param("s", $userID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addComment($text, $userID, $postID) {
+        $timestamp = date('Y-m-d H:i:s');
+        $query = "INSERT INTO comment (CommentText, CommentTimestamp, Username, PostID)
+                    VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sssi', $text, $timestamp,$userID, $postID);
+        $stmt->execute();
+    }
+
+    public function getAllComments($postID) {
+        $query = "SELECT CommentText, Username
+                    FROM comment
+                    WHERE PostID = ?
+                    ORDER BY CommentTimestamp";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i',$postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllLikes($postID) {
+        $query = "SELECT postlike.Username, user.ProfileImage
+                        FROM postlike
+                        INNER JOIN user ON postlike.Username = user.Username
+                        WHERE postlike.PostID = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i',$postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getTrackByName($trackName, $trackCreator) {
+        $query = "SELECT AudioFile, Name, CoverImage, Creator
+                FROM single_track
+                WHERE Name = ? AND Creator = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('ss',$trackName, $trackCreator);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
+    public function getPlaylistByName($trackName, $trackCreator) {
+        $playlistQuery = "SELECT PlaylistID, Name, CoverImage, Creator, isAlbum
+                FROM playlist 
+                WHERE Name = ? AND Creator = ?";
+        $tracklistQuery = "SELECT S.Name, S.CoverImage, S.Creator
+                            FROM single_track as S
+                            INNER JOIN tracklist as T ON S.TrackID = T.TrackID
+                            INNER JOIN playlist as P ON P.PlaylistID = T.PlaylistID
+                            WHERE P.Name = ? AND P.Creator = ?";
+        $stmt =  $this->db->prepare($playlistQuery);
+        $stmt->bind_param('ss',$trackName, $trackCreator);
+        $stmt->execute();
+        $playlist = $stmt->get_result()->fetch_assoc();
+        $stmt =  $this->db->prepare($tracklistQuery);
+        $stmt->bind_param('ss',$trackName, $trackCreator);
+        $stmt->execute();
+        $tracklist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        
+        return array('playlist'=> $playlist, 'songs' => $tracklist);
+    }
+
+    /*This code deals with the search suggestion */
+    public function getSuggestedTracks($trackName) {
+        $bind = '%'.$trackName.'%';
+        $singleTrackQuery = "SELECT  Name, CoverImage, Creator
+                            FROM single_track
+                            WHERE Name LIKE ?";
+        $playlistQuery = "SELECT  Name, CoverImage, Creator, IsAlbum, PlaylistID
+                            FROM playlist
+                            WHERE Name LIKE ?";
+    
+        $stmt =  $this->db->prepare($singleTrackQuery);
+        $stmt->bind_param('s', $bind);
+        $stmt->execute();
+        $singleTrackResult = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+        $stmt =  $this->db->prepare($playlistQuery);
+        $stmt->bind_param('s', $bind);
+        $stmt->execute();
+        $playlistResult = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    
+        $result = array_merge($singleTrackResult, $playlistResult);
+    
+        return $result;
+    }
+
+    public function addPost($track, $text, $userID) {
+        $timestamp = date('Y-m-d H:i:s');
+        $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
+                    VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
+        $stmt->execute();
+    }
+
 }
