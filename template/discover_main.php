@@ -51,6 +51,8 @@
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $track["Name"]; ?></h3>
                                 <h3 class="author"><?php echo $track["Creator"]; ?></h3>
+                                <?php $track["year"] = date('Y', strtotime($track["CreationDate"])); ?>
+                                <h3 class="track-length"><?php echo $track["year"]; ?> - <?php echo $track["TimeLength"]; ?></h3>
                             </div>
                         </a>
                     </section>
@@ -77,6 +79,8 @@
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $album["Name"]; ?></h3>
                                 <h3 class="author"><?php echo $album["Creator"]; ?></h3>
+                                <?php $album["year"] = date('Y', strtotime($album["CreationDate"])); ?>
+                                <h3 class="track-length"><?php echo $album["year"]; ?> - <?php echo $album["TimeLength"]; ?></h3>
                             </div>
                         </a>
                     </section>
@@ -103,6 +107,8 @@
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $playlist["Name"]; ?></h3>
                                 <h3 class="author"><?php echo $playlist["Creator"]; ?></h3>
+                                <?php $playlist["year"] = date('Y', strtotime($playlist["CreationDate"])); ?>
+                                <h3 class="track-length"><?php echo $playlist["year"]; ?> - <?php echo $playlist["TimeLength"]; ?></h3>
                             </div>
                         </a>
                     </section>
@@ -129,6 +135,8 @@
                         <div class="preview-info">
                             <h3 class="preview-title"><?php echo $track["Name"]; ?></h3>
                             <h3 class="author"><?php echo $track["Creator"]; ?></h3>
+                            <?php $track["year"] = date('Y', strtotime($track["CreationDate"])); ?>
+                            <h3 class="track-length"><?php echo $track["year"]; ?> - <?php echo $track["TimeLength"]; ?></h3>
                         </div>
                     </a>
                 </section>
@@ -153,6 +161,8 @@
                         <div class="preview-info">
                             <h3 class="preview-title"><?php echo $album["Name"]; ?></h3>
                             <h3 class="author"><?php echo $album["Creator"]; ?></h3>
+                            <?php $album["year"] = date('Y', strtotime($album["CreationDate"])); ?>
+                            <h3 class="track-length"><?php echo $album["year"]; ?> - <?php echo $album["TimeLength"]; ?></h3>
                         </div>
                     </a>
                 </section>
@@ -177,6 +187,8 @@
                         <div class="preview-info">
                             <h3 class="preview-title"><?php echo $playlist["Name"]; ?></h3>
                             <h3 class="author"><?php echo $playlist["Creator"]; ?></h3>
+                            <?php $playlist["year"] = date('Y', strtotime($playlist["CreationDate"])); ?>
+                            <h3 class="track-length"><?php echo $playlist["year"]; ?> - <?php echo $playlist["TimeLength"]; ?></h3>
                         </div>
                     </a>
                 </section>
