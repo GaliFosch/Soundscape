@@ -4,6 +4,8 @@ require_once("bootstrap.php");
 
 $track = $dbh->getTrackByTitleAndAuthor($_GET["title"], $_GET["author"]);
 
+$_SESSION["selected-tracks-ids"][] = $track["TrackID"];
+
 ?>
 
 <section class="preview">

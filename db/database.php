@@ -473,6 +473,71 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
+    public function addPlaylist($title, $image, $is_album, $creator, $tracks_ids) {
+
+        // Playlist instance insertion
+        $date = date("Y-m-d");   // The current date
+        $query = "INSERT INTO playlist(PlaylistID, Name, CoverImage, isAlbum, CreationDate, Creator, NumTracks, TimeLength)
+                  VALUES (null, ?, ?, ?, ?, ?, 0, '00:00:00');";   // PlaylistID is auto-generated
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ssiss', $title, $image, $is_album, $date, $creator);
+        $insert_success = $stmt->execute();
+        if (!$insert_success) {
+            return null;
+        }
+        $playlist_id = mysqli_insert_id($this->db);   // The auto-generated ID of the tuple just inserted
+
+        // Tracklist insertion
+        $count = 1;
+        foreach ($tracks_ids as $track_id) {
+            $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?);";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('iii', $playlist_id, $track_id, $count);
+            $insert_success = $stmt->execute();
+            if (!$insert_success) {
+                // Undo playlist insertion
+                $query = "DELETE FROM playlist WHERE PlaylistID = ?";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('i', $playlist_id);
+                $stmt->execute();
+                return null;
+            }
+            $count++;
+        }
+
+        // Insert the number of tracks of the playlist
+        $count--;
+        $this->setTracksNumber($playlist_id, $count);
+
+        // Compute and insert the total length of the playlist
+        $this->setPlaylistTotalLength($playlist_id);
+
+        return $playlist_id;  // The playlist has been inserted successfully and its ID is returned
+
+    }
+
+    private function setTracksNumber($playlist_id, $tracks_num) {
+        $query = "UPDATE playlist SET NumTracks = ? WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $tracks_num, $playlist_id);
+        $stmt->execute();
+    }
+
+    private function setPlaylistTotalLength($playlist_id) {
+        $query = "SELECT SUM(TimeLength)
+                  FROM tracklist l, single_track t
+                  WHERE (l.TrackID = t.TrackID) AND (l.PlaylistID = ?);";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $playlist_id);
+        $stmt->execute();
+        $length_in_seconds = $stmt->get_result()->fetch_row()[0];
+        $formatted_length = convert_seconds_into_hhmmss_format($length_in_seconds);
+        $query = "UPDATE playlist SET TimeLength = ? WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('si', $formatted_length, $playlist_id);
+        $stmt->execute();
+    }
+
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike

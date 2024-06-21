@@ -1,3 +1,8 @@
+<?php
+
+$_SESSION["selected-tracks-ids"] = array();
+
+?>
 <main>
     <header>
         <h1>Create a new album or playlist</h1>
@@ -27,6 +32,7 @@
             </li>
         </ul>
     </form>
+    <p>Search and add tracks to your playlist:</p>
     <!-- Search bar -->
     <form id="track-search-form" action="#" method="GET" class="comment" autocomplete="off">
         <label for="track-search"></label>
