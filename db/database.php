@@ -457,6 +457,15 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getAllGenres(){
+        $query = "SELECT * 
+                FROM genre
+                ORDER BY GenreTag ASC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     
     public function removeNotification($id){
         $query = "DELETE FROM Notification
@@ -466,11 +475,26 @@ class DatabaseHelper {
         return $stmt->execute();
     }
     
-    public function addSingleTrack($title, $audio, $img, $creator){
-        $query = "INSERT INTO Single_Track(Name, AudioFile, CoverImage, Creator) VALUES (?,?,?,?)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssss', $title, $audio, $img, $creator);
-        return $stmt->execute();
+    public function addSingleTrack($title, $audio, $duration, $img, $creator, $genres){
+        $this->db->begin_transaction();
+        try{
+            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, Creator) VALUES (?,?,?,?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssss', $title, $audio, $duration, $img, $creator);
+            $stmt->execute();
+            $id = $stmt->insert_id;
+            foreach($genres as $genre){
+                $query = "INSERT INTO belonging(GenreTag, TrackID) VALUES (?,?)";
+                $stmt->prepare($query);
+                $stmt->bind_param("si", $genre, $id);
+                $stmt->execute();
+            }
+            $this->db->commit();
+        }catch (mysqli_sql_exception $exeption){
+            $this->db->rollback();
+            return false;
+        }
+        return true;
     }
 
     public function addPlaylist($title, $image, $is_album, $creator, $tracks_ids) {
