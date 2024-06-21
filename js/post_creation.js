@@ -4,7 +4,7 @@ let search = document.querySelector('#search-track');
 let remove = document.querySelector('.remove');
 let fileInput = document.getElementById('images');
 let firstTime = 0;
-let files ;
+let files = null;
 
 /*This code deals with the search suggestion */
 search.addEventListener('keydown', function(event) {
@@ -79,37 +79,50 @@ if(remove!=null) {
 
 fileInput.addEventListener('change', (event) => {
   files = event.target.files;
+  let fileList = Array.from(files);
   if (files.length > 10) {
     alert('You can only select up to 10 files');
     event.target.value = '';
   } else {
 
     let section = document.createElement('section');
-    section.classList.add = "selected-image-viewer";    
+    section.classList.add("selected-image-viewer");  
     let main = document.querySelector('main');
-
-    files.forEach((element) => {   
+    
+    fileList.forEach((element ,index) => {   
         let inner = document.createElement('section');
         let img = document.createElement('img');
         let em = document.createElement('em');
 
-        inner.classList.add = "inner-image-viewer"
-        img.classList.add = "selected-image";
-        em.classList.add = "fa-solid fa-xmark";
+        inner.classList.add("inner-image-viewer");
+        img.classList.add("selected-image");
+        em.classList.add("fa-solid");
+        em.classList.add("fa-xmark");
         img.src = URL.createObjectURL(element);
 
         inner.appendChild(img);
         inner.appendChild(em);
         section.appendChild(inner);
+
+        em.addEventListener("click", () => {
+            fileList.splice(index, 1);
+            const newFileList = [];
+            const dataTransfer = new DataTransfer();
+            fileList.forEach(file => {
+                dataTransfer.items.add(file);
+                newFileList.push(file);
+            });
+            fileInput.files = dataTransfer.files;
+            img.remove();
+            em.remove();
+            inner.remove();
+            if(newFileList.length === 0) {
+                section.remove()
+            }
+            fileList = newFileList;
+        })
     });
     main.appendChild(section);
-
-    let deleteImage = section.querySelectorAll(".fa-close");
-    deleteImage.forEach((em) => {
-        em.addEventListener("click", (event) => {
-            let imageToDelete = event.target.closest("img");
-        } )
-    })
 
   }
   
