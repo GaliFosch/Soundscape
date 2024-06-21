@@ -13,7 +13,13 @@ if(isset($_POST["title"])){
     if($img === false){
         $img = null;
     }
-    if($dbh->addSingleTrack($_POST["title"], $audio, $img, $_SESSION["username"])){
+
+    $genres = null;
+    if(isset($_POST["genres"])){
+        $genres = $_POST["genres"];
+    }
+
+    if($dbh->addSingleTrack($_POST["title"], $audio, $img, $_SESSION["username"], $genres)){
         header("Location: profile.php");
     }else{
         header("Location: create_track.php?error=2");

@@ -4,7 +4,7 @@
         <ul>
             <li>
                 <label for="title" hidden>Title</label>
-                <input type="text" name="title" id="title" placeholder="Title" require/>
+                <input type="text" name="title" id="title" placeholder="Title" required/>
             </li>
             <li>
                 <label for="img">Select an Image</label>

@@ -467,11 +467,26 @@ class DatabaseHelper {
         return $stmt->execute();
     }
     
-    public function addSingleTrack($title, $audio, $img, $creator){
-        $query = "INSERT INTO Single_Track(Name, AudioFile, CoverImage, Creator) VALUES (?,?,?,?)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssss', $title, $audio, $img, $creator);
-        return $stmt->execute();
+    public function addSingleTrack($title, $audio, $img, $creator, $genres){
+        $this->db->begin_transaction();
+        try{
+            $query = "INSERT INTO Single_Track(Name, AudioFile, CoverImage, Creator) VALUES (?,?,?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssss', $title, $audio, $img, $creator);
+            $stmt->execute();
+            $id = $stmt->insert_id;
+            foreach($genres as $genre){
+                $query = "INSERT INTO belonging(GenreTag, TrackID) VALUES (?,?)";
+                $stmt->prepare($query);
+                $stmt->bind_param("si", $genre, $id);
+                $stmt->execute();
+            }
+            $this->db->commit();
+        }catch (mysqli_sql_exception $exeption){
+            $this->db->rollback();
+            return false;
+        }
+        return true;
     }
 
     public function hasUserLiked($postID, $userID) {
