@@ -1,0 +1,59 @@
+header {
+    padding: 1% 21%;
+}
+
+h1 {
+    text-align: left;
+    margin-left: 2%;
+    font-size: 30px;
+}
+
+main > section {
+    text-align: left;
+}
+
+.preview {
+    text-align: left;
+    display: block;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.preview > a {
+    text-decoration: none;
+}
+
+.picture {
+    border-radius: 15%;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    display: inline;
+    margin-right: 0.5rem;
+}
+
+.preview-info {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.preview-title {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+.author {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: 0.5rem 0;
+    display: block;
+}
+
+.track-length {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin: 0;
+    display: block;
+}

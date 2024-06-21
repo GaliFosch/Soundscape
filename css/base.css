@@ -59,6 +59,15 @@ nav img {
     padding: 5% 5% 0 5%;
 }
 
+nav img.menu-profile-image{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    padding: 0;
+    margin-right: 0.2rem;
+    object-fit: cover;
+}
+
 nav ul {
     list-style: none;
     height: 80%;

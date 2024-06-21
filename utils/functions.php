@@ -18,8 +18,83 @@ function sec_session_start(){
 }
 
 function checkLogin($dbh){
-    if(isset($_SESSION['Username'], $_SESSION['login_string'])){
-        return $dbh->checkLogin($_SESSION['Username'], $_SESSION['login_string']);
+    if(isset($_SESSION['username'], $_SESSION['loginString'])){
+        return $dbh->checkLogin($_SESSION['username'], $_SESSION['loginString']);
     }
     return false;
+}
+
+function uploadImage($file){
+    if(!isset($_FILES[$file])){
+        return false;
+    }
+    $target_dir = "user_img/";
+    $imageFileType = strtolower(pathinfo($_FILES[$file]["name"],PATHINFO_EXTENSION));
+    $newFilename = hash('sha512', $_FILES[$file]["name"].uniqid(mt_rand(1,mt_getrandmax()))). "." . $imageFileType;
+    $target_file = $target_dir . basename($newFilename);
+    $uploadOk = 1;
+    
+    //check if image file is a actual image
+    $check = getimagesize($_FILES[$file]["tmp_name"]);
+    if($check !== false){
+        $uploadOk = 1;
+    }else{
+        $uploadOk = 0;
+    }
+    //check if file already exists
+    if (file_exists($target_file)) {
+        $uploadOk = 0;
+    }
+    //Check file size
+    if ($_FILES[$file]["size"] > 50000000) {
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+        $uploadOk = 0;
+    }
+
+    if ($uploadOk == 0) {
+        return false;
+    } else {
+        if (move_uploaded_file($_FILES[$file]["tmp_name"], $target_file)) {
+            return $target_file;
+        } else {
+            return false;
+        }
+    }
+}
+
+function uploadAudio($file){
+    if(!isset($_FILES[$file])){
+        return false;
+    }
+    $target_dir = "user_audio/";
+    $audioFileType = strtolower(pathinfo($_FILES[$file]["name"],PATHINFO_EXTENSION));
+    $newFilename = hash('sha512', $_FILES[$file]["name"].uniqid(mt_rand(1,mt_getrandmax()))). "." . $audioFileType;
+    $target_file = $target_dir . basename($newFilename);
+    $uploadOk = 1;
+
+    //check if file already exists
+    if (file_exists($target_file)) {
+        $uploadOk = 0;
+    }
+    //Check file size
+    if ($_FILES[$file]["size"] > 50000000) {
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    if($audioFileType != "mp3") {
+        $uploadOk = 0;
+    }
+
+    if ($uploadOk == 0) {
+        return false;
+    } else {
+        if (move_uploaded_file($_FILES[$file]["tmp_name"], $target_file)) {
+            return $target_file;
+        } else {
+            return false;
+        }
+    }
 }

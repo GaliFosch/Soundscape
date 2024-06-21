@@ -1,0 +1,55 @@
+header {
+    padding-top: 5rem;
+}
+
+article {
+    background-color: #4A4A4A;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+
+}
+
+article>.close{
+    float:right;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    height: 2.1rem;
+    width: 2.2rem;
+}
+
+article>.close:hover{
+    background-color: #FF5733;
+    color: #813121;
+    border-radius: 0.2rem;
+}
+
+article>div{
+    width: 80%;
+    margin-left: 10%;
+}
+
+article>div h3{
+    font-size: 1.3rem;
+    padding-top: 1rem;
+    margin: 0;
+}
+
+article>div p{
+    font-size: 1.1rem;
+}
+
+article>div a {
+    text-decoration: none;
+    color: lightskyblue;
+}
+
+article>footer {
+    text-align: right;
+    opacity: 0.7;
+    margin-right: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+

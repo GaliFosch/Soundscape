@@ -1,0 +1,101 @@
+header {
+    text-align: left;
+    display: block;
+    padding: 3% 0 3% 21%;
+}
+
+header img {
+    border-radius: 5%;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+}
+
+.playlist-details {
+    vertical-align: middle;
+    margin: 0;
+}
+
+#title {
+    font-size: 2.5rem;
+    margin: 0.5rem 0 0 0;
+}
+
+#author {
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin: 0.75rem 0;
+}
+
+#date-and-length {
+    font-size: 1rem;
+    opacity: 0.6;
+    margin: 0.75rem 0;
+}
+
+#audio-controls {
+    padding: 0.5rem 0;
+}
+
+#play-button {
+    background-color: inherit;
+    border: none;
+}
+
+#play-button > img {
+    height: 2rem;
+    width: auto;
+}
+
+#audio-controls > a {
+    background-color: inherit;
+}
+
+#shuffle-button {
+    color: #E28AB9;
+}
+
+hr {
+    width: 90%;
+    opacity: 0.5;
+    margin: 1rem 0;
+}
+
+#tracklist > a {
+    text-decoration: none;
+    background-color: inherit;
+}
+
+.tracklist-item {
+    display: block;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+}
+
+.tracklist-item:hover {
+    background-color: #4A4A4A;
+}
+
+.tracklist-item > * {
+    display: table-cell;
+}
+
+.track-position, .track-length {
+    text-align: center;
+    width: 5rem;
+    vertical-align: middle;
+}
+
+.track-details {
+    width: 25rem;
+    vertical-align: middle;
+}
+
+.track-details > * {
+    display: block;
+}
+
+.author {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}

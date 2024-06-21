@@ -1,7 +1,7 @@
 <main>
     <img id="front-logo" src="images/logo.svg" alt=""/>
     <h1>Registration</h1>
-    <form id="user-info-form" action="process_register.php" method="POST">
+    <form id="user-info-form" action="process_register.php" method="POST" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="username" hidden>Username</label>
@@ -9,7 +9,7 @@
             </li>
             <li>
                 <label for="password" hidden>Password</label>
-                <input type="text" name="password" id="password" placeholder="Password" required/>
+                <input type="password" name="password" id="password" placeholder="Password" required/>
             </li>
             <li>
                 <label for="email" hidden>Email</label>

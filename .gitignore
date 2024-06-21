@@ -1,2 +1,4 @@
 # Ignore PHPStorm settings folder
 .idea
+user_img/*
+user_audio/*

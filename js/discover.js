@@ -19,7 +19,7 @@ function onShowMoreBtnClick(event) {
 
     request.open(
         "GET",
-        "template/get_previews.php?type=" + previewsType + "&show=" + toShowCount + "&skip=" + shownCount[`${previewsType}`],
+        "get_previews.php?t=" + previewsType + "&show=" + toShowCount + "&skip=" + shownCount[`${previewsType}`],
         true
     )
     request.onreadystatechange = function() {
