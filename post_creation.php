@@ -9,7 +9,11 @@ $template["track"] = null;
 $template["playlist"] = null;
 
 if(isset(($_POST["caption"]))) {
-    $dbh->addPost($_POST["track"], $_POST["caption"], $_SESSION['username']);
+    if(isset(($_POST["track"]))) {
+        $dbh->addPost($_POST["track"], $_POST["caption"], $_POST["images"], $_SESSION['username']);
+    } else if (isset(($_POST["playlist"]))) {
+        $dbh->addPost($_POST["playlist"], $_POST["caption"], $_POST["images"], $_SESSION['username']);
+    }
     header('Location: index.php');
     exit;
 }

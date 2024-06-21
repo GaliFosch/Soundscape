@@ -79,7 +79,9 @@
     <form action="post_creation.php" method="POST" class="caption">
         <label for="write-caption">Write your post caption:</label>
         <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
-        <input type="hidden" name="track" value="<?php if ($template["track"] != null): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["playlist"]!= null): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>">
+        <input type="hidden" 
+            name="<?php if ($template["track"] != null):?>track<?php elseif ($template["playlist"]!= null):?>playlist<?php endif; ?>" 
+            value="<?php if ($template["track"] != null): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["playlist"]!= null): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>"></input>
         <label for="images">Add some images:</label>
         <input type="file" id="images" name="images" accept="image/jpeg, image/png" multiple max="10">
         <input type="submit" value="Post"/>
@@ -88,4 +90,3 @@
 </main>
 
 <script src="js/post_creation.js"></script>
-

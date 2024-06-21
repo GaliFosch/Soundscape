@@ -495,13 +495,14 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function addPost($track, $text, $userID) {
+    public function addPost($track, $text, $images, $userID) {
         $timestamp = date('Y-m-d H:i:s');
         $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
                     VALUES (?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
         $stmt->execute();
+        
     }
 
 }
