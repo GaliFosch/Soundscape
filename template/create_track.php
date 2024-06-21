@@ -8,23 +8,22 @@
             </li>
             <li>
                 <label for="img">Select an Image</label>
-                <input type="file" name="img" id="img"/>
+                <input type="file" name="img" id="img" accept="image/*"/>
             </li>
             <li>
                 <label for="audio">Select The File Audio</label>
-                <input type="file" name="audio" id="audio" require/>
+                <input type="file" name="audio" id="audio" accept="audio/*" required/>
             </li>
         </ul>
-        <input type="submit" value="Send"/>
+        <input type="text" name="duration" id="audioDuration" hidden/>
+        <script src="js/audioDuration.js"></script>
     </form>
     <section>
         <header>
             <h3>Genres</h3>
         </header>
         <main id="GenreList">
-            <section id="Selected">
-
-            </section>
+            <section id="Selected"></section>
             <section id="NotSelected">
                 <?php 
                     $genres = $dbh->getAllGenres();
@@ -41,4 +40,5 @@
         </main>
         <script src="js/genreSelection.js"></script>
     </section>
+    <input type="submit" form="createTrack" value="Send"/>
 </main>

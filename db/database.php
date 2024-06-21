@@ -467,12 +467,12 @@ class DatabaseHelper {
         return $stmt->execute();
     }
     
-    public function addSingleTrack($title, $audio, $img, $creator, $genres){
+    public function addSingleTrack($title, $audio, $duration, $img, $creator, $genres){
         $this->db->begin_transaction();
         try{
-            $query = "INSERT INTO Single_Track(Name, AudioFile, CoverImage, Creator) VALUES (?,?,?,?)";
+            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, Creator) VALUES (?,?,?,?,?)";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param('ssss', $title, $audio, $img, $creator);
+            $stmt->bind_param('sssss', $title, $audio, $duration, $img, $creator);
             $stmt->execute();
             $id = $stmt->insert_id;
             foreach($genres as $genre){
