@@ -4,6 +4,20 @@ const selected = document.getElementById("Selected");
 const notSelected = document.getElementById("NotSelected");
 const genres = Array.from(notSelected.getElementsByClassName("genre"));
 
+function insertValueIntoForm(value){
+    const element = document.createElement("input");
+    element.className = "genre";
+    element.type = "text";
+    element.name = "genres[]";
+    element.value = value;
+    element.id = value;
+    form.append(element);
+}
+
+function removeValueFromForm(value){
+    form.removeChild(document.getElementById(value));
+}
+
 function insertAlphabetically(container, element){
     let inserted = false;
     const list = container.children;
@@ -21,13 +35,14 @@ function insertAlphabetically(container, element){
 
 genres.forEach(genre=>{
     genre.addEventListener("click", function(){
-        const index = genre.getAttribute("original-index");
         if(selected.contains(genre)){
             selected.removeChild(genre);
             insertAlphabetically(notSelected, genre);
+            removeValueFromForm(genre.id);
         }else{
             notSelected.removeChild(genre);
-            insertAlphabetically(selected, genre);
+            insertAlphabetically(selected, genre)
+            insertValueIntoForm(genre.id);
         }
     })
 })

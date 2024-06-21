@@ -81,3 +81,7 @@ button.genre em{
 #Selected button.genre em{
     display: inline;
 }
+
+input.genre {
+    display: none;
+}

@@ -1,6 +1,6 @@
 <main>
     <h2>Create a Track</h2>
-    <form action="process_create_track.php" method="POST" enctype="multipart/form-data">
+    <form id="createTrack" action="process_create_track.php" method="POST" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="title" hidden>Title</label>
@@ -32,7 +32,7 @@
                     foreach ($genres as $genre):
                         $i++;
                 ?>
-                    <button class="genre" original-index = "<?php echo $i;?>">
+                    <button id="<?php echo $genre["GenreTag"]?>" class="genre">
                         <em class="fa-solid fa-check"></em>
                         <?php echo $genre["GenreTag"]?>
                     </button>
