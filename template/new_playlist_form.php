@@ -32,7 +32,7 @@ $_SESSION["selected-tracks-ids"] = array();
             </li>
         </ul>
     </form>
-    <p>Search and add tracks to your playlist:</p>
+    <p>Search and add tracks to your album or playlist:</p>
     <!-- Search bar -->
     <form id="track-search-form" action="#" method="GET" class="comment" autocomplete="off">
         <label for="track-search"></label>
