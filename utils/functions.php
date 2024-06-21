@@ -25,7 +25,7 @@ function checkLogin($dbh){
 }
 
 function uploadImage($file){
-    if(!isset($_FILES[$file])){
+    if(!isset($_FILES[$file]) || $_FILES[$file]["error"] != UPLOAD_ERR_OK){
         return false;
     }
     $target_dir = "user_img/";
@@ -66,7 +66,7 @@ function uploadImage($file){
 }
 
 function uploadAudio($file){
-    if(!isset($_FILES[$file])){
+    if(!isset($_FILES[$file]) || $_FILES[$file]["error"] != UPLOAD_ERR_OK){
         return false;
     }
     $target_dir = "user_audio/";

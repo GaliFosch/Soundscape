@@ -1,20 +1,44 @@
 <main>
     <h2>Create a Track</h2>
-    <form action="process_create_track.php" method="POST" enctype="multipart/form-data">
+    <form id="createTrack" action="process_create_track.php" method="POST" enctype="multipart/form-data">
         <ul>
             <li>
                 <label for="title" hidden>Title</label>
-                <input type="text" name="title" id="title" placeholder="Title" require/>
+                <input type="text" name="title" id="title" placeholder="Title" required/>
             </li>
             <li>
                 <label for="img">Select an Image</label>
-                <input type="file" name="img" id="img"/>
+                <input type="file" name="img" id="img" accept="image/*"/>
             </li>
             <li>
                 <label for="audio">Select The File Audio</label>
-                <input type="file" name="audio" id="audio" require/>
+                <input type="file" name="audio" id="audio" accept="audio/*" required/>
             </li>
         </ul>
-        <input type="submit" value="Send"/>
+        <input type="text" name="duration" id="audioDuration" hidden/>
+        <script src="js/audioDuration.js"></script>
     </form>
+    <section>
+        <header>
+            <h3>Genres</h3>
+        </header>
+        <main id="GenreList">
+            <section id="Selected"></section>
+            <section id="NotSelected">
+                <?php 
+                    $genres = $dbh->getAllGenres();
+                    $i = 0;
+                    foreach ($genres as $genre):
+                        $i++;
+                ?>
+                    <button id="<?php echo $genre["GenreTag"]?>" class="genre">
+                        <em class="fa-solid fa-check"></em>
+                        <?php echo $genre["GenreTag"]?>
+                    </button>
+                <?php endforeach;?>
+            </section>
+        </main>
+        <script src="js/genreSelection.js"></script>
+    </section>
+    <input type="submit" form="createTrack" value="Send"/>
 </main>
