@@ -451,7 +451,8 @@ class DatabaseHelper {
 
     public function getAllGenres(){
         $query = "SELECT * 
-                FROM genre";
+                FROM genre
+                ORDER BY GenreTag ASC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);

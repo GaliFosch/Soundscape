@@ -22,17 +22,23 @@
             <h3>Genres</h3>
         </header>
         <main id="GenreList">
-            <?php 
-                $genres = $dbh->getAllGenres();
-                $i = 0;
-                foreach ($genres as $genre):
-                    $i++;
-            ?>
-                <button class="genre" original-index = "<?php echo $i;?>">
-                    <em class="fa-solid fa-check"></em>
-                    #<?php echo $genre["GenreTag"]?>
-                </button>
-            <?php endforeach;?>
+            <section id="Selected">
+
+            </section>
+            <section id="NotSelected">
+                <?php 
+                    $genres = $dbh->getAllGenres();
+                    $i = 0;
+                    foreach ($genres as $genre):
+                        $i++;
+                ?>
+                    <button class="genre" original-index = "<?php echo $i;?>">
+                        <em class="fa-solid fa-check"></em>
+                        <?php echo $genre["GenreTag"]?>
+                    </button>
+                <?php endforeach;?>
+            </section>
         </main>
+        <script src="js/genreSelection.js"></script>
     </section>
 </main>
