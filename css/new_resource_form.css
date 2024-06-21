@@ -79,3 +79,59 @@ p {
     margin-top: 1rem;
 }
 
+section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+#GenreList {
+    border-radius: 1rem;
+    background-color: #232323;
+    width: 20rem;
+    text-align: center;
+    margin: 0;
+    padding: 1rem;
+
+}
+
+#GenreList section {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button.genre {
+    background-color: #975AA8;
+    color: black;
+    border-style: none;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    margin: 0.15rem;
+}
+
+button.genre em{
+    margin-right: 0.5rem;
+    color: black;
+}
+
+#NotSelected button.genre em{
+    display: none;
+}
+
+#Selected button.genre {
+    background-color: #2daf79;
+}
+
+#Selected button.genre em{
+    display: inline;
+}
+
+input.genre {
+    display: none;
+}
+
