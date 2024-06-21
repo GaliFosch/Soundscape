@@ -70,3 +70,8 @@ label[for=title] {
     margin-top: 0;
 }
 
+#selected-tracks {
+    align-self: center;
+    margin-top: 1rem;
+}
+

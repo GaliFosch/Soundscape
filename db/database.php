@@ -239,6 +239,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getTrackByTitleAndAuthor($title, $author) {
+        $query = "SELECT * FROM single_track WHERE Name = ? AND Creator = ?;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $title, $author);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function getMatchingUsers($search_input, $nToShow, $nToSkip = 0) {
         $query = "SELECT * 
                   FROM user 

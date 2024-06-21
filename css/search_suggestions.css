@@ -28,7 +28,7 @@ input[type=search]:focus {
     outline: none;
 }
 
-form.comment > input[type=submit] {
+form.comment > input[type=submit], form.comment > input[type=button] {
     background-color: white;
     border: none;
     font-size: 0;
@@ -40,7 +40,7 @@ form.comment > input[type=submit] {
     border-radius: 18px;
 }
 
-form.comment > .fa-magnifying-glass {
+form.comment > .fa-magnifying-glass, form.comment > .fa-plus {
     grid-row-start: 1;
     grid-column-start: 2;
     grid-column-end: 2;

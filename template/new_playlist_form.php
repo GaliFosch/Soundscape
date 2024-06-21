@@ -27,15 +27,22 @@
             </li>
         </ul>
     </form>
-    <form id="track-search-form" action="post_creation.php?" method="GET" class="comment" autocomplete="off">
+    <!-- Search bar -->
+    <form id="track-search-form" action="#" method="GET" class="comment" autocomplete="off">
         <label for="track-search"></label>
         <input id="track-search" type="search" name="track" placeholder="Search for song"/>
-        <input id="track-search-button" type="submit" class="searchButton" value="Search" />
-        <em class="fa-solid fa-magnifying-glass"></em>
+        <input id="add-track-button" type="button" value="Add" />
+        <em class="fa-solid fa-plus"></em>
     </form>
+    <!-- List of suggested tracks -->
     <section class="track-suggestions-section">
         <ul class="track-suggestions"></ul>
     </section>
-    <input type="submit" value="Create" />
+    <!-- List of selected tracks -->
+    <section id="selected-tracks">
+    </section>
+    <!-- Submit button -->
+    <input type="submit" form="new-resource-form" value="Create" />
 </main>
 <script src="js/search_suggestions.js"></script>
+<script src="js/add_track_to_tracklist.js"></script>
