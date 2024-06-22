@@ -385,6 +385,16 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
+    public function thereAreNotifications($username){
+        $query = "SELECT NotificationId
+                FROM notification
+                WHERE Receiver = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        return $stmt->get_result()->num_rows>0;
+    }
+
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike
