@@ -65,6 +65,55 @@ function uploadImage($file){
     }
 }
 
+function uploadMultipleImages($files){
+    if(!isset($_FILES[$files])){
+        return false;
+    }
+    $target_dir = "user_img/";
+    $results = [];
+    $n = count($_FILES[$files]["name"]);
+    for($i = 0; $i<=$n; $i++){
+        if($_FILES[$files]["error"][$i] != UPLOAD_ERR_OK){
+            $results[$i] = false;
+            continue;
+        }
+        $imageFileType = strtolower(pathinfo($_FILES[$files]["name"][$i],PATHINFO_EXTENSION));
+        $newFilename = hash('sha512', $_FILES[$files]["name"][$i].uniqid(mt_rand(1,mt_getrandmax()))). "." . $imageFileType;
+        $target_file = $target_dir . basename($newFilename);
+        $uploadOk = 1;
+        //check if image file is a actual image
+        $check = getimagesize($_FILES[$files]["tmp_name"][$i]);
+        if($check !== false){
+            $uploadOk = 1;
+        }else{
+            $uploadOk = 0;
+        }
+        //check if file already exists
+        if (file_exists($target_file)) {
+            $uploadOk = 0;
+        }
+        //Check file size
+        if ($_FILES[$files]["size"][$i] > 50000000) {
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            $results[$i] = false;
+        } else {
+            if (move_uploaded_file($_FILES[$files]["tmp_name"][$i], $target_file)) {
+                $results[$i] = $target_file;
+            } else {
+                $results[$i] = false;
+            }
+        }
+    }
+    return $results;
+}
+
 function uploadAudio($file){
     if(!isset($_FILES[$file]) || $_FILES[$file]["error"] != UPLOAD_ERR_OK){
         return false;
