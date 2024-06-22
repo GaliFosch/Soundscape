@@ -8,7 +8,6 @@
             <?php else: ?>
                 <p id="post-msg">Post added succesfully. You now will be redirected to the home page</p>
                 <?php 
-                    sleep(5);
                     header("Location: index.php");
                 ?>
             <?php endif; ?>
