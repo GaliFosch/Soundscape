@@ -61,19 +61,25 @@ hr {
     margin: 1rem 0;
 }
 
-#tracklist > a {
+#tracklist a {
     text-decoration: none;
     background-color: inherit;
 }
 
-.tracklist-item {
+.row {
     display: block;
     padding: 0.5rem 0;
     margin: 0.5rem 0;
+    vertical-align: center;
 }
 
-.tracklist-item:hover {
+.row:hover {
     background-color: #4A4A4A;
+}
+
+.tracklist-item {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .tracklist-item > * {
@@ -101,6 +107,7 @@ hr {
 }
 
 .track-options {
+    display: inline-block;
     width: 5rem;
     text-align: right;
     vertical-align: middle;
@@ -109,6 +116,4 @@ hr {
 
 .remove-track-button {
     width: 1rem;
-    background-color: inherit;
-    border-style: none;
 }

@@ -17,19 +17,21 @@
     <hr>
     <section id="tracklist">
         <?php foreach ($template["tracklist"] as $track): ?>
-            <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["position"] - 1); ?>">
-                <section class="tracklist-item">
-                    <p class="track-position"><?php echo $track["position"]; ?></p>
-                    <div class="track-details">
-                        <strong class="track-title"><?php echo $track["Name"]; ?></strong>
-                        <p class="author"><?php echo $track["Creator"]; ?></p>
-                    </div>
-                    <p class="track-length"><?php echo $track["TimeLength"]; ?></p>
-                    <section class="track-options">
-                        <button class="remove-track-button"><em class="fa-solid fa-xmark"></em></button>
+            <section class="row">
+                <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["position"] - 1); ?>">
+                    <section class="tracklist-item">
+                        <p class="track-position"><?php echo $track["position"]; ?></p>
+                        <div class="track-details">
+                            <strong class="track-title"><?php echo $track["Name"]; ?></strong>
+                            <p class="author"><?php echo $track["Creator"]; ?></p>
+                        </div>
+                        <p class="track-length"><?php echo $track["TimeLength"]; ?></p>
                     </section>
+                </a>
+                <section class="track-options">
+                    <a href="remove_track_from_playlist.php?trackid=<?php echo $track["TrackID"]; ?>&pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" class="remove-track-button"><em class="fa-solid fa-xmark"></em></a>
                 </section>
-            </a>
+            </section>
         <?php endforeach; ?>
     </section>
 </header>
