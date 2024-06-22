@@ -416,7 +416,8 @@ class DatabaseHelper {
         $query = "SELECT *
                   FROM tracklist l, single_track t
                   WHERE l.TrackID = t.TrackID
-                    AND l.PlaylistID = ?";
+                    AND l.PlaylistID = ?
+                  ORDER BY l.position;";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -560,6 +561,31 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('si', $formatted_length, $playlist_id);
         $stmt->execute();
+    }
+
+    private function getPlaylistNumTracks($playlist_id) {
+        $query = "SELECT NumTracks FROM playlist WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $playlist_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row()[0];
+    }
+
+    public function addTracksToPlaylist($playlist_id, $tracks_ids) {
+        $tracks_count = $this->getPlaylistNumTracks($playlist_id);
+        foreach ($tracks_ids as $track_id) {
+            $tracks_count++;
+            $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('iii', $playlist_id, $track_id, $tracks_count);
+            $insert_success = $stmt->execute();
+            if (!$insert_success) {
+                return false;
+            }
+        }
+        // Update tracks count
+        $this->setTracksNumber($playlist_id, $tracks_count);
+        return true;
     }
 
     public function hasUserLiked($postID, $userID) {
