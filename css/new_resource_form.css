@@ -1,10 +1,20 @@
-h2 {
+header {
+    width: 100%;
+}
+
+h1 {
     padding-top: 2rem;
     margin-top: 0;
 }
 
-ul {
+#new-resource-form > ul {
     list-style: none;
+    padding: 0;
+}
+
+#new-resource-form > ul > li {
+    margin: 1.5rem 0;
+    text-align: center;
 }
 
 #error-msg {
@@ -24,36 +34,75 @@ input[type=text] {
     color: white;
 }
 
-main input[type=submit] {
+main > input[type=submit] {
     color: black;
     border-radius: 10px;
     padding: 5px 15px;
-    margin: 0.75rem 0;
+    margin: 1.5rem 0;
+    align-self: center;
+}
+
+.collection-option {
+    display: inline-block;
+    margin-right: 0.75rem;
+}
+
+.collection-option:nth-last-of-type(1) {
+    margin-right: 0;
+}
+
+input[type=radio] {
+    padding: 0 1rem;
 }
 
 label {
-    margin-right: 2rem;
     text-align: left;
 }
 
-section{
+label[for=title] {
+    display: inline-block;
+    width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#title {
+    margin-top: 0;
+}
+
+p {
+    margin-top: 0;
+}
+
+#selected-tracks {
+    align-self: center;
+    margin-top: 1rem;
+}
+
+section {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
+h3 {
+    margin-top: 0;
+}
+
 #GenreList {
     border-radius: 1rem;
     background-color: #232323;
-    height: 20rem;
     width: 20rem;
     text-align: center;
     margin: 0;
+    padding: 1rem;
+
 }
 
-#GenreList section{
+#GenreList section {
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 button.genre {
@@ -85,3 +134,4 @@ button.genre em{
 input.genre {
     display: none;
 }
+

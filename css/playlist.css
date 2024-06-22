@@ -33,7 +33,7 @@ header img {
     margin: 0.75rem 0;
 }
 
-#audio-controls {
+#controls {
     padding: 0.5rem 0;
 }
 
@@ -47,11 +47,11 @@ header img {
     width: auto;
 }
 
-#audio-controls > a {
+#controls > a {
     background-color: inherit;
 }
 
-#shuffle-button {
+#shuffle-button, #add-track-to-playlist-button {
     color: #E28AB9;
 }
 
@@ -98,4 +98,17 @@ hr {
 .author {
     margin-top: 0.5rem;
     margin-bottom: 0;
+}
+
+.track-options {
+    width: 5rem;
+    text-align: right;
+    vertical-align: middle;
+    visibility: hidden;
+}
+
+.remove-track-button {
+    width: 1rem;
+    background-color: inherit;
+    border-style: none;
 }

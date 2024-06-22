@@ -3,12 +3,12 @@
 require_once("bootstrap.php");
 
 $template["title"] = "Soundscape - Post Creation";
-$template["stylesheets"] = ["base.css", "post_creation.css"];
+$template["stylesheets"] = ["base.css", "post_creation.css", "search_suggestions.css"];
 $template["content"] = "template/create_post.php";
 $template["track"] = null;
 $template["playlist"] = null;
 
-if(isset(($_POST["caption"]))) {
+if (isset($_POST["caption"])) {
     $dbh->addPost($_POST["track"], $_POST["caption"], $_SESSION['username']);
     header('Location: index.php');
     exit;

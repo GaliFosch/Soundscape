@@ -36,7 +36,8 @@
                         <?php endif; ?>
                         <p>Your profile</p>
                     </a></li>
-                    <li><a href="createTrack.php"><em class="fa-solid fa-plus"></em><p>New Track</p></a></li>
+                    <li><a href="create_track.php"><em class="fa-solid fa-plus"></em><p>New Track</p></a></li>
+                    <li><a href="create_playlist.php"><em class="fa-solid fa-plus"></em><p>New Album / Playlist</p></a></li>
                 <?php endif; ?>
             </ul>
             <?php if (isset($_SESSION["username"])): ?>
@@ -49,7 +50,6 @@
                      or <form id="register" action="register.php" method="POST"><input type="submit" value="Register"/></form>
                 </div>
             <?php endif; ?>
-            <!-- TODO: logout button -->
         </nav>
         <!-- Content -->
         <?php require($template["content"]); ?>

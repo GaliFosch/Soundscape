@@ -146,3 +146,11 @@ function uploadAudio($file){
         }
     }
 }
+
+function convert_seconds_into_hhmmss_format($seconds) {
+    /*
+     * Code taken from: https://stackoverflow.com/a/3534705
+     */
+    $t = round($seconds);
+    return sprintf('%02d:%02d:%02d', $t/3600, floor($t/60)%60, $t%60);
+}

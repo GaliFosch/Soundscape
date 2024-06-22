@@ -239,6 +239,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getTrackByTitleAndAuthor($title, $author) {
+        $query = "SELECT * FROM single_track WHERE Name = ? AND Creator = ?;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $title, $author);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function getMatchingUsers($search_input, $nToShow, $nToSkip = 0) {
         $query = "SELECT * 
                   FROM user 
@@ -408,7 +416,8 @@ class DatabaseHelper {
         $query = "SELECT *
                   FROM tracklist l, single_track t
                   WHERE l.TrackID = t.TrackID
-                    AND l.PlaylistID = ?";
+                    AND l.PlaylistID = ?
+                  ORDER BY l.position;";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -470,9 +479,10 @@ class DatabaseHelper {
     public function addSingleTrack($title, $audio, $duration, $img, $creator, $genres){
         $this->db->begin_transaction();
         try{
-            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, Creator) VALUES (?,?,?,?,?)";
+            $creation_date = date('Y-m-d H:i:s');
+            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, CreationDate, Creator) VALUES (?,?,?,?,?,?)";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param('sssss', $title, $audio, $duration, $img, $creator);
+            $stmt->bind_param('ssssss', $title, $audio, $duration, $img, $creation_date, $creator);
             $stmt->execute();
             $id = $stmt->insert_id;
             foreach($genres as $genre){
@@ -482,10 +492,95 @@ class DatabaseHelper {
                 $stmt->execute();
             }
             $this->db->commit();
-        }catch (mysqli_sql_exception $exeption){
+        }catch (mysqli_sql_exception $exception){
             $this->db->rollback();
             return false;
         }
+        return true;
+    }
+
+    public function addPlaylist($title, $image, $is_album, $creator, $tracks_ids) {
+        $this->db->begin_transaction();
+        try {
+            // Playlist instance insertion
+            $date = date("Y-m-d");   // The current date
+            $query = "INSERT INTO playlist(PlaylistID, Name, CoverImage, isAlbum, CreationDate, Creator, NumTracks, TimeLength)
+                  VALUES (null, ?, ?, ?, ?, ?, 0, '00:00:00');";   // PlaylistID is auto-generated
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssiss', $title, $image, $is_album, $date, $creator);
+            $stmt->execute();
+            $playlist_id = mysqli_insert_id($this->db);   // The auto-generated ID of the tuple just inserted
+
+            // Tracklist insertion
+            $count = 1;
+            foreach ($tracks_ids as $track_id) {
+                $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?);";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('iii', $playlist_id, $track_id, $count);
+                $stmt->execute();
+                $count++;
+            }
+
+            // Insert the number of tracks of the playlist
+            $count--;
+            $this->setTracksNumber($playlist_id, $count);
+
+            // Compute and insert the total length of the playlist
+            $this->setPlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return $playlist_id;  // The playlist has been inserted successfully and its ID is returned
+
+        } catch (mysqli_sql_exception $exception){
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+    private function setTracksNumber($playlist_id, $tracks_num) {
+        $query = "UPDATE playlist SET NumTracks = ? WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii', $tracks_num, $playlist_id);
+        $stmt->execute();
+    }
+
+    private function setPlaylistTotalLength($playlist_id) {
+        $query = "SELECT SUM(TimeLength)
+                  FROM tracklist l, single_track t
+                  WHERE (l.TrackID = t.TrackID) AND (l.PlaylistID = ?);";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $playlist_id);
+        $stmt->execute();
+        $length_in_seconds = $stmt->get_result()->fetch_row()[0];
+        $formatted_length = convert_seconds_into_hhmmss_format($length_in_seconds);
+        $query = "UPDATE playlist SET TimeLength = ? WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('si', $formatted_length, $playlist_id);
+        $stmt->execute();
+    }
+
+    private function getPlaylistNumTracks($playlist_id) {
+        $query = "SELECT NumTracks FROM playlist WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $playlist_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row()[0];
+    }
+
+    public function addTracksToPlaylist($playlist_id, $tracks_ids) {
+        $tracks_count = $this->getPlaylistNumTracks($playlist_id);
+        foreach ($tracks_ids as $track_id) {
+            $tracks_count++;
+            $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('iii', $playlist_id, $track_id, $tracks_count);
+            $insert_success = $stmt->execute();
+            if (!$insert_success) {
+                return false;
+            }
+        }
+        // Update tracks count
+        $this->setTracksNumber($playlist_id, $tracks_count);
         return true;
     }
 
