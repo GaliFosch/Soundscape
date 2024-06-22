@@ -3,9 +3,9 @@
     
     <?php if(isset($_GET["error"])): ?>
         <section class="msg-section">
-            <?php if ($_GET["error"] == "true"): ?>
-                <p id="post-msg">Error: the post couldn't be added, please retry</p>
-            <?php elseif ($_GET["error"] == "false"): ?>
+            <?php if ($_GET["error"] != "false"): ?>
+                <p id="post-msg">Error: the post couldn't be added succesfully, please retry</p>
+            <?php else: ?>
                 <p id="post-msg">Post added succesfully. You now will be redirected to the home page</p>
                 <?php 
                     header("Location: index.php");
@@ -91,7 +91,7 @@
         <p>No song chosen</p>
     <?php endif; ?>
     
-    <form action="post_creation.php" method="POST" class="caption" enctype=multipart/form-data"">
+    <form action="post_creation.php" method="POST" class="caption" enctype="multipart/form-data">
         <label for="write-caption">Write your post caption:</label>
         <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
         <input type="hidden" 

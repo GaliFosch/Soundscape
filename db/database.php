@@ -675,10 +675,10 @@ class DatabaseHelper {
         $postID = null;
         $query = null;
         if($type == "track") {
-            $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
+            $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
                     VALUES (?, ?, ?, ?)";
-        } else if($type == "playlist") {
-            $query = "INSERT INTO post (Caption, PlaylistID, Username, Timestamp)
+        } else {
+            $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp)
                     VALUES (?, ?, ?, ?)";
         }
         
