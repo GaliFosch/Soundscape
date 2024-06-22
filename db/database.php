@@ -499,6 +499,54 @@ class DatabaseHelper {
         return true;
     }
 
+    public function removeTrackFromPlaylist($track_id, $playlist_id) {
+        $this->db->begin_transaction();
+        try {
+            // Get track position
+            $query = "SELECT position FROM tracklist WHERE TrackID = ? AND PlaylistID = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $track_id, $playlist_id);
+            $stmt->execute();
+            $position = $stmt->get_result()->fetch_row()[0];
+
+            // Get number of tracks
+            $query = "SELECT NumTracks FROM playlist WHERE PlaylistID = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $playlist_id);
+            $stmt->execute();
+            $num_tracks = $stmt->get_result()->fetch_row()[0];
+
+            // Delete track from tracklist
+            $query = "DELETE FROM tracklist WHERE TrackID = ? AND PlaylistID = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $track_id, $playlist_id);
+            $stmt->execute();
+
+            // Update position of the following tracks in the tracklist
+            for ($i = $position + 1; $i <= $num_tracks; $i++) {
+                $query = "UPDATE tracklist SET position = position - 1 WHERE PlaylistID = ? AND position = ?";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('ii', $playlist_id, $i);
+                $stmt->execute();
+            }
+
+            // Update number of tracks of the album/playlist
+            $num_tracks--;
+            $this->setTracksNumber($playlist_id, $num_tracks);
+
+            // Update album/playlist length
+            $this->updatePlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return true;
+
+        } catch (mysqli_sql_exception $exception){
+            echo $exception;
+            $this->db->rollback();
+            return false;
+        }
+    }
+
     public function addPlaylist($title, $image, $is_album, $creator, $tracks_ids) {
         $this->db->begin_transaction();
         try {
@@ -525,8 +573,8 @@ class DatabaseHelper {
             $count--;
             $this->setTracksNumber($playlist_id, $count);
 
-            // Compute and insert the total length of the playlist
-            $this->setPlaylistTotalLength($playlist_id);
+            // Compute the total length of the playlist
+            $this->updatePlaylistTotalLength($playlist_id);
 
             $this->db->commit();
             return $playlist_id;  // The playlist has been inserted successfully and its ID is returned
@@ -544,7 +592,7 @@ class DatabaseHelper {
         $stmt->execute();
     }
 
-    private function setPlaylistTotalLength($playlist_id) {
+    private function updatePlaylistTotalLength($playlist_id) {
         $query = "SELECT SUM(TimeLength)
                   FROM tracklist l, single_track t
                   WHERE (l.TrackID = t.TrackID) AND (l.PlaylistID = ?);";
@@ -568,20 +616,33 @@ class DatabaseHelper {
     }
 
     public function addTracksToPlaylist($playlist_id, $tracks_ids) {
+
         $tracks_count = $this->getPlaylistNumTracks($playlist_id);
-        foreach ($tracks_ids as $track_id) {
-            $tracks_count++;
-            $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?)";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param('iii', $playlist_id, $track_id, $tracks_count);
-            $insert_success = $stmt->execute();
-            if (!$insert_success) {
-                return false;
+        $this->db->begin_transaction();
+        try {
+
+            foreach ($tracks_ids as $track_id) {
+                $tracks_count++;
+                $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?)";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('iii', $playlist_id, $track_id, $tracks_count);
+                $stmt->execute();
             }
+
+            // Update tracks count
+            $this->setTracksNumber($playlist_id, $tracks_count);
+
+            // Update album/playlist length
+            $this->updatePlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return true;
+
+        } catch (mysqli_sql_exception $exception){
+            $this->db->rollback();
+            return false;
         }
-        // Update tracks count
-        $this->setTracksNumber($playlist_id, $tracks_count);
-        return true;
+
     }
 
     public function thereAreNotifications($username){
