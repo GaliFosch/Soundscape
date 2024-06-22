@@ -75,6 +75,7 @@ function uploadMultipleImages($files){
     for($i = 0; $i<=$n; $i++){
         if($_FILES[$files]["error"][$i] != UPLOAD_ERR_OK){
             $results[$i] = false;
+            continue;
         }
         $imageFileType = strtolower(pathinfo($_FILES[$files]["name"][$i],PATHINFO_EXTENSION));
         $newFilename = hash('sha512', $_FILES[$files]["name"][$i].uniqid(mt_rand(1,mt_getrandmax()))). "." . $imageFileType;
