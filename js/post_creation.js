@@ -25,7 +25,14 @@ search.addEventListener('keydown', function(event) {
                     let img = results[i].CoverImage != null 
                             ? '<img class="song-icon" src="' + results[i].CoverImage + '" alt="Song cover image" />' 
                             : '<img class="song-icon" src="images/placeholder-image.jpg" alt="Song cover image"/>';
-                    let type = results[i].IsAlbum != 0 ? "Album" : (results[i].PlaylistId != null ? "Playlist" : "Track");
+                    let type = null;
+                    if(results[i].IsAlbum == 1) {
+                        type = "Album"
+                    } else if(results[i].IsAlbum == 0) {
+                        type = "Playlist" 
+                    } else {
+                        type = "Track"
+                    }
                     let p = '<p>' + results[i].Name + ' - ' + results[i].Creator + ' - ' + type + '</p>';
                     html += start + img + p + end;
                 }
@@ -77,10 +84,26 @@ if(remove!=null) {
     });  
 }
 
+function checkFileFormat(fileList) {
+    for (let i = 0; i < fileList.length; i++) {
+        if(fileList[i].type.includes("image")) {
+            return true;
+        } else {
+            alert("Invalid image.\nThe format of this file is not accepted.\nAccepting jpg/png.");
+            return false;
+        }
+    }
+    return false;
+}
+
 fileInput.addEventListener('change', (event) => {
   files = event.target.files;
   let fileList = Array.from(files);
-  if (files.length > 10) {
+    if(!checkFileFormat(fileList)) {
+        const dataTransfer = new DataTransfer();
+        fileInput.files = dataTransfer.files;
+    } else {
+        if (files.length > 10) {
     alert('You can only select up to 10 files');
     event.target.value = '';
   } else {
@@ -125,5 +148,21 @@ fileInput.addEventListener('change', (event) => {
     main.appendChild(section);
 
   }
+    }
+  
   
 });
+
+document.onload = ()=> {
+    if(document.getElementById("post-msg")!=null) {
+        let msgSection = document.querySelector(".msg-section");
+        let time = document.createElement('p');
+        time.innerText = "Redirecting in 5..."
+        delay();
+        window.location.href = "https://newurl.com";
+    } 
+}
+
+async function delay() {
+    await new Promise(resolve => setTimeout(resolve, 5000));
+}

@@ -7,15 +7,39 @@ $template["stylesheets"] = ["base.css", "post_creation.css"];
 $template["content"] = "template/create_post.php";
 $template["track"] = null;
 $template["playlist"] = null;
+$template["type"] = null;
 
 if(isset(($_POST["caption"]))) {
-    if(isset(($_POST["track"]))) {
-        $dbh->addPost($_POST["track"], $_POST["caption"], $_POST["images"], $_SESSION['username']);
-    } else if (isset(($_POST["playlist"]))) {
-        $dbh->addPost($_POST["playlist"], $_POST["caption"], $_POST["images"], $_SESSION['username']);
+    $imgArray = null;
+    if(isset(($_POST["images"]))) {
+        $imgArray = $_POST["images"];
+            foreach($imgArray as $image) {
+                $image = uploadImage($image);
+                if($image === false){
+                    $image = null;
+                    header('Location: post_creation.php?error=true');
+                    exit;
+                } 
+            }        
     }
-    header('Location: index.php');
-    exit;
+
+    if(isset(($_POST["track"]))) {
+        if($dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track")) {
+            header('Location: post_creation.php?error=false');
+            exit;
+        } else {
+            header('Location: post_creation.php?error=true');
+            exit;
+        }
+    } else if (isset(($_POST["playlist"]))) {
+        if($dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist")) {
+            header('Location: post_creation.php?error=false');
+            exit;
+        } else {
+            header('Location: post_creation.php?error=true');
+            exit;
+        }
+    }
 }
 
 if (isset($_GET["track"])) {
@@ -27,29 +51,13 @@ if (isset($_GET["track"])) {
         $type = $parts[2];
         if($type == "Track") {
             $template["track"] = $dbh->getTrackByName($trackName, $trackCreator);
+            $template["type"] = 'track';
         } else {
             $template["playlist"] = $dbh->getPlaylistByName($trackName, $trackCreator);
+            $template["type"] = 'playlist';
         }
         
     }    
 }
-
-/* $files = $_FILES['file'];
-
-// Loop through each file
-foreach ($files['name'] as $key => $value) {
-  $tmp_name = $files['tmp_name'][$key];
-  $name = $files['name'][$key];
-  $size = $files['size'][$key];
-  $type = $files['type'][$key];
-
-  // Check if the file is an image
-  if ($type == 'image/jpeg' || $type == 'image/png' || $type == 'image/gif') {
-    // Move the file to the upload directory
-    move_uploaded_file($tmp_name, 'upload/' . $name);
-  }
-}
-?> */
-
 
 require("template/base.php");

@@ -1,9 +1,25 @@
 <main>
+
+    
+    <?php if(isset($_GET["error"])): ?>
+        <section class="msg-section">
+            <?php if ($_GET["error"] == "true"): ?>
+                <p id="post-msg">Error: the post couldn't be added succesfully, please retry</p>
+            <?php elseif ($_GET["error"] == "false"): ?>
+                <p id="post-msg">Post added succesfully. You now will be redirected to the home page</p>
+                <?php 
+                    sleep(5);
+                    header("Location: index.php");
+                ?>
+            <?php endif; ?>
+        </section>
+        
+    <?php endif; ?>
+
     <a href="index.php" aria-label="Close post creation" title="Close post creation" class="close-post-creation">
         <em class="fa-solid fa-xmark"></em>
     </a>
     
-
     <form action="post_creation.php?" method="GET" class="comment" autocomplete="off">
         <label for="track">Search for a music you want to post about</label>
         <input type="search-bar" id="search-track"  name="track" placeholder="Search for song"/>
@@ -29,9 +45,9 @@
             <header><strong><?php echo $template["track"]["Name"]; ?></strong></header>
             <p><?php echo $template["track"]["Creator"]; ?></p>
         </section>
-        <a href="player.php?trackid=<?php echo $template["track"]["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
+        <!--<a href="player.php?trackid=<?php echo $template["track"]["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
             <em class="fa-solid fa-play"></em>
-        </a>    
+        </a>   --> 
    </section>
 
    <section class="options">
@@ -76,14 +92,14 @@
         <p>No song chosen</p>
     <?php endif; ?>
     
-    <form action="post_creation.php" method="POST" class="caption">
+    <form action="post_creation.php" method="POST" class="caption" enctype=multipart/form-data"">
         <label for="write-caption">Write your post caption:</label>
         <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
         <input type="hidden" 
-            name="<?php if ($template["track"] != null):?>track<?php elseif ($template["playlist"]!= null):?>playlist<?php endif; ?>" 
-            value="<?php if ($template["track"] != null): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["playlist"]!= null): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>"></input>
+            name="<?php echo $template['type']; ?>
+            value="<?php if ($template["type"] == 'track'): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["type"] == 'playlist'): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>"></input>
         <label for="images">Add some images:</label>
-        <input type="file" id="images" name="images" accept="image/jpeg, image/png" multiple max="10">
+        <input type="file" id="images" name="images[]" accept="image/jpeg, image/png" multiple max="10">
         <input type="submit" value="Post"/>
     </form>
 

@@ -615,7 +615,7 @@ class DatabaseHelper {
     }
 
     public function getTrackByName($trackName, $trackCreator) {
-        $query = "SELECT AudioFile, Name, CoverImage, Creator
+        $query = "SELECT TrackID, AudioFile, Name, CoverImage, Creator
                 FROM single_track
                 WHERE Name = ? AND Creator = ?";
         $stmt =  $this->db->prepare($query);
@@ -648,7 +648,7 @@ class DatabaseHelper {
     /*This code deals with the search suggestion */
     public function getSuggestedTracks($trackName) {
         $bind = '%'.$trackName.'%';
-        $singleTrackQuery = "SELECT  Name, CoverImage, Creator
+        $singleTrackQuery = "SELECT Name, CoverImage, Creator
                             FROM single_track
                             WHERE Name LIKE ?";
         $playlistQuery = "SELECT  Name, CoverImage, Creator, IsAlbum, PlaylistID
@@ -670,14 +670,39 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function addPost($track, $text, $images, $userID) {
+    public function addPost($track, $text, $images, $userID, $type) {
         $timestamp = date('Y-m-d H:i:s');
-        $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
+        $postID = null;
+        $query = null;
+        if($type == "track") {
+            $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
                     VALUES (?, ?, ?, ?)";
+        } else {
+            $query = "INSERT INTO post (Caption, PlaylistID, Username, Timestamp)
+                    VALUES (?, ?, ?, ?)";
+        }
+        
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
-        $stmt->execute();
-        
+        if($stmt->execute()) {
+            $postID = $this->db->insert_id;
+        } else {
+            return false;
+        }
+        if($images!=null) {
+            foreach($images as $img)
+                $query = "INSERT INTO image (PostImage, PostID)
+                            VALUES (?, ?)";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('ss', $img, $postID);
+                if($stmt->execute()) {
+                } else {
+                    return false;
+                }
+        }
+
+        return true;
+
     }
 
 }
