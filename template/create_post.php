@@ -4,7 +4,7 @@
     <?php if(isset($_GET["error"])): ?>
         <section class="msg-section">
             <?php if ($_GET["error"] == "true"): ?>
-                <p id="post-msg">Error: the post couldn't be added succesfully, please retry</p>
+                <p id="post-msg">Error: the post couldn't be added, please retry</p>
             <?php elseif ($_GET["error"] == "false"): ?>
                 <p id="post-msg">Post added succesfully. You now will be redirected to the home page</p>
                 <?php 

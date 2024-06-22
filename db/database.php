@@ -677,7 +677,7 @@ class DatabaseHelper {
         if($type == "track") {
             $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
                     VALUES (?, ?, ?, ?)";
-        } else {
+        } else if($type == "playlist") {
             $query = "INSERT INTO post (Caption, PlaylistID, Username, Timestamp)
                     VALUES (?, ?, ?, ?)";
         }
