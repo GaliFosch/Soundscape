@@ -16,27 +16,26 @@ if(isset(($_POST["caption"]))) {
             foreach($imgArray as $image) {
                 $image = uploadImage($image);
                 if($image === false){
-                    $image = null;
-                    header('Location: post_creation.php?error=true');
+                    header('Location: post_creation.php?error=1');
                     exit;
                 } 
             }        
     }
 
-    if(isset(($_POST["track"]))) {
-        if($dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track")) {
+    if (isset(($_POST["track"]))) {
+        if ($dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track")) {
             header('Location: post_creation.php?error=false');
             exit;
         } else {
-            header('Location: post_creation.php?error=true');
+            header('Location: post_creation.php?error=2');
             exit;
         }
     } else if (isset(($_POST["playlist"]))) {
-        if($dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist")) {
+        if ($dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist")) {
             header('Location: post_creation.php?error=false');
             exit;
         } else {
-            header('Location: post_creation.php?error=true');
+            header('Location: post_creation.php?error=3');
             exit;
         }
     }
@@ -44,12 +43,12 @@ if(isset(($_POST["caption"]))) {
 
 if (isset($_GET["track"])) {
     $str = $_GET["track"];
-    if($str != "") {
+    if ($str != "") {
         $parts = explode(" - ", $str);
         $trackName = $parts[0];
         $trackCreator = $parts[1];
         $type = $parts[2];
-        if($type == "Track") {
+        if ($type == "Track") {
             $template["track"] = $dbh->getTrackByName($trackName, $trackCreator);
             $template["type"] = 'track';
         } else {
