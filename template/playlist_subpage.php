@@ -25,8 +25,12 @@
                         <p class="author"><?php echo $track["Creator"]; ?></p>
                     </div>
                     <p class="track-length"><?php echo $track["TimeLength"]; ?></p>
+                    <section class="track-options">
+                        <button class="remove-track-button"><em class="fa-solid fa-xmark"></em></button>
+                    </section>
                 </section>
             </a>
         <?php endforeach; ?>
     </section>
 </header>
+<script src="js/track_options.js"></script>
