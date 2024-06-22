@@ -479,9 +479,10 @@ class DatabaseHelper {
     public function addSingleTrack($title, $audio, $duration, $img, $creator, $genres){
         $this->db->begin_transaction();
         try{
-            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, Creator) VALUES (?,?,?,?,?)";
+            $creation_date = date('Y-m-d H:i:s');
+            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, CreationDate, Creator) VALUES (?,?,?,?,?,?)";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param('sssss', $title, $audio, $duration, $img, $creator);
+            $stmt->bind_param('ssssss', $title, $audio, $duration, $img, $creation_date, $creator);
             $stmt->execute();
             $id = $stmt->insert_id;
             foreach($genres as $genre){
@@ -491,7 +492,7 @@ class DatabaseHelper {
                 $stmt->execute();
             }
             $this->db->commit();
-        }catch (mysqli_sql_exception $exeption){
+        }catch (mysqli_sql_exception $exception){
             $this->db->rollback();
             return false;
         }
@@ -499,46 +500,41 @@ class DatabaseHelper {
     }
 
     public function addPlaylist($title, $image, $is_album, $creator, $tracks_ids) {
-
-        // Playlist instance insertion
-        $date = date("Y-m-d");   // The current date
-        $query = "INSERT INTO playlist(PlaylistID, Name, CoverImage, isAlbum, CreationDate, Creator, NumTracks, TimeLength)
+        $this->db->begin_transaction();
+        try {
+            // Playlist instance insertion
+            $date = date("Y-m-d");   // The current date
+            $query = "INSERT INTO playlist(PlaylistID, Name, CoverImage, isAlbum, CreationDate, Creator, NumTracks, TimeLength)
                   VALUES (null, ?, ?, ?, ?, ?, 0, '00:00:00');";   // PlaylistID is auto-generated
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssiss', $title, $image, $is_album, $date, $creator);
-        $insert_success = $stmt->execute();
-        if (!$insert_success) {
-            return null;
-        }
-        $playlist_id = mysqli_insert_id($this->db);   // The auto-generated ID of the tuple just inserted
-
-        // Tracklist insertion
-        $count = 1;
-        foreach ($tracks_ids as $track_id) {
-            $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?);";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param('iii', $playlist_id, $track_id, $count);
-            $insert_success = $stmt->execute();
-            if (!$insert_success) {
-                // Undo playlist insertion
-                $query = "DELETE FROM playlist WHERE PlaylistID = ?";
+            $stmt->bind_param('ssiss', $title, $image, $is_album, $date, $creator);
+            $stmt->execute();
+            $playlist_id = mysqli_insert_id($this->db);   // The auto-generated ID of the tuple just inserted
+
+            // Tracklist insertion
+            $count = 1;
+            foreach ($tracks_ids as $track_id) {
+                $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?);";
                 $stmt = $this->db->prepare($query);
-                $stmt->bind_param('i', $playlist_id);
+                $stmt->bind_param('iii', $playlist_id, $track_id, $count);
                 $stmt->execute();
-                return null;
+                $count++;
             }
-            $count++;
+
+            // Insert the number of tracks of the playlist
+            $count--;
+            $this->setTracksNumber($playlist_id, $count);
+
+            // Compute and insert the total length of the playlist
+            $this->setPlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return $playlist_id;  // The playlist has been inserted successfully and its ID is returned
+
+        } catch (mysqli_sql_exception $exception){
+            $this->db->rollback();
+            return false;
         }
-
-        // Insert the number of tracks of the playlist
-        $count--;
-        $this->setTracksNumber($playlist_id, $count);
-
-        // Compute and insert the total length of the playlist
-        $this->setPlaylistTotalLength($playlist_id);
-
-        return $playlist_id;  // The playlist has been inserted successfully and its ID is returned
-
     }
 
     private function setTracksNumber($playlist_id, $tracks_num) {
