@@ -34,7 +34,7 @@ $_SESSION["selected-tracks-ids"] = array();
     </form>
     <p>Search and add tracks to your album or playlist:</p>
     <!-- Search bar -->
-    <form id="track-search-form" action="#" method="GET" class="comment" autocomplete="off">
+    <form id="track-search-form" action="#" method="GET" class="comment filter-by-selected-collection-type" autocomplete="off">
         <label for="track-search"></label>
         <input id="track-search" type="search" name="track" placeholder="Search for song"/>
         <input id="add-track-button" type="button" value="Add" />
