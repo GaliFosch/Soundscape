@@ -131,8 +131,12 @@ a.notifIcon {
     color: inherit;
     display: flex;
     align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin: 6% 0 0 0;
+    padding: 5% 2% 2% 2%;
+}
+
+a.notifIcon > p {
+    margin: 0;
 }
 
 div.notifIcon {

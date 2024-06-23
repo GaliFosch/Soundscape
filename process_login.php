@@ -8,6 +8,7 @@ if(isset($_POST["username"], $_POST["c_password"])){
         header("Location: login.php?error={$result}");
     } else {
         $_SESSION["username"] = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $_POST["username"]);
+        setcookie("logged_user", $_POST["username"], 0);
         $_SESSION["loginString"] = $result;
         header("Location: index.php");
     }

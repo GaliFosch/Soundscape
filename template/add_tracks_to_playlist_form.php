@@ -2,11 +2,18 @@
 
 $_SESSION["selected-tracks-ids"] = array();
 
+$is_album = $dbh->isCollectionAnAlbum($template["playlist_id"]);
+if ($is_album) {
+    $result_filtering_class = "user-tracks-only";
+} else {
+    $result_filtering_class = "tracks-only";
+}
+
 ?>
 <main>
     <h1>Search and add tracks to your album or playlist:</h1>
     <!-- Search bar -->
-    <form id="track-search-form" action="process_track_addition.php?pid=<?php echo $template["playlist_id"]; ?>" method="POST" class="comment" autocomplete="off">
+    <form id="track-search-form" action="process_track_addition.php?pid=<?php echo $template["playlist_id"]; ?>" method="POST" class="comment <?php echo $result_filtering_class; ?>" autocomplete="off">
         <label for="track-search"></label>
         <input id="track-search" type="search" name="track" placeholder="Search for song"/>
         <input id="add-track-button" type="button" value="Add" />
