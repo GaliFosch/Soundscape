@@ -42,3 +42,32 @@
     display: none;
     font-size: 30px;
 }
+
+@media screen and (max-width: 768px) {
+
+    main {
+        margin-top: 5rem;
+    }
+
+    #song-cover {
+        width: 75%;
+        margin-bottom: 1rem;
+    }
+
+    .song-data > * {
+        font-size: 1.5rem;
+    }
+
+    .progress-bar-wrapper {
+        margin: 1rem 0;
+    }
+
+    #current-time-label, #missing-time-label {
+        font-size: 1.25rem;
+    }
+
+    #audio-progress-bar {
+        width: 50%;
+    }
+
+}

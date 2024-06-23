@@ -43,9 +43,12 @@ a {
 
 @media screen and (max-width: 768px) {
 
+    main {
+        margin-top: 5rem;
+    }
+
     #front-logo {
         width: 6rem;
-        margin-top: 5rem;
     }
 
     h1 {
