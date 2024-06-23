@@ -55,7 +55,7 @@
             <?php else: ?>
                 <div class="access-buttons">
                     <form id="login" action="login.php" method="POST"><input type="submit" value="Login"/></form>
-                     or <form id="register" action="register.php" method="POST"><input type="submit" value="Register"/></form>
+                    or <form id="register" action="register.php" method="POST"><input type="submit" value="Register"/></form>
                 </div>
             <?php endif; ?>
         </nav>

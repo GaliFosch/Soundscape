@@ -40,3 +40,20 @@ main input[type=submit] {
 a {
     color: #098AFF;
 }
+
+@media screen and (max-width: 768px) {
+
+    #front-logo {
+        width: 6rem;
+        margin-top: 5rem;
+    }
+
+    h1 {
+        margin-top: 0.5rem;
+    }
+
+    input[type=text], input[type=password] {
+        width: 70%;
+    }
+
+}
