@@ -825,6 +825,14 @@ class DatabaseHelper {
         return array('playlist'=> $playlist, 'songs' => $tracklist);
     }
 
+    public function isCollectionAnAlbum($collection_id) {
+        $query = "SELECT isAlbum FROM playlist WHERE PlaylistID = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i', $collection_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row()[0];
+    }
+
     /*This code deals with the search suggestion */
     public function getSuggestedTracks($trackName) {
         $bind = '%'.$trackName.'%';
