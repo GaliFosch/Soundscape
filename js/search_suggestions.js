@@ -5,6 +5,22 @@ let trackSearchForm = document.getElementById("track-search-form")
 let tracksOnly = false;
 let userTracksOnly = false;
 
+/*
+ * Function code taken from: https://www.tabnine.com/academy/javascript/how-to-get-cookies/
+ */
+function getCookie(cName) {
+    const name = cName + "=";
+    const cDecoded = decodeURIComponent(document.cookie); //to be careful
+    const cArr = cDecoded.split('; ');
+    let res;
+    cArr.forEach(val => {
+        if (val.indexOf(name) === 0) {
+            res = val.substring(name.length);
+        }
+    })
+    return res
+}
+
 if (trackSearchForm.classList.contains("filter-by-selected-collection-type")) {
 
     let albumRadioBtn = document.getElementById("album-option")
@@ -13,8 +29,10 @@ if (trackSearchForm.classList.contains("filter-by-selected-collection-type")) {
         albumRadioBtn.addEventListener("change", function() {
             userTracksOnly = albumRadioBtn.checked;
         })
-    } else if (playlistRadioBtn != null) {
+    }
+    if (playlistRadioBtn != null) {
         playlistRadioBtn.addEventListener("change", function() {
+            userTracksOnly = false
             tracksOnly = playlistRadioBtn.checked
         })
     }
@@ -59,6 +77,9 @@ search.addEventListener('keydown', function(event) {
                         continue
                     }
                 } else {
+                    if (userTracksOnly && (results[i].Creator !== getCookie("logged_user"))) {
+                        continue
+                    }
                     type = "Track"
                 }
                 let p = '<p>' + results[i].Name + ' - ' + results[i].Creator + ' - ' + type + '</p>';
