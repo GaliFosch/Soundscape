@@ -25,8 +25,8 @@
                 <li>
                     <a class="notifIcon" href="notifications.php" aria-label="Go to notifications page" title="Go to notifications page">
                         <div class="notifIcon">
-                            <em class="fa-solid fa-bell" aria-hidden="true"></em>
                             <em id="notifSignal" class="fa-solid fa-circle" aria-hidden="true"></em>
+                            <em class="fa-solid fa-bell" aria-hidden="true"></em>
                         </div><p>Notifications</p>
                     </a>
                     <script src="js/notificationNotice.js"></script>
