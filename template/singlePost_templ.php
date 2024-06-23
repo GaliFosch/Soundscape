@@ -32,8 +32,10 @@
         <?php endif;?>
     </section>
     <section>
-        <em class="fa-regular fa-heart fa-fw"></em>
-        <div id="Comments" >
+        <div class="likeContainer">
+            <em class="fa-regular fa-heart fa-fw like"></em>
+        </div>
+        <div>
             <?php
                 $comments = $dbh->getAllComments($template["post"]["PostID"]);
                 foreach($comments as $comment):
