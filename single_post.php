@@ -7,7 +7,7 @@ if(empty($_GET["id"])){
 }
 
 $template["title"] = "Soundscape - Post";
-$template["stylesheets"] = ["base.css"];
+$template["stylesheets"] = ["base.css", "singlePost.css"];
 $template["content"] = "template/singlePost_templ.php";
 
 $template["post"] = $dbh->getPostByID($_GET["id"]);
