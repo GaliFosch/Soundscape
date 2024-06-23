@@ -48,6 +48,7 @@ create table NOTIFICATION (
      Receiver varchar(30) not null,
      TriggeringUser varchar(30) not null,
      PostID int,
+     Visualized bool not null default false,
      constraint ID_NOTIFICATION_ID primary key (NotificationID),
      constraint SID_NOTIF_COMME_ID unique (CommentID));
 
