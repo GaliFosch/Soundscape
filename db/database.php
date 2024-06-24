@@ -645,14 +645,23 @@ class DatabaseHelper {
 
     }
 
-    public function thereAreNotifications($username){
+    public function thereAreNewNotifications($username){
         $query = "SELECT NotificationId
                 FROM notification
-                WHERE Receiver = ?";
+                WHERE Receiver = ? AND Visualized = false";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $username);
         $stmt->execute();
         return $stmt->get_result()->num_rows>0;
+    }
+
+    public function setUserNotificationsAsVisualized($username){
+        $query = "UPDATE notification
+                SET Visualized = true
+                WHERE Receiver = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        return $stmt->execute();;
     }
 
     public function hasUserLiked($postID, $userID) {
