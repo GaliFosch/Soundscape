@@ -13,11 +13,9 @@
         <?php if($template["isUserLogged"]):?>
             <div>
                 <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
-                    <!-- <button id="follow-button" type="button">Following</button> -->
-                    <em id="follow" class="fa-solid fa-user-check"></em>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check"></em>Following</button>
                 <?php else:?>
-                    <!-- <button id="follow-button" type="button">Follow</button> -->
-                    <em id="follow" class="fa-solid fa-user-plus"></em>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus"></em>Follow</button>
                 <?php endif?>
             </div>
             <script src="js/follow.js"></script>

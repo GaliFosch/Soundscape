@@ -235,6 +235,18 @@ section.post-interaction a{
     margin-left: auto;
 }
 
+#follow-button {
+    background-color: inherit;
+    border-radius: 1rem;
+    border-color: #098AFF;
+    color: #098AFF;
+    padding: 0.5rem 1rem;
+}
+
+#follow-button > em {
+    margin-right: 0.5rem;
+}
+
 @media screen and (max-width: 768px) {
 
     #Biography, #tracks-section, #albums-section, #playlists-section, #posts-section {
