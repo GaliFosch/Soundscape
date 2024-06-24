@@ -13,8 +13,10 @@
         <?php if($template["isUserLogged"]):?>
             <div>
                 <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
+                    <!-- <button id="follow-button" type="button">Following</button> -->
                     <em id="follow" class="fa-solid fa-user-check"></em>
                 <?php else:?>
+                    <!-- <button id="follow-button" type="button">Follow</button> -->
                     <em id="follow" class="fa-solid fa-user-plus"></em>
                 <?php endif?>
             </div>
@@ -42,7 +44,7 @@
             <?php echo $template["profile"]["Biography"]?>
         </p>
     </section>
-    <section>
+    <section id="tracks-section">
         <header class="section-header">
             <h3 class="section-title">Published Tracks</h3>
             <div class="show-all-btn-container"><a href="list.php?t=tracks">Show All</a></div>
@@ -67,7 +69,7 @@
             <?php endforeach;?>
         </div>
     </section>
-    <section>
+    <section id="albums-section">
         <header class="section-header">
             <h3 class="section-title">Published Albums</h3>
             <div class="show-all-btn-container"><a href="list.php?t=albums">Show All</a></div>
@@ -94,7 +96,7 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <section>
+    <section id="playlists-section">
         <header class="section-header">
             <h3 class="section-title">Playlists</h3>
             <div class="show-all-btn-container"><a href="list.php?t=playlists">Show All</a></div>
@@ -121,7 +123,7 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <section>
+    <section id="posts-section">
         <header class="section-header">
             <h3 class="section-title">Best Posts</h3>
             <div class="show-all-btn-container"><a href="list.php?t=best-posts">Show All</a></div>

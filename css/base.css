@@ -247,6 +247,7 @@ main {
 
     .fa-bars {
         display: flex;
+        align-self: center;
     }
 
     #close-menu-icon {

@@ -234,3 +234,16 @@ section.post-interaction{
 section.post-interaction a{
     margin-left: auto;
 }
+
+@media screen and (max-width: 768px) {
+
+    #Biography, #tracks-section, #albums-section, #playlists-section, #posts-section {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .section-title {
+        width: 60%;
+    }
+
+}

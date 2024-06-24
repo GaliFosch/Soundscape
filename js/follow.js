@@ -1,23 +1,28 @@
 const searchParams = new URLSearchParams(window.location.search);
+// let followBtn = document.getElementById("follow-button")
+let followIcon = document.getElementById("follow")
 
-function followProcedure(follow){
+function followProcedure(){
     let req = new XMLHttpRequest()
     let target = searchParams.get("profile")
-    if(follow.classList.contains("fa-user-plus")){
+    if (followIcon.classList.contains("fa-user-plus")){
         req.onload = function() {
+            // console.log(req.responseText)
             if(req.responseText === "true"){
-                follow.classList.remove("fa-user-plus")
-                follow.classList.add("fa-user-check")
+                followIcon.classList.remove("fa-user-plus")
+                followIcon.classList.add("fa-user-check")
+                // followBtn.innerText = "Following"
                 addToFollowerCount();
             }
         }
         req.open("GET", "process_follow.php?target=" + target)
         req.send()
-    }else{
+    } else {
         req.onload = function() {
             if(req.responseText === "true"){
-                follow.classList.remove("fa-user-check")
-                follow.classList.add("fa-user-plus")
+                followIcon.classList.remove("fa-user-check")
+                followIcon.classList.add("fa-user-plus")
+                // followBtn.innerText = "Follow"
                 remFromFollowerCount();
             }
         }
@@ -40,6 +45,4 @@ function remFromFollowerCount(){
     followerCount.textContent = currentCount;
 }
 
-let follow = document.getElementById("follow")
-
-follow.addEventListener("click", ()=>followProcedure(follow))
+followIcon.addEventListener("click", ()=> followProcedure())
