@@ -19,14 +19,14 @@ if (isset($_GET["skip"])) {
     $previews_to_skip = 0;
 }
 
-$show_logged_user_items = isset($template["show-logged-user-items"]);
+$show_user_items = isset($template["show-user-items"]);
 
 $previews = array();
 
 switch ($preview_type) {
     case "tracks":
-        if ($show_logged_user_items) {
-            $tracks = $dbh->getUserLatestTracks($_SESSION["username"], $previews_to_show);
+        if ($show_user_items) {
+            $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"], $previews_to_show);
         } else {
             $tracks = $dbh->getLatestTracks($previews_to_show, $previews_to_skip);
         }
@@ -41,8 +41,8 @@ switch ($preview_type) {
         }
         break;
     case "albums":
-        if ($show_logged_user_items) {
-            $albums = $dbh->getUserLatestAlbums($_SESSION["username"], $previews_to_show);
+        if ($show_user_items) {
+            $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"], $previews_to_show);
         } else {
             $albums = $dbh->getLatestAlbums($previews_to_show, $previews_to_skip);
         }
@@ -57,8 +57,8 @@ switch ($preview_type) {
         }
         break;
     case "playlists":
-        if ($show_logged_user_items) {
-            $playlists = $dbh->getUserLatestPlaylists($_SESSION["username"], $previews_to_show);
+        if ($show_user_items) {
+            $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"], $previews_to_show);
         } else {
             $playlists = $dbh->getLatestPlaylists($previews_to_show, $previews_to_skip);
         }

@@ -4,21 +4,21 @@ require_once("bootstrap.php");
 
 $template["isUserLogged"] = checkLogin($dbh);
 
-if(!isset($_GET["profile"])){
-    if($template["isUserLogged"]){
+if (!isset($_GET["profile"])) {
+    if ($template["isUserLogged"]) {
         $template["profile"] = $dbh->getUserByUsername($_SESSION["username"]);
         $template["isProfileLogged"] = true;
-    }else{
+    } else {
         header("Location: login.php");
     }
-}else{
+} else {
     $template["profile"] = $dbh->getUserByUsername($_GET["profile"]);
-    if($template["profile"] == false){
+    if ($template["profile"] == false) {
         //TODO: ERRORE
     }
     $template["isProfileLogged"] = false;
-    if($template["isUserLogged"]){
-        if($_SESSION["username"] == $_GET["profile"]){
+    if ($template["isUserLogged"]) {
+        if ($_SESSION["username"] == $_GET["profile"]) {
             $template["isProfileLogged"] = true;
         }
     }

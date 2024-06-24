@@ -45,7 +45,7 @@
     <section id="tracks-section">
         <header class="section-header">
             <h3 class="section-title">Published Tracks</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=tracks">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=tracks&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <div>
             <?php
@@ -70,7 +70,7 @@
     <section id="albums-section">
         <header class="section-header">
             <h3 class="section-title">Published Albums</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=albums">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=albums&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php
         $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"],5);
@@ -97,7 +97,7 @@
     <section id="playlists-section">
         <header class="section-header">
             <h3 class="section-title">Playlists</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=playlists">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=playlists&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php
             $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"],5);
@@ -123,8 +123,8 @@
     </section>
     <section id="posts-section">
         <header class="section-header">
-            <h3 class="section-title">Best Posts</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=best-posts">Show All</a></div>
+            <h3 class="section-title">Posts</h3>
+            <div class="show-all-btn-container"><a href="list.php?t=posts&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php 
             $bestPosts = $dbh->getBestUserPosts($template["profile"]["Username"],5);
