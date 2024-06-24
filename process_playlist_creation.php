@@ -7,8 +7,11 @@ if (!isset($_POST["title"])) {
 }
 $title = $_POST["title"];
 
-if (isset($_POST["image"])) {
-    $image = COVER_IMAGES_DIR . $_POST["image"];
+if (isset($_FILES["image"])) {
+    $image = uploadImage("image");
+    if ($image === false) {
+        $image = null;
+    }
 } else {
     $image = null;
 }

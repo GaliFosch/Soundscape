@@ -1,4 +1,5 @@
 #song-cover {
+    width: 15rem;
     margin: 5% 0 1% 0;
 }
 
@@ -50,7 +51,7 @@
     }
 
     #song-cover {
-        width: 75%;
+        width: 20rem;
         margin-bottom: 1rem;
     }
 
