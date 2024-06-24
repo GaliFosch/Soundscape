@@ -795,7 +795,7 @@ class DatabaseHelper {
         $query = "SELECT CommentID, CommentText, CommentTimestamp, Username
                     FROM comment
                     WHERE PostID = ?
-                    ORDER BY CommentTimestamp";
+                    ORDER BY CommentTimestamp DESC";
         $stmt =  $this->db->prepare($query);
         $stmt->bind_param('i',$postID);
         $stmt->execute();

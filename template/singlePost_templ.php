@@ -37,16 +37,18 @@
             <em id="like" class="fa-regular fa-heart fa-fw"></em>
             <script src="js/singlePost_like.js"></script>
         </div>
-        <div class = "comment">
+        <div id="commentFormContainer">
             <h3>New Comment</h3>
-            <form id="commentForm">
+            <form action="process_singlePost_comment.php" method="POST" id="commentForm">
                 <label for="caption">Caption</label>
-                <textarea name="caption" id="commentCaption" rows="5" placeholder="Write here your comment" required></textarea>
+                <textarea name="caption" rows="5" placeholder="Write here your comment" required></textarea>
+                <input type="text" name="postID" value="<?php echo $template["post"]["PostID"]?>" hidden>
                 <button type="submit">
                     <em class="fa-regular fa-paper-plane"></em>
                 </button>
             </form>
         </div>
+        <script src="js/singlePost_comment.js"></script>
         <div>
             <?php
                 $comments = $dbh->getAllComments($template["post"]["PostID"]);
