@@ -1,10 +1,10 @@
-header {
+main {
     text-align: left;
     display: block;
-    padding: 3% 0 3% 21%;
+    padding-top: 1.5rem;
 }
 
-header img {
+#cover-image {
     border-radius: 5%;
     width: 10rem;
     height: 10rem;
@@ -116,4 +116,39 @@ hr {
 
 .remove-track-button {
     width: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+
+    main {
+        padding: 5rem 2rem 0 2rem;
+    }
+
+    #playlist-header {
+        padding: 0 0.5rem;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .track-details {
+        width: 11rem;
+    }
+
+    .track-position, .track-length {
+        width: 4rem;
+        opacity: 0.8;
+    }
+
+    .track-options {
+        width: 3rem;
+        opacity: 0.7;
+        visibility: visible;
+    }
+
+    .track-options em {
+        font-size: 1.5rem;
+    }
+
 }
