@@ -33,8 +33,9 @@
     </section>
     <section>
         <div class="likeContainer">
-            <em class="fa-regular fa-message fa-fw"></em>
-            <em class="fa-regular fa-heart fa-fw"></em>
+            <em id="comment" class="fa-regular fa-message fa-fw"></em>
+            <em id="like" class="fa-regular fa-heart fa-fw"></em>
+            <script src="js/singlePost_like"></script>
         </div>
         <div>
             <?php
