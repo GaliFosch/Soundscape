@@ -8,7 +8,7 @@
             <?php else: ?>
                 <p id="post-msg">Post added succesfully. You now will be redirected to the home page</p>
                 <?php 
-                    header("Location: index.php");
+                    //header("Location: index.php");
                 ?>
             <?php endif; ?>
         </section>

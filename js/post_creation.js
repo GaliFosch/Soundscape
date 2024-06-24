@@ -98,7 +98,9 @@ function checkFileFormat(fileList) {
 
 fileInput.addEventListener('change', (event) => {
   files = event.target.files;
+  console.log(files);
   let fileList = Array.from(files);
+  console.log(fileList);
     if(!checkFileFormat(fileList)) {
         const dataTransfer = new DataTransfer();
         fileInput.files = dataTransfer.files;

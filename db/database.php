@@ -509,7 +509,7 @@ class DatabaseHelper {
         $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
-                    WHERE post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    WHERE post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     AND user.Username IN (
                         SELECT Following
                         FROM follow
@@ -523,7 +523,7 @@ class DatabaseHelper {
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     WHERE user.Username IS NOT ?
-                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     ORDER BY post.NumLike DESC
                     LIMIT ?, ?";
         
@@ -536,7 +536,7 @@ class DatabaseHelper {
                     INNER JOIN belonging ON post.TrackID = belonging.TrackId
                     INNER JOIN $likedGenre ON belonging.GenreTag = likedGenre.GenreTag
                     WHERE user.Username IS NOT ?
-                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     ORDER BY likedGenre.TrackCount DESC
                     LIMIT ?, ?";
         
@@ -690,15 +690,18 @@ class DatabaseHelper {
             return false;
         }
         if($images!=null) {
-            foreach($images as $img)
-                $query = "INSERT INTO image (PostImage, PostID)
+            foreach($images as $img) {
+                $imageQuery = "INSERT INTO image (PostImage, PostID)
                             VALUES (?, ?)";
-                $stmt = $this->db->prepare($query);
-                $stmt->bind_param('ss', $img, $postID);
-                if($stmt->execute()) {
-                } else {
+                $stmt = $this->db->prepare($imageQuery);
+                $stmt->bind_param('si', $img, $postID);
+                if(!$stmt->execute()) {
                     return false;
                 }
+            }
+        }
+        if($postID==null) {
+            return false;
         }
 
         return true;
