@@ -239,6 +239,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getTrackByTitleAndAuthor($title, $author) {
+        $query = "SELECT * FROM single_track WHERE Name = ? AND Creator = ?;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $title, $author);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function getMatchingUsers($search_input, $nToShow, $nToSkip = 0) {
         $query = "SELECT * 
                   FROM user 
@@ -408,7 +416,8 @@ class DatabaseHelper {
         $query = "SELECT *
                   FROM tracklist l, single_track t
                   WHERE l.TrackID = t.TrackID
-                    AND l.PlaylistID = ?";
+                    AND l.PlaylistID = ?
+                  ORDER BY l.position;";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -449,6 +458,15 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getAllGenres(){
+        $query = "SELECT * 
+                FROM genre
+                ORDER BY GenreTag ASC";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     
     public function removeNotification($id){
         $query = "DELETE FROM Notification
@@ -458,11 +476,192 @@ class DatabaseHelper {
         return $stmt->execute();
     }
     
-    public function addSingleTrack($title, $audio, $img, $creator){
-        $query = "INSERT INTO Single_Track(Name, AudioFile, CoverImage, Creator) VALUES (?,?,?,?)";
+    public function addSingleTrack($title, $audio, $duration, $img, $creator, $genres){
+        $this->db->begin_transaction();
+        try{
+            $creation_date = date('Y-m-d H:i:s');
+            $query = "INSERT INTO Single_Track(Name, AudioFile, TimeLength, CoverImage, CreationDate, Creator) VALUES (?,?,?,?,?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssssss', $title, $audio, $duration, $img, $creation_date, $creator);
+            $stmt->execute();
+            $id = $stmt->insert_id;
+            foreach($genres as $genre){
+                $query = "INSERT INTO belonging(GenreTag, TrackID) VALUES (?,?)";
+                $stmt->prepare($query);
+                $stmt->bind_param("si", $genre, $id);
+                $stmt->execute();
+            }
+            $this->db->commit();
+        }catch (mysqli_sql_exception $exception){
+            $this->db->rollback();
+            return false;
+        }
+        return true;
+    }
+
+    public function removeTrackFromPlaylist($track_id, $playlist_id) {
+        $this->db->begin_transaction();
+        try {
+            // Get track position
+            $query = "SELECT position FROM tracklist WHERE TrackID = ? AND PlaylistID = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $track_id, $playlist_id);
+            $stmt->execute();
+            $position = $stmt->get_result()->fetch_row()[0];
+
+            // Get number of tracks
+            $query = "SELECT NumTracks FROM playlist WHERE PlaylistID = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('i', $playlist_id);
+            $stmt->execute();
+            $num_tracks = $stmt->get_result()->fetch_row()[0];
+
+            // Delete track from tracklist
+            $query = "DELETE FROM tracklist WHERE TrackID = ? AND PlaylistID = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $track_id, $playlist_id);
+            $stmt->execute();
+
+            // Update position of the following tracks in the tracklist
+            for ($i = $position + 1; $i <= $num_tracks; $i++) {
+                $query = "UPDATE tracklist SET position = position - 1 WHERE PlaylistID = ? AND position = ?";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('ii', $playlist_id, $i);
+                $stmt->execute();
+            }
+
+            // Update number of tracks of the album/playlist
+            $num_tracks--;
+            $this->setTracksNumber($playlist_id, $num_tracks);
+
+            // Update album/playlist length
+            $this->updatePlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return true;
+
+        } catch (mysqli_sql_exception $exception){
+            echo $exception;
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+    public function addPlaylist($title, $image, $is_album, $creator, $tracks_ids) {
+        $this->db->begin_transaction();
+        try {
+            // Playlist instance insertion
+            $date = date("Y-m-d");   // The current date
+            $query = "INSERT INTO playlist(PlaylistID, Name, CoverImage, isAlbum, CreationDate, Creator, NumTracks, TimeLength)
+                  VALUES (null, ?, ?, ?, ?, ?, 0, '00:00:00');";   // PlaylistID is auto-generated
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ssiss', $title, $image, $is_album, $date, $creator);
+            $stmt->execute();
+            $playlist_id = mysqli_insert_id($this->db);   // The auto-generated ID of the tuple just inserted
+
+            // Tracklist insertion
+            $count = 1;
+            foreach ($tracks_ids as $track_id) {
+                $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?);";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('iii', $playlist_id, $track_id, $count);
+                $stmt->execute();
+                $count++;
+            }
+
+            // Insert the number of tracks of the playlist
+            $count--;
+            $this->setTracksNumber($playlist_id, $count);
+
+            // Compute the total length of the playlist
+            $this->updatePlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return $playlist_id;  // The playlist has been inserted successfully and its ID is returned
+
+        } catch (mysqli_sql_exception $exception){
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+    private function setTracksNumber($playlist_id, $tracks_num) {
+        $query = "UPDATE playlist SET NumTracks = ? WHERE PlaylistID = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssss', $title, $audio, $img, $creator);
-        return $stmt->execute();
+        $stmt->bind_param('ii', $tracks_num, $playlist_id);
+        $stmt->execute();
+    }
+
+    private function updatePlaylistTotalLength($playlist_id) {
+        $query = "SELECT SUM(TimeLength)
+                  FROM tracklist l, single_track t
+                  WHERE (l.TrackID = t.TrackID) AND (l.PlaylistID = ?);";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $playlist_id);
+        $stmt->execute();
+        $length_in_seconds = $stmt->get_result()->fetch_row()[0];
+        $formatted_length = convert_seconds_into_hhmmss_format($length_in_seconds);
+        $query = "UPDATE playlist SET TimeLength = ? WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('si', $formatted_length, $playlist_id);
+        $stmt->execute();
+    }
+
+    private function getPlaylistNumTracks($playlist_id) {
+        $query = "SELECT NumTracks FROM playlist WHERE PlaylistID = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $playlist_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row()[0];
+    }
+
+    public function addTracksToPlaylist($playlist_id, $tracks_ids) {
+
+        $tracks_count = $this->getPlaylistNumTracks($playlist_id);
+        $this->db->begin_transaction();
+        try {
+
+            foreach ($tracks_ids as $track_id) {
+                $tracks_count++;
+                $query = "INSERT INTO tracklist(PlaylistID, TrackID, position) VALUES (?, ?, ?)";
+                $stmt = $this->db->prepare($query);
+                $stmt->bind_param('iii', $playlist_id, $track_id, $tracks_count);
+                $stmt->execute();
+            }
+
+            // Update tracks count
+            $this->setTracksNumber($playlist_id, $tracks_count);
+
+            // Update album/playlist length
+            $this->updatePlaylistTotalLength($playlist_id);
+
+            $this->db->commit();
+            return true;
+
+        } catch (mysqli_sql_exception $exception){
+            $this->db->rollback();
+            return false;
+        }
+
+    }
+
+    public function thereAreNewNotifications($username){
+        $query = "SELECT NotificationId
+                FROM notification
+                WHERE Receiver = ? AND Visualized = false";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        return $stmt->get_result()->num_rows>0;
+    }
+
+    public function setUserNotificationsAsVisualized($username){
+        $query = "UPDATE notification
+                SET Visualized = true
+                WHERE Receiver = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $username);
+        return $stmt->execute();;
     }
 
     public function hasUserLiked($postID, $userID) {
@@ -643,6 +842,14 @@ class DatabaseHelper {
         $tracklist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         
         return array('playlist'=> $playlist, 'songs' => $tracklist);
+    }
+
+    public function isCollectionAnAlbum($collection_id) {
+        $query = "SELECT isAlbum FROM playlist WHERE PlaylistID = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i', $collection_id);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_row()[0];
     }
 
     /*This code deals with the search suggestion */

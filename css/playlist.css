@@ -33,7 +33,7 @@ header img {
     margin: 0.75rem 0;
 }
 
-#audio-controls {
+#controls {
     padding: 0.5rem 0;
 }
 
@@ -47,11 +47,11 @@ header img {
     width: auto;
 }
 
-#audio-controls > a {
+#controls > a {
     background-color: inherit;
 }
 
-#shuffle-button {
+#shuffle-button, #add-track-to-playlist-button {
     color: #E28AB9;
 }
 
@@ -61,19 +61,25 @@ hr {
     margin: 1rem 0;
 }
 
-#tracklist > a {
+#tracklist a {
     text-decoration: none;
     background-color: inherit;
 }
 
-.tracklist-item {
+.row {
     display: block;
     padding: 0.5rem 0;
     margin: 0.5rem 0;
+    vertical-align: center;
 }
 
-.tracklist-item:hover {
+.row:hover {
     background-color: #4A4A4A;
+}
+
+.tracklist-item {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .tracklist-item > * {
@@ -98,4 +104,16 @@ hr {
 .author {
     margin-top: 0.5rem;
     margin-bottom: 0;
+}
+
+.track-options {
+    display: inline-block;
+    width: 5rem;
+    text-align: right;
+    vertical-align: middle;
+    visibility: hidden;
+}
+
+.remove-track-button {
+    width: 1rem;
 }
