@@ -90,14 +90,14 @@
             <p>No song chosen</p>
         <?php endif; ?>
 
-    <form action="post_creation.php" method="POST" class="caption">
+    <form action="post_creation.php" method="POST" class="caption" enctype="multipart/form-data">
         <label for="write-caption">Write your post caption:</label>
         <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
         <input type="hidden" 
             name="<?php echo $template['type']; ?>"
             value="<?php if ($template["type"] == 'track'): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["type"] == 'playlist'): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>"></input>
         <label for="images">Add some images:</label>
-        <input type="file" id="images" name="images[]" accept="image/jpeg, image/png" multiple max="10">
+        <input type="file" id="images" name="images[]" accept="image/jpg, image/jpeg, image/png" multiple max="10">
         <input type="submit" value="Post"/>
     </form>
 

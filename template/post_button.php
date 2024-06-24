@@ -1,5 +1,5 @@
 <?php if(isset($_SESSION['username'])): ?>
-    <a href="post_creation.php">
+    <a href="post_creation.php" class="post-button-a">
         <button class="post-button">
             <em class="fa-solid fa-pencil post-creation"></em>
         </button>

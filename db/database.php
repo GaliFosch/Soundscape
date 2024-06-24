@@ -881,13 +881,19 @@ class DatabaseHelper {
         $timestamp = date('Y-m-d H:i:s');
         $postID = null;
         $query = null;
-        if($type == "track") {
+        if($track != null) {
+            if($type == "track") {
+                $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
+                    VALUES (?, ?, ?, ?)";
+            } else {
+                $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp)
+                        VALUES (?, ?, ?, ?)";
+            }
+        } else {
             $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
                     VALUES (?, ?, ?, ?)";
-        } else {
-            $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp)
-                    VALUES (?, ?, ?, ?)";
         }
+        
         
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);

@@ -65,7 +65,7 @@ function uploadMultipleImages($files){
     $target_dir = "user_img/";
     $results = [];
     $n = count($_FILES[$files]["name"]);
-    for($i = 0; $i<=$n; $i++){
+    for($i = 0; $i<$n; $i++){
         if($_FILES[$files]["error"][$i] != UPLOAD_ERR_OK){
             $results[$i] = false;
             continue;

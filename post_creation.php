@@ -12,36 +12,36 @@ $template["type"] = null;
 if(isset($_POST["caption"])) {
     $imgArray = null;
     if(isset($_FILES["images"])) {
-        print_r($_FILES["images"]);
-        $imgArray = $_POST["images"];
-        foreach($imgArray as $image) {
-            $image = uploadImage("images");
-            if($image === false){
-                /*header('Location: post_creation.php?error=1');
-                exit;*/
-            } 
-        }       
-    }
-
-    if($imgArray==null) {
-        echo "ciao";
-    }
+        $imgArray = uploadMultipleImages("images");
+        if($imgArray === false){
+            header('Location: post_creation.php?error=1');
+            exit;
+        } 
+    }       
 
     if (isset(($_POST["track"]))) {
         if ($dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track")) {
-            /*header('Location: post_creation.php?error=false');
-            exit;*/
+            header('Location: post_creation.php?error=false');
+            exit;
         } else {
-            /*header('Location: post_creation.php?error=2');
-            exit;*/
+            header('Location: post_creation.php?error=2');
+            exit;
         }
     } else if (isset(($_POST["playlist"]))) {
         if ($dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist")) {
-            /*header('Location: post_creation.php?error=false');
-            exit;*/
+            header('Location: post_creation.php?error=false');
+            exit;
         } else {
-            /*header('Location: post_creation.php?error=3');
-            exit;*/
+            header('Location: post_creation.php?error=3');
+            exit;
+        }
+    } else {
+        if ($dbh->addPost(null, $_POST["caption"],  $imgArray, $_SESSION['username'], null)) {
+            header('Location: post_creation.php?error=false');
+            exit;
+        } else {
+            header('Location: post_creation.php?error=2');
+            exit;
         }
     }
 }
