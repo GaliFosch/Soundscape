@@ -50,7 +50,7 @@ div.likeContainer{
     text-align: right;
 }
 
-em.like{
+div.likeContainer em{
     font-size: 1.5rem;
     margin-top: 0.2rem;
     margin-right: 0.5rem;

@@ -33,7 +33,8 @@
     </section>
     <section>
         <div class="likeContainer">
-            <em class="fa-regular fa-heart fa-fw like"></em>
+            <em class="fa-regular fa-message fa-fw"></em>
+            <em class="fa-regular fa-heart fa-fw"></em>
         </div>
         <div>
             <?php
