@@ -60,6 +60,32 @@ div.likeContainer em{
     color: #E91E63;
 }
 
+#commentForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#commentForm label{
+    display: none;
+}
+
+#commentForm textarea{
+    background-color: transparent;
+    border: solid white 2px;
+    border-radius: 1rem;
+    width: 17rem;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+#commentForm button{
+    margin-left: 0.5rem;
+    border: none;
+    background-color: transparent;
+    font-size: 1.6rem;
+}
+
 article.comment{
     border:white solid 2px;
     border-radius: 1rem;
