@@ -135,3 +135,41 @@ input.genre {
     display: none;
 }
 
+@media screen and (max-width: 768px) {
+
+    header {
+        padding: 0 1rem;
+    }
+
+    h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    main {
+        margin-top: 4rem;
+    }
+
+    input[type=file] {
+        display: block;
+        text-align: center;
+        margin: 0.5rem auto;
+    }
+
+    input[type=text] {
+        width: 75%;
+    }
+
+    #track-search {
+        width: 20rem;
+    }
+
+    #GenreList {
+        width: 80%;
+    }
+
+    button.genre {
+        min-width: 20%;
+        padding: 0.4rem;
+    }
+
+}

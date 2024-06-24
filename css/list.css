@@ -74,3 +74,13 @@ input[type=submit] {
     margin: 1.5rem 0;
     align-self: center;
 }
+
+@media screen and (max-width: 768px) {
+
+    .list-title {
+        margin-top: 4rem;
+        margin-left: 1rem;
+        padding: 0;
+    }
+
+}
