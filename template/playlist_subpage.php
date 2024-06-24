@@ -18,9 +18,9 @@
     <section id="tracklist">
         <?php foreach ($template["tracklist"] as $track): ?>
             <section class="row">
-                <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["position"] - 1); ?>">
+                <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["Position"] - 1); ?>">
                     <section class="tracklist-item">
-                        <p class="track-position"><?php echo $track["position"]; ?></p>
+                        <p class="track-position"><?php echo $track["Position"]; ?></p>
                         <div class="track-details">
                             <strong class="track-title"><?php echo $track["Name"]; ?></strong>
                             <p class="author"><?php echo $track["Creator"]; ?></p>

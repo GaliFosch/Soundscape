@@ -36,15 +36,21 @@
         <?php if (isset($template["pos"]) && ($template["pos"] != 0)): ?>
             <a href="player.php?pid=<?php echo $template["playlist_id"]; ?>&shuffle=<?php echo $template["shuffle"]; ?>&pos=<?php echo (((int) $template["pos"]) - 1); ?>"><button id="skip-back-button"><img src="images/skip-back-icon.svg" alt="Skip Back"/></button></a>
         <?php else: ?>
-            <button id="skip-back-button"><img src="images/skip-back-icon.svg" alt="Skip Back"/></button>
+            <button id="skip-back-button"><img src="images/skip-back-icon.svg" alt=""/></button>
         <?php endif; ?>
         <button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button>
         <?php if (isset($template["pos"]) && ($template["pos"] != count($template["tracklist"]) - 1)): ?>
             <a href="player.php?pid=<?php echo $template["playlist_id"]; ?>&shuffle=<?php echo $template["shuffle"]; ?>&pos=<?php echo (((int) $template["pos"]) + 1); ?>"><button id="skip-forward-button"><img src="images/skip-forward-icon.svg" alt="Skip Forward"/></button></a>
         <?php else: ?>
-            <button id="skip-forward-button"><img src="images/skip-forward-icon.svg" alt="Skip Forward"/></button>
+            <button id="skip-forward-button"><img src="images/skip-forward-icon.svg" alt=""/></button>
         <?php endif; ?>
-        <button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt="Add song to playlist"/></button>
+        <?php if (!isset($_SESSION["username"])): ?>
+            <a href="login.php"><button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt="Log-in to add the track to your playlists"/></button></a>
+        <?php elseif (isset($track) && isset($track["TrackID"])): ?>
+            <a href="playlist_choice.php?trackid=<?php echo $track["TrackID"]; ?>"><button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt="Add song to playlist"/></button></a>
+        <?php else: ?>
+            <button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt=""/></button>
+        <?php endif; ?>
     </div>
 </main>
 <script src="js/player.js"></script>
