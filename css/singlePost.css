@@ -56,6 +56,10 @@ div.likeContainer em{
     margin-right: 0.5rem;
 }
 
+#like {
+    color: #E91E63;
+}
+
 article.comment{
     border:white solid 2px;
     border-radius: 1rem;
