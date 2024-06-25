@@ -1,0 +1,125 @@
+main>header{
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+main>header img{
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+main>header h2{
+    font-size: 3rem;
+    margin-left: 1rem;
+}
+
+main>section>p {
+    font-size: 1.3rem;
+    text-align: left;
+}
+
+div.trackSection{
+    height: 6rem;
+    background-color: #E28AB9;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+div.trackSection img{
+    height: 4rem;
+    width: 4rem;
+    object-fit: cover;
+    margin-left: 1rem;
+}
+
+div.trackSection header{
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+div.trackSection header>*{
+    margin: 0;
+    text-align: left;
+}
+
+div.likeContainer{
+    text-align: right;
+}
+
+div.likeContainer em{
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+    margin-right: 0.5rem;
+}
+
+#like {
+    color: #E91E63;
+}
+
+#commentForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#commentForm label{
+    display: none;
+}
+
+#commentForm textarea{
+    background-color: transparent;
+    border: solid white 2px;
+    border-radius: 1rem;
+    width: 17rem;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+#commentForm button{
+    margin-left: 0.5rem;
+    border: none;
+    background-color: transparent;
+    font-size: 1.6rem;
+}
+
+article.comment{
+    border:white solid 2px;
+    border-radius: 1rem;
+    background-color: #4A4A4A;
+    margin-top: 1rem;
+}
+
+article.comment header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+article.comment header img{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
+article.comment p{
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    word-break: break-all;
+    text-align: left;
+}
+
+article.comment footer p{
+    opacity: 0.7;
+    font-size: 1rem;
+    text-align: right;
+}
