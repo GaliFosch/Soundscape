@@ -19,6 +19,16 @@ main > section {
     margin-bottom: 1rem;
 }
 
+input[type=radio] {
+    vertical-align: middle;
+}
+
+.preview-info-box {
+    display: inline-block;
+    height: auto;
+    margin-left: 1rem;
+}
+
 .preview > a {
     text-decoration: none;
 }
@@ -28,14 +38,15 @@ main > section {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
-    display: inline;
+    display: inline-block;
     margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 .preview-info {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
-    margin: 0;
+    margin-left: 0.5rem;
 }
 
 .preview-title {
@@ -58,21 +69,22 @@ main > section {
     display: block;
 }
 
-.radio-button-container {
-    display: inline-block;
-}
-
-.preview-info-box {
-    display: inline;
-    margin-left: 2rem;
-}
-
 input[type=submit] {
     color: black;
     border-radius: 10px;
     padding: 5px 15px;
     margin: 1.5rem 0;
     align-self: center;
+}
+
+fieldset {
+    vertical-align: middle;
+    border-style: none;
+    padding: 0;
+}
+
+legend {
+    display: none;
 }
 
 @media screen and (max-width: 768px) {

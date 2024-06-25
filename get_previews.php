@@ -34,6 +34,7 @@ switch ($preview_type) {
             $preview["title"] = $track["Name"];
             $preview["author"] = $track["Creator"];
             $preview["image"] = $track["CoverImage"];
+            $preview["alt"] = "Click to load the track on the music player";
             $preview["year"] = date('Y', strtotime($track["CreationDate"]));
             $preview["length"] = $track["TimeLength"];
             $preview["link"] = "player.php?trackid=" . $track["TrackID"];
@@ -50,6 +51,7 @@ switch ($preview_type) {
             $preview["title"] = $album["Name"];
             $preview["author"] = $album["Creator"];
             $preview["image"] = $album["CoverImage"];
+            $preview["alt"] = "Click to open the album";
             $preview["year"] = date('Y', strtotime($album["CreationDate"]));
             $preview["length"] = $album["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $album["PlaylistID"];
@@ -66,6 +68,7 @@ switch ($preview_type) {
             $preview["title"] = $playlist["Name"];
             $preview["author"] = $playlist["Creator"];
             $preview["image"] = $playlist["CoverImage"];
+            $preview["alt"] = "Click to open the playlist";
             $preview["year"] = date('Y', strtotime($playlist["CreationDate"]));
             $preview["length"] = $playlist["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $playlist["PlaylistID"];
@@ -77,6 +80,7 @@ switch ($preview_type) {
         foreach ($users as $user) {
             $preview["title"] = $user["Username"];
             $preview["image"] = $user["ProfileImage"];
+            $preview["alt"] = "Click to open the profile of the user";
             $preview["link"] = "profile.php?profile=" . $user["Username"];
             $previews[] = $preview;
         }
@@ -87,6 +91,7 @@ switch ($preview_type) {
             $preview["title"] = $track["Name"];
             $preview["author"] = $track["Creator"];
             $preview["image"] = $track["CoverImage"];
+            $preview["alt"] = "Click to load the track on the music player";
             $preview["year"] = date('Y', strtotime($track["CreationDate"]));
             $preview["length"] = $track["TimeLength"];
             $preview["link"] = "player.php?trackid=" . $track["TrackID"];
@@ -99,6 +104,7 @@ switch ($preview_type) {
             $preview["title"] = $album["Name"];
             $preview["author"] = $album["Creator"];
             $preview["image"] = $album["CoverImage"];
+            $preview["alt"] = "Click to open the album";
             $preview["year"] = date('Y', strtotime($album["CreationDate"]));
             $preview["length"] = $album["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $album["PlaylistID"];
@@ -111,6 +117,7 @@ switch ($preview_type) {
             $preview["title"] = $playlist["Name"];
             $preview["author"] = $playlist["Creator"];
             $preview["image"] = $playlist["CoverImage"];
+            $preview["alt"] = "Click to open the playlist";
             $preview["year"] = date('Y', strtotime($playlist["CreationDate"]));
             $preview["length"] = $playlist["TimeLength"];
             $preview["link"] = "playlist.php?id=" . $playlist["PlaylistID"];
@@ -125,12 +132,12 @@ switch ($preview_type) {
     <section class="preview">
         <a href="<?php echo $preview["link"]; ?>">
             <?php if (isset($preview["image"])): ?>
-                <img class="picture" src="<?php echo $preview["image"]; ?>" alt=""/>
+                <img class="picture" src="<?php echo $preview["image"]; ?>" alt="<?php echo $preview["alt"]; ?>"/>
             <?php else: ?>
-                <img class="picture" src="images/placeholder-image.jpg" alt=""/>
+                <img class="picture" src="images/placeholder-image.jpg" alt="<?php echo $preview["alt"]; ?>"/>
             <?php endif; ?>
             <div class="preview-info">
-                <h3 class="preview-title"><?php echo $preview["title"]; ?></h3>
+                <h2 class="preview-title"><?php echo $preview["title"]; ?></h2>
                 <?php if (isset($preview["author"])): ?>
                     <h3 class="author"><?php echo $preview["author"]; ?></h3>
                 <?php endif; ?>

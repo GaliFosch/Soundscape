@@ -137,6 +137,13 @@ label[for=track-search] {
     margin-bottom: 1rem;
 }
 
+#page-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding-top: 2rem;
+    margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 768px) {
 
     header {
