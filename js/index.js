@@ -177,7 +177,7 @@ function interactionViewerChanger() {
     commentDiv.style.display="none";
     likeDiv.style.display="block";
   })
-};
+}
 
 //Down here it deals with the comment section
 comments.forEach((comm) => {
@@ -194,7 +194,7 @@ comments.forEach((comm) => {
    });
 });
 
-//This code deals with the opening of the comment. It send the request XHTML request
+//This code deals with the opening of the comment. It sends the request XHTML request
 function openComment(postId) {
         commentOpen=true;
         var xhttp;

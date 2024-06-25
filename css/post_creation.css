@@ -290,6 +290,7 @@ input[type="file"]::file-selector-button {
  
 
 @media screen and (max-width: 768px) {
+
     main {
         margin-top: 3rem;
     }

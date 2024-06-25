@@ -2,7 +2,7 @@
 
     
     <?php if(isset($_GET["error"])): ?>
-        <section class="msg-section">
+        <div class="msg-section">
             <?php if ($_GET["error"] != "false"): ?>
                 <p id="post-msg">Error: the post couldn't be added succesfully, please retry</p>
             <?php else: ?>
@@ -11,7 +11,7 @@
                     //header("Location: index.php");
                 ?>
             <?php endif; ?>
-        </section>
+        </div>
         
     <?php endif; ?>
 
@@ -19,54 +19,53 @@
         <em class="fa-solid fa-xmark"></em>
     </a>
 
+    <label for="track-search">Search for a song, album or playlist: </label>
     <form id="track-search-form" action="post_creation.php?" method="GET" class="comment" autocomplete="off">
-        <label for="track-search"></label>
-        <input id="track-search" type="search" name="track" placeholder="Search for song"/>
+        <input id="track-search" type="search" name="track" placeholder="Search for song, album or playlist"/>
         <input type="submit" class="searchButton" value="Search" />
         <em class="fa-solid fa-magnifying-glass"></em>
     </form>
 
-    <section class="track-suggestions-section">
+    <div class="track-suggestions-section">
         <ul class="track-suggestions"></ul>
-    </section>
-
+    </div>
     
     <!-- Template if a single track has been chosen -->
     <?php if ($template["track"] != null): ?>
-    <section class="music-box">
+    <div class="music-box">
         <?php if ($template["track"]["CoverImage"] != null): ?>
             <img class="song" src="<?php echo $template["track"]["CoverImage"]; ?>" alt="Song cover image"/>
         <?php else: ?>
             <img class="song" src="images/placeholder-image.jpg" alt="Song cover image"/>
         <?php endif; ?>
         <!--Inner section delle info della music-->
-        <section class="music-info">
+        <div class="music-info">
             <header><strong><?php echo $template["track"]["Name"]; ?></strong></header>
             <p><?php echo $template["track"]["Creator"]; ?></p>
-        </section>
+        </div>
         <!--<a href="player.php?trackid=<?php echo $template["track"]["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
             <em class="fa-solid fa-play"></em>
         </a>   --> 
-   </section>
+   </div>
 
-   <section class="options">
+   <div class="options">
        <p class="remove">Remove track</p>
-        </section>
+        </div>
         <?php elseif (isset($template["playlist"])): ?>
-            <section class="playlist-box">
-                <section class="inner-playlist-box">
+            <div class="playlist-box">
+                <div class="inner-playlist-box">
                     <?php if (isset($template["playlist"]['playlist']["CoverImage"])): ?>
                         <img class="playlist" src="<?php echo $template["playlist"]['playlist']["CoverImage"]; ?>" alt="Song cover image"/>
                     <?php else: ?>
                         <img class="playlist" src="images/placeholder-image.jpg" alt="Song cover image"/>
                     <?php endif; ?>
                     <!--Inner section delle info della music-->
-                    <section class="music-info">
+                    <div class="music-info">
                         <header><strong><?php echo $template["playlist"]['playlist']["Name"]; ?></strong></header>
                         <p><?php echo $template["playlist"]['playlist']["Creator"]; ?></p>
                         <p><?php echo $template["playlist"]['playlist']["isAlbum"]==1 ? "Album" : "Playlist"; ?></p>
-                    </section>
-                    <section class="tracklist-section">
+                    </div>
+                    <div class="tracklist-section">
                         <ol class="tracklist">
                             <?php foreach ($template["playlist"]["songs"] as $track): ?>
                                 <li class="single-track">
@@ -76,26 +75,27 @@
                                         <img class="song" src="images/placeholder-image.jpg" alt="Song cover image"/>
                                     <?php endif; ?>
                                     <!--Inner section delle info della music-->
-                                    <section class="music-info">
+                                    <div class="music-info">
                                         <header><strong><?php echo $track["Name"]; ?></strong></header>
                                         <p><?php echo $track["Creator"]; ?></p>
-                                    </section>
+                                    </div>
                                 </li>
                             <?php endforeach; ?>
                         </ol>
-                    </section>
-                </section>
-            </section>
+                    </div>
+                </div>
+            </div>
         <?php else: ?>
             <p>No song chosen</p>
         <?php endif; ?>
 
     <form action="post_creation.php" method="POST" class="caption" enctype="multipart/form-data">
         <label for="write-caption">Write your post caption:</label>
-        <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
-        <input type="hidden" 
+        <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="15" cols="80" wrap="hard" required></textarea>
+        <input type="hidden"
             name="<?php echo $template['type']; ?>"
-            value="<?php if ($template["type"] == 'track'): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["type"] == 'playlist'): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>"></input>
+            value="<?php if ($template["type"] == 'track'): ?><?php echo $template['track']['TrackID']; ?><?php elseif ($template["type"] == 'playlist'): ?><?php echo $template['playlist']['playlist']['PlaylistID']; ?><?php endif; ?>"
+        />
         <label for="images">Add some images:</label>
         <input type="file" id="images" name="images[]" accept="image/jpg, image/jpeg, image/png" multiple max="10">
         <input type="submit" value="Post"/>

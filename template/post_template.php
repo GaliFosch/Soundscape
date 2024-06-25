@@ -1,7 +1,7 @@
 <?php foreach ($template["posts"] as $post): ?>
     <article class="post-article">
         <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
-        <!--Utente e foto utente-->
+        <!--User info -->
         <h1 class="user-info">
             <?php if ($user["ProfileImage"] != null): ?>
                 <img class="profile-picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
@@ -12,26 +12,25 @@
         </h1>
         <!--Post caption-->
         <p post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
-        
         <!--Outer section of music box-->
         <!--POST WITH MUSIC-->
         <?php if($post["TrackID"]!=null): ?>
             <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
-            <section class="music-box">
+            <div class="music-box">
                 <?php if ($track["CoverImage"] != null): ?>
                     <img class="song" src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
                 <?php else: ?>
                     <img class="song" src="images/placeholder-image.jpg" alt="Song cover image"/>
                 <?php endif; ?>
-                <!--Inner section delle info della music-->
-                <section class="music-info">
+                <!-- Music info inner section -->
+                <div class="music-info">
                     <header><strong><?php echo $track["Name"]; ?></strong></header>
                     <p><?php echo $track["Creator"]; ?></p>
-                </section>
+                </div>
                 <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
                     <em class="fa-solid fa-play"></em>
                 </a>
-            </section>
+            </div>
         <!--POST WITH PLAYLIST-->
         <?php elseif($post["PlaylistId"]!=null): ?>
             <?php 
@@ -72,10 +71,8 @@
                 </section>
             </section>
         <?php endif; ?>
-            
-
-
-        <section class="post-interaction post-interaction">
+        <!-- Post interaction -->
+        <div class="post-interaction post-interaction">
             <em class="fa-regular fa-message fa-fw" post-id="<?php echo $post['PostID']; ?>"></em>
             <?php if(isset($_SESSION['username'])): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
@@ -86,6 +83,6 @@
             <?php else: ?>
                 <em class="fa-regular fa-heart fa-fw article"></em>
             <?php endif; ?>
-        </section>
+        </div>
     </article>
 <?php endforeach; ?>
