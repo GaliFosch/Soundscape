@@ -37,11 +37,6 @@ main {
     padding: 0.5rem 0;
 }
 
-#play-button {
-    background-color: inherit;
-    border: none;
-}
-
 #play-button > img {
     height: 2rem;
     width: auto;
@@ -49,6 +44,8 @@ main {
 
 #controls > a {
     background-color: inherit;
+    margin-right: 0.5rem;
+    vertical-align: middle;
 }
 
 #shuffle-button, #add-track-to-playlist-button {

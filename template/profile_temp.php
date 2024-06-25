@@ -2,9 +2,9 @@
     <header>
         <?php 
             if (!empty($template["profile"]["ProfileImage"])){
-                echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" \>";
+                echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" />";
             } else {
-                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" \>";
+                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
             }
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
@@ -56,9 +56,9 @@
                     <a href="player.php?trackid=<?php echo $track["TrackID"]?>">
                         <?php
                             if (isset($track["CoverImage"])) {
-                                echo "<img src=\"{$track["CoverImage"]}\" alt=\"\" />";
+                                echo "<img src=\"{$track["CoverImage"]}\" alt=\"Click to load the track on the music player\" />";
                             } else {
-                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" />";
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"Click to load the track on the music player\" />";
                             }
                         ?>
                         <h4><?php echo $track["Name"]?></h4>
@@ -83,9 +83,9 @@
                     <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                         <?php
                             if (!empty($album["CoverImage"])) {
-                                echo "<img src=\"{$album["CoverImage"]}\" alt=\"\" \>";
+                                echo "<img src=\"{$album["CoverImage"]}\" alt=\"Click to open the album\" />";
                             } else {
-                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" \>";
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"Click to open the album\" />";
                             }
                         ?>
                         <h4><?php echo $album["Name"]?></h4>
@@ -110,9 +110,9 @@
                     <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                         <?php
                             if (!empty($playlist["CoverImage"])) {
-                                echo "<img src=\"{$playlist["CoverImage"]}\" alt=\"\" />";
+                                echo "<img src=\"{$playlist["CoverImage"]}\" alt=\"Click to open the playlist\" />";
                             } else {
-                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" />";
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"Click to open the playlist\" />";
                             }
                         ?>
                         <h4><?php echo $playlist["Name"]?></h4>
