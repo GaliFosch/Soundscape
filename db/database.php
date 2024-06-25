@@ -200,7 +200,7 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i', $postID);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function getPostAuthor($postID) {
@@ -792,10 +792,10 @@ class DatabaseHelper {
     }
 
     public function getAllComments($postID) {
-        $query = "SELECT CommentText, Username
+        $query = "SELECT CommentID, CommentText, CommentTimestamp, Username
                     FROM comment
                     WHERE PostID = ?
-                    ORDER BY CommentTimestamp";
+                    ORDER BY CommentTimestamp DESC";
         $stmt =  $this->db->prepare($query);
         $stmt->bind_param('i',$postID);
         $stmt->execute();

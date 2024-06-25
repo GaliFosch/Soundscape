@@ -6,7 +6,7 @@ $template["stylesheets"] = ["index.css"];
 
 $postID = $_GET["post"];
 
-$post = $dbh->getPostByID($postID)[0];
+$post = $dbh->getPostByID($postID);
 $user = $dbh->getPostAuthor($postID);
 $track = $dbh->getSponsoredTrack($postID);
 $artistID;
