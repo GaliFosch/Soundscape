@@ -47,5 +47,5 @@
         </article>
     <?php endforeach; ?>
 </main>
-
+<?php require("template/post_button.php"); ?>
 <script src="js/index.js"></script>
