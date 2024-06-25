@@ -55,22 +55,11 @@ input[type=radio] {
     padding: 0 1rem;
 }
 
-label {
-    text-align: left;
-}
-
 label[for=title] {
-    display: inline-block;
-    width: 0;
-    margin: 0;
-    padding: 0;
+    display: none;
 }
 
 #title {
-    margin-top: 0;
-}
-
-p {
     margin-top: 0;
 }
 
@@ -79,13 +68,13 @@ p {
     margin-top: 1rem;
 }
 
-section {
+section, div {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-h3 {
+h2 {
     margin-top: 0;
 }
 
@@ -99,7 +88,7 @@ h3 {
 
 }
 
-#GenreList section {
+#GenreList div {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
@@ -114,7 +103,7 @@ button.genre {
     margin: 0.15rem;
 }
 
-button.genre em{
+button.genre em {
     margin-right: 0.5rem;
     color: black;
 }
@@ -133,6 +122,19 @@ button.genre em{
 
 input.genre {
     display: none;
+}
+
+fieldset {
+    border-style: none;
+    padding: 0;
+}
+
+legend {
+    display: none;
+}
+
+label[for=track-search] {
+    margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 768px) {
