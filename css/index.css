@@ -155,9 +155,13 @@ aside {
     display: flex;
     width: 13rem;
     margin: 0%;
-    height: -webkit-fill-available;
+    height: fit-content;
     padding-bottom: 4%;
     flex-direction: column;
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow-y: scroll
 }
 
 .close-focus {

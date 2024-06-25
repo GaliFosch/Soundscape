@@ -17,7 +17,7 @@ if(isset($_SESSION['username'])) {
 ?>
 
 
-<em class="fa-solid fa-xmark close-focus"></em>
+<em class="fa-solid fa-xmark close-comment"></em>
 <section class="interaction-changer">
     <section class="comment-changer-section selected">
         <em class="fa-regular fa-message fa-fw comment-changer"></em>

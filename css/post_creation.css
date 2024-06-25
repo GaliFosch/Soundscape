@@ -256,6 +256,38 @@ input[type="file"]::file-selector-button {
     color: white;
 }
 
+.selected-image-viewer {
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.inner-image-viewer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    padding: 1rem;
+}
+
+.selected-image {
+    width: 100%;
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+
+.inner-image-viewer > .fa-xmark {
+    color: #1D70AD;
+    border: solid #1D70AD;
+    border-radius: 100%;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    justify-self: end;
+    align-self: start;
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem;
+}
+ 
 
 @media screen and (max-width: 768px) {
     main {
