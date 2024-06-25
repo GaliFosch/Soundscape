@@ -1,4 +1,5 @@
 #song-cover {
+    width: 15rem;
     margin: 5% 0 1% 0;
 }
 
@@ -25,22 +26,12 @@
     height: 50px;
 }
 
-#audio-controls > #skip-back-button, #audio-controls > #skip-forward-button {
+.disabled {
     opacity: 0.5;
 }
 
-#play-button > img, #skip-back-button > img, #skip-forward-button > img {
+#play-button img, #skip-back-button img, #skip-forward-button img {
     height: 80%;
-}
-
-.fa-bars, .fa-xmark {
-    display: none;
-    font-size: 24px
-}
-
-.fa-xmark {
-    display: none;
-    font-size: 30px;
 }
 
 @media screen and (max-width: 768px) {
@@ -50,7 +41,7 @@
     }
 
     #song-cover {
-        width: 75%;
+        width: 20rem;
         margin-bottom: 1rem;
     }
 

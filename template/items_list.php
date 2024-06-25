@@ -1,5 +1,5 @@
 <header class="list-title">
-    <h1><?php echo $_GET["t"]; ?> by <?php echo $_SESSION["username"]; ?></h1>
+    <h1><?php echo $_GET["t"]; ?> by <?php echo $template["profile"]["Username"]; ?></h1>
 </header>
 <main>
     <section>

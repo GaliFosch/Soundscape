@@ -13,9 +13,9 @@
         <?php if($template["isUserLogged"]):?>
             <div>
                 <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
-                    <em id="follow" class="fa-solid fa-user-check"></em>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check"></em>Following</button>
                 <?php else:?>
-                    <em id="follow" class="fa-solid fa-user-plus"></em>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus"></em>Follow</button>
                 <?php endif?>
             </div>
             <script src="js/follow.js"></script>
@@ -42,10 +42,10 @@
             <?php echo $template["profile"]["Biography"]?>
         </p>
     </section>
-    <section>
+    <section id="tracks-section">
         <header class="section-header">
             <h3 class="section-title">Published Tracks</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=tracks">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=tracks&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <div>
             <?php
@@ -67,10 +67,10 @@
             <?php endforeach;?>
         </div>
     </section>
-    <section>
+    <section id="albums-section">
         <header class="section-header">
             <h3 class="section-title">Published Albums</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=albums">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=albums&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php
         $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"],5);
@@ -94,10 +94,10 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <section>
+    <section id="playlists-section">
         <header class="section-header">
             <h3 class="section-title">Playlists</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=playlists">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=playlists&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php
             $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"],5);
@@ -121,10 +121,10 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <section>
+    <section id="posts-section">
         <header class="section-header">
-            <h3 class="section-title">Best Posts</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=best-posts">Show All</a></div>
+            <h3 class="section-title">Posts</h3>
+            <div class="show-all-btn-container"><a href="list.php?t=posts&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php 
             $bestPosts = $dbh->getBestUserPosts($template["profile"]["Username"],5);

@@ -42,10 +42,15 @@ header input[type=submit] {
     margin: 1rem;
 }
 
+.preview, .preview > a {
+    width: 15%;
+}
+
 .preview {
     display: inline;
     text-align: center;
     margin-left: 2rem;
+    vertical-align: top;
 }
 
 .preview > a {
@@ -112,16 +117,8 @@ header input[type=submit] {
         margin-left: 1.5rem;
     }
 
-    .preview {
-        vertical-align: top;
-    }
-
     .preview, .preview > a {
         width: 33%;
-    }
-
-    .preview-title {
-        overflow-wrap: break-word;
     }
 
     .preview-info {

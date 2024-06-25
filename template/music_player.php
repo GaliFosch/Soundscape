@@ -32,24 +32,32 @@
         <?php endif; ?>
     </audio>
     <div id="audio-controls">
-        <button id="rewind-button"><img src="images/rewind-icon.svg" alt="Rewind"/></button>
-        <?php if (isset($template["pos"]) && ($template["pos"] != 0)): ?>
-            <a href="player.php?pid=<?php echo $template["playlist_id"]; ?>&shuffle=<?php echo $template["shuffle"]; ?>&pos=<?php echo (((int) $template["pos"]) - 1); ?>"><button id="skip-back-button"><img src="images/skip-back-icon.svg" alt="Skip Back"/></button></a>
+        <?php if (isset($track)): ?>
+            <button id="rewind-button"><img src="images/rewind-icon.svg" alt="Rewind"/></button>
         <?php else: ?>
-            <button id="skip-back-button"><img src="images/skip-back-icon.svg" alt=""/></button>
+            <button id="rewind-button" class="disabled"><img src="images/rewind-icon.svg" alt="Rewind"/></button>
         <?php endif; ?>
-        <button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button>
-        <?php if (isset($template["pos"]) && ($template["pos"] != count($template["tracklist"]) - 1)): ?>
-            <a href="player.php?pid=<?php echo $template["playlist_id"]; ?>&shuffle=<?php echo $template["shuffle"]; ?>&pos=<?php echo (((int) $template["pos"]) + 1); ?>"><button id="skip-forward-button"><img src="images/skip-forward-icon.svg" alt="Skip Forward"/></button></a>
+        <?php if (isset($template["pos"]) && ($template["pos"] != 0)): ?>
+            <a id="skip-back-button" href="player.php?pid=<?php echo $template["playlist_id"]; ?>&shuffle=<?php echo $template["shuffle"]; ?>&pos=<?php echo (((int) $template["pos"]) - 1); ?>"><img src="images/skip-back-icon.svg" alt="Skip Back"/></a>
         <?php else: ?>
-            <button id="skip-forward-button"><img src="images/skip-forward-icon.svg" alt=""/></button>
+            <a id="skip-back-button" class="disabled" href="#"><img src="images/skip-back-icon.svg" alt="Skip Back"/></a>
+        <?php endif; ?>
+        <?php if (isset($track)): ?>
+            <button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button>
+        <?php else: ?>
+            <button id="play-button" class="disabled"><img src="images/play-icon.svg" alt="Play"/></button>
+        <?php endif; ?>
+        <?php if (isset($template["pos"]) && ($template["pos"] != count($template["tracklist"]) - 1)): ?>
+            <a id="skip-forward-button" href="player.php?pid=<?php echo $template["playlist_id"]; ?>&shuffle=<?php echo $template["shuffle"]; ?>&pos=<?php echo (((int) $template["pos"]) + 1); ?>"><img src="images/skip-forward-icon.svg" alt="Skip Forward"/></a>
+        <?php else: ?>
+            <a id="skip-forward-button" class="disabled" href="#"><img src="images/skip-forward-icon.svg" alt="Skip Forward"/></a>
         <?php endif; ?>
         <?php if (!isset($_SESSION["username"])): ?>
-            <a href="login.php"><button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt="Log-in to add the track to your playlists"/></button></a>
+            <a id="add-to-playlist-button" href="login.php"><img src="images/add-to-playlist-icon.svg" alt="Log-in to add the track to your playlists"/></a>
         <?php elseif (isset($track) && isset($track["TrackID"])): ?>
-            <a href="playlist_choice.php?trackid=<?php echo $track["TrackID"]; ?>"><button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt="Add song to playlist"/></button></a>
+            <a id="add-to-playlist-button" href="playlist_choice.php?trackid=<?php echo $track["TrackID"]; ?>"><img src="images/add-to-playlist-icon.svg" alt="Add song to playlist"/></a>
         <?php else: ?>
-            <button id="add-to-playlist-button"><img src="images/add-to-playlist-icon.svg" alt=""/></button>
+            <a id="add-to-playlist-button" class="disabled" href="#"><img src="images/add-to-playlist-icon.svg" alt="Log-in to add the track to your playlists"/></a>
         <?php endif; ?>
     </div>
 </main>

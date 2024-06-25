@@ -13,7 +13,4 @@ if(isset($_SESSION['username'])) {
     $template["posts"] = $dbh->getGeneralHomeFeed();
 }
 
-
-
 require("template/base.php");
-require("template/post_button.php");

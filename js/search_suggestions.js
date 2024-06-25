@@ -43,7 +43,6 @@ if (trackSearchForm.classList.contains("filter-by-selected-collection-type")) {
     userTracksOnly = true
 }
 
-/*This code deals with the search suggestion */
 search.addEventListener('keydown', function(event) {
     let search_text = event.target.value;
     let xhttp;
@@ -56,7 +55,6 @@ search.addEventListener('keydown', function(event) {
     xhttp.onreadystatechange = function() {
         if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
             let results = JSON.parse(this.responseText);
-            console.log(results);
             let html = '';
             for(let i = 0; i < results.length; i++) {
                 let start = '<li>';
@@ -93,7 +91,6 @@ search.addEventListener('keydown', function(event) {
     xhttp.send();
 });
 
-/*This code deals with the search suggestion */
 function listEvent() {
 
     let list = document.querySelectorAll('li');
@@ -118,4 +115,3 @@ function listEvent() {
     });
 
 }
-/*Here ends the code deals with the search suggestion */

@@ -11,7 +11,7 @@ $_SESSION["selected-tracks-ids"] = array();
         <ul>
             <li>
                 <!-- Playlist title -->
-                <label for="title" hidden></label>
+                <label for="title" hidden>Title: </label>
                 <input type="text" name="title" id="title" placeholder="Title" required />
             </li>
             <li>
@@ -21,32 +21,34 @@ $_SESSION["selected-tracks-ids"] = array();
             </li>
             <li>
                 <!-- Album or playlist -->
-                <div class="collection-option">
-                    <input id="album-option" type="radio" name="collection-type" value="album" />
-                    <label for="album-option">Album</label>
-                </div>
-                <div class="collection-option">
-                    <input id="playlist-option" type="radio" name="collection-type" value="playlist" />
-                    <label for="playlist-option">Playlist</label>
-                </div>
+                <fieldset>
+                    <legend>Collection type: </legend>
+                    <div class="collection-option">
+                        <input id="album-option" type="radio" name="collection-type" value="album" />
+                        <label for="album-option">Album</label>
+                    </div>
+                    <div class="collection-option">
+                        <input id="playlist-option" type="radio" name="collection-type" value="playlist" />
+                        <label for="playlist-option">Playlist</label>
+                    </div>
+                </fieldset>
             </li>
         </ul>
     </form>
-    <p>Search and add tracks to your album or playlist:</p>
+    <label for="track-search">Search and add tracks to your album or playlist:</label>
     <!-- Search bar -->
     <form id="track-search-form" action="#" method="GET" class="comment filter-by-selected-collection-type" autocomplete="off">
-        <label for="track-search"></label>
         <input id="track-search" type="search" name="track" placeholder="Search for song"/>
         <input id="add-track-button" type="button" value="Add" />
         <em class="fa-solid fa-plus"></em>
     </form>
     <!-- List of suggested tracks -->
-    <section class="track-suggestions-section">
+    <div class="track-suggestions-section">
         <ul class="track-suggestions"></ul>
-    </section>
+    </div>
     <!-- List of selected tracks -->
-    <section id="selected-tracks">
-    </section>
+    <div id="selected-tracks">
+    </div>
     <!-- Submit button -->
     <input type="submit" form="new-resource-form" value="Create" />
 </main>
