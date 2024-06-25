@@ -11,30 +11,32 @@
             <h3 id="date-and-length"><?php echo "{$template["playlist"]["CreationDate"]} - {$template["playlist"]["TimeLength"]}"; ?></h3>
         </div>
         <div id="controls">
-            <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=0&refresh=true"><button id="play-button"><img src="images/play-icon.svg" alt="Play"/></button></a>
-            <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=true&pos=0&refresh=true"><em id="shuffle-button" class="fa-solid fa-shuffle fa-2x"></em></a>
-            <a href="add_tracks_to_playlist.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>"><em id="add-track-to-playlist-button" class="fa-solid fa-plus fa-2x"></em></a>
+            <a id="play-button" href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=0&refresh=true" title="Listen to the album/playlist"><img src="images/play-icon.svg" alt="Play"/></a>
+            <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=true&pos=0&refresh=true" title="Listen to the album/playlist in shuffle mode"><em id="shuffle-button" class="fa-solid fa-shuffle fa-2x"></em></a>
+            <a href="add_tracks_to_playlist.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" title="Add tracks to the album/playlist"><em id="add-track-to-playlist-button" class="fa-solid fa-plus fa-2x"></em></a>
         </div>
     </header>
     <hr>
-    <section id="tracklist">
+    <div id="tracklist">
         <?php foreach ($template["tracklist"] as $track): ?>
-            <section class="row">
+            <div class="row">
                 <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["Position"] - 1); ?>">
-                    <section class="tracklist-item">
+                    <div class="tracklist-item">
                         <p class="track-position"><?php echo $track["Position"]; ?></p>
                         <div class="track-details">
                             <strong class="track-title"><?php echo $track["Name"]; ?></strong>
                             <p class="author"><?php echo $track["Creator"]; ?></p>
                         </div>
                         <p class="track-length"><?php echo $track["TimeLength"]; ?></p>
-                    </section>
+                    </div>
                 </a>
-                <section class="track-options">
-                    <a href="remove_track_from_playlist.php?trackid=<?php echo $track["TrackID"]; ?>&pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" class="remove-track-button"><em class="fa-solid fa-xmark"></em></a>
-                </section>
-            </section>
+                <div class="track-options">
+                    <?php if ($template["playlist"]["Creator"] === $_SESSION["username"]): ?>
+                        <a href="remove_track_from_playlist.php?trackid=<?php echo $track["TrackID"]; ?>&pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" class="remove-track-button" title="Remove this track from the album/playlist"><em class="fa-solid fa-xmark"></em></a>
+                    <?php endif; ?>
+                </div>
+            </div>
         <?php endforeach; ?>
-    </section>
+    </div>
 </main>
 <script src="js/track_options.js"></script>
