@@ -231,6 +231,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getSponsoredPlaylist($postID) {
+        $query = "SELECT * FROM post p, playlist pl WHERE (p.PlaylistID = pl.PlaylistID) AND (p.PostID = ?);";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function getTrackByID($trackID) {
         $query = "SELECT * FROM single_track WHERE TrackID = ?;";
         $stmt = $this->db->prepare($query);
