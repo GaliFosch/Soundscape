@@ -231,6 +231,14 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_assoc();
     }
 
+    public function getSponsoredPlaylist($postID) {
+        $query = "SELECT * FROM post p, playlist pl WHERE (p.PlaylistID = pl.PlaylistID) AND (p.PostID = ?);";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i', $postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+
     public function getTrackByID($trackID) {
         $query = "SELECT * FROM single_track WHERE TrackID = ?;";
         $stmt = $this->db->prepare($query);
@@ -708,7 +716,7 @@ class DatabaseHelper {
         $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
-                    WHERE post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    WHERE post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     AND user.Username IN (
                         SELECT Following
                         FROM follow
@@ -722,7 +730,7 @@ class DatabaseHelper {
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     WHERE user.Username IS NOT ?
-                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     ORDER BY post.NumLike DESC
                     LIMIT ?, ?";
         
@@ -735,7 +743,7 @@ class DatabaseHelper {
                     INNER JOIN belonging ON post.TrackID = belonging.TrackId
                     INNER JOIN $likedGenre ON belonging.GenreTag = likedGenre.GenreTag
                     WHERE user.Username IS NOT ?
-                    AND post.Timestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     ORDER BY likedGenre.TrackCount DESC
                     LIMIT ?, ?";
         
@@ -814,7 +822,7 @@ class DatabaseHelper {
     }
 
     public function getTrackByName($trackName, $trackCreator) {
-        $query = "SELECT AudioFile, Name, CoverImage, Creator
+        $query = "SELECT TrackID, AudioFile, Name, CoverImage, Creator
                 FROM single_track
                 WHERE Name = ? AND Creator = ?";
         $stmt =  $this->db->prepare($query);
@@ -855,7 +863,7 @@ class DatabaseHelper {
     /*This code deals with the search suggestion */
     public function getSuggestedTracks($trackName) {
         $bind = '%'.$trackName.'%';
-        $singleTrackQuery = "SELECT  Name, CoverImage, Creator
+        $singleTrackQuery = "SELECT Name, CoverImage, Creator
                             FROM single_track
                             WHERE Name LIKE ?";
         $playlistQuery = "SELECT  Name, CoverImage, Creator, IsAlbum, PlaylistID
@@ -877,13 +885,48 @@ class DatabaseHelper {
         return $result;
     }
 
-    public function addPost($track, $text, $userID) {
+    public function addPost($track, $text, $images, $userID, $type) {
         $timestamp = date('Y-m-d H:i:s');
-        $query = "INSERT INTO post (Caption, TrackID, Username, Timestamp)
+        $postID = null;
+        $query = null;
+        if($track != null) {
+            if($type == "track") {
+                $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
                     VALUES (?, ?, ?, ?)";
+            } else {
+                $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp)
+                        VALUES (?, ?, ?, ?)";
+            }
+        } else {
+            $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
+                    VALUES (?, ?, ?, ?)";
+        }
+        
+        
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
-        $stmt->execute();
+        if($stmt->execute()) {
+            $postID = $this->db->insert_id;
+        } else {
+            return false;
+        }
+        if($images!=null) {
+            foreach($images as $img) {
+                $imageQuery = "INSERT INTO image (PostImage, PostID)
+                            VALUES (?, ?)";
+                $stmt = $this->db->prepare($imageQuery);
+                $stmt->bind_param('si', $img, $postID);
+                if(!$stmt->execute()) {
+                    return false;
+                }
+            }
+        }
+        if($postID==null) {
+            return false;
+        }
+
+        return true;
+
     }
 
 }

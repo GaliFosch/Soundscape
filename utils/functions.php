@@ -32,36 +32,29 @@ function uploadImage($file){
     $imageFileType = strtolower(pathinfo($_FILES[$file]["name"],PATHINFO_EXTENSION));
     $newFilename = hash('sha512', $_FILES[$file]["name"].uniqid(mt_rand(1,mt_getrandmax()))). "." . $imageFileType;
     $target_file = $target_dir . basename($newFilename);
-    $uploadOk = 1;
     
     //check if image file is a actual image
     $check = getimagesize($_FILES[$file]["tmp_name"]);
-    if($check !== false){
-        $uploadOk = 1;
-    }else{
-        $uploadOk = 0;
+    if ($check === false) {
+        return false;
     }
     //check if file already exists
     if (file_exists($target_file)) {
-        $uploadOk = 0;
+        return false;
     }
     //Check file size
     if ($_FILES[$file]["size"] > 50000000) {
-        $uploadOk = 0;
+        return false;
     }
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-        $uploadOk = 0;
+        return false;
     }
 
-    if ($uploadOk == 0) {
-        return false;
+    if (move_uploaded_file($_FILES[$file]["tmp_name"], $target_file)) {
+        return $target_file;
     } else {
-        if (move_uploaded_file($_FILES[$file]["tmp_name"], $target_file)) {
-            return $target_file;
-        } else {
-            return false;
-        }
+        return false;
     }
 }
 
@@ -72,7 +65,7 @@ function uploadMultipleImages($files){
     $target_dir = "user_img/";
     $results = [];
     $n = count($_FILES[$files]["name"]);
-    for($i = 0; $i<=$n; $i++){
+    for($i = 0; $i<$n; $i++){
         if($_FILES[$files]["error"][$i] != UPLOAD_ERR_OK){
             $results[$i] = false;
             continue;

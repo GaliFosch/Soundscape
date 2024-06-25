@@ -2,6 +2,7 @@ let posts = document.querySelectorAll(".open-focus");
 let comments = document.querySelectorAll(".fa-message");
 let postComment = null;
 let asideOpen = false;
+let commentOpen = false;
 let heartPairs = new Map();
 
 const Popover = Object.freeze({
@@ -15,29 +16,35 @@ posts.forEach((post) => {
   const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
   closestHeart.addEventListener('click', (event) => toggleColor(event,post));
   post.addEventListener("click", () => {
+    let postId = post.getAttribute('post-id');
     if(!asideOpen) {
-        let postId = post.getAttribute('post-id');
-
-        var xhttp;    
-        xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "template/post_focus.php?post="+postId, true);
-        xhttp.onreadystatechange = function() {
-          if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-              // Add requested previews to section
-              showPopover(this.responseText, Popover.Aside, null);
-              let focusHeartIcon = document.querySelector(".fa-heart.focus");
-              addCloseListener(closestHeart,focusHeartIcon);
-              heartPairs.set(closestHeart,focusHeartIcon);
-              heartPairs.set(focusHeartIcon,closestHeart);
-              focusHeartIcon.addEventListener('click', (event) => toggleColor(event,post));
-              asideOpen = !asideOpen;
-          }
-      }
-        xhttp.send();
-    }  
-   });
-      
+      openAside(postId, closestHeart , post);
+    } else {
+      let closeFocus = document.querySelector(".close-focus");
+      closeFocus.click();
+      openAside(postId, closestHeart, post)
+    } 
+   });   
 });
+
+function openAside(postId, closestHeart, post) {
+  asideOpen = true;
+    var xhttp;    
+    xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "template/post_focus.php?post="+postId, true);
+    xhttp.onreadystatechange = function() {
+      if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
+          // Add requested previews to section
+          showPopover(this.responseText, Popover.Aside, null);
+          let focusHeartIcon = document.querySelector(".fa-heart.focus");
+          addCloseListener(closestHeart,focusHeartIcon);
+          heartPairs.set(closestHeart,focusHeartIcon);
+          heartPairs.set(focusHeartIcon,closestHeart);
+          focusHeartIcon.addEventListener('click', (event) => toggleColor(event,post));
+      }
+  }
+    xhttp.send();
+}
 
 //This code deals with the popovers, both aside and footer
 function showPopover(content, ver, below) {
@@ -65,20 +72,28 @@ function showPopover(content, ver, below) {
 function addCloseListener(heartIcon, heartIconPair) {
   let postFocus = document.querySelector(".popover-aside");
   let commentFocus = document.querySelector(".popover-comment");
+
   let closeFocus = document.querySelector(".close-focus");
-  closeFocus.addEventListener("click", () => {
-    if(postFocus!=null) {
-      postFocus.remove();
-      asideOpen = !asideOpen;
-      if(heartIcon!=null && heartIconPair!=null) {
-        heartPairs.delete(heartIcon);
-        heartPairs.delete(heartIconPair);
+  let closeComment = document.querySelector(".close-comment");
+
+  if(postFocus!=null) {
+    closeFocus.addEventListener("click", () => {
+        postFocus.remove();
+        asideOpen = false;
+        if(heartIcon!=null && heartIconPair!=null) {
+          heartPairs.delete(heartIcon);
+          heartPairs.delete(heartIconPair);
+
       }
-    } else if(commentFocus!=null) {
-      commentFocus.remove();
-      document.querySelector('body').style.overflow = "scroll";
-    }
-  });
+    });
+  }
+  if(commentFocus!=null) {
+    closeComment.addEventListener("click", () => {
+        commentFocus.remove();
+        commentOpen = false;
+        document.querySelector('body').style.overflow = "scroll";
+    });
+  }
 };
 
 /*This part deals with the heart button*/
@@ -168,12 +183,20 @@ function interactionViewerChanger() {
 comments.forEach((comm) => {
     comm.addEventListener("click", () => {
         let postId = comm.getAttribute('post-id');
-        openComment(postId);
+        console.log(postId);
+        if(!commentOpen) {
+          openComment(postId);
+        } else if(commentOpen) {
+          let closeFocus = document.querySelector(".close-comment");
+          closeFocus.click();
+          openComment(postId);
+        }
    });
 });
 
 //This code deals with the opening of the comment. It send the request XHTML request
 function openComment(postId) {
+        commentOpen=true;
         var xhttp;
         xhttp = new XMLHttpRequest();
         xhttp.open("GET", "template/comments.php?post="+postId, true);
