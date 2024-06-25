@@ -7,30 +7,43 @@
         <?php endif;?>
         <h2><?php echo $template["author"]["Username"]; ?></h2>
     </header>
+    <?php
+        $imgs = $dbh->getImagesFromPost($template["post"]["PostID"]);
+        if(sizeof($imgs)>0):
+    ?>
+    <section id="imgSection">
+        <em id="previousImg" class="fa-solid fa-angle-left"></em>
+        <?php foreach($imgs as $img):?>
+            <img src="<?php echo $img["PostImage"]; ?>"/>
+        <?php endforeach;?>
+        <em id="nextImg" class="fa-solid fa-angle-right"></em>
+    </section>
+    <script src="js/singlePostGallery.js"></script>
+    <?php endif;?>
     <section>
         <p><?php echo $template["post"]["Caption"]; ?></p>
-        <?php if(!empty($template["track"])):?>
-            <div class="trackSection">
-                <?php if(empty($template["track"]["CoverImage"])): ?>
-                    <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-                <?php else: ?>
-                    <img class="picture" src="<?php echo $template["track"]["CoverImage"]; ?>" alt="User profile image"/>
-                <?php endif;?>
-                <header>
-                    <h3><?php echo $template["track"]["Name"]; ?></h3>
-                    <p><?php echo $template["track"]["Creator"]; ?></p>
-                </header>
-            </div>
-        <?php elseif(!empty($template["plailist"])):?>
-            <div class="playlistSection">
-                <?php if(empty($template["playlist"]["CoverImage"])): ?>
-                    <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-                <?php else: ?>
-                    <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
-                <?php endif;?>
-            </div>
-        <?php endif;?>
     </section>
+    <?php if(!empty($template["track"])):?>
+        <section class="trackSection">
+            <?php if(empty($template["track"]["CoverImage"])): ?>
+                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+            <?php else: ?>
+                <img class="picture" src="<?php echo $template["track"]["CoverImage"]; ?>" alt="User profile image"/>
+            <?php endif;?>
+            <header>
+                <h3><?php echo $template["track"]["Name"]; ?></h3>
+                <p><?php echo $template["track"]["Creator"]; ?></p>
+            </header>
+        </section>
+    <?php elseif(!empty($template["plailist"])):?>
+        <section class="playlistSection">
+            <?php if(empty($template["playlist"]["CoverImage"])): ?>
+                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+            <?php else: ?>
+                <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
+            <?php endif;?>
+        </section>
+    <?php endif;?>
     <section>
         <div class="likeContainer">
             <em id="comment" class="fa-regular fa-message fa-fw"></em>

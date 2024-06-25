@@ -813,6 +813,16 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getImagesFromPost($postID){
+        $query = "SELECT PostImage
+                FROM image
+                WHERE PostID = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('s',$postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getTrackByName($trackName, $trackCreator) {
         $query = "SELECT AudioFile, Name, CoverImage, Creator
                 FROM single_track
