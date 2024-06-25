@@ -221,7 +221,7 @@ function getSectionAbove(queryPostID) {
     for (let i = 0; i < comments.length; i++) {
         let postId = comments[i].getAttribute('post-id');
         if(queryPostID === postId) {
-            return comments[i].closest('section');
+            return comments[i].closest('div');
         }
     }
 }
