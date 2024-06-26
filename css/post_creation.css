@@ -1,6 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 main {
     display: flex;
     flex-direction: column;
+    margin-left: 15rem;
+    align-self: center;
 }
 
 .close-post-creation {
@@ -14,61 +21,13 @@ main {
     margin: 0.5rem
 }
 
-form.comment {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto;
-    align-items: center;
-    justify-content: center
-}
-
 label {
     display: none;
 }
 
-input[type=search-bar] {
-    margin: 0 auto;
-    width: 30rem;
-    height: 1.5rem;
-    border-radius: 18px;
-    border: 1px solid white;
-    grid-row-start: 1;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    padding: 0.3rem;
-    color: black;
-}
-
-input[type=search-bar]:focus {
-    outline: none;
-}
-
-form.comment > input[type="submit"] {
-    background-color: white;
-    border: none;
-    font-size: 0;
-    padding: 0.7rem;
-    grid-row-start: 1;
-    grid-column-start: 2;
-    grid-column-end: 2;
-    justify-self: end;
-    border-radius: 18px;
-}
-
-form.comment > .fa-magnifying-glass {
-    grid-row-start: 1;
-    grid-column-start: 2;
-    grid-column-end: 2;
-    margin: 0 0.5rem;
-    justify-self: right;
-    font-size: 1.2em;
-    color: #1D70AD;
-    pointer-events: none;
-}
-
 form.caption {
     display: flex;
-    width: -webkit-fill-available;
+    width: 100%;
     flex-direction: column;
     margin: 1rem -0.5rem;
     border-top: 1px solid white;
@@ -288,19 +247,30 @@ input[type="file"]::file-selector-button {
     margin: 0.5rem;
 }
  
-@media screen and (min-width: 800px) {
+
+@media screen and (max-width: 900px) and (min-width: 768px) {
+    
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
     main {
-        margin-left: 15rem;
+        width: fit-content;
+        align-self: center;
     }
 }
 
+
 @media screen and (max-width: 768px) {
     main {
-        margin-top: 3rem;
+        align-self: center;
+        margin: 3rem 0 0 0;
+        padding: 1rem;
     }
 
-    input[type=search-bar] {
-        width: 15rem;
+    #track-search-form > input[type=search] {
+        width: 20rem;
     }
 
     .track-suggestions-section {

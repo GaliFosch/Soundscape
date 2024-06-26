@@ -51,36 +51,7 @@ form.comment > .fa-magnifying-glass, form.comment > .fa-plus {
     pointer-events: none;
 }
 
-form.caption {
-    display: flex;
-    width: -webkit-fill-available;
-    flex-direction: column;
-    margin: 1rem -0.5rem;
-    border-top: 1px solid white;
-}
-
-form.caption > textarea {
-    background-color: #323232;
-    border: none;
-    margin: 1rem;
-    font-size: 1em;
-    resize: none;
-}
-
-form.caption > input[type=submit] {
-    background-color: #1D70AD;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    border: none;
-    color: white;
-    padding: 0.7rem;
-    margin: 1rem;
-    align-self: end;
-    font-size: 1em;
-}
-
-#track-search-form.caption > textarea:focus, form.caption > textarea:focus {
+#track-search-form.caption > textarea:focus {
     outline: none;
 }
 
