@@ -21,7 +21,59 @@ main>section>p {
     text-align: left;
 }
 
-div.trackSection{
+.imgSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgSection footer{
+    display: flex;
+    font-size: 0.5rem;
+    flex-direction: row;
+}
+
+.imgSection footer em{
+    opacity: 0.7;
+    margin: 0 0.15rem;
+}
+
+.imgSection footer em.selected{
+    font-size: 0.6rem;
+    opacity: 1;
+}
+
+.imgContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgContainer img{
+    height: 12rem;
+    width: 15rem;
+    object-fit: contain;
+    margin: 0;
+    opacity: 0.7;
+}
+.imgContainer img:first-of-type.selected{
+    margin-left: 15rem;
+}
+
+.imgContainer img:last-of-type.selected{
+    margin-right: 15rem;
+}
+
+img.selected{
+    height: 24rem;
+    width: 30rem;
+    opacity: 1;
+    margin: 0 1rem;
+}
+
+.trackSection{
     height: 6rem;
     background-color: #E28AB9;
     border-radius: 1rem;
@@ -29,19 +81,19 @@ div.trackSection{
     align-items: center;
 }
 
-div.trackSection img{
+.trackSection img{
     height: 4rem;
     width: 4rem;
     object-fit: cover;
     margin-left: 1rem;
 }
 
-div.trackSection header{
+.trackSection header{
     flex-direction: column;
     margin-left: 1rem;
 }
 
-div.trackSection header>*{
+.trackSection header>*{
     margin: 0;
     text-align: left;
 }
@@ -122,4 +174,22 @@ article.comment footer p{
     opacity: 0.7;
     font-size: 1rem;
     text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+    .imgContainer img{
+        display: none;
+    }
+    .imgContainer img:first-of-type.selected{
+        margin-left: 0;
+    }
+    .imgContainer img:last-of-type.selected{
+        margin-right: 0;
+    }
+    img.selected{
+        display: block;
+        width: 90%;
+        height: 15rem;
+        margin: 0;
+    }
 }
