@@ -43,8 +43,15 @@
             <?php endif;?>
             <header>
                 <h3><?php echo $template["track"]["Name"]; ?></h3>
-                <p><?php echo $template["track"]["Creator"]; ?></p>
+                <p>
+                    <a href="profile.php?profile=<?php echo $template["track"]["Creator"]; ?>">
+                        <?php echo $template["track"]["Creator"]; ?>
+                    </a>
+                </p>
             </header>
+            <a href="player.php?trackid=<?php echo $template["track"]["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
+                <em class="fa-solid fa-play"></em>
+            </a>
         </section>
     <?php elseif(!empty($template["playlist"])):?>
         <section class="playlistSection">
