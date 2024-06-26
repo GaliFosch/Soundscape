@@ -144,6 +144,16 @@ label[for=track-search] {
     margin-bottom: 1rem;
 }
 
+#selected-tracks .preview {
+    margin-left: 0;
+    width: 15rem;
+}
+
+#selected-tracks .preview-title {
+    max-width: 8rem;
+    overflow-wrap: break-word;
+}
+
 @media screen and (max-width: 768px) {
 
     header {

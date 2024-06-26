@@ -2,6 +2,10 @@
 
 require_once("bootstrap.php");
 
+if (!checkLogin($dbh)) {
+    header("Location: login.php");
+}
+
 $template["playlist"] = $dbh->getPlaylistInfoByID($_GET["id"]);
 $template["tracklist"] = $dbh->getOrderedTracklistByPlaylistID($_GET["id"]);
 $template["title"] = "Soundscape - {$template["playlist"]["Name"]} by {$template["playlist"]["Creator"]}";
