@@ -41,7 +41,7 @@
     }
 
     #song-cover {
-        width: 20rem;
+        width: 15rem;
         margin-bottom: 1rem;
     }
 
@@ -56,6 +56,26 @@
     #current-time-label, #missing-time-label {
         font-size: 1.25rem;
     }
+
+}
+
+@media screen and (min-width: 1024px) {
+
+    #audio-progress-bar {
+        width: 20%;
+    }
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 1024px) {
+
+    #audio-progress-bar {
+        width: 35%;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
 
     #audio-progress-bar {
         width: 50%;

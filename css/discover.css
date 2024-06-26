@@ -99,6 +99,14 @@ header input[type=submit] {
     font-size: 1rem;
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    header > form, main {
+        padding-left: 2.5rem;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
 
     header {

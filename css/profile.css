@@ -247,6 +247,22 @@ section.post-interaction a{
     margin-right: 0.5rem;
 }
 
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+
+    main {
+        padding-left: 2.5rem;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+
+    main {
+        padding-left: 4rem;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
 
     #Biography, #tracks-section, #albums-section, #playlists-section, #posts-section {
