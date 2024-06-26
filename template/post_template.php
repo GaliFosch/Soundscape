@@ -1,5 +1,5 @@
 <?php foreach ($template["posts"] as $post): ?>
-    <article class="post-article">
+    <article class="post-article" id="<?php echo $post['PostID']; ?>">
         <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
         <!--Utente e foto utente-->
         <h1 class="user-info">
@@ -11,7 +11,7 @@
             <?php echo $user["Username"]; ?>
         </h1>
         <!--Post caption-->
-        <p post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
+        <p class="open-focus"><?php echo $post["Caption"]; ?></p>
         
         <!--Outer section of music box-->
         <!--POST WITH MUSIC-->
@@ -76,7 +76,7 @@
 
 
         <section class="post-interaction post-interaction">
-            <em class="fa-regular fa-message fa-fw" post-id="<?php echo $post['PostID']; ?>"></em>
+            <em class="fa-regular fa-message fa-fw"></em>
             <?php if(isset($_SESSION['username'])): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
                     <em class="fa-solid fa-heart fa-fw article"></em>

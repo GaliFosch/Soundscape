@@ -2,7 +2,7 @@
 
 require_once("..\bootstrap.php");
 
-$template["stylesheets"] = ["index.css"];
+$template["stylesheets"] = ["post_focus.css"];
 
 $postID = $_GET["post"];
 
@@ -18,14 +18,18 @@ if($track!=null) {
 
 <em class="fa-solid fa-xmark close-focus"></em>
 
-<h1>
+<section class="upper-section-focus">
+    <h1 class="user-info">
     <?php if ($user["ProfileImage"] != null): ?>
-        <img class="picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
+        <img class="profile-picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
     <?php else: ?>
-        <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+        <img class="profile-picture" src="images/placeholder-image.jpg" alt="User profile image"/>
     <?php endif; ?>
     <?php echo $user["Username"]; ?>
-</h1>
+    </h1>
+    <p class="timestamp"><?php echo $post["PostTimestamp"]; ?></p>
+</section>
+
 <p><?php echo $post["Caption"]; ?></p>
 <?php if ($track != null): ?>
     <section class="music-box focus">
@@ -65,8 +69,11 @@ if($track!=null) {
     <?php else: ?>
         <img class="artist-photo" src="images/placeholder-image.jpg" alt="Artist profile image"/>
     <?php endif; ?>
-    <em class="fa-solid fa-user-plus"></em>
-    <em class="fa-solid fa-user-check"></em>
+    <?php if (!$dbh->isFollowing($artist["Username"], $user["Username"])): ?>
+        <em class="fa-solid fa-user-plus follow" id="follows - <?php echo $artist["Username"]; ?>"></em>
+    <?php else: ?>
+        <em class="fa-solid fa-user-check follow" id="follows - <?php echo $artist["Username"]; ?>"></em>
+    <?php endif; ?>    
     <p class="artist-name"><?php echo $artist["Username"]; ?></p>
     <p class="artist-description"><?php echo $artist["Biography"]; ?></p>
     <?php endif; ?>

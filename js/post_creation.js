@@ -65,6 +65,7 @@ fileInput.addEventListener('change', (event) => {
         section.appendChild(inner);
 
         em.addEventListener("click", () => {
+            console.log(index);
             fileList.splice(index, 1);
             const newFileList = [];
             const dataTransfer = new DataTransfer();
@@ -76,10 +77,10 @@ fileInput.addEventListener('change', (event) => {
             img.remove();
             em.remove();
             inner.remove();
+            fileList = newFileList;
             if(newFileList.length === 0) {
                 section.remove()
             }
-            fileList = newFileList;
         })
     });
     main.appendChild(section);

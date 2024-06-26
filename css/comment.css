@@ -6,6 +6,11 @@ footer {
     margin: 1rem -1rem;
 }
 
+section.upper-section-comment {
+    display: flex;
+    flex-direction: row;
+}
+
 section.interaction-changer {
     font-size: 1.5em;
     margin: 0.5rem -1rem;
@@ -15,7 +20,7 @@ section.interaction-changer {
     flex-direction: row;
 }
 
-.close-focus {
+.close-comment {
     align-self: start;
 }
 
@@ -114,7 +119,7 @@ label {
 }
 
 
-article.people-comment {
+article.people-comment, article.people-like {
     background: #323232;
     border: 0.1rem solid white;
     width: -webkit-fill-available;
@@ -129,7 +134,14 @@ article.people-comment {
 }
 
 .comment-text>p {
-   font-size: 1em; 
+    font-size: 1em;
+    text-align: left;
+}
+
+.timestamp {
+    align-self: flex-start;
+    padding: 0;
+    width: fit-content;
 }
 
 .likes {
@@ -142,6 +154,7 @@ article.people-like {
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 0 1rem;
 }
 
 @media screen and (max-width: 768px) {

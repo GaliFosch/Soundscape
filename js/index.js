@@ -1,8 +1,10 @@
-let posts = document.querySelectorAll(".open-focus");
-let comments = document.querySelectorAll(".fa-message");
+let posts = null;
+let comments = null;
 let postComment = null;
 let asideOpen = false;
+let numAside = null;
 let commentOpen = false;
+let numComment = null;
 let heartPairs = new Map();
 
 const Popover = Object.freeze({
@@ -10,23 +12,89 @@ const Popover = Object.freeze({
   Footer:1
 });
 
+window.onload = () => {
+  posts = document.querySelectorAll(".open-focus");
+  comments = document.querySelectorAll(".fa-message");
+  
+
+  posts.forEach((post) => {
+    const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
+    closestHeart.addEventListener('click', (event) => toggleColor(event,post));
+    let article = post.closest("article");
+    post.addEventListener("click", () => {
+      let postId = article.id;
+      if(!asideOpen) {
+        openAside(postId, closestHeart , post);
+      } else if(numAside==postId) {
+        let closeFocus = document.querySelector(".close-focus");
+        closeFocus.click();
+      } else {
+        let closeFocus = document.querySelector(".close-focus");
+        closeFocus.click();
+        openAside(postId, closestHeart, post)
+      } 
+    });   
+  });
+
+  comments.forEach((comm) => {
+    comm.addEventListener("click", () => {
+      let article = comm.closest("article");
+        let postId = article.id;
+        if(!commentOpen) {
+          openComment(postId);
+        } else if(numComment==postId) {
+          let closeFocus = document.querySelector(".close-comment");
+          closeFocus.click();
+        } else if(commentOpen) {
+          let closeFocus = document.querySelector(".close-comment");
+          closeFocus.click();
+          openComment(postId);
+        }
+    });
+  });
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('post');
+  comments.forEach((comm) => {
+    let article = comm.closest("article");
+    let postId = article.id;
+    if(postId == myParam) {
+      openComment(postId);
+    }
+  })
+}
+
+function followProcedure(follow){
+  let str = follow.id;
+  let target;
+  if (str !== "") {
+    let parts = str.split(" - ");
+    target = parts[1];
+  }
+  let req = new XMLHttpRequest()
+  if(follow.classList.contains("fa-user-plus")){
+      req.onload = function() {
+          if(req.responseText === "true"){
+              follow.classList.remove("fa-user-plus")
+              follow.classList.add("fa-user-check")
+          }
+      }
+      req.open("GET", "process_follow.php?target=" + target)
+      req.send()
+  }else{
+      req.onload = function() {
+          if(req.responseText === "true"){
+            console.log("yehaw")
+              follow.classList.remove("fa-user-check")
+              follow.classList.add("fa-user-plus")
+          }
+      }
+      req.open("GET", "process_unfollow.php?target=" + target)
+      req.send()
+  }
+}
+
 //Down here it deals with the post, the aside and the like functionality
-posts.forEach((post) => {
-
-  const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
-  closestHeart.addEventListener('click', (event) => toggleColor(event,post));
-  post.addEventListener("click", () => {
-    let postId = post.getAttribute('post-id');
-    if(!asideOpen) {
-      openAside(postId, closestHeart , post);
-    } else {
-      let closeFocus = document.querySelector(".close-focus");
-      closeFocus.click();
-      openAside(postId, closestHeart, post)
-    } 
-   });   
-});
-
 function openAside(postId, closestHeart, post) {
   asideOpen = true;
     var xhttp;    
@@ -36,11 +104,14 @@ function openAside(postId, closestHeart, post) {
       if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
           // Add requested previews to section
           showPopover(this.responseText, Popover.Aside, null);
+          numAside = postId;
           let focusHeartIcon = document.querySelector(".fa-heart.focus");
           addCloseListener(closestHeart,focusHeartIcon);
           heartPairs.set(closestHeart,focusHeartIcon);
           heartPairs.set(focusHeartIcon,closestHeart);
           focusHeartIcon.addEventListener('click', (event) => toggleColor(event,post));
+          let follow = document.querySelector(".follow");
+          follow.addEventListener("click", ()=>followProcedure(follow));
       }
   }
     xhttp.send();
@@ -101,7 +172,8 @@ function toggleColor(event, post) {
       let targetHeart = event.target;
       let pairHeart = heartPairs.get(targetHeart);
 
-      let postId = post.getAttribute('post-id');
+      let article = post.closest("article");
+      let postId = article.id;
       let xhttp;    
       xhttp = new XMLHttpRequest();
       xhttp.open("GET", "template/like_handler.php?post="+postId, true);
@@ -180,20 +252,6 @@ function interactionViewerChanger() {
 };
 
 //Down here it deals with the comment section
-comments.forEach((comm) => {
-    comm.addEventListener("click", () => {
-        let postId = comm.getAttribute('post-id');
-        console.log(postId);
-        if(!commentOpen) {
-          openComment(postId);
-        } else if(commentOpen) {
-          let closeFocus = document.querySelector(".close-comment");
-          closeFocus.click();
-          openComment(postId);
-        }
-   });
-});
-
 //This code deals with the opening of the comment. It send the request XHTML request
 function openComment(postId) {
         commentOpen=true;
@@ -205,6 +263,7 @@ function openComment(postId) {
               // Add requested previews to section
               let below = getSectionAbove(postId);
               showPopover(this.responseText, Popover.Footer, below);
+              numComment = postId;
               interactionViewerChanger();
               addCloseListener();
               addSelectedListener();
@@ -219,22 +278,10 @@ function openComment(postId) {
 //This code deals with the finding of the nearest section, under which the comment section is to open
 function getSectionAbove(queryPostID) {
     for (let i = 0; i < comments.length; i++) {
-        let postId = comments[i].getAttribute('post-id');
-        if(queryPostID === postId) {
-            return comments[i].closest('section');
-        }
+      let article = comments[i].closest("article");
+      let postId = article.id;
+      if(queryPostID === postId) {
+          return comments[i].closest('section');
+      }
     }
 }
-
-//This code deals with comments reopening when a comment is added
-window.onload= () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get('post');
-  comments.forEach((comm) => {
-    let postId = comm.getAttribute('post-id');
-    if(postId == myParam) {
-      openComment(postId);
-    }
-  })
-}
-    

@@ -35,11 +35,11 @@ if(isset($_SESSION['username'])) {
     <?php if(isset($_SESSION['username'])): ?>
     <!--Inserisci il tuo commento-->
     <section class="user-comment">
-        <form class="comment-form" action="template/process_comment.php?post=<?php echo $postID; ?>" method="POST" post-id="<?php echo $postID; ?>">
+        <form class="comment-form" action="template/process_comment.php?post=<?php echo $postID; ?>" method="POST" id="<?php echo $postID; ?>">
         <?php if ($user["ProfileImage"] != null): ?>
-                <img class="picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
+                <img class="profile-picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
             <?php else: ?>
-                <img class="picture comment-form" src="images/placeholder-image.jpg" alt="User profile image"/>
+                <img class="profile-picture comment-form" src="images/placeholder-image.jpg" alt="User profile image"/>
         <?php endif; ?>
         <label for="write-comment">Write your comment:</label>
         <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard"></textarea>
@@ -61,15 +61,17 @@ if(isset($_SESSION['username'])) {
         <article class="people-comment">
         <?php $creator = $dbh->getUserByUsername($comm["Username"])?>
         <?php if ($creator["ProfileImage"] != null): ?>
-                <img class="picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
+                <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
             <?php else: ?>
-                <img class="picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
+                <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
         <?php endif; ?>
+        
+        
         <section class="comment-text">
             <p><b><?php echo $creator["Username"]?></b></p>
             <p><?php echo $comm["CommentText"]?></p>
         </section>
-        
+        <p class="timestamp"><?php echo $comm["CommentTimestamp"]; ?></p>
     </article>
     <?php endforeach; ?>
 </div>
@@ -85,9 +87,9 @@ if(isset($_SESSION['username'])) {
     <article class="people-like">
         <?php $creator = $dbh->getUserByUsername($like["Username"])?>
         <?php if ($creator["ProfileImage"] != null): ?>
-                <img class="picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
+                <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
             <?php else: ?>
-                <img class="picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
+                <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
         <?php endif; ?>
         <p><b><?php echo $creator["Username"]?></b></p>
         <?php if($creator["Username"] != $user["Username"]): ?>

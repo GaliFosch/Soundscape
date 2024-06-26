@@ -181,7 +181,7 @@ div.notifIcon .fa-circle {
 main {
     text-align: center;
     width: 80%;
-    margin-left: 20%;
+    margin-left: 13rem;
 }
 
 @media screen and (min-width: 800px) {
