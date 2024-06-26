@@ -667,10 +667,8 @@ class DatabaseHelper {
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike
-                    WHERE EXISTS (SELECT * 
-                                    FROM postlike 
-                                    WHERE PostID = ?
-                                    AND Username = ?)";
+                    WHERE PostID = ?
+                        AND Username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('is',$postID,$userID);
         $stmt->execute();
