@@ -11,14 +11,19 @@
         $imgs = $dbh->getImagesFromPost($template["post"]["PostID"]);
         if(sizeof($imgs)>0):
     ?>
-    <section id="imgSection">
-        <em id="previousImg" class="fa-solid fa-angle-left"></em>
-        <?php foreach($imgs as $img):?>
-            <img src="<?php echo $img["PostImage"]; ?>"/>
-        <?php endforeach;?>
-        <em id="nextImg" class="fa-solid fa-angle-right"></em>
+    <section class="imgSection">
+        <div class="imgContainer">
+            <?php foreach($imgs as $img):?>
+                <img src="<?php echo $img["PostImage"]; ?>"/>
+            <?php endforeach;?>
+        </div>
+        <footer>
+            <?php foreach($imgs as $img):?>
+                <em class="fa-solid fa-circle dot"></em>
+            <?php endforeach;?>
+        </footer>
     </section>
-    <script src="js/singlePostGallery.js"></script>
+    <script src="js/imageGallery.js"></script>
     <?php endif;?>
     <section>
         <p><?php echo $template["post"]["Caption"]; ?></p>
@@ -35,7 +40,7 @@
                 <p><?php echo $template["track"]["Creator"]; ?></p>
             </header>
         </section>
-    <?php elseif(!empty($template["plailist"])):?>
+    <?php elseif(!empty($template["playlist"])):?>
         <section class="playlistSection">
             <?php if(empty($template["playlist"]["CoverImage"])): ?>
                 <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
