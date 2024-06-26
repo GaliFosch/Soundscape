@@ -115,6 +115,10 @@ img.selected{
     overflow: hidden;
 }
 
+.playlistSection a{
+    margin: 0;
+}
+
 .playlistSection img{
     width: 30rem;
     aspect-ratio: 1/1;
@@ -125,10 +129,14 @@ img.selected{
     margin-bottom: 2rem;
 }
 
-.playlistSection div *{
+.playlistSection div h3, .playlistSection div p{
     color: black;
     text-align: left;
     margin: 0 1rem;
+}
+
+.playlistSection div a{
+    color: black;
 }
 
 .playlistSection div h3{
@@ -186,6 +194,10 @@ article.comment header{
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+article.comment header a{
+    height: 2rem;
 }
 
 article.comment header img{

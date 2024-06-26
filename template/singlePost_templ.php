@@ -1,11 +1,17 @@
 <main>
     <header>
-        <?php if(empty($template["author"]["ProfileImage"])): ?>
-            <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-        <?php else: ?>
-            <img class="picture" src="<?php echo $template["author"]["ProfileImage"]; ?>" alt="User profile image"/>
-        <?php endif;?>
-        <h2><?php echo $template["author"]["Username"]; ?></h2>
+        <a href="profile.php?profile=<?php echo $template["author"]["Username"]; ?>">
+            <?php if(empty($template["author"]["ProfileImage"])): ?>
+                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+            <?php else: ?>
+                <img class="picture" src="<?php echo $template["author"]["ProfileImage"]; ?>" alt="User profile image"/>
+            <?php endif;?>
+        </a>
+        <h2>
+            <a href="profile.php?profile=<?php echo $template["author"]["Username"]; ?>">
+                <?php echo $template["author"]["Username"]; ?>
+            </a>
+        </h2>
     </header>
     <?php
         $imgs = $dbh->getImagesFromPost($template["post"]["PostID"]);
@@ -43,25 +49,27 @@
     <?php elseif(!empty($template["playlist"])):?>
         <section class="playlistSection">
             <a href="playlist.php?id=<?php echo $template["playlist"]["PlaylistID"];?>">
-                <?php if(empty($template["playlist"]["CoverImage"])): ?>
-                    <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-                <?php else: ?>
-                    <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
-                <?php endif;?>
-                <div>
-                    <h3><?php echo $template["playlist"]["Name"]; ?></h3>
-                    <p><?php echo $template["playlist"]["Creator"]; ?></p>
-                    <p>
-                        <?php 
-                            if($template["playlist"]["IsAlbum"] === "1"){
-                                echo "Album";
-                            }else{
-                                echo "Playlist";
-                            }
-                        ?>
-                    </p>
-                </div>
+            <?php if(empty($template["playlist"]["CoverImage"])): ?>
+                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+            <?php else: ?>
+                <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
+            <?php endif;?>
             </a>
+            <div>
+                <a href="playlist.php?id=<?php echo $template["playlist"]["PlaylistID"];?>">
+                    <h3><?php echo $template["playlist"]["Name"]; ?></h3>
+                </a>
+                <p><a href="profile.php?profile=<?php echo $template["playlist"]["Creator"]; ?>"><?php echo $template["playlist"]["Creator"]; ?></a></p>
+                <p>
+                    <?php 
+                        if($template["playlist"]["IsAlbum"] === "1"){
+                            echo "Album";
+                        }else{
+                            echo "Playlist";
+                        }
+                    ?>
+                </p>
+            </div>
         </section>
     <?php endif;?>
     <section>
@@ -89,15 +97,18 @@
             ?>
                 <article id="<?php echo $comment["CommentID"]?>" class = "comment">
                     <header>
-                        <?php
-                            $author = $dbh->getUserByUsername($comment["Username"]);
-                            if(empty($author["ProfileImage"])): 
-                        ?>
-                            <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-                        <?php else: ?>
-                            <img class="picture" src="<?php echo $author["ProfileImage"]; ?>" alt="User profile image"/>
-                        <?php endif;?>
-                        <h3><?php echo $author["Username"]?></h3>
+                        <a href="profile.php?profile=<?php echo $comment["Username"]?>">
+                            <?php
+                                $author = $dbh->getUserByUsername($comment["Username"]);
+                                if(empty($author["ProfileImage"])): 
+                            ?>
+                                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                            <?php else: ?>
+                                <img class="picture" src="<?php echo $author["ProfileImage"]; ?>" alt="User profile image"/>
+                            <?php endif;?>
+                        </a>
+                        <a href="profile.php?profile=<?php echo $comment["Username"]?>"></a>
+                        <h3><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h3>
                     </header>
                     <p><?php echo $comment["CommentText"]?></p>
                     <footer>
