@@ -711,52 +711,57 @@ class DatabaseHelper {
         }
     }
 
-    public function getPersonalizedHomeFeed($userID, $nToShow, $nToSkip = 0) {
-        //This query return the posts of the followed artists, posted in the last 7 days.
-        $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
-                    FROM post
-                    INNER JOIN user ON post.Username = user.Username
-                    WHERE post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    AND user.Username IN (
-                        SELECT Following
-                        FROM follow
-                        WHERE Follower = ?
-                    )
-                    ORDER BY post.PostID DESC
-                    LIMIT ?, ?";
+    public function getPersonalizedHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
 
         //This query returns the most liked posts of the last seven days
-        $likedQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
-                    FROM post
-                    INNER JOIN user ON post.Username = user.Username
-                    WHERE user.Username IS NOT ?
-                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    ORDER BY post.NumLike DESC
-                    LIMIT ?, ?";
-        
-        $likedGenre = $this->getFavouriteGenres($userID);
+        $artistQuery = "SELECT *
+                FROM post
+                INNER JOIN user ON post.Username = user.Username
+                WHERE post.PostTimestamp <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                AND user.Username IN (
+                    SELECT Following
+                    FROM follow
+                    WHERE Follower = ?
+                )
+                ORDER BY post.PostID DESC
+                LIMIT ?, ?";
 
-        //This query returns random posts in which the song is of a genre generally listened by the user
-        $genreQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+        $likedQuery = "SELECT *
+                        FROM post
+                        INNER JOIN user ON post.Username = user.Username
+                        WHERE user.Username != ?
+                        AND post.PostTimestamp <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                        ORDER BY post.NumLike DESC
+                        LIMIT ?, ?";
+
+        $genreQuery = "SELECT *
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     INNER JOIN belonging ON post.TrackID = belonging.TrackId
-                    INNER JOIN $likedGenre ON belonging.GenreTag = likedGenre.GenreTag
-                    WHERE user.Username IS NOT ?
-                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    ORDER BY likedGenre.TrackCount DESC
+                    WHERE belonging.GenreTag IN (
+                            SELECT genre.GenreTag
+                            FROM belonging
+                            INNER JOIN genre ON belonging.GenreTag = genre.GenreTag
+                            INNER JOIN post as p ON belonging.TrackID = p.TrackID
+                            WHERE p.Username = ?
+                    )
+                    AND user.Username != ?
+                    AND post.PostTimestamp <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                     LIMIT ?, ?";
         
         $finalQuery = "SELECT * FROM (
-                            SELECT * FROM $artistQuery
-                            UNION 
-                            SELECT * FROM $likedQuery
-                            UNION 
-                            SELECT * FROM $genreQuery
-                        ) ORDER BY RAND()";
+                        ($artistQuery)
+                        UNION
+                        ($likedQuery)
+                        UNION
+                        ($genreQuery)
+                    ))
+                    ORDER BY RAND()";
+        
+        print_r($finalQuery);
 
         $stmt = $this->db->prepare($finalQuery);
-        $stmt->bind_param("siisiisii", $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip);
+        $stmt->bind_param("siisiissii", $userID, $nToSkip, $nToShow, $userID, $nToSkip, $nToShow, $userID, $userID, $nToSkip, $nToShow);
         if($stmt->execute()) {
             return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         } else {
@@ -764,28 +769,14 @@ class DatabaseHelper {
         }
     }
 
-    public function getGeneralHomeFeed() {
-        $query = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+    public function getGeneralHomeFeed( $nToShow =  ALL, $nToSkip = 0) {
+        $query = "SELECT *
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
-                    ORDER BY user.NumFollower DESC";
+                    ORDER BY user.NumFollower DESC
+                    LIMIT ?, ?";
         $stmt =  $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getFavouriteGenres($userID) {
-        $query = "SELECT genre.GenreTag, COUNT(belonging.TrackID) AS TrackCount
-                FROM belonging
-                INNER JOIN genre ON belonging.GenreTag = genre.GenreTag
-                WHERE belonging.TrackID IN (
-                    SELECT post.TrackID
-                    FROM post
-                    WHERE Post.Usernanme = ?)
-                GROUP BY genre.GenreTag
-                ORDER BY TrackCount DESC";
-        $stmt =  $this->db->prepare($query);
-        $stmt->bind_param("s", $userID);
+        $stmt->bind_param("ii", $nToSkip, $nToShow);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -800,7 +791,7 @@ class DatabaseHelper {
     }
 
     public function getAllComments($postID) {
-        $query = "SELECT CommentID, CommentText, CommentTimestamp, Username
+        $query = "SELECT CommentText, Username
                     FROM comment
                     WHERE PostID = ?
                     ORDER BY CommentTimestamp DESC";

@@ -54,6 +54,10 @@ form.caption > input[type="submit"] {
     font-size: 1em;
 }
 
+form.caption > input[type="submit"]:hover {
+    cursor: pointer;
+}
+
 form.caption > textarea:focus {
     outline: none;
 }
@@ -246,9 +250,13 @@ input[type="file"]::file-selector-button {
     height: 2rem;
     margin: 0.5rem;
 }
+
+.inner-image-viewer > .fa-xmark:hover {
+    cursor: pointer;
+}
  
 
-@media screen and (max-width: 900px) and (min-width: 768px) {
+@media screen and (max-width: 992px) and (min-width: 768px) {
     
     body {
         display: flex;

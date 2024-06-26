@@ -24,10 +24,18 @@ section.interaction-changer {
     align-self: start;
 }
 
+.close-comment:hover {
+    cursor: pointer;
+}
+
 section.interaction-changer > section {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+.interaction-changer>section>em:hover {
+    cursor: pointer;
 }
 
 .separator {
@@ -36,7 +44,7 @@ section.interaction-changer > section {
     margin: 0 0.5rem;
 }
 
-em.comment-changer, em.like-changer {
+em.comment-changer, .like-changer-section>em.like-changer {
     color: #FFF;
 }
 
@@ -54,18 +62,6 @@ em.comment-changer, em.like-changer {
 
 .like-changer-section.selected>em, .like-changer-section.selected>p {
     color: #E91E63;
-}
-
-::-webkit-scrollbar-thumb {
-    background: gray; 
-    border-radius: 10px;
-}
-::-webkit-scrollbar-track {
-    background:#323232; 
-
-}
-::-webkit-scrollbar {
-    width: 0.5em;
 }
 
 .comment-text {
@@ -118,6 +114,9 @@ label {
     margin: 0.5rem;
 }
 
+.fa-paper-plane:hover {
+    cursor: pointer;
+}
 
 article.people-comment, article.people-like {
     background: #323232;
@@ -167,6 +166,8 @@ article.people-like {
         top: 3rem;
         left: 0;
         display: block;
+        margin: 0;
+        display: flex;
     }
 
     .comments, .likes {

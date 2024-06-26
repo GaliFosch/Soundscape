@@ -42,7 +42,7 @@ if(isset($_SESSION['username'])) {
                 <img class="profile-picture comment-form" src="images/placeholder-image.jpg" alt="User profile image"/>
         <?php endif; ?>
         <label for="write-comment">Write your comment:</label>
-        <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard"></textarea>
+        <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard" required></textarea>
         <button type="submit">
             <em class="fa-regular fa-paper-plane"></em>
         </button>

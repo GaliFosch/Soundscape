@@ -6,6 +6,7 @@ let numAside = null;
 let commentOpen = false;
 let numComment = null;
 let heartPairs = new Map();
+let shownCount = 0;
 
 const Popover = Object.freeze({
   Aside: 0,
@@ -284,4 +285,27 @@ function getSectionAbove(queryPostID) {
           return comments[i].closest('section');
       }
     }
+}
+
+//this code deals with the loading of the posts from the database
+function onShowMoreBtnClick() {
+
+  const request = new XMLHttpRequest()
+  let toShowCount = 10;
+  request.open(
+      "GET",
+      "process_fees.php?show=" + toShowCount + "&skip=" + shownCount[`${previewsType}`],
+      true
+  )
+  request.onreadystatechange = function() {
+      if ((this.readyState === 4) && (this.status === 200)) {
+        let section = document.createElement("section");
+        section.innerHTML = this.responseText;
+        let main = document.querySelector("main");
+        main.appendChild(section);
+      }
+  }
+  request.send()
+
+  shownCount += toShowCount;
 }

@@ -7,6 +7,10 @@ article{
     justify-content: flex-start;
 }
 
+.open-focus:hover {
+    cursor: pointer;
+}
+
 .profile-picture {
     border-radius: 100%;
     width: 36px;
@@ -150,24 +154,18 @@ li.single-track {
     padding: 0;
 }
 
-.post-interaction em {
+.post-interaction>em {
     font-size: 1.5em;
     color: #fff;
     text-align: center;
 }
 
-.post-interaction.focus em {
-    font-size: 15px;
-    color: #fff;
-    text-align: center;
-    margin: 1px 2px;
+.post-interaction>em:hover{
+    cursor: pointer;
 }
 
 em.fa-heart{
     color: #E91E63;
-}
-.fa-heart:hover{
-    cursor: pointer;
 }
 
 .fa-play {

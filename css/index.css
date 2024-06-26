@@ -6,6 +6,8 @@ body {
 main {
     grid-column-start: 2;
     margin: 0;
+    width: 100%;
+    justify-self: center;
 }
 
 .timestamp {
@@ -13,11 +15,10 @@ main {
     color: rgba(255, 255, 255, 75%);
 }
 
-
-@media screen and (min-width: 800px) {
-    main {
-        width: 40rem;
-        justify-self: center;
+@media screen and (max-width: 992px) and (min-width: 768px) {
+    body {
+        display: grid;
+        grid-template-columns: 13rem auto 3rem;
     }
 }
 

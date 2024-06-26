@@ -75,7 +75,7 @@
             
 
 
-        <section class="post-interaction post-interaction">
+        <section class="post-interaction">
             <em class="fa-regular fa-message fa-fw"></em>
             <?php if(isset($_SESSION['username'])): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>

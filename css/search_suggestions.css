@@ -51,8 +51,8 @@ form.comment > .fa-magnifying-glass, form.comment > .fa-plus {
     pointer-events: none;
 }
 
-#track-search-form.caption > textarea:focus {
-    outline: none;
+form.comment > input[type=submit]:hover {
+    cursor: pointer;
 }
 
 /*This code deals with the search suggestion */
