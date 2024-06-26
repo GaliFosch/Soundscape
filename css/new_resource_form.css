@@ -68,7 +68,7 @@ label[for=title] {
     margin-top: 1rem;
 }
 
-section, div {
+main section, main div {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -178,7 +178,7 @@ label[for=track-search] {
         width: 20rem;
     }
 
-    input[type=submit] {
+    main > input[type=submit] {
         margin: 0.5rem 0;
     }
 
