@@ -1,3 +1,8 @@
+main{
+    display: flex;
+    flex-direction: column;
+}
+
 main>header{
     padding-top: 2rem;
     display: flex;
@@ -19,6 +24,10 @@ main>header h2{
 main>section>p {
     font-size: 1.3rem;
     text-align: left;
+}
+
+main a{
+    text-decoration: none;
 }
 
 .imgSection{
@@ -100,12 +109,30 @@ img.selected{
 
 .playlistSection{
     background-color: #E28AB9;
+    width: fit-content;
+    align-self: center;
+    border-radius: 2rem;
+    overflow: hidden;
 }
 
 .playlistSection img{
-    width: 0%;
+    width: 30rem;
     aspect-ratio: 1/1;
     object-fit: cover;
+}
+
+.playlistSection div{
+    margin-bottom: 2rem;
+}
+
+.playlistSection div *{
+    color: black;
+    text-align: left;
+    margin: 0 1rem;
+}
+
+.playlistSection div h3{
+    font-size: 1.5rem;
 }
 
 div.likeContainer{
@@ -201,5 +228,13 @@ article.comment footer p{
         width: 90%;
         height: 15rem;
         margin: 0;
+    }
+
+    .playlistSection{
+        width: 90%
+    }
+
+    .playlistSection img{
+        width: 100%
     }
 }

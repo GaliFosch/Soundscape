@@ -42,15 +42,26 @@
         </section>
     <?php elseif(!empty($template["playlist"])):?>
         <section class="playlistSection">
-            <?php if(empty($template["playlist"]["CoverImage"])): ?>
-                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-            <?php else: ?>
-                <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
-            <?php endif;?>
-            <header>
-                <h3><?php echo $template["playlist"]["Name"]; ?></h3>
-                <p><?php echo $template["playlist"]["Creator"]; ?></p>
-            </header>
+            <a href="playlist.php?id=<?php echo $template["playlist"]["PlaylistID"];?>">
+                <?php if(empty($template["playlist"]["CoverImage"])): ?>
+                    <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                <?php else: ?>
+                    <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
+                <?php endif;?>
+                <div>
+                    <h3><?php echo $template["playlist"]["Name"]; ?></h3>
+                    <p><?php echo $template["playlist"]["Creator"]; ?></p>
+                    <p>
+                        <?php 
+                            if($template["playlist"]["IsAlbum"] === "1"){
+                                echo "Album";
+                            }else{
+                                echo "Playlist";
+                            }
+                        ?>
+                    </p>
+                </div>
+            </a>
         </section>
     <?php endif;?>
     <section>
