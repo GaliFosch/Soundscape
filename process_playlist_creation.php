@@ -2,13 +2,13 @@
 
 require_once("bootstrap.php");
 
-if (!isset($_POST["title"])) {
-    header("Location: create_playlist.php?error=1");
-}
 $title = $_POST["title"];
 
-if (isset($_POST["image"])) {
-    $image = COVER_IMAGES_DIR . $_POST["image"];
+if (isset($_FILES["image"])) {
+    $image = uploadImage("image");
+    if ($image === false) {
+        $image = null;
+    }
 } else {
     $image = null;
 }
@@ -19,7 +19,7 @@ if ($collection_type === "album") {
 } elseif ($collection_type === "playlist") {
     $is_album = false;
 } else {
-    header("Location: create_playlist.php?error=2");
+    header("Location: create_playlist.php?error=" . MISSING_COLLECTION_TYPE);
 }
 
 $creator = $_SESSION["username"];
@@ -32,5 +32,5 @@ if ($playlist_id != null) {
     header("Location: playlist.php?id=" . $playlist_id);
 } else {
     // Insertion failed
-    header("Location: create_playlist.php?error=3");
+    header("Location: create_playlist.php?error=" . PLAYLIST_INSERTION_FAILED);
 }

@@ -42,11 +42,15 @@ header input[type=submit] {
     margin: 1rem;
 }
 
+.preview, .preview > a {
+    width: 15%;
+}
+
 .preview {
     display: inline;
     text-align: center;
     margin-left: 2rem;
-
+    vertical-align: top;
 }
 
 .preview > a {
@@ -98,7 +102,8 @@ header input[type=submit] {
 @media screen and (max-width: 768px) {
 
     header {
-        padding: 3% 21%;
+        padding: 1.5rem 1rem;
+        margin-top: 3rem;
     }
 
     header input[type=search] {
@@ -107,8 +112,18 @@ header input[type=submit] {
         margin: 0 3px;
     }
 
-    .search-results > h1 {
-        margin-left: 5%;
+    #discover-title, .search-results > h1, .discover-section > h2 {
+        margin-top: 0;
+        margin-left: 1.5rem;
+    }
+
+    .preview, .preview > a {
+        width: 33%;
+    }
+
+    .preview-info {
+        height: 50%;
+        vertical-align: middle;
     }
 
 }

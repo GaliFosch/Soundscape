@@ -1,4 +1,5 @@
 #song-cover {
+    width: 15rem;
     margin: 5% 0 1% 0;
 }
 
@@ -25,20 +26,39 @@
     height: 50px;
 }
 
-#audio-controls > #skip-back-button, #audio-controls > #skip-forward-button {
+.disabled {
     opacity: 0.5;
 }
 
-#play-button > img, #skip-back-button > img, #skip-forward-button > img {
+#play-button img, #skip-back-button img, #skip-forward-button img {
     height: 80%;
 }
 
-.fa-bars, .fa-xmark {
-    display: none;
-    font-size: 24px
-}
+@media screen and (max-width: 768px) {
 
-.fa-xmark {
-    display: none;
-    font-size: 30px;
+    main {
+        margin-top: 5rem;
+    }
+
+    #song-cover {
+        width: 20rem;
+        margin-bottom: 1rem;
+    }
+
+    .song-data > * {
+        font-size: 1.5rem;
+    }
+
+    .progress-bar-wrapper {
+        margin: 1rem 0;
+    }
+
+    #current-time-label, #missing-time-label {
+        font-size: 1.25rem;
+    }
+
+    #audio-progress-bar {
+        width: 50%;
+    }
+
 }

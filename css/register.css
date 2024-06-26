@@ -2,6 +2,7 @@ textarea {
     margin-top: 1rem;
     width: 30%;
     color: black;
+    border-radius: 0.5rem;
 }
 
 textarea::placeholder {
@@ -10,4 +11,19 @@ textarea::placeholder {
 
 input[type=file] {
     margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+
+    textarea {
+        width: 70%;
+        margin-bottom: 1rem;
+    }
+
+    input[type=file] {
+        display: block;
+        text-align: center;
+        margin: 1rem auto 0 auto;
+    }
+
 }

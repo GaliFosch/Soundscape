@@ -17,7 +17,10 @@
         <!-- Navigation menu -->
         <nav class="navbar">
             <img src="images/logo.svg" alt=""/>
-            <em id="open-menu-icon" class="fa-solid fa-bars" aria-hidden="true"></em>
+            <div class="menu-icon-container">
+                <em id="open-menu-icon" class="fa-solid fa-bars" aria-hidden="true"></em>
+                <em id="menuNotifSignal" class="fa-solid fa-circle notifSignal" aria-hidden="true"></em>
+            </div>
             <em id="close-menu-icon" class="fa-solid fa-xmark"></em>
             <ul class="mobile-menu">
                 <li><a href="index.php" aria-label="Go to home page" title="Go to home page"><em class="fa-solid fa-house" aria-hidden="true"></em><p>Home</p></a></li>
@@ -25,7 +28,7 @@
                 <li>
                     <a class="notifIcon" href="notifications.php" aria-label="Go to notifications page" title="Go to notifications page">
                         <div class="notifIcon">
-                            <em id="notifSignal" class="fa-solid fa-circle" aria-hidden="true"></em>
+                            <em class="fa-solid fa-circle notifSignal" aria-hidden="true"></em>
                             <em class="fa-solid fa-bell" aria-hidden="true"></em>
                         </div><p>Notifications</p>
                     </a>
@@ -55,7 +58,7 @@
             <?php else: ?>
                 <div class="access-buttons">
                     <form id="login" action="login.php" method="POST"><input type="submit" value="Login"/></form>
-                     or <form id="register" action="register.php" method="POST"><input type="submit" value="Register"/></form>
+                    or <form id="register" action="register.php" method="POST"><input type="submit" value="Register"/></form>
                 </div>
             <?php endif; ?>
         </nav>

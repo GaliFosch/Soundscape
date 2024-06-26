@@ -1,43 +1,49 @@
 /*This part deals with the navbar*/
-var hamburgerMenu = document.querySelector("#open-menu-icon");
-var closeHamburgerMenu = document.querySelector("#close-menu-icon");
-var mobileMenu = document.querySelector(".mobile-menu");
-var navbar = document.querySelector(".navbar");
+const hamburgerMenu = document.querySelector("#open-menu-icon");
+const closeHamburgerMenu = document.querySelector("#close-menu-icon");
+const mobileMenu = document.querySelector(".mobile-menu");
+const navbar = document.querySelector(".navbar");
+
+const notifSignal = document.getElementById("menuNotifSignal");
+const notifSignalDisplay = notifSignal.style.display;
 
 hamburgerMenu.addEventListener("click", () => {
-  var mobileMenuStyle = window.getComputedStyle(mobileMenu);
+  let mobileMenuStyle = window.getComputedStyle(mobileMenu);
   if (mobileMenuStyle.display === "none") {
     mobileMenu.style.display = "block";
     navbar.className = "mobile-full"
     hamburgerMenu.style.display = "none";
     closeHamburgerMenu.style.display = "flex";
+    notifSignal.style.display = "none";
   }
-
 });
 
 closeHamburgerMenu.addEventListener("click", () => {
-  var mobileMenuStyle = window.getComputedStyle(mobileMenu);
+  let mobileMenuStyle = window.getComputedStyle(mobileMenu);
   if (mobileMenuStyle.display === "block") {
     mobileMenu.style.display = "none";
     navbar.className = "mobile"
 
     hamburgerMenu.style.display = "flex";
     closeHamburgerMenu.style.display = "none";
+    notifSignal.style.display=notifSignalDisplay;
   } 
 });
 
 onresize = () => {
-  var width = window.innerWidth;
+  let width = window.innerWidth;
   if(width>768){
     navbar.className = "desktop"
     hamburgerMenu.style.display = "none";
     closeHamburgerMenu.style.display = "none";
     mobileMenu.style.display = "block";
+    notifSignal.style.display = "none";
   }
   if(width<768){
     navbar.className = "mobile";
     hamburgerMenu.style.display = "flex";
     closeHamburgerMenu.style.display = "none";
     mobileMenu.style.display = "none";
+    notifSignal.style.display=notifSignalDisplay;
   }
 };

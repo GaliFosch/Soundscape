@@ -5,11 +5,11 @@ let files ;
  
 if(remove!=null) {
     remove.addEventListener("click", ()=> {
-        var url = window.location.href;
+        let url = window.location.href;
 
         // Parse the URL
-        var urlParts = url.split('?');
-        var query = urlParts[1];
+        let urlParts = url.split('?');
+        let query = urlParts[1];
 
         // Check if the query string contains 'track'
         if (query.includes('track')) {
@@ -21,7 +21,7 @@ if(remove!=null) {
 
 function checkFileFormat(fileList) {
     for (let i = 0; i < fileList.length; i++) {
-        if(fileList[i].type.includes("image")) {
+        if (fileList[i].type.includes("image")) {
             return true;
         } else {
             alert("Invalid image.\nThe format of this file is not accepted.\nAccepting jpg/png.");

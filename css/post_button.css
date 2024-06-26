@@ -1,3 +1,4 @@
+
 a.post-button-a {
     width: fit-content;
     height: fit-content;
@@ -8,7 +9,7 @@ a.post-button-a {
     margin: 1rem;
 }
 
-button.post-button {
+#post-button {
     padding: 1rem;
     border-radius: 100%;
     background-color: #1D70AD;

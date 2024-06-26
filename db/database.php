@@ -200,7 +200,7 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i', $postID);
         $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function getPostAuthor($postID) {
@@ -800,10 +800,10 @@ class DatabaseHelper {
     }
 
     public function getAllComments($postID) {
-        $query = "SELECT CommentText, Username, CommentTimestamp
+        $query = "SELECT CommentID, CommentText, CommentTimestamp, Username
                     FROM comment
                     WHERE PostID = ?
-                    ORDER BY CommentTimestamp";
+                    ORDER BY CommentTimestamp DESC";
         $stmt =  $this->db->prepare($query);
         $stmt->bind_param('i',$postID);
         $stmt->execute();
@@ -817,6 +817,16 @@ class DatabaseHelper {
                         WHERE postlike.PostID = ?";
         $stmt =  $this->db->prepare($query);
         $stmt->bind_param('i',$postID);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getImagesFromPost($postID){
+        $query = "SELECT PostImage
+                FROM image
+                WHERE PostID = ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('s',$postID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }

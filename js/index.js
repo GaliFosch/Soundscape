@@ -97,7 +97,7 @@ function followProcedure(follow){
 //Down here it deals with the post, the aside and the like functionality
 function openAside(postId, closestHeart, post) {
   asideOpen = true;
-    var xhttp;    
+    let xhttp;
     xhttp = new XMLHttpRequest();
     xhttp.open("GET", "template/post_focus.php?post="+postId, true);
     xhttp.onreadystatechange = function() {
@@ -255,7 +255,7 @@ function interactionViewerChanger() {
 //This code deals with the opening of the comment. It send the request XHTML request
 function openComment(postId) {
         commentOpen=true;
-        var xhttp;
+        let xhttp;
         xhttp = new XMLHttpRequest();
         xhttp.open("GET", "template/comments.php?post="+postId, true);
         xhttp.onreadystatechange = function() {

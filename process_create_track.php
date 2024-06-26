@@ -1,5 +1,7 @@
 <?php
+
 require_once("bootstrap.php");
+
 if(!checkLogin($dbh)){
     header("Location: new_track_form.php");
 }
@@ -7,7 +9,7 @@ if(!checkLogin($dbh)){
 if(isset($_POST["title"],$_POST["duration"])){
     $audio = uploadAudio("audio");
     if($audio === false){
-        header("Location: new_track_form.php?error=1");
+        header("Location: new_track_form.php?error=" . AUDIO_UPLOAD_FAILED);
     }
     $img = uploadImage("img");
     if($img === false){
@@ -22,6 +24,6 @@ if(isset($_POST["title"],$_POST["duration"])){
     if($dbh->addSingleTrack($_POST["title"], $audio, $_POST["duration"], $img, $_SESSION["username"], $genres)){
         header("Location: profile.php");
     }else{
-        header("Location: new_track_form.php?error=2");
+        header("Location: new_track_form.php?error=" . TRACK_INSERTION_FAILED);
     }
 }

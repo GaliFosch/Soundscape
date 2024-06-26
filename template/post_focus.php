@@ -6,7 +6,7 @@ $template["stylesheets"] = ["post_focus.css"];
 
 $postID = $_GET["post"];
 
-$post = $dbh->getPostByID($postID)[0];
+$post = $dbh->getPostByID($postID);
 $user = $dbh->getPostAuthor($postID);
 $track = $dbh->getSponsoredTrack($postID);
 $artistID;

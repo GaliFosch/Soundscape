@@ -7,8 +7,8 @@ header img{
     height: 15rem;
     border-radius: 50%;
     object-fit: cover;
-    margin-top: 5rem;
-    margin-bottom: 0;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
 }
 
 header h2{
@@ -233,4 +233,29 @@ section.post-interaction{
 
 section.post-interaction a{
     margin-left: auto;
+}
+
+#follow-button {
+    background-color: inherit;
+    border-radius: 1rem;
+    border-color: #098AFF;
+    color: #098AFF;
+    padding: 0.5rem 1rem;
+}
+
+#follow-button > em {
+    margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+
+    #Biography, #tracks-section, #albums-section, #playlists-section, #posts-section {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .section-title {
+        width: 60%;
+    }
+
 }

@@ -2,9 +2,9 @@
     <header>
         <?php 
             if (!empty($template["profile"]["ProfileImage"])){
-                echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" \>";
+                echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" />";
             } else {
-                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" \>";
+                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
             }
         ?>
         <h2><?php echo $template["profile"]["Username"]?></h2>
@@ -13,9 +13,9 @@
         <?php if($template["isUserLogged"]):?>
             <div>
                 <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
-                    <em id="follow" class="fa-solid fa-user-check"></em>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check"></em>Following</button>
                 <?php else:?>
-                    <em id="follow" class="fa-solid fa-user-plus"></em>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus"></em>Follow</button>
                 <?php endif?>
             </div>
             <script src="js/follow.js"></script>
@@ -42,10 +42,10 @@
             <?php echo $template["profile"]["Biography"]?>
         </p>
     </section>
-    <section>
+    <section id="tracks-section">
         <header class="section-header">
             <h3 class="section-title">Published Tracks</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=tracks">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=tracks&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <div>
             <?php
@@ -56,9 +56,9 @@
                     <a href="player.php?trackid=<?php echo $track["TrackID"]?>">
                         <?php
                             if (isset($track["CoverImage"])) {
-                                echo "<img src=\"{$track["CoverImage"]}\" alt=\"\" />";
+                                echo "<img src=\"{$track["CoverImage"]}\" alt=\"Click to load the track on the music player\" />";
                             } else {
-                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" />";
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"Click to load the track on the music player\" />";
                             }
                         ?>
                         <h4><?php echo $track["Name"]?></h4>
@@ -67,10 +67,10 @@
             <?php endforeach;?>
         </div>
     </section>
-    <section>
+    <section id="albums-section">
         <header class="section-header">
             <h3 class="section-title">Published Albums</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=albums">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=albums&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php
         $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"],5);
@@ -83,9 +83,9 @@
                     <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                         <?php
                             if (!empty($album["CoverImage"])) {
-                                echo "<img src=\"{$album["CoverImage"]}\" alt=\"\" \>";
+                                echo "<img src=\"{$album["CoverImage"]}\" alt=\"Click to open the album\" />";
                             } else {
-                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" \>";
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"Click to open the album\" />";
                             }
                         ?>
                         <h4><?php echo $album["Name"]?></h4>
@@ -94,10 +94,10 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <section>
+    <section id="playlists-section">
         <header class="section-header">
             <h3 class="section-title">Playlists</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=playlists">Show All</a></div>
+            <div class="show-all-btn-container"><a href="list.php?t=playlists&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php
             $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"],5);
@@ -110,9 +110,9 @@
                     <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                         <?php
                             if (!empty($playlist["CoverImage"])) {
-                                echo "<img src=\"{$playlist["CoverImage"]}\" alt=\"\" />";
+                                echo "<img src=\"{$playlist["CoverImage"]}\" alt=\"Click to open the playlist\" />";
                             } else {
-                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"\" />";
+                                echo "<img src=\"images/song-cover-placeholder.png\" alt=\"Click to open the playlist\" />";
                             }
                         ?>
                         <h4><?php echo $playlist["Name"]?></h4>
@@ -121,10 +121,10 @@
             <?php endforeach; ?>
         </div>
     </section>
-    <section>
+    <section id="posts-section">
         <header class="section-header">
-            <h3 class="section-title">Best Posts</h3>
-            <div class="show-all-btn-container"><a href="list.php?t=best-posts">Show All</a></div>
+            <h3 class="section-title">Posts</h3>
+            <div class="show-all-btn-container"><a href="list.php?t=posts&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
         </header>
         <?php 
             $bestPosts = $dbh->getBestUserPosts($template["profile"]["Username"],5);
