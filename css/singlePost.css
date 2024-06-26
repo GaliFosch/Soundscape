@@ -98,6 +98,16 @@ img.selected{
     text-align: left;
 }
 
+.playlistSection{
+    background-color: #E28AB9;
+}
+
+.playlistSection img{
+    width: 0%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
 div.likeContainer{
     text-align: right;
 }

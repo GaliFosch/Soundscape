@@ -47,6 +47,10 @@
             <?php else: ?>
                 <img class="picture" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="User profile image"/>
             <?php endif;?>
+            <header>
+                <h3><?php echo $template["playlist"]["Name"]; ?></h3>
+                <p><?php echo $template["playlist"]["Creator"]; ?></p>
+            </header>
         </section>
     <?php endif;?>
     <section>
