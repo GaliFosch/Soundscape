@@ -7,6 +7,11 @@ $_SESSION["selected-tracks-ids"] = array();
     <header>
         <h1>Create a new album or playlist</h1>
     </header>
+    <?php if (isset($_GET["error"])): ?>
+        <?php if ($_GET["error"] == PLAYLIST_INSERTION_FAILED): ?>
+            <p id="error-msg">Error: the album/playlist could not be created because its insertion in the database failed.</p>
+        <?php endif; ?>
+    <?php endif; ?>
     <form id="new-resource-form" action="process_playlist_creation.php" method="POST" enctype="multipart/form-data">
         <ul>
             <li>
@@ -20,6 +25,11 @@ $_SESSION["selected-tracks-ids"] = array();
                 <input type="file" name="image" id="image"/>
             </li>
             <li>
+                <?php if (isset($_GET["error"])): ?>
+                    <?php if ($_GET["error"] == MISSING_COLLECTION_TYPE): ?>
+                        <p id="error-msg">Error: a collection type (Album or Playlist) must be selected.</p>
+                    <?php endif; ?>
+                <?php endif; ?>
                 <!-- Album or playlist -->
                 <fieldset>
                     <legend>Collection type: </legend>

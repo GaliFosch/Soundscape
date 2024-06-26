@@ -17,6 +17,11 @@
         </div>
     </header>
     <hr>
+    <?php if (isset($_GET["error"])): ?>
+        <?php if ($_GET["error"] == TRACK_REMOVAL_FAILED): ?>
+            <p id="error-msg">Error: the removal of the track failed.</p>
+        <?php endif; ?>
+    <?php endif; ?>
     <div id="tracklist">
         <?php foreach ($template["tracklist"] as $track): ?>
             <div class="row">

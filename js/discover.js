@@ -1,7 +1,6 @@
 const showMoreButtons = document.getElementsByClassName("show-more")
 
-// TODO: pass the number of previews to show each time
-let toShowCount = 2
+let toShowCount = 4
 let shownCount = {}
 
 for (let button of showMoreButtons) {
