@@ -6,5 +6,5 @@ $removal_success = $dbh->removeTrackFromPlaylist($_GET["trackid"], $_GET["pid"])
 if ($removal_success) {
     header("Location: playlist.php?id=" . $_GET["pid"]);
 } else {
-    header("Location: playlist.php?id=" . $_GET["pid"] . "&error=1");
+    header("Location: playlist.php?id=" . $_GET["pid"] . "&error=" . TRACK_REMOVAL_FAILED);
 }

@@ -9,7 +9,7 @@
 </header>
 <!-- Search results and suggestions -->
 <main>
-    <?php $nPreviewsToShow = 2; ?>
+    <?php $nPreviewsToShow = 4; ?>
     <h1 id="discover-title">Discover</h1>
     <?php if (isset($_GET["query"]) && ($_GET["query"] != "")): ?>
         <?php $_SESSION["search-query"] = $_GET["query"]; ?>

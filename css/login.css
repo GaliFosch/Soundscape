@@ -7,10 +7,6 @@ h1 {
     margin-top: 0;
 }
 
-#error-msg {
-    color: red;
-}
-
 ul {
     list-style-type: none;
     padding: 0;
