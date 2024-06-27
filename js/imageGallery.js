@@ -26,6 +26,12 @@ function getIndexOfSelectedElement(array){
     }
 }
 
+function isTouchDevice() {
+    return 'maxTouchPoints' in navigator && navigator.maxTouchPoints > 0 ||
+           'ontouchstart' in window || 
+           window.matchMedia("(pointer: coarse)").matches;
+}
+
 for(let t = 0; t<galleries.length; t++){
     let container = galleries[t].getElementsByClassName("imgContainer")[0];
     let imgs = Array.from(container.getElementsByTagName("img"));
@@ -35,32 +41,33 @@ for(let t = 0; t<galleries.length; t++){
         dots[0].classList.add(selected);
         let disp = imgs[0].style.display;
 
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        // Functions to handle touch events
-        function handleTouchStart(event) {
-            touchStartX = event.changedTouches[0].screenX;
-        }
-
-        function handleTouchEnd(event) {
-            touchEndX = event.changedTouches[0].screenX;
-            handleSwipeGesture();
-        }
-
-        function handleSwipeGesture() {
-            let currentIndex = getIndexOfSelectedElement(imgs);
-            if (touchEndX < touchStartX) {
-                currentIndex = ( currentIndex < imgs.length - 1) ? currentIndex + 1 : currentIndex;
-            }else if (touchEndX > touchStartX) {
-                currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentIndex;
+        if(isTouchDevice()){
+            let touchStartX = 0;
+            let touchEndX = 0;
+    
+            function handleTouchStart(event) {
+                touchStartX = event.changedTouches[0].screenX;
             }
-            slide(imgs, currentIndex,disp);
-            slide(dots, currentIndex, disp, false);
+    
+            function handleTouchEnd(event) {
+                touchEndX = event.changedTouches[0].screenX;
+                handleSwipeGesture();
+            }
+    
+            function handleSwipeGesture() {
+                let currentIndex = getIndexOfSelectedElement(imgs);
+                if (touchEndX < touchStartX) {
+                    currentIndex = ( currentIndex < imgs.length - 1) ? currentIndex + 1 : currentIndex;
+                }else if (touchEndX > touchStartX) {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : currentIndex;
+                }
+                slide(imgs, currentIndex,disp);
+                slide(dots, currentIndex, disp, false);
+            }
+    
+            container.addEventListener("touchstart", handleTouchStart, false);
+            container.addEventListener("touchend", handleTouchEnd, false)
         }
-
-        container.addEventListener("touchstart", handleTouchStart, false);
-        container.addEventListener("touchend", handleTouchEnd, false)
 
         for(let i = 0; i<imgs.length; i++){
             imgs[i].addEventListener("click", ()=>{

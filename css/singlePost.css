@@ -194,6 +194,7 @@ div.likeContainer em{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 #commentForm label{
@@ -268,7 +269,7 @@ article.comment footer p{
     .imgContainer img:last-of-type.selected{
         margin-right: 0;
     }
-    img.selected{
+    .imgContainer img.selected{
         display: block;
         width: 90%;
         height: 15rem;
