@@ -1,17 +1,9 @@
 let posts = null;
 let comments = null;
 let postComment = null;
-let asideOpen = false;
-let numAside = null;
 let commentOpen = false;
 let numComment = null;
-let heartPairs = new Map();
 let shownCount = 0;
-
-const Popover = Object.freeze({
-  Aside: 0,
-  Footer:1
-});
 
 window.onload = () => {
   posts = document.querySelectorAll(".open-focus");
@@ -85,70 +77,23 @@ function followProcedure(follow){
   }
 }
 
-//Down here it deals with the post, the aside and the like functionality
-function openAside(postId, closestHeart, post) {
-  asideOpen = true;
-    let xhttp;
-    xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "template/post_focus.php?post="+postId, true);
-    xhttp.onreadystatechange = function() {
-      if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-          // Add requested previews to section
-          showPopover(this.responseText, Popover.Aside, null);
-          numAside = postId;
-          let focusHeartIcon = document.querySelector(".fa-heart.focus");
-          addCloseListener(closestHeart,focusHeartIcon);
-          heartPairs.set(closestHeart,focusHeartIcon);
-          heartPairs.set(focusHeartIcon,closestHeart);
-          focusHeartIcon.addEventListener('click', (event) => toggleColor(event,post));
-          let follow = document.querySelector(".follow");
-          follow.addEventListener("click", ()=>followProcedure(follow));
-      }
-  }
-    xhttp.send();
-}
 
 //This code deals with the popovers, both aside and footer
 function showPopover(content, ver, below) {
-  let popover;
-  switch (ver) {
-    case Popover.Aside:
-      popover = document.createElement('aside');
-      popover.classList.add('popover-aside');
-      break;
-    case Popover.Footer:
-      popover = document.createElement('footer');
-      popover.classList.add('popover-comment');
-      break;
-  }
+  let popover;:
+  popover = document.createElement('footer');
+  popover.classList.add('popover-comment');
+  break;
   popover.classList.add('popover');
   popover.innerHTML = content;
-  if(ver == Popover.Footer) {
-    below.insertAdjacentElement('afterend', popover);
-  } else {
-    document.body.appendChild(popover);
-  }
+  below.insertAdjacentElement('afterend', popover);
 };
 
 //This code deals with the close function both of the aside and the footer
-function addCloseListener(heartIcon, heartIconPair) {
-  let postFocus = document.querySelector(".popover-aside");
+function addCloseListener() {
   let commentFocus = document.querySelector(".popover-comment");
-
-  let closeFocus = document.querySelector(".close-focus");
   let closeComment = document.querySelector(".close-comment");
 
-  if(postFocus!=null) {
-    closeFocus.addEventListener("click", () => {
-        postFocus.remove();
-        asideOpen = false;
-        if(heartIcon!=null && heartIconPair!=null) {
-          heartPairs.delete(heartIcon);
-          heartPairs.delete(heartIconPair);
-
-      }
-    });
-  }
   if(commentFocus!=null) {
     closeComment.addEventListener("click", () => {
         commentFocus.remove();
@@ -156,36 +101,6 @@ function addCloseListener(heartIcon, heartIconPair) {
         document.querySelector('body').style.overflow = "scroll";
     });
   }
-};
-
-/*This part deals with the heart button*/
-function toggleColor(event, post) {
-      let targetHeart = event.target;
-      let pairHeart = heartPairs.get(targetHeart);
-
-      let article = post.closest("article");
-      let postId = article.id;
-      let xhttp;    
-      xhttp = new XMLHttpRequest();
-      xhttp.open("GET", "template/like_handler.php?post="+postId, true);
-      xhttp.onreadystatechange = function() {
-        if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-
-            if(this.responseText==="change") {
-                
-                targetHeart.classList.toggle('fa-solid');
-                targetHeart.classList.toggle('fa-regular');
-                if(pairHeart!=null) {
-                  pairHeart.classList.toggle('fa-solid');
-                  pairHeart.classList.toggle('fa-regular');
-                }
-              }
-              
-            }
-            
-          }
-        console.log("Senza il login non puoi mettere like!");
-      xhttp.send();  
 };
 
 //This code deals with the selection of the comments section or likes sections
@@ -284,9 +199,6 @@ window.addEventListener("scroll", () =>{
     onShowMore()
   }
 });
-
-
-
 
 function onShowMore() {
   let toShowCount = 10;

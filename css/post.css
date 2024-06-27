@@ -85,13 +85,14 @@ section>a>p, section>p  {
     display: flex;
     flex-direction: column;
     min-height: 0rem;
-    max-height: 100%;
+    max-height: 50%;
     min-width: 0rem;
-    max-width: 100%;
+    max-width: 50%;
     align-items: center;
     border-radius: 18px;
     box-shadow: 0 4px 9px #222;
     margin: 1.5rem 1.5rem 0 1.5rem;
+    align-self: center;
 }
 
 .inner-playlist-box {
@@ -99,6 +100,15 @@ section>a>p, section>p  {
     width: 100%;
     height: 100%;
     grid-template-rows: auto auto auto;
+}
+
+.inner-playlist-box>a {
+    margin: auto;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    background: rgba(255, 255, 255, 75%);
+    border-radius: 100%;
+    padding: 1rem 1.2rem;
 }
 
 .playlist {
@@ -122,30 +132,6 @@ section>a>p, section>p  {
     align-self: end;
     padding: 0.5rem 0.1rem;
 }
-
-.tracklist-section {
-    width: -webkit-fill-available;
-    height: 9rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.tracklist {
-    width: 100%;
-    list-style: decimal;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0.3rem 0;
-    overflow-y: scroll;
-}
-
-li.single-track {
-    display: flex;
-    flex-direction: row;
-    margin: 0.1rem;
-}
-
 
 .post-interaction {
     padding-top: 0.5rem;

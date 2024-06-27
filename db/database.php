@@ -782,8 +782,7 @@ class DatabaseHelper {
                         ($likedQuery) 
                         UNION
                         ($genreQuery) 
-                    ) subquery
-                    ORDER BY RAND()";
+                    ) subquery";
     
 
         $stmt = $this->db->prepare($finalQuery);

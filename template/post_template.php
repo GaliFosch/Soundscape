@@ -49,10 +49,15 @@
                     <?php else: ?>
                         <img class="playlist" src="images/placeholder-image.jpg" alt="Song cover image"/>
                     <?php endif; ?>
+                    <a href="playlist.php?id=<?php echo $playlist["PlaylistID"]; ?>" aria-label="Discover more about playlist" title="Discover more about playlist">
+                        <em class="fa-solid fa-play focus"></em>
+                    </a>
                     <!--Inner section delle info della music-->
                     <section class="music-info">
                         <header><strong><?php echo $playlist["Name"]; ?></strong></header>
-                        <p><?php echo $playlist["Creator"]; ?></p>
+                        <a href="profile.php?profile=<?php echo $playlist["Creator"]; ?>" class="redirect">
+                            <p><?php echo $playlist["Creator"]; ?></p>
+                        </a>
                         <p><?php echo $playlist["IsAlbum"]==1 ? "Album" : "Playlist"; ?></p>
                     </section>
                 </section>
@@ -63,7 +68,7 @@
 
         <section class="post-interaction">
             <em class="fa-regular fa-message fa-fw"></em>
-            <?php if(isset($_SESSION['username'])): ?>
+            <?php if(checkLogin($dbh)): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
                     <em class="fa-solid fa-heart fa-fw article"></em>
                 <?php else: ?>

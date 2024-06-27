@@ -8,7 +8,7 @@ $postID = $_GET["post"];
 
 $comments = $dbh->getAllComments($postID);
 $likes = $dbh->getAllLikes($postID);
-if(isset($_SESSION['username'])) {
+if(checkLogin($dbh)) {
     $user = $dbh->getUserByUsername($_SESSION["username"]);
 } else {
     $user = null;
@@ -52,24 +52,27 @@ if(isset($_SESSION['username'])) {
 
     <!--Commenti degli altri-->
     <?php if(sizeof($comments)==0): ?>
-        <p class="no-comments"> Looks like no left a comment yet.
+        <p class="no-comments"> Looks like no one left a comment yet.
             Be the first!
         </p>
     <?php endif; ?>
     
     <?php foreach ($comments as $comm): ?> 
         <article class="people-comment">
-        <?php $creator = $dbh->getUserByUsername($comm["Username"])?>
-        <?php if ($creator["ProfileImage"] != null): ?>
-                <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
-            <?php else: ?>
-                <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
-        <?php endif; ?>
-        
-        
-        <section class="comment-text">
-            <p><b><?php echo $creator["Username"]?></b></p>
-            <p><?php echo $comm["CommentText"]?></p>
+        <a href="profile.php?profile=<?php echo $comm["Username"]; ?>" class="redirect">
+            <?php $creator = $dbh->getUserByUsername($comm["Username"])?>
+            <?php if ($creator["ProfileImage"] != null): ?>
+                    <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
+                <?php else: ?>
+                    <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
+            <?php endif; ?>
+           
+        </a>
+        <section class="comment-text"> 
+            <a href="profile.php?profile=<?php echo $comm["Username"]; ?>" class="redirect">
+                <p><b><?php echo $creator["Username"]?></b></p>
+            </a>
+                <p><?php echo $comm["CommentText"]?></p>
         </section>
         <p class="timestamp"><?php echo $comm["CommentTimestamp"]; ?></p>
     </article>
@@ -79,7 +82,7 @@ if(isset($_SESSION['username'])) {
 
 <div class="likes">
     <?php if(sizeof($likes)==0): ?>
-        <p class="no-likes"> Looks like no left a like yet.
+        <p class="no-likes"> Looks like no one left a like yet.
             Be the first!
         </p>
     <?php endif; ?>
