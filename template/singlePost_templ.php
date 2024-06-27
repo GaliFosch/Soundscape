@@ -93,14 +93,24 @@
         <div id="commentFormContainer">
             <?php if($isUserLogged):?>
                 <h3>New Comment</h3>
-                <form action="process_singlePost_comment.php" method="POST" id="commentForm">
-                    <label for="caption">Caption</label>
-                    <textarea name="caption" rows="5" placeholder="Write here your comment" required></textarea>
-                    <input type="text" name="postID" value="<?php echo $template["post"]["PostID"]?>" hidden>
-                    <button type="submit">
-                        <em class="fa-regular fa-paper-plane"></em>
-                    </button>
-                </form>
+                <main>
+                    <?php
+                        $loggetUser = $dbh->getUserByUsername($_SESSION["username"]);
+                        if(empty($loggetUser["ProfileImage"])): 
+                    ?>
+                        <img class="commentPicture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                    <?php else: ?>
+                        <img class="commentPicture" src="<?php echo $loggetUser["ProfileImage"]; ?>" alt="User profile image"/>
+                    <?php endif;?>
+                    <form action="process_singlePost_comment.php" method="POST" id="commentForm">
+                        <label for="caption">Caption</label>
+                        <textarea name="caption" rows="5" placeholder="Write here your comment" required></textarea>
+                        <input type="text" name="postID" value="<?php echo $template["post"]["PostID"]?>" hidden>
+                        <button type="submit">
+                            <em class="fa-regular fa-paper-plane"></em>
+                        </button>
+                    </form>
+                </main>
             <?php endif;?>
         </div>
         <script src="js/singlePost_comment.js"></script>

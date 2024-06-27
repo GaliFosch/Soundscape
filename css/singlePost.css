@@ -1,32 +1,32 @@
-main{
+body>main{
     display: flex;
     flex-direction: column;
 }
 
-main>header{
+body>main>header{
     padding-top: 2rem;
     display: flex;
     align-items: center;
 }
 
-main>header img{
+body>main>header img{
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
     object-fit: cover;
 }
 
-main>header h2{
+body>main>header h2{
     font-size: 3rem;
     margin-left: 1rem;
 }
 
-main>section>p {
+body>main>section>p {
     font-size: 1.3rem;
     text-align: left;
 }
 
-main a{
+body>main a{
     text-decoration: none;
 }
 
@@ -75,7 +75,7 @@ main a{
     margin-right: 15rem;
 }
 
-img.selected{
+.imgContainer img.selected{
     height: 24rem;
     width: 30rem;
     opacity: 1;
@@ -121,8 +121,6 @@ img.selected{
     color: black;
     font-size: 2rem;
 }
-
-
 
 .playlistSection{
     background-color: #E28AB9;
@@ -174,6 +172,24 @@ div.likeContainer em{
     color: #E91E63;
 }
 
+#commentFormContainer main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+#commentFormContainer main img{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
 #commentForm{
     display: flex;
     align-items: center;
@@ -188,7 +204,7 @@ div.likeContainer em{
     background-color: transparent;
     border: solid white 2px;
     border-radius: 1rem;
-    width: 17rem;
+    width: 100%;
     padding: 1rem;
     font-size: 1rem;
 }
