@@ -55,24 +55,6 @@
                         <p><?php echo $playlist["Creator"]; ?></p>
                         <p><?php echo $playlist["IsAlbum"]==1 ? "Album" : "Playlist"; ?></p>
                     </section>
-                    <section class="tracklist-section">
-                        <ol class="tracklist">
-                            <?php foreach ($tracklist as $track): ?>
-                                <li class="single-track">
-                                    <?php if ($track["CoverImage"] != null): ?>
-                                        <img class="song" src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
-                                    <?php else: ?>
-                                        <img class="song" src="images/placeholder-image.jpg" alt="Song cover image"/>
-                                    <?php endif; ?>
-                                    <!--Inner section delle info della music-->
-                                    <section class="music-info">
-                                        <header><strong><?php echo $track["Name"]; ?></strong></header>
-                                        <p><?php echo $track["Creator"]; ?></p>
-                                    </section>
-                                </li>
-                            <?php endforeach; ?>
-                        </ol>
-                    </section>
                 </section>
             </section>
         <?php endif; ?>
