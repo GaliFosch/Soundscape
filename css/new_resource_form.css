@@ -23,7 +23,7 @@ h1 {
 
 input[type=text] {
     background-color: #975AA8;
-    width: 30%;
+    width: 35%;
     border-radius: 20px;
     border: 0;
     padding: 1rem 2rem;
@@ -85,7 +85,6 @@ h2 {
     text-align: center;
     margin: 0;
     padding: 1rem;
-
 }
 
 #GenreList div {
@@ -154,6 +153,44 @@ label[for=track-search] {
     overflow-wrap: break-word;
 }
 
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+
+    main {
+        padding-left: 5rem;
+    }
+
+    input[type=text] {
+        width: 50%;
+    }
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+
+    #GenreList {
+        width: 18rem;
+        margin-bottom: 1rem;
+    }
+
+    input[type=text] {
+        width: 40%;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+
+    input[type=text] {
+        width: 65%;
+    }
+
+    #GenreList {
+        width: 16rem;
+        margin-bottom: 1rem;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
 
     header {
@@ -176,10 +213,6 @@ label[for=track-search] {
         margin: 0.5rem auto;
     }
 
-    input[type=text] {
-        width: 75%;
-    }
-
     #track-search-form {
         margin-top: 1rem;
     }
@@ -190,10 +223,6 @@ label[for=track-search] {
 
     main > input[type=submit] {
         margin: 0.5rem 0;
-    }
-
-    #GenreList {
-        width: 80%;
     }
 
     button.genre {

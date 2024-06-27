@@ -49,7 +49,7 @@
                     <section class="music-info">
                         <header><strong><?php echo $playlist["Name"]; ?></strong></header>
                         <p><?php echo $playlist["Creator"]; ?></p>
-                        <p><?php echo $playlist["IsAlbum"]==1 ? "Album" : "Playlist"; ?></p>
+                        <p><?php echo $playlist["isAlbum"]==1 ? "Album" : "Playlist"; ?></p>
                     </section>
                     <section class="tracklist-section">
                         <ol class="tracklist">

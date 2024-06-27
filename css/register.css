@@ -1,6 +1,5 @@
 textarea {
     margin-top: 1rem;
-    width: 30%;
     color: black;
     border-radius: 0.5rem;
 }
@@ -13,10 +12,33 @@ input[type=file] {
     margin-top: 1rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1024px) {
+
+    textarea {
+        width: 30%;
+    }
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 1024px) {
+
+    textarea {
+        width: 50%;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
 
     textarea {
         width: 70%;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    textarea {
         margin-bottom: 1rem;
     }
 

@@ -1,3 +1,8 @@
+main{
+    display: flex;
+    flex-direction: column;
+}
+
 main>header{
     padding-top: 2rem;
     display: flex;
@@ -19,6 +24,10 @@ main>header h2{
 main>section>p {
     font-size: 1.3rem;
     text-align: left;
+}
+
+main a{
+    text-decoration: none;
 }
 
 .imgSection{
@@ -93,9 +102,62 @@ img.selected{
     margin-left: 1rem;
 }
 
-.trackSection header>*{
+.trackSection header *{
     margin: 0;
     text-align: left;
+    color:black;
+}
+
+.trackSection header h3{
+    font-size: 1.3rem;
+}
+
+.trackSection>a{
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.trackSection>a em{
+    color: black;
+    font-size: 2rem;
+}
+
+
+
+.playlistSection{
+    background-color: #E28AB9;
+    width: fit-content;
+    align-self: center;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.playlistSection a{
+    margin: 0;
+}
+
+.playlistSection img{
+    width: 30rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.playlistSection div{
+    margin-bottom: 2rem;
+}
+
+.playlistSection div h3, .playlistSection div p{
+    color: black;
+    text-align: left;
+    margin: 0 1rem;
+}
+
+.playlistSection div a{
+    color: black;
+}
+
+.playlistSection div h3{
+    font-size: 1.5rem;
 }
 
 div.likeContainer{
@@ -151,6 +213,10 @@ article.comment header{
     align-items: center;
 }
 
+article.comment header a{
+    height: 2rem;
+}
+
 article.comment header img{
     height: 2rem;
     width: 2rem;
@@ -191,5 +257,13 @@ article.comment footer p{
         width: 90%;
         height: 15rem;
         margin: 0;
+    }
+
+    .playlistSection{
+        width: 90%
+    }
+
+    .playlistSection img{
+        width: 100%
     }
 }

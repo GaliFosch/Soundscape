@@ -115,11 +115,113 @@ hr {
     width: 1rem;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
+
+    .track-options {
+        opacity: 0.7;
+        visibility: visible;
+    }
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+
+    main {
+        padding-left: 2rem;
+    }
+
+    .track-details {
+        width: 15rem;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+
+    main {
+        padding: 1.5rem 2rem 0 5rem;
+    }
+
+    .track-position, .track-length {
+        width: 4rem;
+    }
+
+    .track-options {
+        width: 4rem;
+    }
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
 
     main {
         padding: 5rem 2rem 0 2rem;
     }
+
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+
+    .track-position, .track-length {
+        width: 4rem;
+        opacity: 0.8;
+    }
+
+    .track-details {
+        width: 15rem;
+    }
+
+}
+
+@media screen and (max-width: 576px) {
+
+    main {
+        padding: 5rem 1rem 0 1rem;
+    }
+
+}
+
+@media screen and (min-width: 400px) and (max-width: 576px) {
+
+    .track-position {
+        width: 4rem;
+    }
+
+    .track-details {
+        width: 11rem;
+    }
+
+    .track-options {
+        text-align: center;
+    }
+
+    .track-length {
+        width: 4rem;
+    }
+
+}
+
+@media screen and (max-width: 400px) {
+
+    .track-position {
+        width: 3rem;
+    }
+
+    .track-details {
+        width: 8.5rem;
+    }
+
+    .track-options {
+        text-align: center;
+    }
+
+    .track-length {
+        width: 3rem;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
 
     #playlist-header {
         padding: 0 0.5rem;
@@ -129,19 +231,8 @@ hr {
         width: 100%;
     }
 
-    .track-details {
-        width: 11rem;
-    }
-
-    .track-position, .track-length {
-        width: 4rem;
-        opacity: 0.8;
-    }
-
     .track-options {
         width: 3rem;
-        opacity: 0.7;
-        visibility: visible;
     }
 
     .track-options em {

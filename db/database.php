@@ -181,6 +181,28 @@ class DatabaseHelper {
         }
     }
 
+    public function getUserFollowers($username) {
+        $query = "SELECT *
+                  FROM follow f, user u
+                  WHERE f.Follower = u.Username
+                    AND f.Following = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUsersFollowedByUser($username) {
+        $query = "SELECT *
+                  FROM follow f, user u
+                  WHERE f.Following = u.Username
+                    AND f.Follower = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getUserByUsername($username){
         $query = "SELECT Username, Biography, ProfileImage, Email, NumFollower, NumFollowing 
                 FROM user 
@@ -675,10 +697,8 @@ class DatabaseHelper {
     public function hasUserLiked($postID, $userID) {
         $query =    "SELECT *
                     FROM postlike
-                    WHERE EXISTS (SELECT * 
-                                    FROM postlike 
-                                    WHERE PostID = ?
-                                    AND Username = ?)";
+                    WHERE PostID = ?
+                        AND Username = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('is',$postID,$userID);
         $stmt->execute();
