@@ -35,7 +35,7 @@ if(checkLogin($dbh)) {
     <?php if(isset($_SESSION['username'])): ?>
     <!--Inserisci il tuo commento-->
     <section class="user-comment">
-        <form class="comment-form" action="template/process_comment.php?post=<?php echo $postID; ?>" method="POST" id="<?php echo $postID; ?>">
+        <form class="comment-form" action="process_comment.php?post=<?php echo $postID; ?>" method="POST" id="<?php echo $postID; ?>">
         <?php if ($user["ProfileImage"] != null): ?>
                 <img class="profile-picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
             <?php else: ?>

@@ -5,19 +5,33 @@ let commentOpen = false;
 let numComment = null;
 let shownCount = 0;
 
-window.onload = () => {
-  posts = document.querySelectorAll(".open-focus");
-  comments = document.querySelectorAll(".fa-message");
-  
+function likeProcedure() {
+  let hearts= document.querySelectorAll(".fa-heart");
 
-  posts.forEach((post) => {
-    let article = post.closest("article");
-    post.addEventListener("click", () => {
+  hearts.forEach((heart)=>{
+    heart.addEventListener(("click"), ()=> {  
+      let article = heart.closest("article");
       let postId = article.id;
-      var newUrl = 'single_post.php?id=' + postId;
-      window.location.href = newUrl;
-    });   
+      let xhttp;    
+      xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "template/like_handler.php?post="+postId, true);
+      xhttp.onreadystatechange = function() {
+        if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
+
+            if(this.responseText==="change") {
+              heart.classList.toggle('fa-solid');
+              heart.classList.toggle('fa-regular');
+            }
+        }
+      }
+      xhttp.send();
+    });
   });
+}
+
+function commentProcedure() {
+  comments = document.querySelectorAll(".fa-message");
+
 
   comments.forEach((comm) => {
     comm.addEventListener("click", () => {
@@ -35,16 +49,19 @@ window.onload = () => {
         }
     });
   });
+}
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get('post');
-  comments.forEach((comm) => {
-    let article = comm.closest("article");
-    let postId = article.id;
-    if(postId == myParam) {
-      openComment(postId);
-    }
-  })
+function postProcedure() {
+  posts = document.querySelectorAll(".open-focus");
+  posts.forEach((post) => {
+    let article = post.closest("article");
+    post.addEventListener("click", () => {
+      let postId = article.id;
+      var newUrl = 'single_post.php?id=' + postId;
+      window.location.href = newUrl;
+    });   
+  });
+
 }
 
 function followProcedure(follow){
@@ -77,13 +94,11 @@ function followProcedure(follow){
   }
 }
 
-
-//This code deals with the popovers, both aside and footer
-function showPopover(content, ver, below) {
-  let popover;:
+//This code deals with footer
+function showPopover(content, below) {
+  let popover;
   popover = document.createElement('footer');
   popover.classList.add('popover-comment');
-  break;
   popover.classList.add('popover');
   popover.innerHTML = content;
   below.insertAdjacentElement('afterend', popover);
@@ -168,7 +183,7 @@ function openComment(postId) {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
               let below = getSectionAbove(postId);
-              showPopover(this.responseText, Popover.Footer, below);
+              showPopover(this.responseText, below);
               numComment = postId;
               interactionViewerChanger();
               addCloseListener();
@@ -196,7 +211,10 @@ window.addEventListener("scroll", () =>{
   const endOfPage = window.innerHeight + window.scrollY >= document.body.scrollHeight-1;
   console.log(endOfPage)
   if (endOfPage) {
-    onShowMore()
+    onShowMore();
+    postProcedure();
+    commentProcedure();
+    likeProcedure();
   }
 });
 
@@ -219,6 +237,13 @@ function onShowMore() {
     }
     request.send();
     shownCount += toShowCount;
+}
+
+
+window.onload = () => {
+  postProcedure();
+  commentProcedure();
+  likeProcedure();
 }
 
 
