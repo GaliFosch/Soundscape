@@ -7,11 +7,11 @@
                 <img class="picture" src="<?php echo $template["author"]["ProfileImage"]; ?>" alt="User profile image"/>
             <?php endif;?>
         </a>
-        <h2>
+        <h1>
             <a href="profile.php?profile=<?php echo $template["author"]["Username"]; ?>">
                 <?php echo $template["author"]["Username"]; ?>
             </a>
-        </h2>
+        </h1>
     </header>
     <?php
         $imgs = $dbh->getImagesFromPost($template["post"]["PostID"]);
@@ -31,7 +31,8 @@
     </section>
     <script src="js/imageGallery.js"></script>
     <?php endif;?>
-    <section>
+    <hr>
+    <section id="caption">
         <p><?php echo $template["post"]["Caption"]; ?></p>
     </section>
     <?php if(!empty($template["track"])):?>
@@ -66,10 +67,10 @@
                 <a href="playlist.php?id=<?php echo $template["playlist"]["PlaylistID"];?>">
                     <h3><?php echo $template["playlist"]["Name"]; ?></h3>
                 </a>
-                <p><a href="profile.php?profile=<?php echo $template["playlist"]["Creator"]; ?>"><?php echo $template["playlist"]["Creator"]; ?></a></p>
+                <p class="author"><a href="profile.php?profile=<?php echo $template["playlist"]["Creator"]; ?>"><?php echo $template["playlist"]["Creator"]; ?></a></p>
                 <p>
                     <?php 
-                        if($template["playlist"]["IsAlbum"] === "1"){
+                        if($template["playlist"]["isAlbum"] === "1"){
                             echo "Album";
                         }else{
                             echo "Playlist";
@@ -80,7 +81,7 @@
         </section>
     <?php endif;?>
     <?php $isUserLogged = checkLogin($dbh);?>
-    <section>
+    <section class="bottom-container">
         <div class="likeContainer">
             <em id="comment" class="fa-regular fa-message fa-fw"></em>
             <?php if($isUserLogged && $dbh->hasUserLiked($template["post"]["PostID"], $_SESSION["username"])!=null):?>

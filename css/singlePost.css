@@ -1,130 +1,148 @@
-main{
+main {
     display: flex;
     flex-direction: column;
+    padding-bottom: 2rem;
 }
 
-main>header{
-    padding-top: 2rem;
+main > header {
     display: flex;
     align-items: center;
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 
-main>header img{
-    height: 5rem;
-    width: 5rem;
+main > header img {
+    height: 4em;
+    width: 4rem;
     border-radius: 50%;
     object-fit: cover;
 }
 
-main>header h2{
-    font-size: 3rem;
+main > header h1 {
+    font-size: 2rem;
     margin-left: 1rem;
 }
 
-main>section>p {
-    font-size: 1.3rem;
+#caption {
+    width: 80%;
+    align-self: center;
+    font-size: 1rem;
     text-align: left;
+    margin-left: 4rem;
+    margin-bottom: 1rem;
 }
 
-main a{
+main a {
     text-decoration: none;
 }
 
-.imgSection{
+.imgSection {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.imgSection footer{
+.imgSection footer {
     display: flex;
     font-size: 0.5rem;
     flex-direction: row;
+    margin-top: 1rem;
 }
 
-.imgSection footer em{
+.imgSection footer em {
     opacity: 0.7;
     margin: 0 0.15rem;
 }
 
-.imgSection footer em.selected{
+.imgSection footer em.selected {
     font-size: 0.6rem;
     opacity: 1;
 }
 
-.imgContainer{
+.imgContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.imgContainer img{
+.imgContainer img {
     height: 12rem;
     width: 15rem;
     object-fit: contain;
     margin: 0;
     opacity: 0.7;
 }
-.imgContainer img:first-of-type.selected{
+
+.imgContainer img:first-of-type.selected {
     margin-left: 15rem;
 }
 
-.imgContainer img:last-of-type.selected{
+.imgContainer img:last-of-type.selected {
     margin-right: 15rem;
 }
 
-img.selected{
+img.selected {
     height: 24rem;
     width: 30rem;
     opacity: 1;
     margin: 0 1rem;
 }
 
-.trackSection{
+hr {
+    width: 80%;
+    opacity: 0.5;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.trackSection {
     height: 6rem;
+    width: 80%;
+    align-self: center;
     background-color: #E28AB9;
     border-radius: 1rem;
     display: flex;
     align-items: center;
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
 }
 
-.trackSection img{
+.trackSection img {
     height: 4rem;
     width: 4rem;
     object-fit: cover;
     margin-left: 1rem;
 }
 
-.trackSection header{
+.trackSection header {
     flex-direction: column;
     margin-left: 1rem;
 }
 
-.trackSection header *{
+.trackSection header * {
     margin: 0;
     text-align: left;
     color:black;
 }
 
-.trackSection header h3{
+.trackSection header h3 {
     font-size: 1.3rem;
 }
 
-.trackSection>a{
+.trackSection > a {
     margin-left: auto;
     margin-right: 1rem;
 }
 
-.trackSection>a em{
+.trackSection > a em {
     color: black;
     font-size: 2rem;
 }
 
-
-
-.playlistSection{
+.playlistSection {
     background-color: #E28AB9;
     width: fit-content;
     align-self: center;
@@ -136,8 +154,8 @@ img.selected{
     margin: 0;
 }
 
-.playlistSection img{
-    width: 30rem;
+.playlistSection img {
+    width: 15rem;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
@@ -146,10 +164,16 @@ img.selected{
     margin-bottom: 2rem;
 }
 
-.playlistSection div h3, .playlistSection div p{
+.playlistSection div h3, .playlistSection div p {
     color: black;
     text-align: left;
     margin: 0 1rem;
+}
+
+.author {
+    font-weight: bold;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
 .playlistSection div a{
@@ -162,6 +186,13 @@ img.selected{
 
 div.likeContainer{
     text-align: right;
+}
+
+.bottom-container {
+    width: 80%;
+    align-self: center;
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 
 div.likeContainer em{
@@ -243,15 +274,19 @@ article.comment footer p{
 }
 
 @media screen and (max-width: 768px) {
-    .imgContainer img{
+
+    .imgContainer img {
         display: none;
     }
+
     .imgContainer img:first-of-type.selected{
         margin-left: 0;
     }
+
     .imgContainer img:last-of-type.selected{
         margin-right: 0;
     }
+
     img.selected{
         display: block;
         width: 90%;
