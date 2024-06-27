@@ -1,19 +1,12 @@
 <main>
-  
     <?php if(isset($_GET["error"])): ?>
         <section class="msg-section">
             <?php if ($_GET["error"] == "1"): ?>
                 <p id="post-msg">Error: unknown track, please try search again</p>
-            <?php elseif($_GET["error"] != "false"):?>
+            <?php elseif($_GET["error"] != "false"): ?>
                 <p id="post-msg">Error: the post couldn't be added. Please retry</p>
-            <?php else: ?>
-                <p id="post-msg">Post added succesfully. You now will be redirected to the home page</p>
-                <?php 
-                    //header("Location: index.php");
-                ?>
             <?php endif; ?>
         </section>
-        
     <?php endif; ?>
 
     <a href="index.php" aria-label="Close post creation" title="Close post creation" class="close-post-creation">

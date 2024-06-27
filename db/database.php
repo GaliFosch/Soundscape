@@ -933,45 +933,39 @@ class DatabaseHelper {
     public function addPost($track, $text, $images, $userID, $type) {
         $timestamp = date('Y-m-d H:i:s');
         $postID = null;
-        $query = null;
-        if($track != null) {
-            if($type == "track") {
-                $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
-                    VALUES (?, ?, ?, ?)";
+    
+        if ($track !== null) {
+            if ($type == "track") {
+                $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp) VALUES (?, ?, ?, ?)";
             } else {
-                $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp)
-                        VALUES (?, ?, ?, ?)";
+                $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp) VALUES (?, ?, ?, ?)";
             }
         } else {
-            $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
-                    VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp) VALUES (?, ?, ?, ?)";
         }
-        
-        
+    
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
-        if($stmt->execute()) {
+        $stmt->bind_param('ssss', $text, $track, $userID, $timestamp);
+    
+        if ($stmt->execute()) {
             $postID = $this->db->insert_id;
         } else {
-            return false;
+            return null;
         }
-        if($images!=null) {
-            foreach($images as $img) {
-                $imageQuery = "INSERT INTO image (PostImage, PostID)
-                            VALUES (?, ?)";
+    
+        if ($images !== null) {
+            foreach ($images as $img) {
+                $imageQuery = "INSERT INTO image (PostImage, PostID) VALUES (?, ?)";
                 $stmt = $this->db->prepare($imageQuery);
                 $stmt->bind_param('si', $img, $postID);
-                if(!$stmt->execute()) {
-                    return false;
+    
+                if (!$stmt->execute()) {
+                    return null;
                 }
             }
         }
-        if($postID==null) {
-            return false;
-        }
-
-        return true;
-
+    
+        return $postID;
     }
 
 }

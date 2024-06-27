@@ -19,21 +19,11 @@ window.onload = () => {
   
 
   posts.forEach((post) => {
-    const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
-    closestHeart.addEventListener('click', (event) => toggleColor(event,post));
     let article = post.closest("article");
     post.addEventListener("click", () => {
       let postId = article.id;
-      if(!asideOpen) {
-        openAside(postId, closestHeart , post);
-      } else if(numAside==postId) {
-        let closeFocus = document.querySelector(".close-focus");
-        closeFocus.click();
-      } else {
-        let closeFocus = document.querySelector(".close-focus");
-        closeFocus.click();
-        openAside(postId, closestHeart, post)
-      } 
+      var newUrl = 'single_post.php?id=' + postId;
+      window.location.href = newUrl;
     });   
   });
 

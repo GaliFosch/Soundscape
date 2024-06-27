@@ -11,34 +11,41 @@ if(isset($_POST["caption"])) {
     $imgArray = null;
     if(isset($_FILES["images"])) {
         $imgArray = uploadMultipleImages("images");
+
+        print_r($_FILES["images"]);
         if($imgArray === false){
             header('Location: post_creation.php?error=2');
             exit;
         } 
     }       
 //checks post save
-    if (isset(($_POST["track"]))) {
-        if ($dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track")) {
-            header('Location: post_creation.php?error=false');
+   if (isset(($_POST["track"]))) {
+        $result = $dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track");
+        if ($result!=null) {
+            header('Location: single_post.php?id='.$result);
             exit;
         } else {
-            header('Location: post_creation.php?error=3');
+            header('Location: post_creation.php?error=4&post='.$result);
             exit;
         }
     } else if (isset(($_POST["playlist"]))) {
-        if ($dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist")) {
-            header('Location: post_creation.php?error=false');
+        $result = $dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist");
+        print_r($result);
+        if ($result!=null) {
+            header('Location: single_post.php?id='.$result);
             exit;
         } else {
-            header('Location: post_creation.php?error=3');
+            header('Location: post_creation.php?error=3&post='.$result);
             exit;
         }
     } else {
-        if ($dbh->addPost(null, $_POST["caption"],  $imgArray, $_SESSION['username'], null)) {
-            header('Location: post_creation.php?error=false');
+        $result =$dbh->addPost(null, $_POST["caption"],  $imgArray, $_SESSION['username'], null);
+        print_r($result);
+        if ($result!=null) {
+            header('Location: single_post.php?id='.$result);
             exit;
         } else {
-            header('Location: post_creation.php?error=3');
+            header('Location: post_creation.php?error=5');
             exit;
         }
     }
