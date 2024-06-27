@@ -78,6 +78,26 @@ switch ($preview_type) {
     case "posts":
         $template["posts"] = $dbh->getBestUserPosts($template["profile"]["Username"], ALL);
         break;
+    case "followers":
+        $users = $dbh->getUserFollowers($template["profile"]["Username"]);
+        foreach ($users as $user) {
+            $preview["title"] = $user["Username"];
+            $preview["image"] = $user["ProfileImage"];
+            $preview["alt"] = "Click to open the profile of the user";
+            $preview["link"] = "profile.php?profile=" . $user["Username"];
+            $previews[] = $preview;
+        }
+        break;
+    case "following":
+        $users = $dbh->getUsersFollowedByUser($template["profile"]["Username"]);
+        foreach ($users as $user) {
+            $preview["title"] = $user["Username"];
+            $preview["image"] = $user["ProfileImage"];
+            $preview["alt"] = "Click to open the profile of the user";
+            $preview["link"] = "profile.php?profile=" . $user["Username"];
+            $previews[] = $preview;
+        }
+        break;
     case "matching-users":
         $users = $dbh->getMatchingUsers($query_str, $previews_to_show, $previews_to_skip);
         foreach ($users as $user) {

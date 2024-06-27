@@ -27,11 +27,15 @@
     <?php endif;?>
     <section id="Counts">
         <div>
-            <h3>Followers</h3>
-            <p id="followerCount"><?php echo $template["profile"]["NumFollower"] ?></p>
+            <a href="list.php?t=followers&profile=<?php echo $template["profile"]["Username"]; ?>">
+                <h3>Followers</h3>
+                <p id="followerCount"><?php echo $template["profile"]["NumFollower"] ?></p>
+            </a>
         </div><div>
-            <h3>Following</h3>
-            <p  id="followingCount"><?php echo $template["profile"]["NumFollowing"] ?></p>
+            <a href="list.php?t=following&profile=<?php echo $template["profile"]["Username"]; ?>">
+                <h3>Following</h3>
+                <p  id="followingCount"><?php echo $template["profile"]["NumFollowing"] ?></p>
+            </a>
         </div>
     </section>
     <section id="Biography">
