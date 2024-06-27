@@ -287,25 +287,36 @@ function getSectionAbove(queryPostID) {
     }
 }
 
-//this code deals with the loading of the posts from the database
-function onShowMoreBtnClick() {
-
-  const request = new XMLHttpRequest()
-  let toShowCount = 10;
-  request.open(
-      "GET",
-      "process_fees.php?show=" + toShowCount + "&skip=" + shownCount[`${previewsType}`],
-      true
-  )
-  request.onreadystatechange = function() {
-      if ((this.readyState === 4) && (this.status === 200)) {
-        let section = document.createElement("section");
-        section.innerHTML = this.responseText;
-        let main = document.querySelector("main");
-        main.appendChild(section);
-      }
+window.addEventListener("scroll", () =>{
+  const endOfPage = window.innerHeight + window.scrollY >= document.body.scrollHeight-1;
+  console.log(endOfPage)
+  if (endOfPage) {
+    onShowMore()
   }
-  request.send()
+});
 
-  shownCount += toShowCount;
+
+
+
+function onShowMore() {
+  let toShowCount = 10;
+  const request = new XMLHttpRequest()
+    request.open(
+        "GET",
+        "process_feed.php?show=" + toShowCount + "&skip=" + shownCount,
+        true
+    );
+    request.onreadystatechange = function() {
+        if ((this.readyState === 4) && (this.status === 200)) {
+          let section = document.createElement("section");
+          section.classList.add = "feed";
+          section.innerHTML = this.responseText;
+          let main = document.querySelector("main");
+          main.appendChild(section);
+        }
+    }
+    request.send();
+    shownCount += toShowCount;
 }
+
+

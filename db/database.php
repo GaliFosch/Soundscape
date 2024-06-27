@@ -713,63 +713,84 @@ class DatabaseHelper {
 
     public function getPersonalizedHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
 
-        //This query returns the most liked posts of the last seven days
-        $artistQuery = "SELECT *
-                FROM post
-                INNER JOIN user ON post.Username = user.Username
-                WHERE post.PostTimestamp <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                AND user.Username IN (
-                    SELECT Following
-                    FROM follow
-                    WHERE Follower = ?
-                )
-                ORDER BY post.PostID DESC
-                LIMIT ?, ?";
+        $artistQuery = "SELECT t1.*
+                        FROM (
+                            SELECT p.*
+                            FROM post p
+                            INNER JOIN user u ON p.Username = u.Username
+                            WHERE p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                            AND u.Username IN (
+                                SELECT Following
+                                FROM follow
+                                WHERE Follower = ?
+                            )ORDER BY p.PostID DESC
+                            LIMIT ?, ? 
+                        )t1";
 
-        $likedQuery = "SELECT *
-                        FROM post
-                        INNER JOIN user ON post.Username = user.Username
-                        WHERE user.Username != ?
-                        AND post.PostTimestamp <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                        ORDER BY post.NumLike DESC
-                        LIMIT ?, ?";
+        $likedQuery = "SELECT t2.*
+                        FROM (
+                            SELECT p.*
+                            FROM post p
+                            INNER JOIN user u ON p.Username = u.Username
+                            WHERE u.Username != ?
+                            AND p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                            ORDER BY p.NumLike DESC
+                             LIMIT ?, ?
+                        ) t2";
 
-        $genreQuery = "SELECT *
-                    FROM post
-                    INNER JOIN user ON post.Username = user.Username
-                    INNER JOIN belonging ON post.TrackID = belonging.TrackId
-                    WHERE belonging.GenreTag IN (
-                            SELECT genre.GenreTag
-                            FROM belonging
-                            INNER JOIN genre ON belonging.GenreTag = genre.GenreTag
-                            INNER JOIN post as p ON belonging.TrackID = p.TrackID
-                            WHERE p.Username = ?
-                    )
-                    AND user.Username != ?
-                    AND post.PostTimestamp <= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    LIMIT ?, ?";
+        $genreQuery = "SELECT t3.*
+                    FROM (
+                        SELECT p.*
+                        FROM post p
+                        INNER JOIN user u ON p.Username = u.Username
+                        INNER JOIN belonging b ON p.TrackID = b.TrackId
+                        WHERE b.GenreTag IN (
+                            SELECT g.GenreTag
+                            FROM belonging b2
+                            INNER JOIN genre g ON b2.GenreTag = g.GenreTag
+                            INNER JOIN post p2 ON b2.TrackID = p2.TrackID
+                            WHERE p2.Username = ?
+                        )
+                        AND u.Username != ?
+                        AND p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    LIMIT ?, ?
+                    )t3";
         
         $finalQuery = "SELECT * FROM (
-                        ($artistQuery)
+                        ($artistQuery) 
                         UNION
-                        ($likedQuery)
+                        ($likedQuery) 
                         UNION
-                        ($genreQuery)
-                    ))
+                        ($genreQuery) 
+                    ) subquery
                     ORDER BY RAND()";
-        
-        print_r($finalQuery);
+    
 
         $stmt = $this->db->prepare($finalQuery);
         $stmt->bind_param("siisiissii", $userID, $nToSkip, $nToShow, $userID, $nToSkip, $nToShow, $userID, $userID, $nToSkip, $nToShow);
         if($stmt->execute()) {
-            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            if(count($result)<1) {
+                $result = $this->getGeneralHomeFeed($userID, $nToShow, $nToSkip);
+            }
+            return $result;
         } else {
-            $this->getGeneralHomeFeed();
+            return $this->getGeneralHomeFeed($userID, $nToShow, $nToSkip);
         }
     }
 
-    public function getGeneralHomeFeed( $nToShow =  ALL, $nToSkip = 0) {
+    public function getGeneralHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
+       $query=null;
+        if($userID!=null) {
+        $query = "SELECT *
+                    FROM post
+                    INNER JOIN user ON post.Username = user.Username
+                    AND user.Username != ?
+                    ORDER BY user.NumFollower DESC
+                    LIMIT ?, ?";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param("sii", $userID, $nToSkip, $nToShow);
+       } else {
         $query = "SELECT *
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
@@ -777,6 +798,9 @@ class DatabaseHelper {
                     LIMIT ?, ?";
         $stmt =  $this->db->prepare($query);
         $stmt->bind_param("ii", $nToSkip, $nToShow);
+       }
+       
+        
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }

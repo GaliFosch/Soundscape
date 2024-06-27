@@ -9,7 +9,7 @@ $template["content"] = "template/home_feed.php";
 if(isset($_SESSION['username'])) {
     $template["posts"] = $dbh->getPersonalizedHomeFeed($_SESSION["username"], 10 , 0);
 } else {
-    $template["posts"] = $dbh->getGeneralHomeFeed();
+    $template["posts"] = $dbh->getGeneralHomeFeed(null, 10, 0);
 }
 
 require("template/base.php");

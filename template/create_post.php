@@ -1,6 +1,5 @@
 <main>
-
-    
+  
     <?php if(isset($_GET["error"])): ?>
         <section class="msg-section">
             <?php if ($_GET["error"] == "1"): ?>
@@ -95,7 +94,7 @@
             <p>No song chosen</p>
         <?php endif; ?>
 
-    <form action="post_creation.php" method="POST" class="caption" enctype="multipart/form-data">
+    <form action="process_post.php" method="POST" class="caption" enctype="multipart/form-data">
         <label for="write-caption">Write your post caption:</label>
         <textarea class="caption" name="caption" id="write-caption" placeholder="Write here your post" rows="23" wrap="hard" required></textarea>
         <input type="hidden" 

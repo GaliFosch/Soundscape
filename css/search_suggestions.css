@@ -85,6 +85,10 @@ ul.track-suggestions > li {
     background-color: white;
 }
 
+ul.track-suggestions > li:hover{
+    cursor: pointer;
+}
+
 ul.track-suggestions >li > p {
     font-size: 1em;
     color: black;

@@ -99,17 +99,3 @@ fileInput.addEventListener('change', (event) => {
       }
     }
   });
-
-document.onload = ()=> {
-    if(document.getElementById("post-msg")!=null) {
-        let msgSection = document.querySelector(".msg-section");
-        let time = document.createElement('p');
-        time.innerText = "Redirecting in 5..."
-        delay();
-        window.location.href = "https://newurl.com";
-    } 
-}
-
-async function delay() {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-}

@@ -1,5 +1,7 @@
 <?php
 
+require_once("bootstrap.php");
+
 $track = null;
 $playlist = null;
 

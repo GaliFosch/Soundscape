@@ -33,7 +33,7 @@
                 </a>
             </section>
         <!--POST WITH PLAYLIST-->
-        <?php elseif($post["PlaylistId"]!=null): ?>
+        <?php elseif($post["PlaylistID"]!=null): ?>
             <?php 
             $playlist = $dbh->getSponsoredPlaylist($post["PostID"]); 
             $tracklist = $dbh->getOrderedTracklistByPlaylistID($playlist["PlaylistID"]); 

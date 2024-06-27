@@ -13,6 +13,7 @@ main {
 .close-post-creation {
     display: flex;
     text-decoration: none;
+    width: fit-content;
 }
 
 .close-post-creation > * {
