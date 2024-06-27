@@ -75,6 +75,9 @@ switch ($preview_type) {
             $previews[] = $preview;
         }
         break;
+    case "posts":
+        $template["posts"] = $dbh->getBestUserPosts($template["profile"]["Username"], ALL);
+        break;
     case "matching-users":
         $users = $dbh->getMatchingUsers($query_str, $previews_to_show, $previews_to_skip);
         foreach ($users as $user) {
@@ -128,30 +131,34 @@ switch ($preview_type) {
 
 ?>
 
-<?php foreach ($previews as $preview): ?>
-    <section class="preview">
-        <a href="<?php echo $preview["link"]; ?>">
-            <?php if (isset($preview["image"])): ?>
-                <img class="picture" src="<?php echo $preview["image"]; ?>" alt="<?php echo $preview["alt"]; ?>"/>
-            <?php else: ?>
-                <img class="picture" src="images/placeholder-image.jpg" alt="<?php echo $preview["alt"]; ?>"/>
-            <?php endif; ?>
-            <div class="preview-info">
-                <h2 class="preview-title"><?php echo $preview["title"]; ?></h2>
-                <?php if (isset($preview["author"])): ?>
-                    <h3 class="author"><?php echo $preview["author"]; ?></h3>
+<?php if ($preview_type != "posts"): ?>
+    <?php foreach ($previews as $preview): ?>
+        <section class="preview">
+            <a href="<?php echo $preview["link"]; ?>">
+                <?php if (isset($preview["image"])): ?>
+                    <img class="picture" src="<?php echo $preview["image"]; ?>" alt="<?php echo $preview["alt"]; ?>"/>
+                <?php else: ?>
+                    <img class="picture" src="images/placeholder-image.jpg" alt="<?php echo $preview["alt"]; ?>"/>
                 <?php endif; ?>
-                <?php if (isset($preview["year"]) && isset($preview["length"])): ?>
-                    <h3 class="track-length"><?php echo $preview["year"]; ?> - <?php echo $preview["length"]; ?></h3>
-                <?php elseif (isset($preview["year"])): ?>
-                    <h3 class="track-length"><?php echo $preview["year"]; ?></h3>
-                <?php endif; ?>
-            </div>
-        </a>
-    </section>
-<?php endforeach; ?>
-<?php if (isset($previews_to_show) && (count($previews) == $previews_to_show)): ?>
-    <form action="#" method="GET">
-        <input id="<?php echo $preview_type; ?>" class="show-more" type="button" value="Show more"/>
-    </form>
+                <div class="preview-info">
+                    <h2 class="preview-title"><?php echo $preview["title"]; ?></h2>
+                    <?php if (isset($preview["author"])): ?>
+                        <h3 class="author"><?php echo $preview["author"]; ?></h3>
+                    <?php endif; ?>
+                    <?php if (isset($preview["year"]) && isset($preview["length"])): ?>
+                        <h3 class="track-length"><?php echo $preview["year"]; ?> - <?php echo $preview["length"]; ?></h3>
+                    <?php elseif (isset($preview["year"])): ?>
+                        <h3 class="track-length"><?php echo $preview["year"]; ?></h3>
+                    <?php endif; ?>
+                </div>
+            </a>
+        </section>
+    <?php endforeach; ?>
+    <?php if (isset($previews_to_show) && (count($previews) == $previews_to_show)): ?>
+        <form action="#" method="GET">
+            <input id="<?php echo $preview_type; ?>" class="show-more" type="button" value="Show more"/>
+        </form>
+    <?php endif; ?>
+<?php else: ?>
+    <?php require("template/post_template.php");?>
 <?php endif; ?>

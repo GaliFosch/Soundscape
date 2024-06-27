@@ -711,7 +711,7 @@ class DatabaseHelper {
 
     public function getPersonalizedHomeFeed($userID, $nToShow, $nToSkip = 0) {
         //This query return the posts of the followed artists, posted in the last 7 days.
-        $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+        $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistID, post.Username
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     WHERE post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
@@ -724,7 +724,7 @@ class DatabaseHelper {
                     LIMIT ?, ?";
 
         //This query returns the most liked posts of the last seven days
-        $likedQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+        $likedQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistID, post.Username
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     WHERE user.Username IS NOT ?
@@ -735,7 +735,7 @@ class DatabaseHelper {
         $likedGenre = $this->getFavouriteGenres($userID);
 
         //This query returns random posts in which the song is of a genre generally listened by the user
-        $genreQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+        $genreQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistID, post.Username
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
                     INNER JOIN belonging ON post.TrackID = belonging.TrackId
@@ -763,10 +763,10 @@ class DatabaseHelper {
     }
 
     public function getGeneralHomeFeed() {
-        $query = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+        $query = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistID, post.Username, post.PostTimestamp
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
-                    ORDER BY user.NumFollower DESC";
+                    ORDER BY post.PostTimestamp DESC";
         $stmt =  $this->db->prepare($query);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
