@@ -17,7 +17,7 @@
         $imgs = $dbh->getImagesFromPost($template["post"]["PostID"]);
         if(sizeof($imgs)>0):
     ?>
-    <section class="imgSection">
+    <div class="imgSection">
         <div class="imgContainer">
             <?php foreach($imgs as $img):?>
                 <img src="<?php echo $img["PostImage"]; ?>"/>
@@ -28,13 +28,13 @@
                 <em class="fa-solid fa-circle dot"></em>
             <?php endforeach;?>
         </footer>
-    </section>
+    </div>
     <script src="js/imageGallery.js"></script>
     <?php endif;?>
     <hr>
-    <section id="caption">
+    <div id="caption">
         <p><?php echo $template["post"]["Caption"]; ?></p>
-    </section>
+    </div>
     <?php if(!empty($template["track"])):?>
         <section class="trackSection">
             <?php if(empty($template["track"]["CoverImage"])): ?>
@@ -43,7 +43,7 @@
                 <img class="picture" src="<?php echo $template["track"]["CoverImage"]; ?>" alt="User profile image"/>
             <?php endif;?>
             <header>
-                <h3><?php echo $template["track"]["Name"]; ?></h3>
+                <h2><?php echo $template["track"]["Name"]; ?></h2>
                 <p>
                     <a href="profile.php?profile=<?php echo $template["track"]["Creator"]; ?>">
                         <?php echo $template["track"]["Creator"]; ?>
@@ -65,7 +65,7 @@
             </a>
             <div>
                 <a href="playlist.php?id=<?php echo $template["playlist"]["PlaylistID"];?>">
-                    <h3><?php echo $template["playlist"]["Name"]; ?></h3>
+                    <h2><?php echo $template["playlist"]["Name"]; ?></h2>
                 </a>
                 <p class="author"><a href="profile.php?profile=<?php echo $template["playlist"]["Creator"]; ?>"><?php echo $template["playlist"]["Creator"]; ?></a></p>
                 <p>
@@ -93,11 +93,11 @@
         </div>
         <div id="commentFormContainer">
             <?php if($isUserLogged):?>
-                <h3>New Comment</h3>
+                <h2>New Comment</h2>
                 <form action="process_singlePost_comment.php" method="POST" id="commentForm">
-                    <label for="caption">Caption</label>
-                    <textarea name="caption" rows="5" placeholder="Write here your comment" required></textarea>
-                    <input type="text" name="postID" value="<?php echo $template["post"]["PostID"]?>" hidden>
+                    <label for="caption-textarea">Caption</label>
+                    <textarea id="caption-textarea" name="caption" rows="5" placeholder="Write here your comment" required></textarea>
+                    <input type="hidden" name="postID" value="<?php echo $template["post"]["PostID"]?>">
                     <button type="submit">
                         <em class="fa-regular fa-paper-plane"></em>
                     </button>
@@ -123,7 +123,7 @@
                             <?php endif;?>
                         </a>
                         <a href="profile.php?profile=<?php echo $comment["Username"]?>"></a>
-                        <h3><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h3>
+                        <h2><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h2>
                     </header>
                     <p><?php echo $comment["CommentText"]?></p>
                     <footer>

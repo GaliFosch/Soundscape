@@ -275,6 +275,10 @@ article.comment footer p{
 
 @media screen and (max-width: 768px) {
 
+    main {
+        padding-top: 3rem;
+    }
+
     .imgContainer img {
         display: none;
     }
@@ -294,8 +298,16 @@ article.comment footer p{
         margin: 0;
     }
 
+    #caption {
+        margin-left: 1rem;
+    }
+
+    .trackSection {
+        margin-left: 0;
+    }
+
     .playlistSection{
-        width: 90%
+        width: 80%
     }
 
     .playlistSection img{
