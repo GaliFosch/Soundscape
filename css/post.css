@@ -1,3 +1,7 @@
+.redirect {
+    text-decoration: none;
+}
+
 article{
     display: flex;
     flex-direction: column;
@@ -44,7 +48,7 @@ article > p {
     box-shadow: 0 4px 9px #222;
 }
 
-section>p {
+section>a>p, section>p  {
     font-size: 12px;
     padding: 0;
     margin: 0 0;
@@ -72,7 +76,7 @@ section>p {
     font-size: 13px;
 }
 
-.music-info strong, .music-info > p {
+.music-info strong, .music-info > a > p, .music-info > p {
     color: black;
 }
 

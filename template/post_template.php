@@ -2,14 +2,16 @@
     <article class="post-article" id="<?php echo $post['PostID']; ?>">
         <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
         <!--Utente e foto utente-->
-        <h1 class="user-info">
-            <?php if ($user["ProfileImage"] != null): ?>
-                <img class="profile-picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
-            <?php else: ?>
-                <img class="profile-picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-            <?php endif; ?>
-            <?php echo $user["Username"]; ?>
-        </h1>
+        <a href="profile.php?profile=<?php echo $user["Username"]; ?>" class="redirect">
+            <h1 class="user-info">
+                <?php if ($user["ProfileImage"] != null): ?>
+                    <img class="profile-picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
+                <?php else: ?>
+                    <img class="profile-picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                <?php endif; ?>
+                <?php echo $user["Username"]; ?>
+            </h1>     
+        </a>
         <!--Post caption-->
         <p class="open-focus"><?php echo $post["Caption"]; ?></p>
         
@@ -25,8 +27,10 @@
                 <?php endif; ?>
                 <!--Inner section delle info della music-->
                 <section class="music-info">
-                    <header><strong><?php echo $track["Name"]; ?></strong></header>
+                <header><strong><?php echo $track["Name"]; ?></strong></header>
+                <a href="profile.php?profile=<?php echo $track["Creator"]; ?>" class="redirect">
                     <p><?php echo $track["Creator"]; ?></p>
+                </a>
                 </section>
                 <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
                     <em class="fa-solid fa-play"></em>
@@ -49,7 +53,7 @@
                     <section class="music-info">
                         <header><strong><?php echo $playlist["Name"]; ?></strong></header>
                         <p><?php echo $playlist["Creator"]; ?></p>
-                        <p><?php echo $playlist["isAlbum"]==1 ? "Album" : "Playlist"; ?></p>
+                        <p><?php echo $playlist["IsAlbum"]==1 ? "Album" : "Playlist"; ?></p>
                     </section>
                     <section class="tracklist-section">
                         <ol class="tracklist">
