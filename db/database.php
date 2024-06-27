@@ -948,17 +948,17 @@ class DatabaseHelper {
         $stmt->bind_param('ssss', $text, $track, $userID, $timestamp);
     
         if ($stmt->execute()) {
-            $postID = $this->db->insert_id;
+            $postID = mysqli_insert_id($this->db);
         } else {
             return null;
         }
-    
-        if ($images !== null) {
+
+        if (isset($images)) {
             foreach ($images as $img) {
                 $imageQuery = "INSERT INTO image (PostImage, PostID) VALUES (?, ?)";
                 $stmt = $this->db->prepare($imageQuery);
                 $stmt->bind_param('si', $img, $postID);
-    
+
                 if (!$stmt->execute()) {
                     return null;
                 }

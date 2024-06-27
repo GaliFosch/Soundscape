@@ -7,19 +7,21 @@ $playlist = null;
 
 //POST from general form
 //checks images
-if(isset($_POST["caption"])) {
-    $imgArray = null;
-    if(isset($_FILES["images"])) {
-        $imgArray = uploadMultipleImages("images");
+if (isset($_POST["caption"])) {
 
-        print_r($_FILES["images"]);
-        if($imgArray === false){
+    $imgArray = null;
+    if ($_FILES['images']['error'] != 4) {
+        $imgArray = uploadMultipleImages("images");
+        if ($imgArray === false) {
             header('Location: post_creation.php?error=2');
             exit;
-        } 
-    }       
-//checks post save
-   if (isset(($_POST["track"]))) {
+        } elseif ($imgArray == array(false)) {
+            $imgArray = null;
+        }
+    }
+
+    //checks post save
+    if (isset(($_POST["track"]))) {
         $result = $dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track");
         if ($result!=null) {
             header('Location: single_post.php?id='.$result);
@@ -49,4 +51,5 @@ if(isset($_POST["caption"])) {
             exit;
         }
     }
+
 }
