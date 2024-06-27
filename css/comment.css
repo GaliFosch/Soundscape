@@ -76,6 +76,10 @@ em.comment-changer, .like-changer-section>em.like-changer {
     word-wrap:break-word;
 }
 
+.comment-text > a, .comment-text > a >p {
+    width: fit-content;
+}
+
 section.comment-text {
     border: none;
 }
@@ -132,7 +136,7 @@ article.people-comment, article.people-like {
     margin: 0 0.5rem;
 }
 
-.comment-text>p {
+.comment-text>p, .comment-text>a>p {
     font-size: 1em;
     text-align: left;
 }

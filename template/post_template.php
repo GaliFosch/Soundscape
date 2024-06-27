@@ -49,10 +49,15 @@
                     <?php else: ?>
                         <img class="playlist" src="images/placeholder-image.jpg" alt="Song cover image"/>
                     <?php endif; ?>
+                    <a href="playlist.php?id=<?php echo $playlist["PlaylistID"]; ?>" aria-label="Discover more about playlist" title="Discover more about playlist">
+                        <em class="fa-solid fa-play focus"></em>
+                    </a>
                     <!--Inner section delle info della music-->
                     <section class="music-info">
                         <header><strong><?php echo $playlist["Name"]; ?></strong></header>
-                        <p><?php echo $playlist["Creator"]; ?></p>
+                        <a href="profile.php?profile=<?php echo $playlist["Creator"]; ?>" class="redirect">
+                            <p><?php echo $playlist["Creator"]; ?></p>
+                        </a>
                         <p><?php echo $playlist["IsAlbum"]==1 ? "Album" : "Playlist"; ?></p>
                     </section>
                 </section>
