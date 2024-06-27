@@ -1,20 +1,35 @@
-
-a.post-button-a {
+#post-button {
     width: fit-content;
     height: fit-content;
     z-index: 2;
     position: fixed;
     right: 0;
     bottom: 0;
-    margin: 1rem;
-}
-
-#post-button {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
     padding: 1rem;
-    border-radius: 100%;
+    border-radius: 5%;
     background-color: #1D70AD;
 }
 
-em.post-creation {
+.fa-pencil {
     font-size: 1.5em;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+@media screen and (max-width: 768px) {
+
+    #post-button {
+        border-radius: 100%;
+    }
+
+    #post-button-text {
+        display: none;
+    }
+
+    .fa-pencil {
+        margin-right: 0;
+    }
+
 }
