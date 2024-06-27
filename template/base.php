@@ -51,7 +51,7 @@
                     <li><a href="create_playlist.php"><em class="fa-solid fa-plus"></em><p>New Album / Playlist</p></a></li>
                 <?php endif; ?>
             </ul>
-            <?php if (isset($_SESSION["username"])): ?>
+            <?php if (checkLogin($dbh)): ?>
                 <div class="access-buttons">
                     <form id="logout" action="logout.php" method="POST"><input type="submit" value="Logout"/></form>
                 </div>

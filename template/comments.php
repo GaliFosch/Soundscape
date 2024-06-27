@@ -8,7 +8,7 @@ $postID = $_GET["post"];
 
 $comments = $dbh->getAllComments($postID);
 $likes = $dbh->getAllLikes($postID);
-if(isset($_SESSION['username'])) {
+if(checkLogin($dbh)) {
     $user = $dbh->getUserByUsername($_SESSION["username"]);
 } else {
     $user = null;

@@ -68,7 +68,7 @@
 
         <section class="post-interaction">
             <em class="fa-regular fa-message fa-fw"></em>
-            <?php if(isset($_SESSION['username'])): ?>
+            <?php if(checkLogin($dbh)): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
                     <em class="fa-solid fa-heart fa-fw article"></em>
                 <?php else: ?>

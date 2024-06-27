@@ -1,4 +1,4 @@
-<?php if(isset($_SESSION['username'])): ?>
+<?php if(checkLogin($dbh)): ?>
     <button id="post-button" type="button">
         <em class="fa-solid fa-pencil post-creation"></em>
         <strong id="post-button-text">Create a post</strong>
