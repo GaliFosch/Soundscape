@@ -42,29 +42,31 @@
             $playlist = $dbh->getSponsoredPlaylist($post["PostID"]); 
             $tracklist = $dbh->getOrderedTracklistByPlaylistID($playlist["PlaylistID"]); 
             ?>
-            <section class="playlist-box">
-                <section class="inner-playlist-box">
-                    <?php if (isset($playlist["CoverImage"])): ?>
-                        <img class="playlist" src="<?php echo $playlist["CoverImage"]; ?>" alt="Song cover image"/>
+            <section class="playlistSection">
+                <a href="playlist.php?id=<?php echo $playlist["PlaylistID"];?>">
+                    <?php if(empty($playlist["CoverImage"])): ?>
+                        <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
                     <?php else: ?>
-                        <img class="playlist" src="images/placeholder-image.jpg" alt="Song cover image"/>
-                    <?php endif; ?>
-                    <a href="playlist.php?id=<?php echo $playlist["PlaylistID"]; ?>" aria-label="Discover more about playlist" title="Discover more about playlist">
-                        <em class="fa-solid fa-play focus"></em>
+                        <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="User profile image"/>
+                    <?php endif;?>
+                </a>
+                <div class="playlist-info">
+                    <a href="playlist.php?id=<?php echo $playlist["PlaylistID"];?>">
+                        <h2 class="playlist-name"><?php echo $playlist["Name"]; ?></h2>
                     </a>
-                    <!--Inner section delle info della music-->
-                    <section class="music-info">
-                        <header><strong><?php echo $playlist["Name"]; ?></strong></header>
-                        <a href="profile.php?profile=<?php echo $playlist["Creator"]; ?>" class="redirect">
-                            <p><?php echo $playlist["Creator"]; ?></p>
-                        </a>
-                        <p><?php echo $playlist["IsAlbum"]==1 ? "Album" : "Playlist"; ?></p>
-                    </section>
-                </section>
+                    <p class="author"><a href="profile.php?profile=<?php echo $playlist["Creator"]; ?>"><?php echo $playlist["Creator"]; ?></a></p>
+                    <p>
+                        <?php
+                        if($playlist["isAlbum"] === "1"){
+                            echo "Album";
+                        }else{
+                            echo "Playlist";
+                        }
+                        ?>
+                    </p>
+                </div>
             </section>
         <?php endif; ?>
-            
-
 
         <section class="post-interaction">
             <em class="fa-regular fa-message fa-fw"></em>
