@@ -73,25 +73,23 @@ body>main a{
 }
 
 .imgContainer img{
+    display: none;
     height: 12rem;
     width: 15rem;
     object-fit: contain;
     margin: 0;
-    opacity: 0.7;
-}
-.imgContainer img:first-of-type.selected{
-    margin-left: 15rem;
-}
-
-.imgContainer img:last-of-type.selected{
-    margin-right: 15rem;
+    
 }
 
 .imgContainer img.selected{
-    height: 24rem;
-    width: 30rem;
-    opacity: 1;
-    margin: 0 1rem;
+    display: block;
+    width: 80%;
+    margin: 0;
+}
+
+.imgContainer{
+    margin-bottom: 0.5rem;
+    width: 100%;
 }
 
 .trackSection{
@@ -136,7 +134,7 @@ body>main a{
 
 .playlistSection{
     background-color: #E28AB9;
-    width: fit-content;
+    width: 90%;
     align-self: center;
     border-radius: 2rem;
     overflow: hidden;
@@ -147,7 +145,7 @@ body>main a{
 }
 
 .playlistSection img{
-    width: 30rem;
+    width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
@@ -271,43 +269,44 @@ article.comment footer p{
     text-align: right;
 }
 
-@media screen and (max-width: 768px) {
-
-    .imgContainer{
-        margin-bottom: 0.5rem;
-        width: 100%;
-    }
-
-    .imgContainer img{
-        display: none;
-    }
+@media (pointer: fine) {
     .imgContainer img:first-of-type.selected{
-        margin-left: 0;
+        margin-left: 2.39rem;
     }
     .imgContainer img:last-of-type.selected{
-        margin-right: 0;
-    }
-    .imgContainer img.selected{
-        display: block;
-        width: 80%;
-        height: 15rem;
-        margin: 0;
-    }
-
-    .playlistSection{
-        width: 90%
-    }
-
-    .playlistSection img{
-        width: 100%
-    }
-
-    @media (pointer: fine) {
-        .imgContainer img:first-of-type.selected{
-            margin-left: 2.39rem;
-        }
-        .imgContainer img:last-of-type.selected{
-            margin-right: 2.39rem;
-        }
+        margin-right: 2.39rem;
     }
 }
+
+@media screen and (min-width: 769px) {
+
+    .imgContainer img{
+        display: block;
+        opacity: 0.7;
+    }
+    
+    .imgContainer img.selected{
+        height: 24rem;
+        width: 30rem;
+        opacity: 1;
+        margin: 0 1rem;
+    }
+    
+    .imgContainer img:first-of-type.selected{
+        margin-left: 15rem;
+    }
+    
+    .imgContainer img:last-of-type.selected{
+        margin-right: 15rem;
+    }
+    
+    .playlistSection{
+        width: fit-content;    
+    }
+    
+    .playlistSection img{
+        width: 30rem;
+    } 
+
+}
+
