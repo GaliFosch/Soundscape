@@ -207,6 +207,7 @@ function getSectionAbove(queryPostID) {
     }
 }
 
+/*
 window.addEventListener("scroll", () =>{
   const endOfPage = window.innerHeight + window.scrollY >= document.body.scrollHeight-1;
   console.log(endOfPage)
@@ -238,7 +239,7 @@ function onShowMore() {
     request.send();
     shownCount += toShowCount;
 }
-
+*/
 
 window.onload = () => {
   postProcedure();

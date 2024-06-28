@@ -25,7 +25,7 @@ if (isset($_GET["track"])) {
             $template["track"] = $dbh->getTrackByName($trackName, $trackCreator);
             $template["type"] = 'track';
         } else {
-            $template["playlist"] = $dbh->getPlaylistByName($trackName, $trackCreator);
+            $template["playlist"] = $dbh->getPlaylistByName($trackName, $trackCreator);;
             $template["type"] = 'playlist';
         }
         
