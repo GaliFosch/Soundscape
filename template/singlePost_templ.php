@@ -110,7 +110,7 @@
                 $comments = $dbh->getAllComments($template["post"]["PostID"]);
                 foreach($comments as $comment):
             ?>
-                <article id="<?php echo $comment["CommentID"]?>" class = "comment">
+                <article id="<?php echo $comment["CommentID"]; ?>" class="comment">
                     <header>
                         <a href="profile.php?profile=<?php echo $comment["Username"]?>">
                             <?php
