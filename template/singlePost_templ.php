@@ -123,21 +123,22 @@
                 foreach($comments as $comment):
             ?>
                 <article id="<?php echo $comment["CommentID"]; ?>" class="comment">
-                    <header>
-                        <a href="profile.php?profile=<?php echo $comment["Username"]?>">
-                            <?php
-                                $author = $dbh->getUserByUsername($comment["Username"]);
-                                if(empty($author["ProfileImage"])): 
-                            ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-                            <?php else: ?>
-                                <img class="picture" src="<?php echo $author["ProfileImage"]; ?>" alt="User profile image"/>
-                            <?php endif;?>
-                        </a>
-                        <a href="profile.php?profile=<?php echo $comment["Username"]?>"></a>
-                        <h2><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h2>
-                    </header>
-                    <p><?php echo $comment["CommentText"]?></p>
+                    <a href="profile.php?profile=<?php echo $comment["Username"]?>">
+                        <?php
+                            $author = $dbh->getUserByUsername($comment["Username"]);
+                            if(empty($author["ProfileImage"])): 
+                        ?>
+                            <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                        <?php else: ?>
+                            <img class="picture" src="<?php echo $author["ProfileImage"]; ?>" alt="User profile image"/>
+                        <?php endif;?>
+                    </a>
+                    <div>
+                        <header>
+                            <h3><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h3>
+                        </header>
+                        <p><?php echo $comment["CommentText"]?></p>
+                    </div>
                     <footer>
                         <p><?php echo $comment["CommentTimestamp"]?></p>
                     </footer>
