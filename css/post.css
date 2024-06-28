@@ -68,9 +68,6 @@ img.selected {
     margin: 0 1rem;
 }
 
-
-
-
 .open-focus:hover {
     cursor: pointer;
 }
@@ -93,9 +90,9 @@ h1.user-info {
 
 article > p {
     text-align: left;
-    font-size: 1em;
+    font-size: 1.2rem;
     color: #fff;
-    padding: 1rem;
+    margin: 1.5rem 0 1.5rem 0.5rem;
 }
 
 .music-box {
@@ -124,7 +121,7 @@ section>a>p, section>p  {
 .music-info {
     display: flex;
     flex-direction: column;
-    text-align: left
+    text-align: left;
 }
 
 .music-box>a {
@@ -133,7 +130,11 @@ section>a>p, section>p  {
 }
 
 .music-info > header {
-    font-size: 13px;
+    font-size: 1.2rem;
+}
+
+.music-info p {
+    font-size: 1rem;
 }
 
 .music-info strong, .music-info > a > p, .music-info > p {
@@ -197,7 +198,7 @@ section>a>p, section>p  {
 }
 
 .post-interaction {
-    padding-top: 0.5rem;
+    padding-top: 1rem;
     display: flex;
     justify-content: end;
 }
@@ -211,6 +212,7 @@ section>a>p, section>p  {
     font-size: 1.5em;
     color: #fff;
     text-align: center;
+    margin-right: 0.25rem;
 }
 
 .post-interaction>em:hover{

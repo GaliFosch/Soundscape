@@ -113,7 +113,7 @@
             <?php endif; ?>
         </header>
         <div>
-            <?php if (count($albums) != 0): ?>
+            <?php if (count($playlists) != 0): ?>
                 <?php foreach ($playlists as $playlist): ?>
                     <article>
                         <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">

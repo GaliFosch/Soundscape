@@ -32,14 +32,23 @@ player.addEventListener("timeupdate", function () {
 player.addEventListener("ended", function() {
     let urlString = window.location.toString()
     let url = new URL(urlString)
-    let paramName = "pos"
-    let pos = parseInt(url.searchParams.get(paramName))
-    let newUrlString = urlString.replace(paramName + "=" + pos, paramName + "=" + (++pos))
-    if (url.searchParams.get("autoplay") == null) {
-        newUrlString += "&autoplay=true"
+    // If a playlist/album is being played, then the next track must be played automatically
+    // when the current track ends.
+    if (url.searchParams.get("pid") != null) {
+        let paramName = "pos"
+        let pos = parseInt(url.searchParams.get(paramName))
+        let newUrlString = urlString.replace(paramName + "=" + pos, paramName + "=" + (++pos))
+        if (url.searchParams.get("autoplay") == null) {
+            newUrlString += "&autoplay=true"
+        }
+        let newUrl = new URL(newUrlString)
+        window.location.replace(newUrl)
+    } else {
+        // A single track is being played. When the track ends, reset the progress bar and the play button.
+        playBtn.innerHTML = `<img src="images/play-icon.svg" alt="Play Button"/>`
+        player.currentTime = 0
+        updateLabels()
     }
-    let newUrl = new URL(newUrlString)
-    window.location.replace(newUrl)
 })
 
 playBtn.addEventListener("click", function () {

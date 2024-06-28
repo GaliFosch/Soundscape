@@ -4,7 +4,7 @@
         if (isset($template["track"])) {
             $track = $template["track"];
         } else if (isset($template["tracklist"])) {
-            $track = $template["tracklist"][0];
+            $track = $template["tracklist"][$template["pos"]];
         }
     ?>
     <div class="song-data">

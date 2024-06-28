@@ -8,7 +8,8 @@
         <div class="playlist-details">
             <h1 id="title"><?php echo $template["playlist"]["Name"]; ?></h1>
             <h2 id="author"><?php echo $template["playlist"]["Creator"]; ?></h2>
-            <h3 id="date-and-length"><?php echo "{$template["playlist"]["CreationDate"]} - {$template["playlist"]["TimeLength"]}"; ?></h3>
+            <?php $datetime = date_create($template["playlist"]["CreationDate"]); ?>
+            <h3 id="date-and-length"><?php echo date_format($datetime,"Y-m-d") . " - " . $template["playlist"]["TimeLength"]; ?></h3>
         </div>
         <div id="controls">
             <a id="play-button" href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=0&refresh=true" title="Listen to the album/playlist"><img src="images/play-icon.svg" alt="Play"/></a>
@@ -27,7 +28,7 @@
     <div id="tracklist">
         <?php foreach ($template["tracklist"] as $track): ?>
             <div class="row">
-                <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["Position"] - 1); ?>">
+                <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=<?php echo ($track["Position"] - 1); ?>&refresh=true">
                     <div class="tracklist-item">
                         <p class="track-position"><?php echo $track["Position"]; ?></p>
                         <div class="track-details">
