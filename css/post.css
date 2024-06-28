@@ -225,3 +225,25 @@ em.fa-heart{
     font-size: 28px;
 }
 
+
+@media screen and (max-width: 768px) {
+
+    .imgContainer img {
+        display: none;
+    }
+
+    .imgContainer img:first-of-type.selected{
+        margin-left: 0;
+    }
+
+    .imgContainer img:last-of-type.selected{
+        margin-right: 0;
+    }
+
+    img.selected{
+        display: block;
+        width: 90%;
+        height: 15rem;
+        margin: 0;
+    }
+}

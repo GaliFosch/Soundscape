@@ -8,15 +8,15 @@ footer.popover-comment {
     overflow-y: scroll;
 }
 
-footer::-webkit-scrollbar-thumb {
+footer.popover-comment::-webkit-scrollbar-thumb {
     background: gray; 
     border-radius: 10px;
 }
-footer::-webkit-scrollbar-track {
+footer.popover-comment::-webkit-scrollbar-track {
     background:#4A4A4A; 
 
 }
-footer::-webkit-scrollbar {
+footer.popover-comment::-webkit-scrollbar {
     width: 0.5em;
 }
 
@@ -177,7 +177,7 @@ article.people-like {
 
 @media screen and (max-width: 768px) {
 
-    footer {
+    .popover-comment {
         background-color: #323232;
         position: fixed;
         height: -webkit-fill-available;
