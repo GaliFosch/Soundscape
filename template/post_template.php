@@ -12,6 +12,25 @@
                 <?php echo $user["Username"]; ?>
             </h1>     
         </a>
+
+        <?php
+            $imgs = $dbh->getImagesFromPost($post["PostID"]);
+            if(sizeof($imgs)>0):
+        ?>
+        <div class="imgSection">
+            <div class="imgContainer">
+                <?php foreach($imgs as $img):?>
+                    <img src="<?php echo $img["PostImage"]; ?>"/>
+                <?php endforeach;?>
+            </div>
+            <footer>
+                <?php foreach($imgs as $img):?>
+                    <em class="fa-solid fa-circle dot"></em>
+                <?php endforeach;?>
+            </footer>
+        </div>
+        <?php endif;?>
+                    
         <!--Post caption-->
         <p class="open-focus"><?php echo $post["Caption"]; ?></p>
         
@@ -54,7 +73,7 @@
                     <p class="author"><a href="profile.php?profile=<?php echo $playlist["Creator"]; ?>"><?php echo $playlist["Creator"]; ?></a></p>
                     <p>
                         <?php
-                        if($playlist["isAlbum"] === "1"){
+                        if($playlist["IsAlbum"] === "1"){
                             echo "Album";
                         }else{
                             echo "Playlist";
@@ -79,3 +98,5 @@
         </section>
     </article>
 <?php endforeach; ?>
+
+<script src="js/imageGallery.js"></script>

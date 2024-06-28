@@ -11,6 +11,63 @@ article{
     justify-content: flex-start;
 }
 
+.imgSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgSection footer {
+    display: flex;
+    font-size: 0.5rem;
+    flex-direction: row;
+    margin-top: 1rem;
+}
+
+.imgSection footer em {
+    opacity: 0.7;
+    margin: 0 0.15rem;
+}
+
+.imgSection footer em.selected {
+    font-size: 0.6rem;
+    opacity: 1;
+}
+
+.imgContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgContainer img {
+    height: 12rem;
+    width: 15rem;
+    object-fit: contain;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.imgContainer img:first-of-type.selected {
+    margin-left: 15rem;
+}
+
+.imgContainer img:last-of-type.selected {
+    margin-right: 15rem;
+}
+
+img.selected {
+    height: 24rem;
+    width: 30rem;
+    opacity: 1;
+    margin: 0 1rem;
+}
+
+
+
+
 .open-focus:hover {
     cursor: pointer;
 }
