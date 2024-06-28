@@ -118,12 +118,13 @@ for(let t = 0; t<galleries.length; t++){
                     previous.style.display = "none";
                     next.style.display = "none";
                 }else{
-                    if(getIndexOfSelectedElement(imgs)===0){
+                    let index = getIndexOfSelectedElement(imgs)
+                    if(index===0){
                         previous.style.display = "none";
                     }else{
                         previous.style.display = "";
                     }
-                    if(imgs.length<2){
+                    if(index===imgs.length-1){
                         next.style.display = "none";
                     }else{
                         next.style.display = "";
