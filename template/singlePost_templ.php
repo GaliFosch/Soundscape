@@ -19,9 +19,11 @@
     ?>
     <div class="imgSection">
         <div class="imgContainer">
+            <em class="fa-solid fa-angle-left previous"></em>
             <?php foreach($imgs as $img):?>
                 <img src="<?php echo $img["PostImage"]; ?>"/>
             <?php endforeach;?>
+            <em class="fa-solid fa-angle-right next"></em>
         </div>
         <footer>
             <?php foreach($imgs as $img):?>
@@ -93,15 +95,25 @@
         </div>
         <div id="commentFormContainer">
             <?php if($isUserLogged):?>
-                <h2>New Comment</h2>
-                <form action="process_singlePost_comment.php" method="POST" id="commentForm">
-                    <label for="caption-textarea">Caption</label>
-                    <textarea id="caption-textarea" name="caption" rows="5" placeholder="Write here your comment" required></textarea>
-                    <input type="hidden" name="postID" value="<?php echo $template["post"]["PostID"]?>">
-                    <button type="submit">
-                        <em class="fa-regular fa-paper-plane"></em>
-                    </button>
-                </form>
+                <h3>New Comment</h3>
+                <main>
+                    <?php
+                        $loggetUser = $dbh->getUserByUsername($_SESSION["username"]);
+                        if(empty($loggetUser["ProfileImage"])): 
+                    ?>
+                        <img class="commentPicture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                    <?php else: ?>
+                        <img class="commentPicture" src="<?php echo $loggetUser["ProfileImage"]; ?>" alt="User profile image"/>
+                    <?php endif;?>
+                    <form action="process_singlePost_comment.php" method="POST" id="commentForm">
+                        <label for="caption">Caption</label>
+                        <textarea name="caption" rows="5" placeholder="Write here your comment" required></textarea>
+                        <input type="text" name="postID" value="<?php echo $template["post"]["PostID"]?>" hidden>
+                        <button type="submit">
+                            <em class="fa-regular fa-paper-plane"></em>
+                        </button>
+                    </form>
+                </main>
             <?php endif;?>
         </div>
         <script src="js/singlePost_comment.js"></script>
@@ -111,21 +123,22 @@
                 foreach($comments as $comment):
             ?>
                 <article id="<?php echo $comment["CommentID"]; ?>" class="comment">
-                    <header>
-                        <a href="profile.php?profile=<?php echo $comment["Username"]?>">
-                            <?php
-                                $author = $dbh->getUserByUsername($comment["Username"]);
-                                if(empty($author["ProfileImage"])): 
-                            ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
-                            <?php else: ?>
-                                <img class="picture" src="<?php echo $author["ProfileImage"]; ?>" alt="User profile image"/>
-                            <?php endif;?>
-                        </a>
-                        <a href="profile.php?profile=<?php echo $comment["Username"]?>"></a>
-                        <h2><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h2>
-                    </header>
-                    <p><?php echo $comment["CommentText"]?></p>
+                    <a href="profile.php?profile=<?php echo $comment["Username"]?>">
+                        <?php
+                            $author = $dbh->getUserByUsername($comment["Username"]);
+                            if(empty($author["ProfileImage"])): 
+                        ?>
+                            <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                        <?php else: ?>
+                            <img class="picture" src="<?php echo $author["ProfileImage"]; ?>" alt="User profile image"/>
+                        <?php endif;?>
+                    </a>
+                    <div>
+                        <header>
+                            <h3><a href="profile.php?profile=<?php echo $comment["Username"]?>"><?php echo $author["Username"]?></a></h3>
+                        </header>
+                        <p><?php echo $comment["CommentText"]?></p>
+                    </div>
                     <footer>
                         <p><?php echo $comment["CommentTimestamp"]?></p>
                     </footer>

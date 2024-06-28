@@ -1,24 +1,24 @@
-main {
+body > main{
     display: flex;
     flex-direction: column;
     padding-bottom: 2rem;
 }
 
-main > header {
+body > main > header {
     display: flex;
     align-items: center;
     margin-left: 2rem;
     margin-top: 1rem;
 }
 
-main > header img {
+body > main > header img {
     height: 4em;
     width: 4rem;
     border-radius: 50%;
     object-fit: cover;
 }
 
-main > header h1 {
+body > main > header h1 {
     font-size: 2rem;
     margin-left: 1rem;
 }
@@ -32,7 +32,7 @@ main > header h1 {
     margin-bottom: 1rem;
 }
 
-main a {
+body > main a {
     text-decoration: none;
 }
 
@@ -57,7 +57,7 @@ main a {
 
 .imgSection footer em.selected {
     font-size: 0.6rem;
-    opacity: 1;
+    color: white;
 }
 
 .imgContainer {
@@ -67,27 +67,36 @@ main a {
     justify-content: center;
 }
 
-.imgContainer img {
+.imgContainer .previous, .imgContainer .next{
+    font-size: 3rem;
+}
+
+.imgContainer .previous{
+    margin-right: 0.5rem;
+}
+
+.imgContainer .next{
+    margin-left: 0.5rem;
+}
+
+.imgContainer img{
+    display: none;
     height: 12rem;
     width: 15rem;
     object-fit: contain;
     margin: 0;
-    opacity: 0.7;
+
 }
 
-.imgContainer img:first-of-type.selected {
-    margin-left: 15rem;
+.imgContainer img.selected{
+    display: block;
+    width: 80%;
+    margin: 0;
 }
 
-.imgContainer img:last-of-type.selected {
-    margin-right: 15rem;
-}
-
-img.selected {
-    height: 24rem;
-    width: 30rem;
-    opacity: 1;
-    margin: 0 1rem;
+.imgContainer{
+    margin-bottom: 0.5rem;
+    width: 100%;
 }
 
 hr {
@@ -142,9 +151,9 @@ hr {
     font-size: 2rem;
 }
 
-.playlistSection {
+.playlistSection{
     background-color: #E28AB9;
-    width: fit-content;
+    width: 90%;
     align-self: center;
     border-radius: 2rem;
     overflow: hidden;
@@ -154,8 +163,8 @@ hr {
     margin: 0;
 }
 
-.playlistSection img {
-    width: 15rem;
+.playlistSection img{
+    width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
@@ -180,7 +189,7 @@ hr {
     color: black;
 }
 
-.playlistSection div h3{
+.playlistSection div h2{
     font-size: 1.5rem;
 }
 
@@ -204,10 +213,29 @@ div.likeContainer em{
     color: #E91E63;
 }
 
+#commentFormContainer main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+#commentFormContainer main img{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
 #commentForm{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 #commentForm label{
@@ -218,7 +246,7 @@ div.likeContainer em{
     background-color: transparent;
     border: solid white 2px;
     border-radius: 1rem;
-    width: 17rem;
+    width: 100%;
     padding: 1rem;
     font-size: 1rem;
 }
@@ -231,29 +259,41 @@ div.likeContainer em{
 }
 
 article.comment{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     border:white solid 2px;
     border-radius: 1rem;
     background-color: #4A4A4A;
     margin-top: 1rem;
 }
 
-article.comment header{
+article.comment div{
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    width: 100%;
 }
 
-article.comment header a{
-    height: 2rem;
-}
-
-article.comment header img{
+article.comment img{
     height: 2rem;
     width: 2rem;
     border-radius: 50%;
     object-fit: cover;
+
     margin-left: 1rem;
     margin-right: 0.5rem;
+}
+
+article.comment header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+article.comment header h3{
+    font-size: 1.4rem;
+    margin: 0;
 }
 
 article.comment p{
@@ -263,50 +303,61 @@ article.comment p{
     text-align: left;
 }
 
+article.comment div p{
+    width: 90%;
+    word-break: break-all;
+}
+
+article.comment footer{
+    margin-right: 1rem;
+}
+
 article.comment footer p{
     opacity: 0.7;
     font-size: 1rem;
     text-align: right;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
-@media screen and (max-width: 768px) {
-
-    main {
-        padding-top: 3rem;
-    }
-
-    .imgContainer img {
-        display: none;
-    }
-
+@media (pointer: fine) {
     .imgContainer img:first-of-type.selected{
-        margin-left: 0;
+        margin-left: 2.39rem;
     }
 
     .imgContainer img:last-of-type.selected{
-        margin-right: 0;
+        margin-right: 2.39rem;
     }
+}
 
-    img.selected{
+@media screen and (min-width: 768px) {
+
+    .imgContainer img{
         display: block;
-        width: 90%;
-        height: 15rem;
-        margin: 0;
+        opacity: 0.7;
     }
 
-    #caption {
-        margin-left: 1rem;
+    .imgContainer img.selected{
+        height: 24rem;
+        width: 30rem;
+        opacity: 1;
+        margin: 0 1rem;
     }
 
-    .trackSection {
-        margin-left: 0;
+    .imgContainer img:first-of-type.selected{
+        margin-left: 15rem;
+    }
+
+    .imgContainer img:last-of-type.selected{
+        margin-right: 15rem;
     }
 
     .playlistSection{
-        width: 80%
+        width: fit-content;
     }
 
     .playlistSection img{
-        width: 100%
+        width: 30rem;
     }
+
 }
