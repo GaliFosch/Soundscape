@@ -9,6 +9,7 @@ article{
     margin: 0.5rem;
     padding: 1rem;
     justify-content: flex-start;
+    width: 100%;
 }
 
 .imgSection {
@@ -223,6 +224,7 @@ em.fa-heart{
 .fa-play {
     color: #000;
     font-size: 28px;
+    margin-right: 1rem;
 }
 
 

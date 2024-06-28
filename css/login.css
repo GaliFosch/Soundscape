@@ -7,7 +7,7 @@ h1 {
     margin-top: 0;
 }
 
-ul {
+#login-form-fields {
     list-style-type: none;
     padding: 0;
     margin-top: 0;
@@ -15,7 +15,7 @@ ul {
 
 input[type=text], input[type=password] {
     background-color: #975AA8;
-    width: 40%;
+    width: 35%;
     border-radius: 20px;
     border: 0;
     padding: 1rem 2rem;

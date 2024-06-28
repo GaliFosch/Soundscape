@@ -2,7 +2,7 @@
     <img id="front-logo" src="images/logo.svg" alt=""/>
     <h1>Registration</h1>
     <form id="user-info-form" action="process_register.php" method="POST" enctype="multipart/form-data">
-        <ul>
+        <ul id="registration-form-fields">
             <li>
                 <label for="username" hidden>Username</label>
                 <input type="text" name="username" id="username" placeholder="Username" required/>

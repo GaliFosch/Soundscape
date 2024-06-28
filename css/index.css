@@ -5,12 +5,10 @@ body {
 
 main {
     grid-column-start: 2;
-    margin: 0;
-    width: 100%;
+    margin: 0 0 0 2rem;
+    width: 90%;
     justify-self: center;
 }
-
-
 
 .timestamp {
     font-size: 0.5em;
