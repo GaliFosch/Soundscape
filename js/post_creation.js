@@ -32,74 +32,70 @@ function checkFileFormat(fileList) {
 }
 
 fileInput.addEventListener('change', (event) => {
-  files = event.target.files;
-  console.log(files);
-  let fileList = Array.from(files);
-  console.log(fileList);
-    if(!checkFileFormat(fileList)) {
-        const dataTransfer = new DataTransfer();
-        fileInput.files = dataTransfer.files;
+    files = event.target.files;
+    let fileList = Array.from(files);
+  
+    if (!checkFileFormat(fileList)) {
+      const dataTransfer = new DataTransfer();
+      fileInput.files = dataTransfer.files;
     } else {
-        if (files.length > 10) {
-    alert('You can only select up to 10 files');
-    event.target.value = '';
-  } else {
 
-    let section = document.createElement('section');
-    section.classList.add("selected-image-viewer");  
-    let main = document.querySelector('main');
-    
-    fileList.forEach((element ,index) => {   
-        let inner = document.createElement('section');
-        let img = document.createElement('img');
-        let em = document.createElement('em');
+      if (files.length > 10) {
+        alert('You can only select up to 10 files');
+        event.target.value = '';
+      } else {
 
-        inner.classList.add("inner-image-viewer");
-        img.classList.add("selected-image");
-        em.classList.add("fa-solid");
-        em.classList.add("fa-xmark");
-        img.src = URL.createObjectURL(element);
+        let section = document.createElement('section');
+        section.classList.add("selected-image-viewer");
+        let main = document.querySelector('main');
+  
+        let fileInfo = {};
+  
+        fileList.forEach((element) => {
+          let inner = document.createElement('section');
+          let img = document.createElement('img');
+          let em = document.createElement('em');
+  
+          inner.classList.add("inner-image-viewer");
+          img.classList.add("selected-image");
+          em.classList.add("fa-solid");
+          em.classList.add("fa-xmark");
+          img.src = URL.createObjectURL(element);
+  
+          inner.appendChild(img);
+          inner.appendChild(em);
+          section.appendChild(inner);
+            
+          console.log(element);
+          // Store the file information in the fileInfo object
+          fileInfo[element.name] = {
+            file: element,
+            inner: inner,
+            img: img,
+            em: em
+          };
 
-        inner.appendChild(img);
-        inner.appendChild(em);
-        section.appendChild(inner);
-
-        em.addEventListener("click", () => {
-            fileList.splice(index, 1);
-            const newFileList = [];
-            const dataTransfer = new DataTransfer();
-            fileList.forEach(file => {
-                dataTransfer.items.add(file);
-                newFileList.push(file);
+          console.log(fileInfo);
+  
+          em.addEventListener("click", () => {
+            // Remove the file from the fileInfo object
+            delete fileInfo[element.name];
+  
+            // Update the fileInput and the DOM
+            let dataTransfer = new DataTransfer();
+            Object.values(fileInfo).forEach(info => {
+              dataTransfer.items.add(info.file);
             });
             fileInput.files = dataTransfer.files;
             img.remove();
             em.remove();
             inner.remove();
-            if(newFileList.length === 0) {
-                section.remove()
+            if (Object.keys(fileInfo).length === 0) {
+              section.remove();
             }
-            fileList = newFileList;
-        })
-    });
-    main.appendChild(section);
-
-  }
+          });
+        });
+        main.appendChild(section);
+      }
     }
-  
-  
-});
-
-document.onload = ()=> {
-    if(document.getElementById("post-msg")!=null) {
-        let msgSection = document.querySelector(".msg-section");
-        let time = document.createElement('p');
-        time.innerText = "Redirecting in 5..."
-        delay();
-        window.location.href = "https://newurl.com";
-    } 
-}
-
-async function delay() {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-}
+  });

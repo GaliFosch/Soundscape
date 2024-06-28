@@ -1,107 +1,17 @@
-let posts = document.querySelectorAll(".open-focus");
-let comments = document.querySelectorAll(".fa-message");
+let posts = null;
+let comments = null;
 let postComment = null;
-let asideOpen = false;
 let commentOpen = false;
-let heartPairs = new Map();
+let numComment = null;
+let shownCount = 0;
 
-const Popover = Object.freeze({
-  Aside: 0,
-  Footer:1
-});
+function likeProcedure() {
+  let hearts= document.querySelectorAll(".fa-heart");
 
-//Down here it deals with the post, the aside and the like functionality
-posts.forEach((post) => {
-
-  const closestHeart = post.closest('.post-article').querySelector('.fa-heart');
-  closestHeart.addEventListener('click', (event) => toggleColor(event,post));
-  post.addEventListener("click", () => {
-    let postId = post.getAttribute('post-id');
-    if(!asideOpen) {
-      openAside(postId, closestHeart , post);
-    } else {
-      let closeFocus = document.querySelector(".close-focus");
-      closeFocus.click();
-      openAside(postId, closestHeart, post)
-    } 
-   });   
-});
-
-function openAside(postId, closestHeart, post) {
-  asideOpen = true;
-    let xhttp;
-    xhttp = new XMLHttpRequest();
-    xhttp.open("GET", "template/post_focus.php?post="+postId, true);
-    xhttp.onreadystatechange = function() {
-      if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-          // Add requested previews to section
-          showPopover(this.responseText, Popover.Aside, null);
-          let focusHeartIcon = document.querySelector(".fa-heart.focus");
-          addCloseListener(closestHeart,focusHeartIcon);
-          heartPairs.set(closestHeart,focusHeartIcon);
-          heartPairs.set(focusHeartIcon,closestHeart);
-          focusHeartIcon.addEventListener('click', (event) => toggleColor(event,post));
-      }
-  }
-    xhttp.send();
-}
-
-//This code deals with the popovers, both aside and footer
-function showPopover(content, ver, below) {
-  let popover;
-  switch (ver) {
-    case Popover.Aside:
-      popover = document.createElement('aside');
-      popover.classList.add('popover-aside');
-      break;
-    case Popover.Footer:
-      popover = document.createElement('footer');
-      popover.classList.add('popover-comment');
-      break;
-  }
-  popover.classList.add('popover');
-  popover.innerHTML = content;
-  if(ver == Popover.Footer) {
-    below.insertAdjacentElement('afterend', popover);
-  } else {
-    document.body.appendChild(popover);
-  }
-};
-
-//This code deals with the close function both of the aside and the footer
-function addCloseListener(heartIcon, heartIconPair) {
-  let postFocus = document.querySelector(".popover-aside");
-  let commentFocus = document.querySelector(".popover-comment");
-
-  let closeFocus = document.querySelector(".close-focus");
-  let closeComment = document.querySelector(".close-comment");
-
-  if(postFocus!=null) {
-    closeFocus.addEventListener("click", () => {
-        postFocus.remove();
-        asideOpen = false;
-        if(heartIcon!=null && heartIconPair!=null) {
-          heartPairs.delete(heartIcon);
-          heartPairs.delete(heartIconPair);
-
-      }
-    });
-  }
-  if(commentFocus!=null) {
-    closeComment.addEventListener("click", () => {
-        commentFocus.remove();
-        commentOpen = false;
-        document.querySelector('body').style.overflow = "scroll";
-    });
-  }
-};
-
-/*This part deals with the heart button*/
-function toggleColor(event, post) {
-      let targetHeart = event.target;
-      let pairHeart = heartPairs.get(targetHeart);
-
-      let postId = post.getAttribute('post-id');
+  hearts.forEach((heart)=>{
+    heart.addEventListener(("click"), ()=> {  
+      let article = heart.closest("article");
+      let postId = article.id;
       let xhttp;    
       xhttp = new XMLHttpRequest();
       xhttp.open("GET", "template/like_handler.php?post="+postId, true);
@@ -109,20 +19,103 @@ function toggleColor(event, post) {
         if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
 
             if(this.responseText==="change") {
-                
-                targetHeart.classList.toggle('fa-solid');
-                targetHeart.classList.toggle('fa-regular');
-                if(pairHeart!=null) {
-                  pairHeart.classList.toggle('fa-solid');
-                  pairHeart.classList.toggle('fa-regular');
-                }
-              }
-              
+              heart.classList.toggle('fa-solid');
+              heart.classList.toggle('fa-regular');
             }
-            
+        }
+      }
+      xhttp.send();
+    });
+  });
+}
+
+function commentProcedure() {
+  comments = document.querySelectorAll(".fa-message");
+
+
+  comments.forEach((comm) => {
+    comm.addEventListener("click", () => {
+      let article = comm.closest("article");
+        let postId = article.id;
+        if(!commentOpen) {
+          openComment(postId);
+        } else if(numComment==postId) {
+          let closeFocus = document.querySelector(".close-comment");
+          closeFocus.click();
+        } else if(commentOpen) {
+          let closeFocus = document.querySelector(".close-comment");
+          closeFocus.click();
+          openComment(postId);
+        }
+    });
+  });
+}
+
+function postProcedure() {
+  posts = document.querySelectorAll(".open-focus");
+  posts.forEach((post) => {
+    let article = post.closest("article");
+    post.addEventListener("click", () => {
+      let postId = article.id;
+      var newUrl = 'single_post.php?id=' + postId;
+      window.location.href = newUrl;
+    });   
+  });
+
+}
+
+function followProcedure(follow){
+  let str = follow.id;
+  let target;
+  if (str !== "") {
+    let parts = str.split(" - ");
+    target = parts[1];
+  }
+  let req = new XMLHttpRequest()
+  if(follow.classList.contains("fa-user-plus")){
+      req.onload = function() {
+          if(req.responseText === "true"){
+              follow.classList.remove("fa-user-plus")
+              follow.classList.add("fa-user-check")
           }
-        console.log("Senza il login non puoi mettere like!");
-      xhttp.send();  
+      }
+      req.open("GET", "process_follow.php?target=" + target)
+      req.send()
+  }else{
+      req.onload = function() {
+          if(req.responseText === "true"){
+            console.log("yehaw")
+              follow.classList.remove("fa-user-check")
+              follow.classList.add("fa-user-plus")
+          }
+      }
+      req.open("GET", "process_unfollow.php?target=" + target)
+      req.send()
+  }
+}
+
+//This code deals with footer
+function showPopover(content, below) {
+  let popover;
+  popover = document.createElement('footer');
+  popover.classList.add('popover-comment');
+  popover.classList.add('popover');
+  popover.innerHTML = content;
+  below.insertAdjacentElement('afterend', popover);
+};
+
+//This code deals with the close function both of the aside and the footer
+function addCloseListener() {
+  let commentFocus = document.querySelector(".popover-comment");
+  let closeComment = document.querySelector(".close-comment");
+
+  if(commentFocus!=null) {
+    closeComment.addEventListener("click", () => {
+        commentFocus.remove();
+        commentOpen = false;
+        document.querySelector('body').style.overflow = "scroll";
+    });
+  }
 };
 
 //This code deals with the selection of the comments section or likes sections
@@ -180,20 +173,6 @@ function interactionViewerChanger() {
 };
 
 //Down here it deals with the comment section
-comments.forEach((comm) => {
-    comm.addEventListener("click", () => {
-        let postId = comm.getAttribute('post-id');
-        console.log(postId);
-        if(!commentOpen) {
-          openComment(postId);
-        } else if(commentOpen) {
-          let closeFocus = document.querySelector(".close-comment");
-          closeFocus.click();
-          openComment(postId);
-        }
-   });
-});
-
 //This code deals with the opening of the comment. It send the request XHTML request
 function openComment(postId) {
         commentOpen=true;
@@ -204,7 +183,8 @@ function openComment(postId) {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
               let below = getSectionAbove(postId);
-              showPopover(this.responseText, Popover.Footer, below);
+              showPopover(this.responseText, below);
+              numComment = postId;
               interactionViewerChanger();
               addCloseListener();
               addSelectedListener();
@@ -219,22 +199,52 @@ function openComment(postId) {
 //This code deals with the finding of the nearest section, under which the comment section is to open
 function getSectionAbove(queryPostID) {
     for (let i = 0; i < comments.length; i++) {
-        let postId = comments[i].getAttribute('post-id');
-        if(queryPostID === postId) {
-            return comments[i].closest('section');
-        }
+      let article = comments[i].closest("article");
+      let postId = article.id;
+      if(queryPostID === postId) {
+          return comments[i].closest('section');
+      }
     }
 }
 
-//This code deals with comments reopening when a comment is added
-window.onload= () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get('post');
-  comments.forEach((comm) => {
-    let postId = comm.getAttribute('post-id');
-    if(postId == myParam) {
-      openComment(postId);
+/*
+window.addEventListener("scroll", () =>{
+  const endOfPage = window.innerHeight + window.scrollY >= document.body.scrollHeight-1;
+  console.log(endOfPage)
+  if (endOfPage) {
+    onShowMore();
+    postProcedure();
+    commentProcedure();
+    likeProcedure();
+  }
+});
+
+function onShowMore() {
+  let toShowCount = 10;
+  const request = new XMLHttpRequest()
+    request.open(
+        "GET",
+        "process_feed.php?show=" + toShowCount + "&skip=" + shownCount,
+        true
+    );
+    request.onreadystatechange = function() {
+        if ((this.readyState === 4) && (this.status === 200)) {
+          let section = document.createElement("section");
+          section.classList.add = "feed";
+          section.innerHTML = this.responseText;
+          let main = document.querySelector("main");
+          main.appendChild(section);
+        }
     }
-  })
+    request.send();
+    shownCount += toShowCount;
 }
-    
+*/
+
+window.onload = () => {
+  postProcedure();
+  commentProcedure();
+  likeProcedure();
+}
+
+

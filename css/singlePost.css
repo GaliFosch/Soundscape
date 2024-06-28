@@ -1,12 +1,15 @@
 body>main{
     display: flex;
     flex-direction: column;
+    padding-bottom: 2rem;
 }
 
 body>main>header{
     padding-top: 2rem;
     display: flex;
     align-items: center;
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 
 body>main>header img{
@@ -24,23 +27,26 @@ body>main>header h2{
 body>main>section>p {
     font-size: 1.3rem;
     text-align: left;
+    margin-left: 4rem;
+    margin-bottom: 1rem;
 }
 
 body>main a{
     text-decoration: none;
 }
 
-.imgSection{
+.imgSection {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.imgSection footer{
+.imgSection footer {
     display: flex;
     font-size: 0.5rem;
     flex-direction: row;
+    margin-top: 1rem;
 }
 
 .imgSection footer em{
@@ -48,12 +54,12 @@ body>main a{
     margin: 0 0.15rem;
 }
 
-.imgSection footer em.selected{
+.imgSection footer em.selected {
     font-size: 0.6rem;
     color: white;
 }
 
-.imgContainer{
+.imgContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -92,42 +98,54 @@ body>main a{
     width: 100%;
 }
 
-.trackSection{
+hr {
+    width: 80%;
+    opacity: 0.5;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.trackSection {
     height: 6rem;
+    width: 80%;
+    align-self: center;
     background-color: #E28AB9;
     border-radius: 1rem;
     display: flex;
     align-items: center;
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
 }
 
-.trackSection img{
+.trackSection img {
     height: 4rem;
     width: 4rem;
     object-fit: cover;
     margin-left: 1rem;
 }
 
-.trackSection header{
+.trackSection header {
     flex-direction: column;
     margin-left: 1rem;
 }
 
-.trackSection header *{
+.trackSection header * {
     margin: 0;
     text-align: left;
     color:black;
 }
 
-.trackSection header h3{
+.trackSection header h3 {
     font-size: 1.3rem;
 }
 
-.trackSection>a{
+.trackSection > a {
     margin-left: auto;
     margin-right: 1rem;
 }
 
-.trackSection>a em{
+.trackSection > a em {
     color: black;
     font-size: 2rem;
 }
@@ -154,10 +172,16 @@ body>main a{
     margin-bottom: 2rem;
 }
 
-.playlistSection div h3, .playlistSection div p{
+.playlistSection div h3, .playlistSection div p {
     color: black;
     text-align: left;
     margin: 0 1rem;
+}
+
+.author {
+    font-weight: bold;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
 }
 
 .playlistSection div a{
@@ -170,6 +194,13 @@ body>main a{
 
 div.likeContainer{
     text-align: right;
+}
+
+.bottom-container {
+    width: 80%;
+    align-self: center;
+    margin-left: 2rem;
+    margin-top: 1rem;
 }
 
 div.likeContainer em{
@@ -273,6 +304,7 @@ article.comment footer p{
     .imgContainer img:first-of-type.selected{
         margin-left: 2.39rem;
     }
+
     .imgContainer img:last-of-type.selected{
         margin-right: 2.39rem;
     }

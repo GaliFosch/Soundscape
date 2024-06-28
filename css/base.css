@@ -195,11 +195,23 @@ em.notifSignal{
 main {
     text-align: center;
     width: 80%;
-    margin-left: 20%;
+    margin-left: 19%;
 }
 
 #error-msg {
     color: red;
+}
+
+::-webkit-scrollbar-thumb {
+    background: gray; 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+    background:#323232; 
+
+}
+::-webkit-scrollbar {
+    width: 0.5em;
 }
 
 @media screen and (min-width: 800px) {
@@ -269,6 +281,7 @@ main {
 
     #close-menu-icon {
         display: none;
+        margin: -4.5rem 0;
     }
 
     main {

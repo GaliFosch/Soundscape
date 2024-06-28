@@ -1,3 +1,13 @@
+main {
+    padding-bottom: 2rem;
+}
+
+#registration-form-fields {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0;
+}
+
 textarea {
     margin-top: 1rem;
     color: black;
@@ -6,6 +16,10 @@ textarea {
 
 textarea::placeholder {
     color: black;
+}
+
+label[for=image] {
+    margin-left: 2rem;
 }
 
 input[type=file] {
@@ -38,8 +52,16 @@ input[type=file] {
 
 @media screen and (max-width: 768px) {
 
+    #front-logo {
+        margin-top: 1rem;
+    }
+
     textarea {
         margin-bottom: 1rem;
+    }
+
+    label[for=image] {
+        margin-left: 0;
     }
 
     input[type=file] {

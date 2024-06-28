@@ -9,59 +9,32 @@ $template["track"] = null;
 $template["playlist"] = null;
 $template["type"] = null;
 
-if(isset($_POST["caption"])) {
-    $imgArray = null;
-    if(isset($_FILES["images"])) {
-        $imgArray = uploadMultipleImages("images");
-        if($imgArray === false){
-            header('Location: post_creation.php?error=1');
-            exit;
-        } 
-    }       
-
-    if (isset(($_POST["track"]))) {
-        if ($dbh->addPost($_POST["track"], $_POST["caption"],  $imgArray, $_SESSION['username'], "track")) {
-            header('Location: post_creation.php?error=false');
-            exit;
-        } else {
-            header('Location: post_creation.php?error=2');
-            exit;
-        }
-    } else if (isset(($_POST["playlist"]))) {
-        if ($dbh->addPost($_POST["playlist"], $_POST["caption"],  $imgArray, $_SESSION['username'], "playlist")) {
-            header('Location: post_creation.php?error=false');
-            exit;
-        } else {
-            header('Location: post_creation.php?error=3');
-            exit;
-        }
-    } else {
-        if ($dbh->addPost(null, $_POST["caption"],  $imgArray, $_SESSION['username'], null)) {
-            header('Location: post_creation.php?error=false');
-            exit;
-        } else {
-            header('Location: post_creation.php?error=2');
-            exit;
-        }
-    }
-}
-
 if (isset($_GET["track"])) {
     $str = $_GET["track"];
     if ($str != "") {
         $parts = explode(" - ", $str);
+      
         $trackName = $parts[0];
         $trackCreator = $parts[1];
         $type = $parts[2];
+        if($trackName==null||$trackCreator==null) {
+            header("Location: post_creation.php?error=1");
+            exit;
+        }
         if ($type == "Track") {
             $template["track"] = $dbh->getTrackByName($trackName, $trackCreator);
             $template["type"] = 'track';
         } else {
-            $template["playlist"] = $dbh->getPlaylistByName($trackName, $trackCreator);
+            $template["playlist"] = $dbh->getPlaylistByName($trackName, $trackCreator);;
             $template["type"] = 'playlist';
         }
         
-    }    
+    } else {
+        header("Location: post_creation.php?error=1");
+    }
+    if($template["track"]==null && $template["playlist"]==null) {
+        header("Location: post_creation.php?error=1");
+    }
 }
 
 require("template/base.php");

@@ -5,7 +5,7 @@ const USER_NOT_FOUND = 2;
 const USER_ACCESS_DISABLED = 3;
 const WRONG_PASSWORD = 4;
 
-const ALL = -1;
+const ALL = PHP_INT_MAX;
 
 class DatabaseHelper {
 
@@ -179,6 +179,28 @@ class DatabaseHelper {
             $this->db->rollback();
             return false;
         }
+    }
+
+    public function getUserFollowers($username) {
+        $query = "SELECT *
+                  FROM follow f, user u
+                  WHERE f.Follower = u.Username
+                    AND f.Following = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getUsersFollowedByUser($username) {
+        $query = "SELECT *
+                  FROM follow f, user u
+                  WHERE f.Following = u.Username
+                    AND f.Follower = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getUserByUsername($username){
@@ -709,81 +731,95 @@ class DatabaseHelper {
         }
     }
 
-    public function getPersonalizedHomeFeed($userID, $nToShow, $nToSkip = 0) {
-        //This query return the posts of the followed artists, posted in the last 7 days.
-        $artistQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
-                    FROM post
-                    INNER JOIN user ON post.Username = user.Username
-                    WHERE post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    AND user.Username IN (
-                        SELECT Following
-                        FROM follow
-                        WHERE Follower = ?
-                    )
-                    ORDER BY post.PostID DESC
-                    LIMIT ?, ?";
+    public function getPersonalizedHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
 
-        //This query returns the most liked posts of the last seven days
-        $likedQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
-                    FROM post
-                    INNER JOIN user ON post.Username = user.Username
-                    WHERE user.Username IS NOT ?
-                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    ORDER BY post.NumLike DESC
-                    LIMIT ?, ?";
-        
-        $likedGenre = $this->getFavouriteGenres($userID);
+        $artistQuery = "SELECT t1.*
+                        FROM (
+                            SELECT p.*
+                            FROM post p
+                            INNER JOIN user u ON p.Username = u.Username
+                            WHERE p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                            AND u.Username IN (
+                                SELECT Following
+                                FROM follow
+                                WHERE Follower = ?
+                            )ORDER BY p.PostID DESC
+                            LIMIT ?, ? 
+                        )t1";
 
-        //This query returns random posts in which the song is of a genre generally listened by the user
-        $genreQuery = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
-                    FROM post
-                    INNER JOIN user ON post.Username = user.Username
-                    INNER JOIN belonging ON post.TrackID = belonging.TrackId
-                    INNER JOIN $likedGenre ON belonging.GenreTag = likedGenre.GenreTag
-                    WHERE user.Username IS NOT ?
-                    AND post.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    ORDER BY likedGenre.TrackCount DESC
-                    LIMIT ?, ?";
+        $likedQuery = "SELECT t2.*
+                        FROM (
+                            SELECT p.*
+                            FROM post p
+                            INNER JOIN user u ON p.Username = u.Username
+                            WHERE u.Username != ?
+                            AND p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                            ORDER BY p.NumLike DESC
+                             LIMIT ?, ?
+                        ) t2";
+
+        $genreQuery = "SELECT t3.*
+                    FROM (
+                        SELECT p.*
+                        FROM post p
+                        INNER JOIN user u ON p.Username = u.Username
+                        INNER JOIN belonging b ON p.TrackID = b.TrackId
+                        WHERE b.GenreTag IN (
+                            SELECT g.GenreTag
+                            FROM belonging b2
+                            INNER JOIN genre g ON b2.GenreTag = g.GenreTag
+                            INNER JOIN post p2 ON b2.TrackID = p2.TrackID
+                            WHERE p2.Username = ?
+                        )
+                        AND u.Username != ?
+                        AND p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
+                    LIMIT ?, ?
+                    )t3";
         
         $finalQuery = "SELECT * FROM (
-                            SELECT * FROM $artistQuery
-                            UNION 
-                            SELECT * FROM $likedQuery
-                            UNION 
-                            SELECT * FROM $genreQuery
-                        ) ORDER BY RAND()";
+                        ($artistQuery) 
+                        UNION
+                        ($likedQuery) 
+                        UNION
+                        ($genreQuery) 
+                    ) subquery";
+    
 
         $stmt = $this->db->prepare($finalQuery);
-        $stmt->bind_param("siisiisii", $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip, $userID, $nToShow, $nToSkip);
+        $stmt->bind_param("siisiissii", $userID, $nToSkip, $nToShow, $userID, $nToSkip, $nToShow, $userID, $userID, $nToSkip, $nToShow);
         if($stmt->execute()) {
-            return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            if(count($result)<1) {
+                $result = $this->getGeneralHomeFeed($userID, $nToShow, $nToSkip);
+            }
+            return $result;
         } else {
-            $this->getGeneralHomeFeed();
+            return $this->getGeneralHomeFeed($userID, $nToShow, $nToSkip);
         }
     }
 
-    public function getGeneralHomeFeed() {
-        $query = "SELECT post.PostID, post.Caption, post.NumLike, post.NumComments, post.TrackID, post.PlaylistId, post.Username
+    public function getGeneralHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
+       $query=null;
+        if($userID!=null) {
+        $query = "SELECT *
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
-                    ORDER BY user.NumFollower DESC";
+                    AND user.Username != ?
+                    ORDER BY user.NumFollower DESC
+                    LIMIT ?, ?";
         $stmt =  $this->db->prepare($query);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function getFavouriteGenres($userID) {
-        $query = "SELECT genre.GenreTag, COUNT(belonging.TrackID) AS TrackCount
-                FROM belonging
-                INNER JOIN genre ON belonging.GenreTag = genre.GenreTag
-                WHERE belonging.TrackID IN (
-                    SELECT post.TrackID
+        $stmt->bind_param("sii", $userID, $nToSkip, $nToShow);
+       } else {
+        $query = "SELECT *
                     FROM post
-                    WHERE Post.Usernanme = ?)
-                GROUP BY genre.GenreTag
-                ORDER BY TrackCount DESC";
+                    INNER JOIN user ON post.Username = user.Username
+                    ORDER BY user.NumFollower DESC
+                    LIMIT ?, ?";
         $stmt =  $this->db->prepare($query);
-        $stmt->bind_param("s", $userID);
+        $stmt->bind_param("ii", $nToSkip, $nToShow);
+       }
+       
+        
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -798,7 +834,7 @@ class DatabaseHelper {
     }
 
     public function getAllComments($postID) {
-        $query = "SELECT CommentID, CommentText, CommentTimestamp, Username
+        $query = "SELECT *
                     FROM comment
                     WHERE PostID = ?
                     ORDER BY CommentTimestamp DESC";
@@ -843,21 +879,10 @@ class DatabaseHelper {
         $playlistQuery = "SELECT PlaylistID, Name, CoverImage, Creator, isAlbum
                 FROM playlist 
                 WHERE Name = ? AND Creator = ?";
-        $tracklistQuery = "SELECT S.Name, S.CoverImage, S.Creator
-                            FROM single_track as S
-                            INNER JOIN tracklist as T ON S.TrackID = T.TrackID
-                            INNER JOIN playlist as P ON P.PlaylistID = T.PlaylistID
-                            WHERE P.Name = ? AND P.Creator = ?";
         $stmt =  $this->db->prepare($playlistQuery);
         $stmt->bind_param('ss',$trackName, $trackCreator);
         $stmt->execute();
-        $playlist = $stmt->get_result()->fetch_assoc();
-        $stmt =  $this->db->prepare($tracklistQuery);
-        $stmt->bind_param('ss',$trackName, $trackCreator);
-        $stmt->execute();
-        $tracklist = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        
-        return array('playlist'=> $playlist, 'songs' => $tracklist);
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function isCollectionAnAlbum($collection_id) {
@@ -896,45 +921,39 @@ class DatabaseHelper {
     public function addPost($track, $text, $images, $userID, $type) {
         $timestamp = date('Y-m-d H:i:s');
         $postID = null;
-        $query = null;
-        if($track != null) {
-            if($type == "track") {
-                $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
-                    VALUES (?, ?, ?, ?)";
+    
+        if ($track !== null) {
+            if ($type == "track") {
+                $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp) VALUES (?, ?, ?, ?)";
             } else {
-                $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp)
-                        VALUES (?, ?, ?, ?)";
+                $query = "INSERT INTO post (Caption, PlaylistID, Username, PostTimestamp) VALUES (?, ?, ?, ?)";
             }
         } else {
-            $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp)
-                    VALUES (?, ?, ?, ?)";
+            $query = "INSERT INTO post (Caption, TrackID, Username, PostTimestamp) VALUES (?, ?, ?, ?)";
         }
-        
-        
+    
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ssss', $text, $track ,$userID, $timestamp);
-        if($stmt->execute()) {
-            $postID = $this->db->insert_id;
+        $stmt->bind_param('ssss', $text, $track, $userID, $timestamp);
+    
+        if ($stmt->execute()) {
+            $postID = mysqli_insert_id($this->db);
         } else {
-            return false;
+            return null;
         }
-        if($images!=null) {
-            foreach($images as $img) {
-                $imageQuery = "INSERT INTO image (PostImage, PostID)
-                            VALUES (?, ?)";
+
+        if (isset($images)) {
+            foreach ($images as $img) {
+                $imageQuery = "INSERT INTO image (PostImage, PostID) VALUES (?, ?)";
                 $stmt = $this->db->prepare($imageQuery);
                 $stmt->bind_param('si', $img, $postID);
-                if(!$stmt->execute()) {
-                    return false;
+
+                if (!$stmt->execute()) {
+                    return null;
                 }
             }
         }
-        if($postID==null) {
-            return false;
-        }
-
-        return true;
-
+    
+        return $postID;
     }
 
 }

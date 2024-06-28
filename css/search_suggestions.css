@@ -51,6 +51,11 @@ form.comment > .fa-magnifying-glass, form.comment > .fa-plus {
     pointer-events: none;
 }
 
+form.comment > input[type=submit]:hover {
+    cursor: pointer;
+}
+
+/*This code deals with the search suggestion */
 .track-suggestions-section {
     background-color: white;
     min-width: 0;
@@ -78,6 +83,10 @@ ul.track-suggestions > li {
     border: 1px solid black;
     color: black;
     background-color: white;
+}
+
+ul.track-suggestions > li:hover{
+    cursor: pointer;
 }
 
 ul.track-suggestions >li > p {

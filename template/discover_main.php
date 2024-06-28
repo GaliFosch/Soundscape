@@ -14,9 +14,9 @@
     <?php if (isset($_GET["query"]) && ($_GET["query"] != "")): ?>
         <?php $_SESSION["search-query"] = $_GET["query"]; ?>
         <section class="discover-section">
+            <h2>Users</h2>
             <?php $users = $dbh->getMatchingUsers($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($users) != 0): ?>
-                <h2>Users</h2>
                 <?php foreach ($users as $user): ?>
                     <section class="preview">
                         <a href="profile.php?profile=<?php echo $user["Username"]; ?>">
@@ -34,12 +34,14 @@
                         <input id="matching-users" class="show-more" type="button" value="Show more"/>
                     </form>
                 <?php endif; ?>
+            <?php else: ?>
+                <p>No matching users found.</p>
             <?php endif; ?>
         </section>
         <section class="discover-section">
+            <h2>Tracks</h2>
             <?php $tracks = $dbh->getMatchingTracks($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($tracks) != 0): ?>
-                <h2>Tracks</h2>
                 <?php foreach ($tracks as $track): ?>
                     <section class="preview">
                         <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>">
@@ -62,12 +64,14 @@
                         <input id="matching-tracks" class="show-more" type="button" value="Show more"/>
                     </form>
                 <?php endif; ?>
+            <?php else: ?>
+                <p>No matching tracks found.</p>
             <?php endif; ?>
         </section>
         <section class="discover-section">
+            <h2>Albums</h2>
             <?php $albums = $dbh->getMatchingAlbums($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($albums) != 0): ?>
-                <h2>Albums</h2>
                 <?php foreach ($albums as $album): ?>
                     <section class="preview">
                         <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
@@ -90,12 +94,14 @@
                         <input id="matching-albums" class="show-more" type="button" value="Show more"/>
                     </form>
                 <?php endif; ?>
+            <?php else: ?>
+                <p>No matching albums found.</p>
             <?php endif; ?>
         </section>
         <section class="discover-section">
+            <h2>Playlists</h2>
             <?php $playlists = $dbh->getMatchingPlaylists($_GET["query"], $nPreviewsToShow); ?>
             <?php if (count($playlists) != 0): ?>
-                <h2>Playlists</h2>
                 <?php foreach ($playlists as $playlist): ?>
                     <section class="preview">
                         <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
@@ -118,6 +124,8 @@
                         <input id="matching-playlists" class="show-more" type="button" value="Show more"/>
                     </form>
                 <?php endif; ?>
+            <?php else: ?>
+                <p>No matching playlists found.</p>
             <?php endif; ?>
         </section>
     <?php else: ?>

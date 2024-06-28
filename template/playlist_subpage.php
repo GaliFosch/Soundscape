@@ -13,7 +13,9 @@
         <div id="controls">
             <a id="play-button" href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=false&pos=0&refresh=true" title="Listen to the album/playlist"><img src="images/play-icon.svg" alt="Play"/></a>
             <a href="player.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>&shuffle=true&pos=0&refresh=true" title="Listen to the album/playlist in shuffle mode"><em id="shuffle-button" class="fa-solid fa-shuffle fa-2x"></em></a>
-            <a href="add_tracks_to_playlist.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" title="Add tracks to the album/playlist"><em id="add-track-to-playlist-button" class="fa-solid fa-plus fa-2x"></em></a>
+            <?php if (isset($_SESSION["username"]) and ($template["playlist"]["Creator"] == $_SESSION["username"])): ?>
+                <a href="add_tracks_to_playlist.php?pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" title="Add tracks to the album/playlist"><em id="add-track-to-playlist-button" class="fa-solid fa-plus fa-2x"></em></a>
+            <?php endif; ?>
         </div>
     </header>
     <hr>
@@ -36,7 +38,7 @@
                     </div>
                 </a>
                 <div class="track-options">
-                    <?php if ($template["playlist"]["Creator"] === $_SESSION["username"]): ?>
+                    <?php if (isset($_SESSION["username"]) and ($template["playlist"]["Creator"] == $_SESSION["username"])): ?>
                         <a href="remove_track_from_playlist.php?trackid=<?php echo $track["TrackID"]; ?>&pid=<?php echo $template["playlist"]["PlaylistID"]; ?>" class="remove-track-button" title="Remove this track from the album/playlist"><em class="fa-solid fa-xmark"></em></a>
                     <?php endif; ?>
                 </div>

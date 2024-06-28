@@ -13,7 +13,7 @@
         <?php endif; ?>
     <?php endif; ?>
     <form id="user-info-form" action="process_login.php" method="post">
-        <ul>
+        <ul id="login-form-fields">
             <li>
                 <label for="username" hidden>Username</label>
                 <input type="text" name="username" id="username" placeholder="Username" required/>
