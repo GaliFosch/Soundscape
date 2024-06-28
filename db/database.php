@@ -834,7 +834,7 @@ class DatabaseHelper {
     }
 
     public function getAllComments($postID) {
-        $query = "SELECT CommentText, Username, CommentTimestamp
+        $query = "SELECT *
                     FROM comment
                     WHERE PostID = ?
                     ORDER BY CommentTimestamp DESC";
