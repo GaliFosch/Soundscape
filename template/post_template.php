@@ -38,10 +38,7 @@
             </section>
         <!--POST WITH PLAYLIST-->
         <?php elseif($post["PlaylistID"]!=null): ?>
-            <?php 
-            $playlist = $dbh->getSponsoredPlaylist($post["PostID"]); 
-            $tracklist = $dbh->getOrderedTracklistByPlaylistID($playlist["PlaylistID"]); 
-            ?>
+            <?php $playlist = $dbh->getSponsoredPlaylist($post["PostID"]); ?>
             <section class="playlistSection">
                 <a href="playlist.php?id=<?php echo $playlist["PlaylistID"];?>">
                     <?php if(empty($playlist["CoverImage"])): ?>

@@ -5,7 +5,7 @@ const USER_NOT_FOUND = 2;
 const USER_ACCESS_DISABLED = 3;
 const WRONG_PASSWORD = 4;
 
-const ALL = -1;
+const ALL = PHP_INT_MAX;
 
 class DatabaseHelper {
 

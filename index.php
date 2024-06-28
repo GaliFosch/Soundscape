@@ -7,9 +7,9 @@ $template["stylesheets"] = ["base.css", "index.css", "comment.css", "post_button
 $template["content"] = "template/home_feed.php";
 
 if(checkLogin($dbh)) {
-    $template["posts"] = $dbh->getPersonalizedHomeFeed($_SESSION["username"], 10 , 0);
+    $template["posts"] = $dbh->getPersonalizedHomeFeed($_SESSION["username"]);
 } else {
-    $template["posts"] = $dbh->getGeneralHomeFeed(null, 10, 0);
+    $template["posts"] = $dbh->getGeneralHomeFeed(null);
 }
 
 require("template/base.php");
