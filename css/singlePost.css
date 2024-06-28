@@ -60,6 +60,11 @@ body>main a{
     justify-content: center;
 }
 
+.imgContainer .previous, .imgContainer .next{
+    font-size: 2rem;
+    margin: 0 0.5rem;
+}
+
 .imgContainer img{
     height: 12rem;
     width: 15rem;
@@ -260,6 +265,11 @@ article.comment footer p{
 }
 
 @media screen and (max-width: 768px) {
+
+    .imgContainer{
+        margin-bottom: 0.5rem;
+    }
+
     .imgContainer img{
         display: none;
     }
@@ -271,7 +281,7 @@ article.comment footer p{
     }
     .imgContainer img.selected{
         display: block;
-        width: 90%;
+        width: 80%;
         height: 15rem;
         margin: 0;
     }

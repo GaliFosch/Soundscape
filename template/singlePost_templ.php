@@ -19,9 +19,11 @@
     ?>
     <section class="imgSection">
         <div class="imgContainer">
+            <em class="fa-solid fa-angle-left previous"></em>
             <?php foreach($imgs as $img):?>
                 <img src="<?php echo $img["PostImage"]; ?>"/>
             <?php endforeach;?>
+            <em class="fa-solid fa-angle-right next"></em>
         </div>
         <footer>
             <?php foreach($imgs as $img):?>
