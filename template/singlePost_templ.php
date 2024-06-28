@@ -70,7 +70,7 @@
                 <p class="author"><a href="profile.php?profile=<?php echo $template["playlist"]["Creator"]; ?>"><?php echo $template["playlist"]["Creator"]; ?></a></p>
                 <p>
                     <?php 
-                        if($template["playlist"]["isAlbum"] === "1"){
+                        if($template["playlist"]["IsAlbum"] === "1"){
                             echo "Album";
                         }else{
                             echo "Playlist";
