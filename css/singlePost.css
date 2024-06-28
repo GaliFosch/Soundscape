@@ -1,32 +1,32 @@
-main{
+body>main{
     display: flex;
     flex-direction: column;
 }
 
-main>header{
+body>main>header{
     padding-top: 2rem;
     display: flex;
     align-items: center;
 }
 
-main>header img{
+body>main>header img{
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
     object-fit: cover;
 }
 
-main>header h2{
+body>main>header h2{
     font-size: 3rem;
     margin-left: 1rem;
 }
 
-main>section>p {
+body>main>section>p {
     font-size: 1.3rem;
     text-align: left;
 }
 
-main a{
+body>main a{
     text-decoration: none;
 }
 
@@ -44,13 +44,13 @@ main a{
 }
 
 .imgSection footer em{
-    opacity: 0.7;
+    color: rgba(255, 255, 255, 0.7);
     margin: 0 0.15rem;
 }
 
 .imgSection footer em.selected{
     font-size: 0.6rem;
-    opacity: 1;
+    color: white;
 }
 
 .imgContainer{
@@ -60,26 +60,36 @@ main a{
     justify-content: center;
 }
 
+.imgContainer .previous, .imgContainer .next{
+    font-size: 3rem;
+}
+
+.imgContainer .previous{
+    margin-right: 0.5rem;
+}
+
+.imgContainer .next{
+    margin-left: 0.5rem;
+}
+
 .imgContainer img{
+    display: none;
     height: 12rem;
     width: 15rem;
     object-fit: contain;
     margin: 0;
-    opacity: 0.7;
-}
-.imgContainer img:first-of-type.selected{
-    margin-left: 15rem;
+    
 }
 
-.imgContainer img:last-of-type.selected{
-    margin-right: 15rem;
+.imgContainer img.selected{
+    display: block;
+    width: 80%;
+    margin: 0;
 }
 
-img.selected{
-    height: 24rem;
-    width: 30rem;
-    opacity: 1;
-    margin: 0 1rem;
+.imgContainer{
+    margin-bottom: 0.5rem;
+    width: 100%;
 }
 
 .trackSection{
@@ -122,11 +132,9 @@ img.selected{
     font-size: 2rem;
 }
 
-
-
 .playlistSection{
     background-color: #E28AB9;
-    width: fit-content;
+    width: 90%;
     align-self: center;
     border-radius: 2rem;
     overflow: hidden;
@@ -137,7 +145,7 @@ img.selected{
 }
 
 .playlistSection img{
-    width: 30rem;
+    width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
@@ -174,10 +182,29 @@ div.likeContainer em{
     color: #E91E63;
 }
 
+#commentFormContainer main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+}
+
+#commentFormContainer main img{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
 #commentForm{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 #commentForm label{
@@ -188,7 +215,7 @@ div.likeContainer em{
     background-color: transparent;
     border: solid white 2px;
     border-radius: 1rem;
-    width: 17rem;
+    width: 100%;
     padding: 1rem;
     font-size: 1rem;
 }
@@ -237,33 +264,49 @@ article.comment p{
 }
 
 article.comment footer p{
-    opacity: 0.7;
+    color: rgba(255, 255, 255, 0.7);
     font-size: 1rem;
     text-align: right;
 }
 
-@media screen and (max-width: 768px) {
-    .imgContainer img{
-        display: none;
-    }
+@media (pointer: fine) {
     .imgContainer img:first-of-type.selected{
-        margin-left: 0;
+        margin-left: 2.39rem;
     }
     .imgContainer img:last-of-type.selected{
-        margin-right: 0;
-    }
-    img.selected{
-        display: block;
-        width: 90%;
-        height: 15rem;
-        margin: 0;
-    }
-
-    .playlistSection{
-        width: 90%
-    }
-
-    .playlistSection img{
-        width: 100%
+        margin-right: 2.39rem;
     }
 }
+
+@media screen and (min-width: 769px) {
+
+    .imgContainer img{
+        display: block;
+        opacity: 0.7;
+    }
+    
+    .imgContainer img.selected{
+        height: 24rem;
+        width: 30rem;
+        opacity: 1;
+        margin: 0 1rem;
+    }
+    
+    .imgContainer img:first-of-type.selected{
+        margin-left: 15rem;
+    }
+    
+    .imgContainer img:last-of-type.selected{
+        margin-right: 15rem;
+    }
+    
+    .playlistSection{
+        width: fit-content;    
+    }
+    
+    .playlistSection img{
+        width: 30rem;
+    } 
+
+}
+
