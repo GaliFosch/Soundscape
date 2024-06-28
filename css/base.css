@@ -61,7 +61,7 @@ nav img {
 
 nav img.menu-profile-image {
     width: 1.5rem;
-    height: auto;
+    height: 1.5rem;
     border-radius: 50%;
     padding: 0;
     object-fit: cover;

@@ -73,10 +73,12 @@ body > main a {
 
 .imgContainer .previous{
     margin-right: 0.5rem;
+    object-fit: cover;
 }
 
 .imgContainer .next{
     margin-left: 0.5rem;
+    object-fit: cover;
 }
 
 .imgContainer img{
@@ -92,6 +94,7 @@ body > main a {
     display: block;
     width: 80%;
     margin: 0;
+    object-fit: cover;
 }
 
 .imgContainer{

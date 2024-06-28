@@ -8,6 +8,7 @@ main {
     margin: 0 0 0 2rem;
     width: 90%;
     justify-self: center;
+    padding-bottom: 4rem;
 }
 
 .timestamp {
