@@ -22,13 +22,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
         })
             .then(response=> response.json())
             .then(data=>{
+                container.style.display = "";
                 if(data.error === 0){
-                    console.log(data)
-                    profileImage.setAttribute("src", data.message);
+                    profileImage.src = data.message;
                 }else{
                     alert("Error:" + data.message);
                 }
-                container.style.display = "";
             })
     })
 })

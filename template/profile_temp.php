@@ -1,6 +1,6 @@
 <main>
     <header>
-        <div id="ProfileImage">
+        <div id="ProfileImageContainer">
             <?php 
                 if (!empty($template["profile"]["ProfileImage"])){
                     $img = $template["profile"]["ProfileImage"];
