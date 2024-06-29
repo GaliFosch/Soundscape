@@ -50,6 +50,7 @@
             <label for="bio" hidden>Biography</label>
             <textarea name="bio" id="bio" placehilder="Write your Biograpy here"></textarea>
             <input type="submit" value="Confirm"/>
+            <button id="bioEditUndo">Cancel</button>
         </form>
         <script src="js/editBiography.js"></script>
     </section>

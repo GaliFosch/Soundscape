@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", ()=>{
     const container = document.getElementById("Biography");
+
     const editButton = document.getElementById("EditBiograpy");
     const editButtonDispl = editButton.style.display;
+    
     const value = container.getElementsByTagName("p")[0];
     const valueDispl = value.style.display;
 
@@ -10,6 +12,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     form.style.display = "none";
 
     const textArea = document.getElementById("bio");
+
     editButton.addEventListener("click", ()=>{
         console.log(value.innerText);
         textArea.innerText = value.innerText;
@@ -37,5 +40,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 editButton.style.display = editButtonDispl;
                 form.style.display = "none";
             })
+    })
+
+    document.getElementById("bioEditUndo").addEventListener("click", ()=>{
+        value.style.display = valueDispl;
+        editButton.style.display = editButtonDispl;
+        form.style.display = "none";
     })
 })
