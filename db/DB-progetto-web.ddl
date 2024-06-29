@@ -31,7 +31,6 @@ create table COMMENT (
      CommentID int not null auto_increment,
      CommentText varchar(500) not null,
      CommentTimestamp Timestamp not null default current_timestamp,
-     Parent int,
      Username varchar(30) not null,
      PostID int not null,
      constraint ID_COMMENT_ID primary key (CommentID));
@@ -44,7 +43,7 @@ create table NOTIFICATION (
      NotificationID int not null auto_increment,
      CommentID int,
      NotificationTimestamp timestamp not null default current_timestamp,
-     Type enum("Follower", "Post", "Post_Interaction", "Reply") not null,
+     Type enum("Follower", "Post", "Like", "Comment") not null,
      Receiver varchar(30) not null,
      TriggeringUser varchar(30) not null,
      PostID int,
@@ -131,10 +130,6 @@ alter table Belonging add constraint EQU_Belon_SINGL_FK
 alter table Belonging add constraint REF_Belon_GENRE
      foreign key (GenreTag)
      references GENRE(GenreTag);
-
-alter table COMMENT add constraint REF_COMME_COMME_FK
-     foreign key (Parent)
-     references COMMENT(CommentID);
 
 alter table COMMENT add constraint REF_COMME_USER_FK
      foreign key (Username)
@@ -224,9 +219,6 @@ create index EQU_Belon_SINGL_IND
 
 create unique index ID_COMMENT_IND
      on COMMENT (CommentID);
-
-create index REF_COMME_COMME_IND
-     on COMMENT (Parent);
 
 create index REF_COMME_USER_IND
      on COMMENT (Username);

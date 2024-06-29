@@ -10,23 +10,23 @@
                     <?php switch($notif["Type"]):
                             case 'Follower': ?>
                                 <h3>New Follower</h3>
-                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> just started following you!<br/> You're becoming famous.</p>
+                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> has just started following you!<br/> You're becoming famous.</p>
                             <?php break; ?>
                             <?php case 'Post':?>
                                 <h3>New Post</h3>
-                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> just published an awesome post!</p>
+                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> has just published an awesome post!</p>
                                 <a href="single_post.php?id=<?php echo $notif["PostID"]?>">Click here to check it out</a>
                             <?php break;?>
-                            <?php case 'Post_Interaction':?>
-                                <h3>Post interaction</h3>
-                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> interacted with one of your post!</p>
-                                <a href="single_post.php?id=<?php echo $notif["PostID"]?>">Click here to check it out</a>
+                            <?php case 'Like':?>
+                                <h3>Like</h3>
+                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> has liked one of your posts!</p>
+                                <a href="single_post.php?id=<?php echo $notif["PostID"]?>">Click here to see the post</a>
                             <?php break;?>
-                            <?php case 'Reply':?>
-                                <h3>New Reply</h3>
-                                <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> replied to one of your comments!</p>
-                                <a href="#">Click here to check it out</a>
-                            <?php break;?>
+                        <?php case 'Comment':?>
+                            <h3>Comment</h3>
+                            <p>The user <a href="profile.php?profile=<?php echo $notif["TriggeringUser"]?>">@<?php echo $notif["TriggeringUser"]?></a> has commented one of your posts!</p>
+                            <a href="single_post.php?id=<?php echo $notif["PostID"]?>">Click here to check it out</a>
+                        <?php break;?>
                     <?php endswitch; ?>
                 </div>
                 <footer>

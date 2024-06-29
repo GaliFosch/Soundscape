@@ -5,7 +5,7 @@
         <?php if ($_GET["error"] == STMT_ERR): ?>
             <p id="error-msg">Error: server error.</p>
         <?php elseif ($_GET["error"] == USER_NOT_FOUND): ?>
-            <p id="error-msg">Error: a user with the entered username does not exist.</p>
+            <p id="error-msg">Error: an user with the entered username does not exist.</p>
         <?php elseif ($_GET["error"] == USER_ACCESS_DISABLED): ?>
             <p id="error-msg">Error: access is temporarily disabled as you have tried to access too many times with the wrong password.</p>
         <?php elseif ($_GET["error"] == WRONG_PASSWORD): ?>
