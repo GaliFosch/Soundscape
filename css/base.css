@@ -254,6 +254,7 @@ main {
         display: grid;
         grid-template-columns: auto auto;
         align-content: center;
+        z-index: 1;
     }
 
     #logout {
