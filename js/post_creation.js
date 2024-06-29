@@ -31,7 +31,16 @@ function checkFileFormat(fileList) {
     return false;
 }
 
-fileInput.addEventListener('change', (event) => {
+function removePreviousImages() {
+  let section = document.querySelector(".selected-image-viewer");
+  if(section!=null) {
+    section.remove();
+  }
+  
+}
+
+fileInput.addEventListener('input', (event) => {
+    removePreviousImages();
     files = event.target.files;
     let fileList = Array.from(files);
   
