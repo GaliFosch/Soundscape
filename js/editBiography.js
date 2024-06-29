@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     const textArea = document.getElementById("bio");
     editButton.addEventListener("click", ()=>{
+        console.log(value.innerText);
         textArea.innerText = value.innerText;
         form.style.display = formDispl;
         value.style.display = "none";
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         })
             .then(respone=> respone.text())
             .then(text=>{
-                if(text === "true"){
+                if(text === "1"){
                     value.innerText = textArea.innerText;
                 }else{
                     alert(text);
