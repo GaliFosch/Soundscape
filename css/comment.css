@@ -150,9 +150,13 @@ article.people-comment, article.people-like {
     margin: 0 0.5rem;
 }
 
-.comment-text>p, .comment-text>a>p {
+.comment-text>p, .comment-text>a>p, .people-like>a>p {
     font-size: 1em;
     text-align: left;
+}
+
+.people-like>a>p {
+    margin-left: 0.5rem;
 }
 
 .timestamp {
@@ -177,7 +181,7 @@ article.people-like {
 
 @media screen and (max-width: 768px) {
 
-    .popover-comment {
+    footer.popover-comment {
         background-color: #323232;
         position: fixed;
         height: -webkit-fill-available;
@@ -187,6 +191,7 @@ article.people-like {
         display: block;
         margin: 0;
         display: flex;
+        overflow-y: scroll;
     }
 
     .comments, .likes {

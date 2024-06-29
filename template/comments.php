@@ -94,11 +94,17 @@ if(checkLogin($dbh)) {
             <?php else: ?>
                 <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
         <?php endif; ?>
-        <p><b><?php echo $creator["Username"]?></b></p>
+        <a href="profile.php?profile=<?php echo $creator["Username"]; ?>" class="redirect">
+                <p><b><?php echo $creator["Username"]?></b></p>
+            </a>
         <?php if($creator["Username"] != $user["Username"]): ?>
-            <em class="fa-solid fa-user-plus"></em>
-            <em class="fa-solid fa-user-check"></em>
+             <?php if($dbh->isFollowing($_SESSION["username"], $creator["Username"])):?>
+                    <button id="follow - <?php echo $creator['Username']?>" type="button"><em id="follow" class="fa-solid fa-user-check"></em></button>
+                <?php else:?>
+                    <button id="follow - <?php echo $creator['Username']?>" type="button"><em id="follow" class="fa-solid fa-user-plus"></em></button>
+                <?php endif?>
         <?php endif; ?>
     </article>
     <?php endforeach; ?>
 </div>
+<script src="js/index.js"></script>
