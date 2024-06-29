@@ -7,10 +7,12 @@ if(!checkLogin($dbh)){
 }elseif(!empty($_FILES["img"])){
     $img = uploadImage("img");
     if($img != false){
+        $oldImage = $dbh->getUserByUsername($_SESSION["username"])["ProfileImage"];
         $queryResult = $dbh->setProfileImage($_SESSION["username"], $img);
         if($queryResult){
             $result["message"] = $dbh->getUserByUsername($_SESSION["username"])["ProfileImage"];
             $result["error"] = 0;
+            unlink($oldImage);
         }else{
             $result["message"] = "Query failed";
             $result["error"] = 1;
