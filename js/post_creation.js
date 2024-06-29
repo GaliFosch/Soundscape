@@ -74,8 +74,7 @@ fileInput.addEventListener('input', (event) => {
           inner.appendChild(img);
           inner.appendChild(em);
           section.appendChild(inner);
-            
-          console.log(element);
+
           // Store the file information in the fileInfo object
           fileInfo[element.name] = {
             file: element,
@@ -83,8 +82,6 @@ fileInput.addEventListener('input', (event) => {
             img: img,
             em: em
           };
-
-          console.log(fileInfo);
   
           em.addEventListener("click", () => {
             // Remove the file from the fileInfo object

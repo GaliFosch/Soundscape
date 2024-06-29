@@ -6,6 +6,7 @@ const USER_ACCESS_DISABLED = 3;
 const WRONG_PASSWORD = 4;
 
 const ALL = PHP_INT_MAX;
+const NONE = "";
 
 class DatabaseHelper {
 
@@ -339,15 +340,21 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLatestTracks($nToShow = ALL, $nToSkip = 0) {
-        $query = "SELECT * 
-                  FROM single_track
-                  ORDER BY CreationDate DESC";
-        if ($nToShow != ALL) {
-            $query .= " LIMIT ?, ?";
-        }
-        $stmt = $this->db->prepare($query);
-        if ($nToShow != ALL) {
+    public function getLatestTracks($nToShow = ALL, $nToSkip = 0, $logged_user = NONE) {
+        if ($logged_user != NONE) {
+            $query = "SELECT * 
+                      FROM single_track
+                      WHERE Creator != ?
+                      ORDER BY CreationDate DESC
+                      LIMIT ?, ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("sii",  $logged_user, $nToSkip, $nToShow);
+        } else {
+            $query = "SELECT * 
+                      FROM single_track
+                      ORDER BY CreationDate DESC
+                      LIMIT ?, ?";
+            $stmt = $this->db->prepare($query);
             $stmt->bind_param("ii",  $nToSkip,$nToShow);
         }
         $stmt->execute();
@@ -372,14 +379,25 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLatestAlbums($nToShow, $nToSkip = 0) {
-        $query = "SELECT * 
+    public function getLatestAlbums($nToShow, $nToSkip = 0, $logged_user = NONE) {
+        if ($logged_user != NONE) {
+            $query = "SELECT * 
+                  FROM playlist
+                  WHERE isAlbum = true
+                    AND Creator != ?
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?, ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("sii",  $logged_user, $nToSkip, $nToShow);
+        } else {
+            $query = "SELECT * 
                   FROM playlist
                   WHERE isAlbum = true
                   ORDER BY CreationDate DESC 
                   LIMIT ?, ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ii', $nToSkip,$nToShow);
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $nToSkip,$nToShow);
+        }
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
@@ -402,14 +420,25 @@ class DatabaseHelper {
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getLatestPlaylists($nToShow, $nToSkip = 0) {
-        $query = "SELECT *
+    public function getLatestPlaylists($nToShow, $nToSkip = 0, $logged_user = NONE) {
+        if ($logged_user != NONE) {
+            $query = "SELECT *
+                  FROM playlist
+                  WHERE isAlbum = false
+                    AND Creator != ?
+                  ORDER BY CreationDate DESC 
+                  LIMIT ?, ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("sii",  $logged_user, $nToSkip, $nToShow);
+        } else {
+            $query = "SELECT *
                   FROM playlist
                   WHERE isAlbum = false
                   ORDER BY CreationDate DESC 
                   LIMIT ?, ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param('ii', $nToSkip, $nToShow);
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ii', $nToSkip, $nToShow);
+        }
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }

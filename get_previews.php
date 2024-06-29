@@ -28,7 +28,11 @@ switch ($preview_type) {
         if ($show_user_items) {
             $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"], $previews_to_show);
         } else {
-            $tracks = $dbh->getLatestTracks($previews_to_show, $previews_to_skip);
+            if (isset($_SESSION["username"])) {
+                $tracks = $dbh->getLatestTracks($previews_to_show, $previews_to_skip, $_SESSION["username"]);
+            } else {
+                $tracks = $dbh->getLatestTracks($previews_to_show, $previews_to_skip);
+            }
         }
         foreach ($tracks as $track) {
             $preview["title"] = $track["Name"];
@@ -45,7 +49,11 @@ switch ($preview_type) {
         if ($show_user_items) {
             $albums = $dbh->getUserLatestAlbums($template["profile"]["Username"], $previews_to_show);
         } else {
-            $albums = $dbh->getLatestAlbums($previews_to_show, $previews_to_skip);
+            if (isset($_SESSION["username"])) {
+                $albums = $dbh->getLatestAlbums($previews_to_show, $previews_to_skip, $_SESSION["username"]);
+            } else {
+                $albums = $dbh->getLatestAlbums($previews_to_show, $previews_to_skip);
+            }
         }
         foreach ($albums as $album) {
             $preview["title"] = $album["Name"];
@@ -62,7 +70,11 @@ switch ($preview_type) {
         if ($show_user_items) {
             $playlists = $dbh->getUserLatestPlaylists($template["profile"]["Username"], $previews_to_show);
         } else {
-            $playlists = $dbh->getLatestPlaylists($previews_to_show, $previews_to_skip);
+            if (isset($_SESSION["username"])) {
+                $playlists = $dbh->getLatestPlaylists($previews_to_show, $previews_to_skip, $_SESSION["username"]);
+            } else {
+                $playlists = $dbh->getLatestPlaylists($previews_to_show, $previews_to_skip);
+            }
         }
         foreach ($playlists as $playlist) {
             $preview["title"] = $playlist["Name"];

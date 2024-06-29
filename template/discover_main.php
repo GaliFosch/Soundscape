@@ -131,7 +131,13 @@
     <?php else: ?>
         <section class="discover-section">
             <h2>New tracks</h2>
-            <?php $tracks = $dbh->getLatestTracks($nPreviewsToShow); ?>
+            <?php
+                if (isset($_SESSION["username"])) {
+                    $tracks = $dbh->getLatestTracks($nPreviewsToShow, 0, $_SESSION["username"]);
+                } else {
+                    $tracks = $dbh->getLatestTracks($nPreviewsToShow);
+                }
+            ?>
             <?php if (count($tracks) != 0): ?>
                 <?php foreach ($tracks as $track): ?>
                     <section class="preview">
@@ -161,7 +167,13 @@
         </section>
         <section class="discover-section">
             <h2>New albums</h2>
-            <?php $albums = $dbh->getLatestAlbums($nPreviewsToShow); ?>
+            <?php
+                if (isset($_SESSION["username"])) {
+                    $albums = $dbh->getLatestAlbums($nPreviewsToShow, 0, $_SESSION["username"]);
+                } else {
+                    $albums = $dbh->getLatestAlbums($nPreviewsToShow);
+                }
+            ?>
             <?php if (count($albums) != 0): ?>
                 <?php foreach ($albums as $album): ?>
                     <section class="preview">
@@ -191,7 +203,13 @@
         </section>
         <section class="discover-section">
             <h2>New playlists</h2>
-            <?php $playlists = $dbh->getLatestPlaylists($nPreviewsToShow); ?>
+            <?php
+                if (isset($_SESSION["username"])) {
+                    $playlists = $dbh->getLatestPlaylists($nPreviewsToShow, 0, $_SESSION["username"]);
+                } else {
+                    $playlists = $dbh->getLatestPlaylists($nPreviewsToShow);
+                }
+            ?>
             <?php if (count($playlists) != 0): ?>
                 <?php foreach ($playlists as $playlist): ?>
                     <section class="preview">
