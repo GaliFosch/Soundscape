@@ -27,8 +27,10 @@
             <form action="#">
                 <label for="img">Insert your new profile image</label>
                 <input type="file" name="img" id="NewImg" accept="img/*"/>
-                <input type="submit" value="Confirm">
-                <button id="UndoImgEdit">Cancel</button>
+                <div>
+                    <input type="submit" value="Confirm">
+                    <button id="UndoImgEdit">Cancel</button>
+                </div>
             </form>
         </div>
     <?php endif;?>
