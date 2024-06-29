@@ -19,6 +19,22 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     form.addEventListener("submit", (event)=>{
         event.preventDefault();
-        
+        const formData = new FormData(this);
+
+        fetch("process_edit_profile.php",{
+            method: 'POST',
+            body: formData
+        })
+            .then(respone=> respone.text())
+            .then(text=>{
+                if(text === "true"){
+                    value.innerText = textArea.innerText;
+                }else{
+                    alert("Error: we couldn't update your biography. Retry later.")
+                }
+                value.style.display = valueDispl;
+                editButton.style.display = editButtonDispl;
+                form.style.display = "none";
+            })
     })
 })
