@@ -956,4 +956,13 @@ class DatabaseHelper {
         return $postID;
     }
 
+    public function setBiography($username, $biography){
+        $query = "UPDATE user
+                SET Biography = ?
+                WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $bind);
+        return $stmt->execute();
+    }
+
 }
