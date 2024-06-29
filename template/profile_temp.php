@@ -9,7 +9,7 @@
                 }
 
             ?>
-            <img src="<?php echo $img?>" 
+            <img id="ProfileImage" src="<?php echo $img?>" 
                 <?php
                     if($template["isProfileLogged"]){
                         echo "class = \"showEditButton\"";

@@ -6,7 +6,7 @@ if(!checkLogin($dbh)){
     $result["error"] = 1;
 }elseif(!empty($_FILES["img"])){
     $img = uploadImage("img");
-    if($img === false){
+    if($img != false){
         $queryResult = $dbh->setProfileImage($_SESSION["username"], $img);
         if($queryResult){
             $result["message"] = $dbh->getUserByUsername($_SESSION["username"])["ProfileImage"];

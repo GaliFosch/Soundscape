@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 if(data.error === 0){
                     value.innerText = data.message;
                 }else{
-                    alert("Error:" . data.message);
+                    alert("Error:" + data.message);
                 }
                 value.style.display = valueDispl;
                 editButton.style.display = editButtonDispl;
