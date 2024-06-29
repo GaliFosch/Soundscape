@@ -22,6 +22,16 @@
         </div>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
+    <?php if($template["isProfileLogged"]):?>
+        <div id="ImageEditForm">
+            <form action="#">
+                <label for="img">Insert your new profile image</label>
+                <input type="file" name="img" id="NewImg" accept="img/*"/>
+                <input type="submit" value="Confirm">
+                <button id="UndoImgEdit">Cancel</button>
+            </form>
+        </div>
+    <?php endif;?>
     <?php if(!$template["isProfileLogged"]):?>
         <?php if($template["isUserLogged"]):?>
             <div>
