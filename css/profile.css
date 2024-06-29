@@ -24,6 +24,10 @@ header h2{
     align-items: center;
 }
 
+#ProfileImage img.showEditButton{
+    margin-left: 2.8rem;
+}
+
 #EditProfileImage{
     position: relative;
     right: 3rem;
@@ -33,7 +37,7 @@ header h2{
     font-size: 1.5rem;
     padding: 0.5rem;
     border-radius: 50%;
-    border: 5px solid #323232;
+    border: 0.3rem solid #323232;
 }
 
 main {

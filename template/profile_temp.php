@@ -3,12 +3,22 @@
         <div id="ProfileImage">
             <?php 
                 if (!empty($template["profile"]["ProfileImage"])){
-                    echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" />";
+                    $img = $template["profile"]["ProfileImage"];
                 } else {
-                    echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
+                    $img = "images/placeholder-image.jpg";
                 }
+
             ?>
-            <em id="EditProfileImage" class="fa-solid fa-pencil"></em>
+            <img src="<?php echo $img?>" 
+                <?php
+                    if($template["isProfileLogged"]){
+                        echo "class = \"showEditButton\"";
+                    }
+                ?>
+                alt="Profile Image"/>
+            <?php if($template["isProfileLogged"]):?>
+                <em id="EditProfileImage" class="fa-solid fa-pencil"></em>
+            <?php endif;?>
         </div>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
