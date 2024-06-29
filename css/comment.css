@@ -150,9 +150,13 @@ article.people-comment, article.people-like {
     margin: 0 0.5rem;
 }
 
-.comment-text>p, .comment-text>a>p {
+.comment-text>p, .comment-text>a>p, .people-like>a>p {
     font-size: 1em;
     text-align: left;
+}
+
+.people-like>a>p {
+    margin-left: 0.5rem;
 }
 
 .timestamp {

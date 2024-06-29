@@ -66,7 +66,7 @@ function postProcedure() {
 
 function followProcedure(){
   let follows =  document.querySelectorAll('[id^="follow -"]');
-  console.log(follows);
+
   follows.forEach((follow) => {
     follow.addEventListener("click", ()=> {
       let str = follow.id;
@@ -74,7 +74,7 @@ function followProcedure(){
       if (str !== "") {
         let parts = str.split(" - ");
         target = parts[1];
-        console.log(target);
+
       }
       let em = follow.querySelector("#follow");
       let req = new XMLHttpRequest()
