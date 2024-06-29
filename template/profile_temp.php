@@ -174,6 +174,12 @@
         </div>
     </section>
     <section id="posts-section">
+        <header class="section-header">
+            <h3 class="section-title">Best Posts</h3>
+            <?php if (count($playlists) != 0): ?>
+                <div class="show-all-btn-container"><a href="list.php?t=posts&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
+            <?php endif; ?>
+        </header>
         <?php require("post_template.php"); ?>
     </section>
 </main>
