@@ -41,10 +41,17 @@
     <section id="Biography">
         <header>
             <h3>Biography</h3>
+            <button id="EditBiograpy">Edit</button>
         </header>
         <p>
             <?php echo $template["profile"]["Biography"]?>
         </p>
+        <form action="#" id="BiographyForm">
+            <label for="bio" hidden>Biography</label>
+            <textarea name="bio" id="bio" placehilder="Write your Biograpy here"></textarea>
+            <input type="submit" value="Confirm"/>
+        </form>
+        <script src="js/editBiography.js"></script>
     </section>
     <section id="tracks-section">
         <?php $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5); ?>
