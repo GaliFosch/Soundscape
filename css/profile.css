@@ -165,6 +165,7 @@ main {
     word-break: break-all;
     overflow: hidden;
     margin-top: 1rem;
+    font-size: 1rem;
 }
 
 #Biography form{
@@ -192,7 +193,7 @@ main > section {
     margin-top: 1.5rem;
 }
 
-main > section p {
+main > section:not(#posts-section) p {
     text-align: left;
     margin-top: 2rem;
     color: rgba(255, 255, 255, 0.7);
@@ -213,12 +214,12 @@ main>section a{
     text-decoration: none;
 }
 
-main>section article{
+main>section article:not(.post-article){
     display: inline-block;
     width: 9rem;
     height: 10rem;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
+    background-color: transparent;
 }
 
 main>section article img{
