@@ -133,16 +133,17 @@ main>section article img{
     margin-bottom: 0;
 }
 
-main>section article h4 {
-    margin-top: 0.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 0;
+main>section article header {
+    margin: 0.5rem 1rem 0;
     width: 7rem;
     white-space: nowrap;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
+}
+
+main > section article h4 {
+    overflow-wrap: break-word;
 }
 
 article.post{
@@ -152,7 +153,7 @@ article.post{
     margin-top: 0.5rem;
 }
 
-article.post h4{
+article.post header {
     margin-top: 0.5rem;
     margin-left: 0;
     padding-left: 1rem;
@@ -161,7 +162,7 @@ article.post h4{
     width:100%;
 }
 
-article.post h4 img{
+article.post header img{
     margin-top: 0;
     margin-left: 0;
     margin-right: 0.5rem;
@@ -171,10 +172,10 @@ article.post h4 img{
     border-radius: 50%;
 }
 
-article.post h4 p{
+article.post header h4 {
     display: inline-block;
     vertical-align: middle;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -185,7 +186,7 @@ article.post>p{
     margin-top: 0.5rem;
 }
 
-section.music-box{
+.music-box{
     height: 6rem;
     width: 90%;
     margin-left: 5%;
@@ -195,44 +196,44 @@ section.music-box{
     align-items: center;
 }
 
-section.music-box>*{
+.music-box>*{
     margin-top: 0;
 }
 
-section.music-box img{
+.music-box img{
     height: 4rem;
     width: 4rem;
-    border-radius: 0%;
+    border-radius: 0;
 }
 
-section.music-box>section {
+.music-box > .music-info {
     display: inline-block;
     vertical-align: middle;
     margin-left: 0.5rem;
     text-align: left;
 }
 
-section.music-box>section header{
+.music-box>section header{
     font-size: 1.3rem;
 }
 
-section.music-box>section p{
+.music-box>section p{
     margin: 0;
     font-size: 1rem;
 }
 
-section.music-box a{
+.music-box a{
     align-self: center;
     margin-left: auto;
     margin-right: 1rem;
 }
 
-section.music-box a em{
+.music-box a em{
     font-size: 2rem;
     color: #000;
 }
 
-section.post-interaction{
+.post-interaction{
     margin-top: 0.5rem;
     margin-right: 1rem;
     font-size: 1.5rem;
@@ -240,7 +241,7 @@ section.post-interaction{
     justify-content: flex-end;
 }
 
-section.post-interaction a{
+.post-interaction a{
     margin-left: auto;
 }
 

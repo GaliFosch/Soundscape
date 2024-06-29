@@ -43,7 +43,7 @@ BEGIN
                 LIMIT 1);
     IF rec != NEW.username THEN
 		INSERT INTO notification (Receiver, Type, TriggeringUser, PostID) 
-		VALUES (rec, 'Post_Interaction', NEW.Username, NEW.PostID);
+		VALUES (rec, 'Like', NEW.Username, NEW.PostID);
     END IF;
 END //
 
@@ -58,24 +58,7 @@ BEGIN
                 LIMIT 1);
     IF rec != NEW.username THEN
         INSERT INTO notification (Receiver, Type, TriggeringUser, PostID) 
-        VALUES (rec, 'Post_Interaction', NEW.Username, NEW.PostID);
-    END IF;
-END //
-
-CREATE TRIGGER notif_after_reply_comment
-AFTER INSERT ON comment
-FOR EACH ROW
-BEGIN
-	DECLARE rec VARCHAR(30);
-	IF NEW.Parent IS NOT NULL THEN
-		SET rec = (SELECT username
-					FROM comment
-					WHERE CommentID = NEW.Parent
-					LIMIT 1);
-        IF rec != NEW.username THEN
-            INSERT INTO notification (Receiver, Type, TriggeringUser, CommentID) 
-            VALUES (rec, 'Reply', NEW.Username, NEW.CommentID);
-        END IF;
+        VALUES (rec, 'Comment', NEW.Username, NEW.PostID);
     END IF;
 END //
 
