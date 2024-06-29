@@ -41,20 +41,24 @@
     <section id="Biography">
         <header>
             <h3>Biography</h3>
-            <button id="EditBiograpy">Edit</button>
+            <?php if($template["isProfileLogged"]):?>
+                <button id="EditBiograpy">Edit</button>
+            <?php endif?>
         </header>
         <p>
             <?php echo $template["profile"]["Biography"]?>
         </p>
-        <form action="#" id="BiographyForm">
-            <label for="bio" hidden>Biography</label>
-            <textarea name="bio" id="bio" placehilder="Write your Biograpy here"></textarea>
-            <div>
-                <input type="submit" value="Confirm"/>
-                <button id="bioEditUndo">Cancel</button>
-            </div>
-        </form>
-        <script src="js/editBiography.js"></script>
+        <?php if($template["isProfileLogged"]):?>
+            <form action="#" id="BiographyForm">
+                <label for="bio" hidden>Biography</label>
+                <textarea name="bio" id="bio" placehilder="Write your Biograpy here"></textarea>
+                <div>
+                    <input type="submit" value="Confirm"/>
+                    <button id="bioEditUndo">Cancel</button>
+                </div>
+            </form>
+            <script src="js/editBiography.js"></script>
+        <?php endif?>
     </section>
     <section id="tracks-section">
         <?php $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5); ?>
