@@ -63,9 +63,9 @@
             <section class="playlistSection">
                 <a href="playlist.php?id=<?php echo $playlist["PlaylistID"];?>">
                     <?php if(empty($playlist["CoverImage"])): ?>
-                        <img class="picture" src="images/placeholder-image.jpg" alt="User profile image"/>
+                        <img class="cover-image" src="images/placeholder-image.jpg" alt="User profile image"/>
                     <?php else: ?>
-                        <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="User profile image"/>
+                        <img class="cover-image" src="<?php echo $playlist["CoverImage"]; ?>" alt="User profile image"/>
                     <?php endif;?>
                 </a>
                 <div class="playlist-info">
@@ -86,7 +86,7 @@
             </section>
         <?php endif; ?>
 
-        <section class="post-interaction">
+        <div class="post-interaction">
             <em class="fa-regular fa-message fa-fw"></em>
             <?php if(checkLogin($dbh)): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
@@ -97,7 +97,8 @@
             <?php else: ?>
                 <em class="fa-regular fa-heart fa-fw article"></em>
             <?php endif; ?>
-        </section>
+        </div>
+
     </article>
 <?php endforeach; ?>
 
