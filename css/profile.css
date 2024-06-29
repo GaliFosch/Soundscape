@@ -79,6 +79,12 @@ form button, form input[type="submit"]{
     align-items: center;
 }
 
+#ImageEditForm form *{
+    margin-bottom: 1rem;
+}
+
+
+
 main {
     padding-bottom: 2rem;
 }
