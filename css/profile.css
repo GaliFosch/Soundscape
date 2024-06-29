@@ -163,6 +163,15 @@ article.post header {
     width:100%;
 }
 
+article.post > .music-box > .music-info > header {
+    padding: 0;
+}
+
+.music-info p{
+    margin-top: 0;
+}
+
+
 article.post header img{
     margin-top: 0;
     margin-left: 0;
