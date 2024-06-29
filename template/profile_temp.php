@@ -7,6 +7,7 @@
                 echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
             }
         ?>
+        <em class="fa-solid fa-pencil post-creation"></em>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
     <?php if(!$template["isProfileLogged"]):?>
