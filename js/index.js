@@ -64,34 +64,41 @@ function postProcedure() {
 
 }
 
-function followProcedure(follow){
-  let str = follow.id;
-  let target;
-  if (str !== "") {
-    let parts = str.split(" - ");
-    target = parts[1];
-  }
-  let req = new XMLHttpRequest()
-  if(follow.classList.contains("fa-user-plus")){
-      req.onload = function() {
-          if(req.responseText === "true"){
-              follow.classList.remove("fa-user-plus")
-              follow.classList.add("fa-user-check")
-          }
+function followProcedure(){
+  let follows =  document.querySelectorAll('[id^="follow -"]');
+  console.log(follows);
+  follows.forEach((follow) => {
+    follow.addEventListener("click", ()=> {
+      let str = follow.id;
+      let target;
+      if (str !== "") {
+        let parts = str.split(" - ");
+        target = parts[1];
+        console.log(target);
       }
-      req.open("GET", "process_follow.php?target=" + target)
-      req.send()
-  }else{
-      req.onload = function() {
-          if(req.responseText === "true"){
-            console.log("yehaw")
-              follow.classList.remove("fa-user-check")
-              follow.classList.add("fa-user-plus")
+      let em = follow.querySelector("#follow");
+      let req = new XMLHttpRequest()
+      if(em.classList.contains("fa-user-plus")){
+          req.onload = function() {
+              if(req.responseText === "true"){
+                  em.classList.remove("fa-user-plus")
+                  em.classList.add("fa-user-check")
+              }
           }
+          req.open("GET", "process_follow.php?target=" + target)
+          req.send()
+      }else{
+          req.onload = function() {
+              if(req.responseText === "true"){
+                  em.classList.remove("fa-user-check")
+                  em.classList.add("fa-user-plus")
+              }
+          }
+          req.open("GET", "process_unfollow.php?target=" + target)
+          req.send()
       }
-      req.open("GET", "process_unfollow.php?target=" + target)
-      req.send()
-  }
+    })
+  });
 }
 
 //This code deals with footer
@@ -169,6 +176,7 @@ function interactionViewerChanger() {
   like.addEventListener("click", () => {
     commentDiv.style.display="none";
     likeDiv.style.display="block";
+    followProcedure();
   })
 };
 
@@ -206,40 +214,6 @@ function getSectionAbove(queryPostID) {
       }
     }
 }
-
-/*
-window.addEventListener("scroll", () =>{
-  const endOfPage = window.innerHeight + window.scrollY >= document.body.scrollHeight-1;
-  console.log(endOfPage)
-  if (endOfPage) {
-    onShowMore();
-    postProcedure();
-    commentProcedure();
-    likeProcedure();
-  }
-});
-
-function onShowMore() {
-  let toShowCount = 10;
-  const request = new XMLHttpRequest()
-    request.open(
-        "GET",
-        "process_feed.php?show=" + toShowCount + "&skip=" + shownCount,
-        true
-    );
-    request.onreadystatechange = function() {
-        if ((this.readyState === 4) && (this.status === 200)) {
-          let section = document.createElement("section");
-          section.classList.add = "feed";
-          section.innerHTML = this.responseText;
-          let main = document.querySelector("main");
-          main.appendChild(section);
-        }
-    }
-    request.send();
-    shownCount += toShowCount;
-}
-*/
 
 window.onload = () => {
   postProcedure();
