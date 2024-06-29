@@ -1,4 +1,4 @@
-const form = document.getElementById("createTrack");
+const form = document.getElementById("new-resource-form");
 const genrelist = document.getElementById("GenreList");
 const selected = document.getElementById("Selected");
 const notSelected = document.getElementById("NotSelected");
