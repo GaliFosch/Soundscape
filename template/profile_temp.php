@@ -25,9 +25,9 @@
     </header>
     <?php if($template["isProfileLogged"]):?>
         <div id="ImageEditContainer">
-            <form action="#" id="ImageEditForm">
+            <form action="#" id="ImageEditForm" enctype="multipart/form-data">
                 <label for="img">Insert your new profile image</label>
-                <input type="file" name="img" id="NewImg" accept="img/*"/>
+                <input type="file" name="img" id="NewImg" accept="img/*" required/>
                 <div>
                     <input type="submit" value="Confirm">
                     <button id="UndoImgEdit">Cancel</button>
@@ -77,7 +77,7 @@
         <?php if($template["isProfileLogged"]):?>
             <form action="#" id="BiographyForm">
                 <label for="bio" hidden>Biography</label>
-                <textarea name="bio" id="bio" placehilder="Write your Biograpy here"></textarea>
+                <textarea name="bio" id="bio" placehilder="Write your Biograpy here" required></textarea>
                 <div>
                     <input type="submit" value="Confirm"/>
                     <button id="bioEditUndo">Cancel</button>
