@@ -397,11 +397,6 @@ article.post>p{
         margin-right: 0;
     }
 
-    /*da rimuovere*/
-    #ImageEditContainer{
-        display: block;
-    }
-
     #ImageEditContainer form{
         width:100%;
         height: 90%;
