@@ -82,11 +82,57 @@ main {
     font-weight: bold;
 }
 
+#Biography header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#Biography header h3{
+    margin-top: 0;
+}
+
+#Biography button, #Biography form input[type="submit"]{
+    margin-left: auto;
+    margin-right: 25%;
+    color: black;
+    background-color: #E28AB9;
+    border-style: none;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem;
+}
+
 #Biography p {
     text-align: left;
     white-space: normal;
     word-break: break-all;
     overflow: hidden;
+    margin-top: 1rem;
+}
+
+#Biography form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 25%;
+}
+
+#Biography form textarea{
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 1rem;
+    padding-left: 0.5rem;
+}
+
+#Biography div{
+    margin-top: 0.5rem;
+}
+
+#Biography form button, #Biography form input[type="submit"]{
+    margin-right: 0;
 }
 
 main > section {
@@ -292,6 +338,10 @@ article.post>p{
 
     .section-title {
         width: 60%;
+    }
+
+    #Biography header button, #Biography form{
+        margin-right: 0;
     }
 
 }
