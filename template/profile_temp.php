@@ -174,55 +174,6 @@
         </div>
     </section>
     <section id="posts-section">
-        <?php $bestPosts = $dbh->getBestUserPosts($template["profile"]["Username"],5); ?>
-        <header class="section-header">
-            <h3 class="section-title">Posts</h3>
-            <?php if (count($bestPosts) != 0): ?>
-                <div class="show-all-btn-container"><a href="list.php?t=posts&profile=<?php echo $template["profile"]["Username"]; ?>">Show All</a></div>
-            <?php endif; ?>
-        </header>
-        <?php if (count($bestPosts) != 0): ?>
-            <?php foreach ($bestPosts as $post): ?>
-                <article class="post">
-                    <?php $user = $template["profile"]; ?>
-                    <!--Utente e foto utente-->
-                    <header>
-                        <?php if ($user["ProfileImage"] != null): ?>
-                            <img src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
-                        <?php else: ?>
-                            <img src="images/placeholder-image.jpg" alt="User profile image"/>
-                        <?php endif; ?>
-                        <h4><?php echo $user["Username"]; ?></h4>
-                    </header>
-                    <!--Post caption-->
-                    <p post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
-                    <!--Outer section of music box-->
-                    <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
-                    <?php if ($track != null): ?>
-                        <div class="music-box">
-                            <?php if ($track["CoverImage"] != null): ?>
-                                <img src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
-                            <?php else: ?>
-                                <img src="images/placeholder-image.jpg" alt="Song cover image"/>
-                            <?php endif; ?>
-                            <!--Inner section delle info della music-->
-                            <div class="music-info">
-                                <header><strong><?php echo $track["Name"]; ?></strong></header>
-                                <p><?php echo $track["Creator"]; ?></p>
-                            </div>
-                            <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
-                                <em class="fa-solid fa-play"></em>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                    <div class="post-interaction">
-                        <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
-                        <em class="fa-regular fa-heart fa-fw"></em>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No published posts yet.</p>
-        <?php endif; ?>
+        <?php require("post_template.php"); ?>
     </section>
 </main>
