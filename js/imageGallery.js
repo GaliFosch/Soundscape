@@ -40,6 +40,7 @@ for(let t = 0; t<galleries.length; t++){
     const dots = Array.from(galleries[t].getElementsByTagName("footer")[0].getElementsByClassName("dot"));
     const previous = container.getElementsByClassName("previous")[0];
     const next = container.getElementsByClassName("next")[0];
+
     if(imgs.length>0){
         imgs[0].classList.add(selected);
         dots[0].classList.add(selected);
