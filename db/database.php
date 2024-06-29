@@ -985,4 +985,22 @@ class DatabaseHelper {
         return $postID;
     }
 
+    public function setBiography($username, $biography){
+        $query = "UPDATE user
+                SET Biography = ?
+                WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $biography, $username);
+        return $stmt->execute();
+    }
+
+    public function setProfileImage($username, $img){
+        $query = "UPDATE user
+                SET ProfileImage = ?
+                WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $img, $username);
+        return $stmt->execute();
+    }
+
 }

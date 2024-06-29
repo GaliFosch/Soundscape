@@ -1,14 +1,40 @@
 <main>
     <header>
-        <?php 
-            if (!empty($template["profile"]["ProfileImage"])){
-                echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" />";
-            } else {
-                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
-            }
-        ?>
+        <div class = "profileImageContainer">
+            <?php 
+                if (!empty($template["profile"]["ProfileImage"])){
+                    $img = $template["profile"]["ProfileImage"];
+                } else {
+                    $img = "images/placeholder-image.jpg";
+                }
+
+            ?>
+            <img id="ProfileImage" src="<?php echo $img?>" 
+                <?php
+                    if($template["isProfileLogged"]){
+                        echo "class = \"showEditButton\"";
+                    }
+                ?>
+                alt="Profile Image"/>
+            <?php if($template["isProfileLogged"]):?>
+                <em id="EditProfileImage" class="fa-solid fa-pencil"></em>
+                <script src="js/editProfileImage.js"></script>
+            <?php endif;?>
+        </div>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
+    <?php if($template["isProfileLogged"]):?>
+        <div id="ImageEditContainer">
+            <form action="#" id="ImageEditForm" enctype="multipart/form-data">
+                <label for="img">Insert your new profile image</label>
+                <input type="file" name="img" id="NewImg" accept="img/*" required/>
+                <div>
+                    <input type="submit" value="Confirm">
+                    <button id="UndoImgEdit">Cancel</button>
+                </div>
+            </form>
+        </div>
+    <?php endif;?>
     <?php if(!$template["isProfileLogged"]):?>
         <?php if($template["isUserLogged"]):?>
             <div>
@@ -41,10 +67,24 @@
     <section id="Biography">
         <header>
             <h3>Biography</h3>
+            <?php if($template["isProfileLogged"]):?>
+                <button id="EditBiograpy">Edit</button>
+            <?php endif?>
         </header>
         <p>
             <?php echo $template["profile"]["Biography"]?>
         </p>
+        <?php if($template["isProfileLogged"]):?>
+            <form action="#" id="BiographyForm">
+                <label for="bio" hidden>Biography</label>
+                <textarea name="bio" id="bio" placehilder="Write your Biograpy here" required></textarea>
+                <div>
+                    <input type="submit" value="Confirm"/>
+                    <button id="bioEditUndo">Cancel</button>
+                </div>
+            </form>
+            <script src="js/editBiography.js"></script>
+        <?php endif?>
     </section>
     <section id="tracks-section">
         <?php $tracks = $dbh->getUserLatestTracks($template["profile"]["Username"],5); ?>
