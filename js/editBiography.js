@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         console.log(value.innerText);
         textArea.innerText = value.innerText;
         form.style.display = formDispl;
+        textArea.select();
         value.style.display = "none";
         editButton.style.display = "none";
     })
