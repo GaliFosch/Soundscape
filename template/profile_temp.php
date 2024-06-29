@@ -143,21 +143,21 @@
         </header>
         <?php if (count($bestPosts) != 0): ?>
             <?php foreach ($bestPosts as $post): ?>
-                <article class = "post">
+                <article class="post">
                     <?php $user = $template["profile"]; ?>
                     <!--Utente e foto utente-->
-                    <h4>
+                    <header>
                         <?php if ($user["ProfileImage"] != null): ?>
                             <img src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                         <?php else: ?>
                             <img src="images/placeholder-image.jpg" alt="User profile image"/>
                         <?php endif; ?>
-                        <p><?php echo $user["Username"]; ?></p>
-                    </h4>
+                        <h4><?php echo $user["Username"]; ?></h4>
+                    </header>
                     <!--Post caption-->
                     <p post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
                     <!--Outer section of music box-->
-                    <section class = "music-box">
+                    <div class="music-box">
                         <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
                         <?php if ($track != null): ?>
                             <?php if ($track["CoverImage"] != null): ?>
@@ -166,19 +166,19 @@
                                 <img src="images/placeholder-image.jpg" alt="Song cover image"/>
                             <?php endif; ?>
                             <!--Inner section delle info della music-->
-                            <section>
+                            <div class="music-info">
                                 <header><strong><?php echo $track["Name"]; ?></strong></header>
                                 <p><?php echo $track["Creator"]; ?></p>
-                            </section>
+                            </div>
                             <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
                                 <em class="fa-solid fa-play"></em>
                             </a>
                         <?php endif; ?>
-                    </section>
-                    <section class="post-interaction">
+                    </div>
+                    <div class="post-interaction">
                         <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
                         <em class="fa-regular fa-heart fa-fw"></em>
-                    </section>
+                    </div>
                 </article>
             <?php endforeach; ?>
         <?php else: ?>
