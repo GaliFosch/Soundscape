@@ -965,4 +965,13 @@ class DatabaseHelper {
         return $stmt->execute();
     }
 
+    public function setProfileImage($username, $img){
+        $query = "UPDATE user
+                SET ProfileImage = ?
+                WHERE Username = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $img, $username);
+        return $stmt->execute();
+    }
+
 }
