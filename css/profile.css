@@ -397,4 +397,34 @@ article.post>p{
         margin-right: 0;
     }
 
+    /*da rimuovere*/
+    #ImageEditContainer{
+        display: block;
+    }
+
+    #ImageEditContainer form{
+        width:100%;
+        height: 90%;
+        margin-left:0;
+        margin-right: 0;
+    }
+    
+    #ImageEditContainer form *{
+        margin-bottom: 2rem;
+    }
+
+    #ImageEditContainer label{
+        font-size: 1.3rem;
+    }
+
+    #ImageEditContainer input[type="file"]{
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    #ImageEditContainer input[type="submit"], #ImageEditContainer button{
+        font-size: 1.3rem;
+        padding:1rem;
+    }
+
 }
