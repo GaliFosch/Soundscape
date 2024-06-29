@@ -40,7 +40,7 @@ header h2{
     border: 0.3rem solid #323232;
 }
 
-button, form input[type="submit"]{
+form button, form input[type="submit"]{
     margin-left: auto;
     margin-right: 25%;
     color: black;
@@ -222,7 +222,7 @@ main>section article:not(.post-article){
     background-color: transparent;
 }
 
-main>section article img{
+main>section article:not(.post-article) img{
     display: block;
     width: 7rem;
     height: 7rem;
@@ -241,31 +241,6 @@ main > section article h4 {
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
-}
-
-article.post{
-    background-color: #4A4A4A;
-    width: 100%;
-    height: auto;
-    margin-top: 0.5rem;
-    padding-bottom: 0.3rem;
-}
-
-article.post header {
-    margin-top: 0.5rem;
-    margin-left: 0;
-    padding-left: 1rem;
-    display: flex;
-    align-items: center;
-    width:100%;
-}
-
-article.post > .music-box > .music-info > header {
-    padding: 0;
-}
-
-.music-info p{
-    margin-top: 0;
 }
 
 
@@ -291,65 +266,6 @@ article.post>p{
     text-align: left;
     margin-left: 1rem;
     margin-top: 0.5rem;
-}
-
-.music-box{
-    height: 6rem;
-    width: 90%;
-    margin-left: 5%;
-    background-color: #E28AB9;
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.music-box>*{
-    margin-top: 0;
-}
-
-.music-box img{
-    height: 4rem;
-    width: 4rem;
-    border-radius: 0;
-}
-
-.music-box > .music-info {
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 0.5rem;
-    text-align: left;
-}
-
-.music-box>section header{
-    font-size: 1.3rem;
-}
-
-.music-box>section p{
-    margin: 0;
-    font-size: 1rem;
-}
-
-.music-box a{
-    align-self: center;
-    margin-left: auto;
-    margin-right: 1rem;
-}
-
-.music-box a em{
-    font-size: 2rem;
-    color: #000;
-}
-
-.post-interaction{
-    margin-top: 0.5rem;
-    margin-right: 1rem;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.post-interaction a{
-    margin-left: auto;
 }
 
 #follow-button {
