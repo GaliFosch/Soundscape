@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
             method: 'POST',
             body: formData
         })
-            .then(respone=> respone.text())
-            .then(text=>{
-                if(text === "1"){
-                    value.innerText = textArea.innerText;
+            .then(respone=> respone.json())
+            .then(data=>{
+                if(data.error === 0){
+                    value.innerText = data.message;
                 }else{
-                    alert(text);
+                    alert("Error:" . data.message);
                 }
                 value.style.display = valueDispl;
                 editButton.style.display = editButtonDispl;
