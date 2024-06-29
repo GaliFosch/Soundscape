@@ -107,7 +107,7 @@ main {
 }
 
 .show-all-btn-container > a {
-    opacity: 0.7;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 #Counts {
@@ -195,7 +195,7 @@ main > section {
 main > section p {
     text-align: left;
     margin-top: 2rem;
-    opacity: 0.7;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 main>section h3{
