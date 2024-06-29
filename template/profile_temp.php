@@ -157,9 +157,9 @@
                     <!--Post caption-->
                     <p post-id="<?php echo $post['PostID']; ?>"><?php echo $post["Caption"]; ?></p>
                     <!--Outer section of music box-->
-                    <div class="music-box">
-                        <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
-                        <?php if ($track != null): ?>
+                    <?php $track = $dbh->getSponsoredTrack($post["PostID"]); ?>
+                    <?php if ($track != null): ?>
+                        <div class="music-box">
                             <?php if ($track["CoverImage"] != null): ?>
                                 <img src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
                             <?php else: ?>
@@ -173,8 +173,8 @@
                             <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
                                 <em class="fa-solid fa-play"></em>
                             </a>
-                        <?php endif; ?>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                     <div class="post-interaction">
                         <a href="#" aria-label="Comment post" title="Comment post"><em class="fa-regular fa-message fa-fw"></em></a>
                         <em class="fa-regular fa-heart fa-fw"></em>
