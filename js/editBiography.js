@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     form.addEventListener("submit", (event)=>{
         event.preventDefault();
-        const formData = new FormData(this);
+        const formData = new FormData(form);
 
         fetch("process_edit_profile.php",{
             method: 'POST',
