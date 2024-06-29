@@ -961,7 +961,7 @@ class DatabaseHelper {
                 SET Biography = ?
                 WHERE Username = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param('s', $bind);
+        $stmt->bind_param('ss', $biography, $username);
         return $stmt->execute();
     }
 

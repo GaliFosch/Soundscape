@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 if(text === "true"){
                     value.innerText = textArea.innerText;
                 }else{
-                    alert("Error: we couldn't update your biography. Retry later.")
+                    alert(text);
                 }
                 value.style.display = valueDispl;
                 editButton.style.display = editButtonDispl;
