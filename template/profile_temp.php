@@ -1,13 +1,15 @@
 <main>
     <header>
-        <?php 
-            if (!empty($template["profile"]["ProfileImage"])){
-                echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" />";
-            } else {
-                echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
-            }
-        ?>
-        <em class="fa-solid fa-pencil post-creation"></em>
+        <div id="ProfileImage">
+            <?php 
+                if (!empty($template["profile"]["ProfileImage"])){
+                    echo "<img src=\"{$template["profile"]["ProfileImage"]}\" alt=\"\" />";
+                } else {
+                    echo "<img src=\"images/placeholder-image.jpg\" alt=\"\" />";
+                }
+            ?>
+            <em id="EditProfileImage" class="fa-solid fa-pencil"></em>
+        </div>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
     <?php if(!$template["isProfileLogged"]):?>
