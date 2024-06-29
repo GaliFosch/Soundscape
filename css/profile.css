@@ -232,17 +232,14 @@ main>section article img{
     margin-bottom: 0;
 }
 
-main>section article header {
+main > section article h4 {
+    overflow-wrap: break-word;
     margin: 0.5rem 1rem 0;
     width: 7rem;
     white-space: nowrap;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
-}
-
-main > section article h4 {
-    overflow-wrap: break-word;
 }
 
 article.post{
