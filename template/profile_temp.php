@@ -18,13 +18,14 @@
                 alt="Profile Image"/>
             <?php if($template["isProfileLogged"]):?>
                 <em id="EditProfileImage" class="fa-solid fa-pencil"></em>
+                <script src="js/editProfileImage.js"></script>
             <?php endif;?>
         </div>
         <h2><?php echo $template["profile"]["Username"]?></h2>
     </header>
     <?php if($template["isProfileLogged"]):?>
-        <div id="ImageEditForm">
-            <form action="#">
+        <div id="ImageEditContainer">
+            <form action="#" id="ImageEditForm">
                 <label for="img">Insert your new profile image</label>
                 <input type="file" name="img" id="NewImg" accept="img/*"/>
                 <div>
