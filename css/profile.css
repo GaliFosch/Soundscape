@@ -41,8 +41,6 @@ header h2{
 }
 
 button:not(#follow-button), main form input[type="submit"]{
-    margin-left: auto;
-    margin-right: 25%;
     color: black;
     background-color: #E28AB9;
     border-style: none;
@@ -153,6 +151,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 0.5rem;
 }
 
 #Biography header h3{
