@@ -133,31 +133,35 @@ function addSelectedListener() {
   let selected = document.querySelector(".selected");
 
   heart.addEventListener("click", () => {
-    selected.style.borderBottom = "0 solid";
-  selected.querySelector("p").color = "#FFF";
-  selected.querySelector("em").color = "#FFF";
-
-    comment.classList.toggle('selected');
-    heart.classList.toggle('selected');
-
-    let sel = document.querySelector(".selected");
-    sel.style.borderBottom = "0.2rem solid #E91E63";
-
-    selected = sel;
+    if(!heart.classList.contains("selected")){
+      selected.style.borderBottom = "0 solid";
+      selected.querySelector("p").color = "#FFF";
+      selected.querySelector("em").color = "#FFF";
+  
+      comment.classList.toggle('selected');
+      heart.classList.toggle('selected');
+  
+      let sel = document.querySelector(".selected");
+      sel.style.borderBottom = "0.2rem solid #E91E63";
+      
+      selected = sel;
+    }
   });
 
   comment.addEventListener("click", () => {
-    selected.style.borderBottom = "0 solid";
-  selected.querySelector("p").color = "#FFF";
-  selected.querySelector("em").color = "#FFF";
-
-    comment.classList.toggle('selected');
-    heart.classList.toggle('selected');
-
-    let sel = document.querySelector(".selected");
-    sel.style.borderBottom = "0.2rem solid #1D70AD";
-
-    selected = sel;
+    if(!comment.classList.contains("selected")){
+      selected.style.borderBottom = "0 solid";
+      selected.querySelector("p").color = "#FFF";
+      selected.querySelector("em").color = "#FFF";
+  
+      comment.classList.toggle('selected');
+      heart.classList.toggle('selected');
+  
+      let sel = document.querySelector(".selected");
+      sel.style.borderBottom = "0.2rem solid #1D70AD";
+  
+      selected = sel;
+    }
   });
   
 };
@@ -200,10 +204,43 @@ function openComment(postId) {
               if(window.innerWidth<768) {
                 document.querySelector('body').style.overflow = "hidden";
               }
+              addCommentFormListener();
           }
       }
         xhttp.send();
       commentOpen=true;
+}
+
+function addCommentFormListener(){
+  const form = document.getElementById("CommentForm");
+  const container = document.getElementById("people-comment-container");
+  const textArea = document.getElementById("write-comment");
+
+  const commentCounter = document.getElementsByClassName("comment-changer-section")[0]
+                                    .getElementsByTagName("p")[0];
+  console.log(commentCounter);
+  form.addEventListener("submit", (event)=>{
+      event.preventDefault();
+      let path = form.action;
+      let formData = new FormData(form);
+      fetch(path,{
+        method: 'POST',
+        body: formData
+      })
+        .then(response=>response.text())
+        .then(data => {
+          if(data != "false"){
+            const el = document.createElement("article");
+            el.classList.add("people-comment");
+            el.innerHTML = data;
+            container.insertBefore(el, container.firstChild);
+            textArea.value = "";
+            commentCounter.innerText = parseInt(commentCounter.innerText) + 1;
+          }else{
+            alert("Error: We couldn't complete the procedure. Try later");
+          }
+        })
+  })
 }
 
 //This code deals with the finding of the nearest section, under which the comment section is to open

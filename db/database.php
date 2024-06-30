@@ -860,6 +860,7 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sssi', $text, $timestamp,$userID, $postID);
         $stmt->execute();
+        return $stmt->insert_id;
     }
 
     public function getAllComments($postID) {
@@ -871,6 +872,17 @@ class DatabaseHelper {
         $stmt->bind_param('i',$postID);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCommentFromId($commentId) {
+        $query = "SELECT *
+                    FROM comment
+                    WHERE CommentID = ?
+                    LIMIT 1";
+        $stmt =  $this->db->prepare($query);
+        $stmt->bind_param('i',$commentId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
     }
 
     public function getAllLikes($postID) {
