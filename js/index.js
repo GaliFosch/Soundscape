@@ -45,6 +45,8 @@ function toggleLikeArticle(){
         const userLike = document.getElementById(username);
         if(userLike!==null){
           userLike.remove();
+          const likeCounter = document.getElementsByClassName("like-changer-section")[0].getElementsByTagName("p")[0];
+          likeCounter.innerText = parseInt(likeCounter.innerText) -1;
           if(container.children.length === 0){
             const el = document.createElement("p");
             el.classList.add("no-likes");
@@ -56,6 +58,9 @@ function toggleLikeArticle(){
           if(noLike.length>0){
             noLike[0].remove();
           }
+          const likeCounter = document.getElementsByClassName("like-changer-section")[0].getElementsByTagName("p")[0];
+          likeCounter.innerText = parseInt(likeCounter.innerText) +1;
+
           const el = document.createElement("article");
           el.classList.add("people-like");
           el.id = username;
