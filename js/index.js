@@ -210,7 +210,11 @@ function openComment(postId) {
 function addCommentFormListener(){
   const form = document.getElementById("CommentForm");
   const container = document.getElementById("people-comment-container");
+  const textArea = document.getElementById("write-comment");
 
+  const commentCounter = document.getElementsByClassName("comment-changer-section")[0]
+                                    .getElementsByTagName("p")[0];
+  console.log(commentCounter);
   form.addEventListener("submit", (event)=>{
       event.preventDefault();
       let path = form.action;
@@ -225,6 +229,8 @@ function addCommentFormListener(){
           el.classList.add("people-comment");
           el.innerHTML = data;
           container.insertBefore(el, container.firstChild);
+          textArea.value = "";
+          commentCounter.innerText = parseInt(commentCounter.innerText) + 1;
         })
   })
 }
