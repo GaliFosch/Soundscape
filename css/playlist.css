@@ -68,7 +68,6 @@ hr {
     display: block;
     padding: 0.5rem 0;
     margin: 0.5rem 0;
-    vertical-align: center;
 }
 
 .row:hover {
@@ -93,6 +92,7 @@ hr {
 .track-details {
     width: 25rem;
     vertical-align: middle;
+    text-overflow: ellipsis;
 }
 
 .track-details > * {
