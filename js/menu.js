@@ -5,7 +5,11 @@ const mobileMenu = document.querySelector(".mobile-menu");
 const navbar = document.querySelector(".navbar");
 
 const notifSignal = document.getElementById("menuNotifSignal");
-const notifSignalDisplay = notifSignal.style.display;
+let notifSignalDisplay = null;
+if (notifSignal != null) {
+  notifSignalDisplay = notifSignal.style.display;
+}
+
 
 hamburgerMenu.addEventListener("click", () => {
   let mobileMenuStyle = window.getComputedStyle(mobileMenu);
@@ -14,7 +18,9 @@ hamburgerMenu.addEventListener("click", () => {
     navbar.className = "mobile-full"
     hamburgerMenu.style.display = "none";
     closeHamburgerMenu.style.display = "flex";
-    notifSignal.style.display = "none";
+    if (notifSignal != null) {
+      notifSignal.style.display = "none";
+    }
   }
 });
 
@@ -26,7 +32,9 @@ closeHamburgerMenu.addEventListener("click", () => {
 
     hamburgerMenu.style.display = "flex";
     closeHamburgerMenu.style.display = "none";
-    notifSignal.style.display=notifSignalDisplay;
+    if (notifSignal != null) {
+      notifSignal.style.display=notifSignalDisplay;
+    }
   } 
 });
 
@@ -37,13 +45,17 @@ onresize = () => {
     hamburgerMenu.style.display = "none";
     closeHamburgerMenu.style.display = "none";
     mobileMenu.style.display = "block";
-    notifSignal.style.display = "none";
+    if (notifSignal != null) {
+      notifSignal.style.display = "none";
+    }
   }
   if(width<768){
     navbar.className = "mobile";
     hamburgerMenu.style.display = "flex";
     closeHamburgerMenu.style.display = "none";
     mobileMenu.style.display = "none";
-    notifSignal.style.display=notifSignalDisplay;
+    if (notifSignal != null) {
+      notifSignal.style.display=notifSignalDisplay;
+    }
   }
 };
