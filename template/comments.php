@@ -35,17 +35,17 @@ if(checkLogin($dbh)) {
     <?php if(isset($_SESSION['username'])): ?>
     <!--Inserisci il tuo commento-->
     <section class="user-comment">
-        <form class="comment-form" action="process_comment.php?post=<?php echo $postID; ?>" method="POST" id="<?php echo $postID; ?>">
-        <?php if ($user["ProfileImage"] != null): ?>
-                <img class="profile-picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
-            <?php else: ?>
-                <img class="profile-picture comment-form" src="images/placeholder-image.jpg" alt="User profile image"/>
-        <?php endif; ?>
-        <label for="write-comment">Write your comment:</label>
-        <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard" required></textarea>
-        <button type="submit">
-            <em class="fa-regular fa-paper-plane send-comment"></em>
-        </button>
+        <form class="comment-form" action="process_comment.php?post=<?php echo $postID; ?>" method="POST" id="CommentForm">
+            <?php if ($user["ProfileImage"] != null): ?>
+                    <img class="profile-picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
+                <?php else: ?>
+                    <img class="profile-picture comment-form" src="images/placeholder-image.jpg" alt="User profile image"/>
+            <?php endif; ?>
+            <label for="write-comment">Write your comment:</label>
+            <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard" required></textarea>
+            <button type="submit">
+                <em class="fa-regular fa-paper-plane send-comment"></em>
+            </button>
         </form>
     </section>
     <?php endif; ?>
@@ -56,27 +56,27 @@ if(checkLogin($dbh)) {
             Be the first!
         </p>
     <?php endif; ?>
-    
-    <?php foreach ($comments as $comm): ?> 
-        <article class="people-comment">
-        <a href="profile.php?profile=<?php echo $comm["Username"]; ?>" class="redirect">
-            <?php $creator = $dbh->getUserByUsername($comm["Username"])?>
-            <?php if ($creator["ProfileImage"] != null): ?>
-                    <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
-                <?php else: ?>
-                    <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
-            <?php endif; ?>
-           
-        </a>
-        <section class="comment-text"> 
-            <a href="profile.php?profile=<?php echo $comm["Username"]; ?>" class="redirect">
-                <p><b><?php echo $creator["Username"]?></b></p>
-            </a>
-                <p><?php echo $comm["CommentText"]?></p>
-        </section>
-        <p class="timestamp"><?php echo $comm["CommentTimestamp"]; ?></p>
-    </article>
-    <?php endforeach; ?>
+    <section id="people-comment-container">
+        <?php foreach ($comments as $comm): ?> 
+            <article class="people-comment">
+                <a href="profile.php?profile=<?php echo $comm["Username"]; ?>" class="redirect">
+                    <?php $creator = $dbh->getUserByUsername($comm["Username"])?>
+                    <?php if ($creator["ProfileImage"] != null): ?>
+                            <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
+                        <?php else: ?>
+                            <img class="profile-picture" src="images/placeholder-image.jpg" alt="Comment creator profile image"/>
+                    <?php endif; ?>
+                </a>
+                <section class="comment-text"> 
+                    <a href="profile.php?profile=<?php echo $comm["Username"]; ?>" class="redirect">
+                        <p><b><?php echo $creator["Username"]?></b></p>
+                    </a>
+                        <p><?php echo $comm["CommentText"]?></p>
+                </section>
+                <p class="timestamp"><?php echo $comm["CommentTimestamp"]; ?></p>
+            </article>
+        <?php endforeach; ?>
+    </section>
 </div>
 
 
@@ -107,4 +107,3 @@ if(checkLogin($dbh)) {
     </article>
     <?php endforeach; ?>
 </div>
-<script src="js/index.js"></script>

@@ -200,10 +200,33 @@ function openComment(postId) {
               if(window.innerWidth<768) {
                 document.querySelector('body').style.overflow = "hidden";
               }
+              addCommentFormListener();
           }
       }
         xhttp.send();
       commentOpen=true;
+}
+
+function addCommentFormListener(){
+  const form = document.getElementById("CommentForm");
+  const container = document.getElementById("people-comment-container");
+
+  form.addEventListener("submit", (event)=>{
+      event.preventDefault();
+      let path = form.action;
+      let formData = new FormData(form);
+      fetch(path,{
+        method: 'POST',
+        body: formData
+      })
+        .then(response=>response.text())
+        .then(data => {
+          const el = document.createElement("article");
+          el.classList.add("people-like");
+          el.innerHTML = data;
+          container.insertBefore(el, container.firstChild);
+        })
+  })
 }
 
 //This code deals with the finding of the nearest section, under which the comment section is to open

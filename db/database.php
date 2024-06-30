@@ -860,6 +860,7 @@ class DatabaseHelper {
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sssi', $text, $timestamp,$userID, $postID);
         $stmt->execute();
+        return $stmt->insert_id;
     }
 
     public function getAllComments($postID) {
