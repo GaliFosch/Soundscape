@@ -26,7 +26,7 @@
     <?php if($template["isProfileLogged"]):?>
         <div id="ImageEditContainer">
             <form action="#" id="ImageEditForm" enctype="multipart/form-data">
-                <label for="img">Insert your new profile image</label>
+                <label for="NewImg">Insert your new profile image</label>
                 <input type="file" name="img" id="NewImg" accept="img/*" required/>
                 <div>
                     <input type="submit" value="Confirm">
