@@ -4,9 +4,6 @@ let postComment = null;
 let commentOpen = false;
 let numComment = null;
 let shownCount = 0;
-
-let username = "";
-let userImage = "";
 function likeProcedure() {
   let hearts= document.querySelectorAll(".fa-heart");
 
@@ -15,7 +12,6 @@ function likeProcedure() {
       let article = heart.closest("article");
       let postId = article.id;
       let xhttp;
-      const likeContainer =  document.getElementsByClassName("likes");
       xhttp = new XMLHttpRequest();
       xhttp.open("GET", "template/like_handler.php?post="+postId, true);
       xhttp.onreadystatechange = function() {
@@ -23,22 +19,62 @@ function likeProcedure() {
             if(this.responseText==="change") {
               heart.classList.toggle('fa-solid');
               heart.classList.toggle('fa-regular');
-              if(likeContainer.length>0){
-                fetch("process_like_container.php")
-                  .then(response=>response.text())
-                  .then(data=>{
-                    let el = document.createElement
-                    el.classList.add("people-like");
-                    el.innerHTML = data;
-                    likeContainer[0].insertBefore(el, likeContainer[0].firstChild);
-                  })
-              }
-            }
+            }     
         }
       }
       xhttp.send();
     });
   });
+}
+
+function toggleLikeArticle(){
+  const likeContainer =  document.getElementsByClassName("likes");
+  let username = "";
+  let userImage = "";
+  if(likeContainer.length>0){
+    let container = likeContainer[0];
+    fetch("process_get_user.php")
+      .then(response=>response.json())
+      .then(data=>{
+        username = data.user.Username;
+        userImage = data.user.ProfileImage;
+      })
+      .finally(()=>{
+        const userLike = document.getElementById(username);
+        if(userLike!==null){
+          userLike.remove();
+          if(container.children.length === 0){
+            const el = document.createElement("p");
+            el.classList.add("no-likes");
+            el.innerText = "Looks like no one left a like yet. Be the first!";
+            container.appendChild(el);
+          }
+        }else{
+          let noLike = document.getElementsByClassName("no-likes");
+          if(noLike.length>0){
+            noLike[0].remove();
+          }
+          const el = document.createElement("article");
+          el.classList.add("people-like");
+          el.id = username;
+          const img = document.createElement("img");
+          if(userImage!== null){
+            img.src = userImage;
+          }else{
+            img.src = "images/placeholder-image.jpg";
+          }
+          img.classList.add("profile-picture");
+          img.alt="Comment creator profile image";
+          el.appendChild(img);
+
+          const name = document.createElement("a");
+          name.href = "profile.php?profile=" + username;
+          name.classList.add("redirect");
+          name.innerHTML = "<p><b>" + username + "</b></p>";
+          el.appendChild(name);
+        }
+      })
+  }
 }
 
 function commentProcedure() {
@@ -273,22 +309,9 @@ function getSectionAbove(queryPostID) {
 }
 
 window.onload = () => {
-  fetch("process_get_user.php")
-    .then(response=>response.json())
-    .then(data=>{
-      console.log(data);
-      if(data.error === 0){
-        console.log(data.user.Username);
-        username = data.user.Username;
-        console.log(username);
-        userImage = data.user.ProfileImage;
-      }
-    })
-    .finally(()=>{
-      postProcedure();
-      commentProcedure();
-      likeProcedure();
-    })
+  postProcedure();
+  commentProcedure();
+  likeProcedure();
   
 }
 
