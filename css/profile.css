@@ -40,7 +40,7 @@ header h2{
     border: 0.3rem solid #323232;
 }
 
-button:not(#follow-button), 
+button.profile-button, 
     main form input[type="submit"], 
     main form input[type="file"]::file-selector-button{
     color: black;
@@ -216,7 +216,7 @@ main>section a{
     text-decoration: none;
 }
 
-main>section article:not(.post-article){
+main>section article:not(.post-article, .people-comment){
     display: inline-block;
     width: 9rem;
     height: 10rem;

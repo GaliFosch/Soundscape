@@ -30,7 +30,7 @@
                 <input type="file" name="img" id="NewImg" accept="img/*" required/>
                 <div>
                     <input type="submit" value="Confirm">
-                    <button id="UndoImgEdit">Cancel</button>
+                    <button id="UndoImgEdit" class="profile-button">Cancel</button>
                 </div>
             </form>
         </div>
@@ -68,7 +68,7 @@
         <header>
             <h3>Biography</h3>
             <?php if($template["isProfileLogged"]):?>
-                <button id="EditBiograpy">Edit</button>
+                <button id="EditBiograpy" class="profile-button">Edit</button>
             <?php endif?>
         </header>
         <p>
@@ -80,7 +80,7 @@
                 <textarea name="bio" id="bio" placehilder="Write your Biograpy here" rows="5" required></textarea>
                 <div>
                     <input type="submit" value="Confirm"/>
-                    <button id="bioEditUndo">Cancel</button>
+                    <button id="bioEditUndo" class="profile-button">Cancel</button>
                 </div>
             </form>
             <script src="js/editBiography.js"></script>
