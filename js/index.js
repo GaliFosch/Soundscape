@@ -4,6 +4,7 @@ let postComment = null;
 let commentOpen = false;
 let numComment = null;
 let shownCount = 0;
+
 function likeProcedure() {
   let hearts= document.querySelectorAll(".fa-heart");
 
@@ -19,6 +20,7 @@ function likeProcedure() {
             if(this.responseText==="change") {
               heart.classList.toggle('fa-solid');
               heart.classList.toggle('fa-regular');
+              toggleLikeArticle();
             }     
         }
       }
@@ -72,6 +74,7 @@ function toggleLikeArticle(){
           name.classList.add("redirect");
           name.innerHTML = "<p><b>" + username + "</b></p>";
           el.appendChild(name);
+          container.insertBefore(el, container.firstChild);
         }
       })
   }
