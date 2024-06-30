@@ -222,7 +222,7 @@ function addCommentFormListener(){
         .then(response=>response.text())
         .then(data => {
           const el = document.createElement("article");
-          el.classList.add("people-like");
+          el.classList.add("people-comment");
           el.innerHTML = data;
           container.insertBefore(el, container.firstChild);
         })
