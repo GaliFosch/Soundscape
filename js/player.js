@@ -35,9 +35,15 @@ player.addEventListener("ended", function() {
     // If a playlist/album is being played, then the next track must be played automatically
     // when the current track ends.
     if (url.searchParams.get("pid") != null) {
+        // Increment track number
         let paramName = "pos"
         let pos = parseInt(url.searchParams.get(paramName))
         let newUrlString = urlString.replace(paramName + "=" + pos, paramName + "=" + (++pos))
+        // Remove refresh param if present
+        if (url.searchParams.get("refresh") != null) {
+            newUrlString = newUrlString.replace("&refresh=true", "")
+        }
+        // Set autoplay if not already present
         if (url.searchParams.get("autoplay") == null) {
             newUrlString += "&autoplay=true"
         }
