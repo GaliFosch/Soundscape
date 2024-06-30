@@ -31,12 +31,12 @@ function likeProcedure() {
 
 function commentProcedure() {
   comments = document.querySelectorAll(".fa-message");
-
-
   comments.forEach((comm) => {
     comm.addEventListener("click", () => {
       let article = comm.closest("article");
+      console.log(article)
         let postId = article.id;
+        console.log(postId)
         if(!commentOpen) {
           openComment(postId);
         } else if(numComment==postId) {
@@ -183,14 +183,15 @@ function interactionViewerChanger() {
 //Down here it deals with the comment section
 //This code deals with the opening of the comment. It send the request XHTML request
 function openComment(postId) {
-        commentOpen=true;
         let xhttp;
         xhttp = new XMLHttpRequest();
         xhttp.open("GET", "template/comments.php?post="+postId, true);
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
+              console.log(postId)
               let below = getSectionAbove(postId);
+              console.log(below)
               showPopover(this.responseText, below);
               numComment = postId;
               interactionViewerChanger();
@@ -202,15 +203,17 @@ function openComment(postId) {
           }
       }
         xhttp.send();
+      commentOpen=true;
 }
 
 //This code deals with the finding of the nearest section, under which the comment section is to open
 function getSectionAbove(queryPostID) {
     for (let i = 0; i < comments.length; i++) {
       let article = comments[i].closest("article");
+      console.log(article);
       let postId = article.id;
       if(queryPostID === postId) {
-          return comments[i].closest('section');
+          return comments[i].closest('div');
       }
     }
 }
