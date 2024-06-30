@@ -39,15 +39,15 @@
         <?php if($template["isUserLogged"]):?>
             <div>
                 <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
-                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check"></em>Following</button>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check" aria-hidden="true"></em>Following</button>
                 <?php else:?>
-                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus"></em>Follow</button>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus" aria-hidden="true"></em>Follow</button>
                 <?php endif?>
             </div>
             <script src="js/follow.js"></script>
         <?php else:?>
             <div>
-                <a href="login.php" title="Log in or register to follow this user"><em id="follow" class="fa-solid fa-user-plus"></em></a>
+                <a href="login.php" title="Log in or register to follow this user"><em id="follow" class="fa-solid fa-user-plus" aria-hidden="true"></em></a>
             </div>
         <?php endif?>
     <?php endif;?>

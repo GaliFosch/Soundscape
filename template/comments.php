@@ -43,8 +43,8 @@ if(checkLogin($dbh)) {
             <?php endif; ?>
             <label for="write-comment">Write your comment:</label>
             <textarea class="comment-text" name="comment-text" id="write-comment" placeholder="Write here your comment" rows="3" wrap="hard" required></textarea>
-            <button type="submit">
-                <em class="fa-regular fa-paper-plane send-comment"></em>
+            <button type="submit" aria-label="Send comment">
+                <em class="fa-regular fa-paper-plane send-comment" aria-hidden="true"></em>
             </button>
         </form>
     </section>

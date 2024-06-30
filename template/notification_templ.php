@@ -5,7 +5,7 @@
     <div id="notification_list">
         <?php foreach ($template["notifications"] as $notif): ?>
             <article id="<?php echo $notif["NotificationID"]?>" class="notification">
-                <em class="fa-solid fa-xmark close"></em>
+                <em class="fa-solid fa-xmark close" aria-hidden="true" title="Close notification"></em>
                 <div>
                     <?php switch($notif["Type"]):
                         case 'Follower': ?>

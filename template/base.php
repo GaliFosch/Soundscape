@@ -25,12 +25,12 @@
             </div>
             <em id="close-menu-icon" class="fa-solid fa-xmark"></em>
             <ul class="mobile-menu">
-                <li><a href="index.php" aria-label="Go to home page" title="Go to home page"><em class="fa-solid fa-house" aria-hidden="true"></em><p>Home</p></a></li>
-                <li><a href="discover.php" aria-label="Search" title="Search"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em><p>Discover</p></a></li>
-                <li><a href="player.php" aria-label="Go to music player" title="Go to music player"><em class="fa-solid fa-music" aria-hidden="true"></em><p>Music player</p></a></li>
+                <li><a href="index.php" aria-label="Go to home page"><em class="fa-solid fa-house" aria-hidden="true"></em><p>Home</p></a></li>
+                <li><a href="discover.php" aria-label="Search"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em><p>Discover</p></a></li>
+                <li><a href="player.php" aria-label="Go to music player"><em class="fa-solid fa-music" aria-hidden="true"></em><p>Music player</p></a></li>
                 <?php if (checkLogin($dbh)): ?>
                     <li>
-                        <a class="notifIcon" href="notifications.php" aria-label="Go to notifications page" title="Go to notifications page">
+                        <a class="notifIcon" href="notifications.php" aria-label="Go to notifications page">
                             <div class="notifIcon">
                                 <em class="fa-solid fa-circle notifSignal" aria-hidden="true"></em>
                                 <em class="fa-solid fa-bell" aria-hidden="true"></em>
@@ -38,7 +38,7 @@
                         </a>
                         <script src="js/notificationNotice.js"></script>
                     </li>
-                    <li><a href="profile.php" aria-label="Go to your profile" title="Go to your profile">
+                    <li><a href="profile.php" aria-label="Go to your profile">
                         <?php
                             $image = $dbh->getUserByUsername($_SESSION["username"])["ProfileImage"];
                             if(!empty($image)): 
@@ -49,8 +49,8 @@
                         <?php endif; ?>
                         <p>Your profile</p>
                     </a></li>
-                    <li><a href="create_track.php"><em class="fa-solid fa-plus"></em><p>New Track</p></a></li>
-                    <li><a href="create_playlist.php"><em class="fa-solid fa-plus"></em><p>New Album / Playlist</p></a></li>
+                    <li><a href="create_track.php" aria-label="Create a new track"><em class="fa-solid fa-plus" aria-hidden="true"></em><p>New Track</p></a></li>
+                    <li><a href="create_playlist.php" aria-label="Create a new album or playlist"><em class="fa-solid fa-plus" aria-hidden="true"></em><p>New Album / Playlist</p></a></li>
                 <?php endif; ?>
             </ul>
             <?php if (checkLogin($dbh)): ?>

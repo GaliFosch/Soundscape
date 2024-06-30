@@ -17,7 +17,7 @@
         <label for="track-search">Search for a track, album or playlist</label>
         <input id="track-search" type="search" name="track" placeholder="Search for a track, album or playlist"/>
         <input type="submit" class="searchButton" value="Search" />
-        <em class="fa-solid fa-magnifying-glass"></em>
+        <em class="fa-solid fa-magnifying-glass" aria-hidden="true" title="Add items to the list of selected items"></em>
     </form>
 
     <div class="track-suggestions-section">
@@ -39,7 +39,7 @@
         </div>
         <!--<a href="player.php?trackid=<?php echo $template["track"]["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
             <em class="fa-solid fa-play"></em>
-        </a>   --> 
+        </a>   -->
    </div>
 
     <div class="options">

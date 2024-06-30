@@ -1,6 +1,6 @@
 <?php if(checkLogin($dbh)): ?>
     <button id="post-button" type="button">
-        <em class="fa-solid fa-pencil post-creation"></em>
+        <em class="fa-solid fa-pencil post-creation" aria-hidden="true"></em>
         <strong id="post-button-text">Create a post</strong>
     </button>
     <script src="js/post_button.js"></script>

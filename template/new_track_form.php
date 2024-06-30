@@ -40,7 +40,7 @@
                         $i++;
                 ?>
                     <button id="<?php echo str_replace(' ', '', $genre["GenreTag"]); ?>" class="genre">
-                        <em class="fa-solid fa-check"></em>
+                        <em class="fa-solid fa-check" aria-hidden="true"></em>
                         <?php echo $genre["GenreTag"]?>
                     </button>
                 <?php endforeach;?>

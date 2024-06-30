@@ -119,8 +119,8 @@
                         <label for="caption-textarea">Caption</label>
                         <textarea id="caption-textarea" name="caption" rows="5" placeholder="Write here your comment" required></textarea>
                         <input type="hidden" name="postID" value="<?php echo $template["post"]["PostID"]?>">
-                        <button type="submit">
-                            <em class="fa-regular fa-paper-plane"></em>
+                        <button type="submit" aria-label="Send comment">
+                            <em class="fa-regular fa-paper-plane" aria-hidden="true"></em>
                         </button>
                     </form>
                 </div>
