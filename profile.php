@@ -25,7 +25,7 @@ if (!isset($_GET["profile"])) {
 }
 
 $template["title"] = "Soundscape - {$template["profile"]["Username"]}";
-$template["stylesheets"] = ["base.css", "profile.css", "post.css"];
+$template["stylesheets"] = ["base.css", "profile.css", "post.css", "comment.css"];
 $template["content"] = "template/profile_temp.php";
 $template["posts"] = $dbh->getBestUserPosts($template["profile"]["Username"],5);
 

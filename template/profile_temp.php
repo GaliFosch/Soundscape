@@ -182,4 +182,5 @@
         </header>
         <?php require("post_template.php"); ?>
     </section>
+    <script src="js/index.js"></script>
 </main>
