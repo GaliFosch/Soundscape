@@ -49,8 +49,9 @@ form.caption > input[type="submit"] {
     bottom: 0;
     border: none;
     color: white;
-    padding: 0.7rem;
-    margin: 1rem;
+    padding: 0.7rem 2rem;
+    margin-bottom: 1.5rem;
+    margin-right: 2rem;
     align-self: end;
     font-size: 1em;
 }
@@ -257,6 +258,7 @@ input[type="file"]::file-selector-button {
     main {
         width: fit-content;
         align-self: center;
+        padding-left: 4.5rem;
     }
 }
 
