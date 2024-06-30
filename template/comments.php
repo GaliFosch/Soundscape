@@ -87,7 +87,7 @@ if(checkLogin($dbh)) {
         </p>
     <?php endif; ?>
     <?php foreach ($likes as $like): ?> 
-    <article class="people-like">
+    <article class="people-like" id="<?php echo $like["Username"]?>">
         <?php $creator = $dbh->getUserByUsername($like["Username"])?>
         <?php if ($creator["ProfileImage"] != null): ?>
                 <img class="profile-picture" src="<?php echo $creator["ProfileImage"]; ?>" alt="Comment creator profile image"/>
