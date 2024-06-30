@@ -6,6 +6,7 @@
 }
 
 #song-title, #artist-name {
+    font-size: 1.1rem;
     display: block;
     color: white;
 }
@@ -47,8 +48,8 @@
         margin-bottom: 1rem;
     }
 
-    .song-data > * {
-        font-size: 1.5rem;
+    #song-title, #author {
+        font-size: 1.2rem;
     }
 
     .progress-bar-wrapper {

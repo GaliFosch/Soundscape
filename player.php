@@ -57,9 +57,10 @@ if (isset($_GET["trackid"])) {
         $template["pos"] = 0;
     }
 
-    if (!isset($_SESSION["loaded_playlist_id"]) || ($_SESSION["loaded_playlist_id"] != $template["playlist_id"])) {
+    if (!isset($_SESSION["loaded_playlist_id"]) || ($_SESSION["loaded_playlist_id"] != $template["playlist_id"]) || (isset($_GET["refresh"]) && $_GET["refresh"] == "true")) {
 
         // No previous playlist was saved in session or the requested playlist is not the same saved in session
+        // or refresh is required
 
         if ($template["shuffle"] == "true") {
             $template["tracklist"] = $dbh->getShuffledTracklistByPlaylistID($template["playlist_id"]);

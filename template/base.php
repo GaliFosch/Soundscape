@@ -25,6 +25,7 @@
             <ul class="mobile-menu">
                 <li><a href="index.php" aria-label="Go to home page" title="Go to home page"><em class="fa-solid fa-house" aria-hidden="true"></em><p>Home</p></a></li>
                 <li><a href="discover.php" aria-label="Search" title="Search"><em class="fa-solid fa-magnifying-glass" aria-hidden="true"></em><p>Discover</p></a></li>
+                <li><a href="player.php" aria-label="Go to music player" title="Go to music player"><em class="fa-solid fa-music" aria-hidden="true"></em><p>Music player</p></a></li>
                 <li>
                     <a class="notifIcon" href="notifications.php" aria-label="Go to notifications page" title="Go to notifications page">
                         <div class="notifIcon">
@@ -34,7 +35,6 @@
                     </a>
                     <script src="js/notificationNotice.js"></script>
                 </li>
-                <li><a href="player.php" aria-label="Go to music player" title="Go to music player"><em class="fa-solid fa-music" aria-hidden="true"></em><p>Music player</p></a></li>
                 <?php if (checkLogin($dbh)): ?>
                     <li><a href="profile.php" aria-label="Go to your profile" title="Go to your profile">
                         <?php

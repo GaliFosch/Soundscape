@@ -32,7 +32,7 @@ if(checkLogin($dbh)) {
 </section>
 
 <div class="comments">
-    <?php if(isset($_SESSION['username'])): ?>
+    <?php if(checkLogin($dbh)): ?>
     <!--Inserisci il tuo commento-->
     <section class="user-comment">
         <form class="comment-form" action="process_comment.php?post=<?php echo $postID; ?>" method="POST" id="<?php echo $postID; ?>">

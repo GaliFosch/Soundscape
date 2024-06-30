@@ -41,14 +41,6 @@ a {
     color: #098AFF;
 }
 
-@media screen and (max-width: 1200px) {
-
-    input[type=submit] {
-        font-size: 1.1rem;
-    }
-
-}
-
 @media screen and (min-width: 576px) and (max-width: 1024px) {
 
     input[type=text], input[type=password] {
