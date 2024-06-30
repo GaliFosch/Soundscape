@@ -224,7 +224,7 @@ main>section article:not(.post-article, .people-comment){
     background-color: transparent;
 }
 
-main>section article:not(.post-article) img{
+article.card img{
     display: block;
     width: 7rem;
     height: 7rem;

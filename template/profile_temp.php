@@ -97,7 +97,7 @@
         <div>
             <?php if (count($tracks) != 0): ?>
                 <?php foreach ($tracks as $track): ?>
-                    <article>
+                    <article class="card">
                         <a href="player.php?trackid=<?php echo $track["TrackID"]?>">
                             <?php
                                 if (isset($track["CoverImage"])) {
@@ -126,7 +126,7 @@
         <div>
             <?php if (count($albums) != 0): ?>
                 <?php foreach ($albums as $album): ?>
-                    <article>
+                    <article class="card">
                         <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                             <?php
                                 if (!empty($album["CoverImage"])) {
@@ -155,7 +155,7 @@
         <div>
             <?php if (count($playlists) != 0): ?>
                 <?php foreach ($playlists as $playlist): ?>
-                    <article>
+                    <article class="card">
                         <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                             <?php
                                 if (!empty($playlist["CoverImage"])) {
