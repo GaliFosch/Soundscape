@@ -87,6 +87,18 @@ legend {
     display: none;
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    header h1 {
+        padding-left: 3.5rem;
+    }
+
+    main {
+        padding-left: 3rem;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
 
     .list-title {

@@ -244,6 +244,22 @@ em.fa-heart{
 
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    .imgContainer img.selected {
+        height: 17rem;
+    }
+
+    .imgContainer img:first-of-type.selected{
+        margin-left: 10rem;
+    }
+
+    .imgContainer img:last-of-type.selected{
+        margin-right: 10rem;
+    }
+
+}
+
 
 @media screen and (max-width: 768px) {
 
@@ -275,4 +291,5 @@ em.fa-heart{
         height: 15rem;
         margin: 0;
     }
+
 }

@@ -13,7 +13,7 @@ if ($_GET["t"] == "followers") {
     $template["title"] = "Soundscape - {$_GET["t"]} by {$template["profile"]["Username"]}";
     $template["heading"] = "{$_GET["t"]} by {$template["profile"]["Username"]}";
 }
-$template["stylesheets"] = ["base.css", "list.css", "post.css"];
+$template["stylesheets"] = ["base.css", "list.css", "post.css", "comment.css"];
 $template["content"] = "template/items_list.php";
 $template["show-user-items"] = true;
 
