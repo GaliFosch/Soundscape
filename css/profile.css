@@ -40,7 +40,9 @@ header h2{
     border: 0.3rem solid #323232;
 }
 
-button:not(#follow-button), main form input[type="submit"]{
+button:not(#follow-button), 
+    main form input[type="submit"], 
+    main form input[type="file"]::file-selector-button{
     color: black;
     background-color: #E28AB9;
     border-style: none;
@@ -182,6 +184,7 @@ main {
     border: 2px solid white;
     border-radius: 1rem;
     padding-left: 0.5rem;
+    resize: none;
 }
 
 #Biography div{
