@@ -83,13 +83,23 @@
         </section>
     <?php endif;?>
     <?php $isUserLogged = checkLogin($dbh);?>
-    <section class="bottom-container">
+    <div class="bottom-container">
         <div class="likeContainer">
-            <em id="comment" class="fa-regular fa-message fa-fw"></em>
-            <?php if($isUserLogged && $dbh->hasUserLiked($template["post"]["PostID"], $_SESSION["username"])!=null):?>
-                <em id="like" class="fa-solid fa-heart fa-fw"></em>
+            <!-- Comment icon -->
+            <?php if ($isUserLogged): ?>
+                <em id="comment" class="fa-regular fa-message fa-fw"></em>
             <?php else: ?>
-                <em id="like" class="fa-regular fa-heart fa-fw"></em>
+                <a href="login.php" title="Log in to comment posts"><em id="comment" class="fa-regular fa-message fa-fw"></em></a>
+            <?php endif; ?>
+            <!-- Like icon -->
+            <?php if ($isUserLogged): ?>
+                <?php if ($dbh->hasUserLiked($template["post"]["PostID"], $_SESSION["username"]) != null): ?>
+                    <em id="like" class="fa-solid fa-heart fa-fw"></em>
+                <?php else: ?>
+                    <em id="like" class="fa-regular fa-heart fa-fw"></em>
+                <?php endif; ?>
+            <?php else: ?>
+                <a href="login.php" title="Log in to like posts"><em id="like" class="fa-regular fa-heart fa-fw"></em></a>
             <?php endif; ?>
             <script src="js/singlePost_like.js"></script>
         </div>
@@ -145,5 +155,5 @@
                 </article>
             <?php endforeach;?>
         </div>
-    </section>
+    </div>
 </main>

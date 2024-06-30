@@ -160,10 +160,11 @@ hr {
 
 .playlistSection{
     background-color: #E28AB9;
-    width: 90%;
+    width: 75%;
     align-self: center;
     border-radius: 2rem;
     overflow: hidden;
+    margin-bottom: 0.75rem;
 }
 
 .playlistSection a{
@@ -197,7 +198,11 @@ hr {
 }
 
 .playlistSection div h2{
-    font-size: 1.5rem;
+    color: black;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    margin-left: 1rem;
+    text-align: left;
 }
 
 div.likeContainer{
@@ -312,11 +317,10 @@ article.comment p{
 
 article.comment div p{
     width: 90%;
-    word-break: break-all;
 }
 
-article.comment footer{
-    margin-right: 1rem;
+article.comment footer {
+    margin-right: 0.5rem;
 }
 
 article.comment footer p{
@@ -324,7 +328,7 @@ article.comment footer p{
     font-size: 1rem;
     text-align: right;
     margin-bottom: 0;
-    white-space: nowrap;
+    word-break: normal;
 }
 
 @media (pointer: fine) {
@@ -363,15 +367,17 @@ article.comment footer p{
         width: fit-content;
     }
 
-    .playlistSection img{
-        width: 30rem;
+    .playlistSection img {
+        width: 15rem;
+        aspect-ratio: 1/1;
+        object-fit: cover;
     }
 
 }
 
 @media screen and (max-width: 768px) {
 
-    main {
+    body > main {
         width: 100%;
         padding-top: 3rem;
     }
@@ -399,5 +405,8 @@ article.comment footer p{
         margin: 0;
     }
 
+    .bottom-container {
+        margin-left: 0;
+    }
 
 }
