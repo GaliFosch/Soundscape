@@ -159,7 +159,7 @@ section>a>p, section>p  {
 }
 
 .playlistSection img {
-    width: 15rem;
+    width: 17rem;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
@@ -244,18 +244,18 @@ em.fa-heart{
 
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
 
     .imgContainer img.selected {
-        height: 17rem;
+        height: 20rem;
     }
 
     .imgContainer img:first-of-type.selected{
-        margin-left: 10rem;
+        margin-left: 7rem;
     }
 
     .imgContainer img:last-of-type.selected{
-        margin-right: 10rem;
+        margin-right: 7rem;
     }
 
 }
@@ -287,8 +287,7 @@ em.fa-heart{
 
     img.selected{
         display: block;
-        width: 90%;
-        height: 15rem;
+        height: 18rem;
         margin: 0;
     }
 

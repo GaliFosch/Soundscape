@@ -172,7 +172,7 @@ hr {
 }
 
 .playlistSection img{
-    width: 100%;
+    width: 17rem;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
@@ -361,14 +361,14 @@ article.comment footer p{
 
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
 
     .imgContainer img:first-of-type.selected{
-        margin-left: 10rem;
+        margin-left: 8rem;
     }
 
     .imgContainer img:last-of-type.selected{
-        margin-right: 10rem;
+        margin-right: 8rem;
     }
 
 }
@@ -392,7 +392,7 @@ article.comment footer p{
     }
 
     .playlistSection img {
-        width: 15rem;
+        width: 17rem;
         aspect-ratio: 1/1;
         object-fit: cover;
     }
@@ -425,7 +425,7 @@ article.comment footer p{
 
     img.selected{
         display: block;
-        width: 70%;
+        height: 18rem;
         margin: 0;
     }
 
