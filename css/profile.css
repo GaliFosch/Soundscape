@@ -216,7 +216,7 @@ main>section a{
     text-decoration: none;
 }
 
-main>section article:not(.post-article, .people-comment){
+main>section article.card{
     display: inline-block;
     width: 9rem;
     height: 10rem;
