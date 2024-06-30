@@ -16,6 +16,14 @@ main {
     color: rgba(255, 255, 255, 75%);
 }
 
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+
+    main > article {
+        margin-left: 0;
+    }
+
+}
+
 @media screen and (max-width: 992px) and (min-width: 768px) {
 
     body {

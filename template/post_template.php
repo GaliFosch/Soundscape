@@ -3,14 +3,14 @@
         <?php $user = $dbh->getPostAuthor($post["PostID"]); ?>
         <!--Utente e foto utente-->
         <a href="profile.php?profile=<?php echo $user["Username"]; ?>" class="redirect">
-            <h1 class="user-info">
+            <h2 class="user-info">
                 <?php if ($user["ProfileImage"] != null): ?>
                     <img class="profile-picture" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                 <?php else: ?>
                     <img class="profile-picture" src="images/placeholder-image.jpg" alt="User profile image"/>
                 <?php endif; ?>
                 <?php echo $user["Username"]; ?>
-            </h1>     
+            </h2>
         </a>
 
         <?php
