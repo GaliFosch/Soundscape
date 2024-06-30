@@ -176,7 +176,6 @@ function addCloseListener() {
     closeComment.addEventListener("click", () => {
         commentFocus.remove();
         commentOpen = false;
-        document.querySelector('body').style.overflow = "scroll";
     });
   }
 };
