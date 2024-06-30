@@ -133,31 +133,35 @@ function addSelectedListener() {
   let selected = document.querySelector(".selected");
 
   heart.addEventListener("click", () => {
-    selected.style.borderBottom = "0 solid";
-  selected.querySelector("p").color = "#FFF";
-  selected.querySelector("em").color = "#FFF";
-
-    comment.classList.toggle('selected');
-    heart.classList.toggle('selected');
-
-    let sel = document.querySelector(".selected");
-    sel.style.borderBottom = "0.2rem solid #E91E63";
-
-    selected = sel;
+    if(!heart.classList.contains("selected")){
+      selected.style.borderBottom = "0 solid";
+      selected.querySelector("p").color = "#FFF";
+      selected.querySelector("em").color = "#FFF";
+  
+      comment.classList.toggle('selected');
+      heart.classList.toggle('selected');
+  
+      let sel = document.querySelector(".selected");
+      sel.style.borderBottom = "0.2rem solid #E91E63";
+      
+      selected = sel;
+    }
   });
 
   comment.addEventListener("click", () => {
-    selected.style.borderBottom = "0 solid";
-  selected.querySelector("p").color = "#FFF";
-  selected.querySelector("em").color = "#FFF";
-
-    comment.classList.toggle('selected');
-    heart.classList.toggle('selected');
-
-    let sel = document.querySelector(".selected");
-    sel.style.borderBottom = "0.2rem solid #1D70AD";
-
-    selected = sel;
+    if(!comment.classList.contains("selected")){
+      selected.style.borderBottom = "0 solid";
+      selected.querySelector("p").color = "#FFF";
+      selected.querySelector("em").color = "#FFF";
+  
+      comment.classList.toggle('selected');
+      heart.classList.toggle('selected');
+  
+      let sel = document.querySelector(".selected");
+      sel.style.borderBottom = "0.2rem solid #1D70AD";
+  
+      selected = sel;
+    }
   });
   
 };
