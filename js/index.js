@@ -12,15 +12,18 @@ function likeProcedure() {
     heart.addEventListener(("click"), ()=> {  
       let article = heart.closest("article");
       let postId = article.id;
-      let xhttp;    
+      let xhttp;
+      const likeContainer =  document.getElementsByClassName("likes");
       xhttp = new XMLHttpRequest();
       xhttp.open("GET", "template/like_handler.php?post="+postId, true);
       xhttp.onreadystatechange = function() {
         if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-
             if(this.responseText==="change") {
               heart.classList.toggle('fa-solid');
               heart.classList.toggle('fa-regular');
+              if(likeContainer.length>0){
+                
+              }
             }
         }
       }
