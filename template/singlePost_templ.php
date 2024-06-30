@@ -83,20 +83,30 @@
         </section>
     <?php endif;?>
     <?php $isUserLogged = checkLogin($dbh);?>
-    <section class="bottom-container">
+    <div class="bottom-container">
         <div class="likeContainer">
-            <em id="comment" class="fa-regular fa-message fa-fw"></em>
-            <?php if($isUserLogged && $dbh->hasUserLiked($template["post"]["PostID"], $_SESSION["username"])!=null):?>
-                <em id="like" class="fa-solid fa-heart fa-fw"></em>
+            <!-- Comment icon -->
+            <?php if ($isUserLogged): ?>
+                <em id="comment" class="fa-regular fa-message fa-fw"></em>
             <?php else: ?>
-                <em id="like" class="fa-regular fa-heart fa-fw"></em>
+                <a href="login.php" title="Log in to comment posts"><em id="comment" class="fa-regular fa-message fa-fw"></em></a>
+            <?php endif; ?>
+            <!-- Like icon -->
+            <?php if ($isUserLogged): ?>
+                <?php if ($dbh->hasUserLiked($template["post"]["PostID"], $_SESSION["username"]) != null): ?>
+                    <em id="like" class="fa-solid fa-heart fa-fw"></em>
+                <?php else: ?>
+                    <em id="like" class="fa-regular fa-heart fa-fw"></em>
+                <?php endif; ?>
+            <?php else: ?>
+                <a href="login.php" title="Log in to like posts"><em id="like" class="fa-regular fa-heart fa-fw"></em></a>
             <?php endif; ?>
             <script src="js/singlePost_like.js"></script>
         </div>
         <div id="commentFormContainer">
             <?php if($isUserLogged):?>
                 <h3>New Comment</h3>
-                <main>
+                <div class="comment-container">
                     <?php
                         $loggetUser = $dbh->getUserByUsername($_SESSION["username"]);
                         if(empty($loggetUser["ProfileImage"])): 
@@ -106,14 +116,14 @@
                         <img class="commentPicture" src="<?php echo $loggetUser["ProfileImage"]; ?>" alt="User profile image"/>
                     <?php endif;?>
                     <form action="process_singlePost_comment.php" method="POST" id="commentForm">
-                        <label for="caption">Caption</label>
-                        <textarea name="caption" rows="5" placeholder="Write here your comment" required></textarea>
-                        <input type="text" name="postID" value="<?php echo $template["post"]["PostID"]?>" hidden>
+                        <label for="caption-textarea">Caption</label>
+                        <textarea id="caption-textarea" name="caption" rows="5" placeholder="Write here your comment" required></textarea>
+                        <input type="hidden" name="postID" value="<?php echo $template["post"]["PostID"]?>">
                         <button type="submit">
                             <em class="fa-regular fa-paper-plane"></em>
                         </button>
                     </form>
-                </main>
+                </div>
             <?php endif;?>
         </div>
         <script src="js/singlePost_comment.js"></script>
@@ -145,5 +155,5 @@
                 </article>
             <?php endforeach;?>
         </div>
-    </section>
+    </div>
 </main>

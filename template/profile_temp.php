@@ -47,7 +47,7 @@
             <script src="js/follow.js"></script>
         <?php else:?>
             <div>
-                <a href="login.php"><em id="follow" class="fa-solid fa-user-plus"></em></a>
+                <a href="login.php" title="Log in or register to follow this user"><em id="follow" class="fa-solid fa-user-plus"></em></a>
             </div>
         <?php endif?>
     <?php endif;?>
