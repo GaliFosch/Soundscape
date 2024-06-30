@@ -144,7 +144,7 @@ hr {
     color:black;
 }
 
-.trackSection header h3 {
+.trackSection header h2 {
     font-size: 1.3rem;
 }
 
@@ -225,7 +225,7 @@ div.likeContainer em{
     color: #E91E63;
 }
 
-#commentFormContainer main{
+#commentFormContainer .comment-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -234,7 +234,7 @@ div.likeContainer em{
     width: 100%;
 }
 
-#commentFormContainer main img{
+#commentFormContainer .comment-container img {
     height: 2rem;
     width: 2rem;
     border-radius: 50%;
@@ -406,6 +406,10 @@ article.comment footer p{
     }
 
     .bottom-container {
+        margin-left: 0;
+    }
+
+    .trackSection {
         margin-left: 0;
     }
 
