@@ -341,6 +341,14 @@ article.comment footer p{
     }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+
+    main {
+        padding-left: 3rem;
+    }
+
+}
+
 @media screen and (min-width: 768px) {
 
     .imgContainer img{
