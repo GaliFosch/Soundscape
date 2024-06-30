@@ -176,6 +176,10 @@ function addCloseListener() {
     closeComment.addEventListener("click", () => {
         commentFocus.remove();
         commentOpen = false;
+        const body = document.getElementsByTagName("body")[0];
+        if(body.style.overflow === "hidden" ){
+          body.style.overflow = "";
+        }
     });
   }
 };
