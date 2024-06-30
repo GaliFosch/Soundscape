@@ -166,7 +166,7 @@ article.people-comment, article.people-like {
     align-self: flex-start;
     padding: 0;
     width: fit-content;
-    font-size: 0.6em;
+    font-size: 0.8em;
 }
 
 .likes {
