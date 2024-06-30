@@ -5,6 +5,8 @@ let commentOpen = false;
 let numComment = null;
 let shownCount = 0;
 
+let username = "";
+let userImage = "";
 function likeProcedure() {
   let hearts= document.querySelectorAll(".fa-heart");
 
@@ -22,7 +24,14 @@ function likeProcedure() {
               heart.classList.toggle('fa-solid');
               heart.classList.toggle('fa-regular');
               if(likeContainer.length>0){
-                
+                fetch("process_like_container.php")
+                  .then(response=>response.text())
+                  .then(data=>{
+                    let el = document.createElement
+                    el.classList.add("people-like");
+                    el.innerHTML = data;
+                    likeContainer[0].insertBefore(el, likeContainer[0].firstChild);
+                  })
               }
             }
         }
@@ -264,9 +273,23 @@ function getSectionAbove(queryPostID) {
 }
 
 window.onload = () => {
-  postProcedure();
-  commentProcedure();
-  likeProcedure();
+  fetch("process_get_user.php")
+    .then(response=>response.json())
+    .then(data=>{
+      console.log(data);
+      if(data.error === 0){
+        console.log(data.user.Username);
+        username = data.user.Username;
+        console.log(username);
+        userImage = data.user.ProfileImage;
+      }
+    })
+    .finally(()=>{
+      postProcedure();
+      commentProcedure();
+      likeProcedure();
+    })
+  
 }
 
 
