@@ -142,7 +142,7 @@ main {
     font-size: 1.2rem;
 }
 
-#Counts p {
+#followerCount, #followingCount {
     text-align: center;
     margin: 0;
     font-size: 1.2rem;
@@ -193,7 +193,7 @@ main > section {
     margin-top: 1.5rem;
 }
 
-main > section:not(#posts-section) p {
+main > section > div p {
     text-align: left;
     margin-top: 2rem;
     color: rgba(255, 255, 255, 0.7);
