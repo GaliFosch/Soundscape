@@ -2,9 +2,24 @@
 
 require_once("bootstrap.php");
 
+if(!checkLogin($dbh)){
+    echo "false";
+    exit();
+}
+
+if(!isset($_GET["post"], $_POST["comment-text"])){
+    echo "false";
+    exit();
+}
+
 $postID = $_GET["post"];
 $text = $_POST["comment-text"];
 $user = $dbh->getUserByUsername($_SESSION["username"]);
+
+if($dbh->getPostByID($postID)===false){
+    echo "false";
+    exit();
+}
 
 $id = $dbh->addComment($text,$user["Username"],$postID);
 

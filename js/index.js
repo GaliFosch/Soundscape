@@ -225,12 +225,16 @@ function addCommentFormListener(){
       })
         .then(response=>response.text())
         .then(data => {
-          const el = document.createElement("article");
-          el.classList.add("people-comment");
-          el.innerHTML = data;
-          container.insertBefore(el, container.firstChild);
-          textArea.value = "";
-          commentCounter.innerText = parseInt(commentCounter.innerText) + 1;
+          if(data != "false"){
+            const el = document.createElement("article");
+            el.classList.add("people-comment");
+            el.innerHTML = data;
+            container.insertBefore(el, container.firstChild);
+            textArea.value = "";
+            commentCounter.innerText = parseInt(commentCounter.innerText) + 1;
+          }else{
+            alert("Error: We couldn't complete the procedure. Try later");
+          }
         })
   })
 }
