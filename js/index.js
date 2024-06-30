@@ -236,6 +236,11 @@ function addCommentFormListener(){
             container.insertBefore(el, container.firstChild);
             textArea.value = "";
             commentCounter.innerText = parseInt(commentCounter.innerText) + 1;
+            
+            const noCommMsg = document.getElementsByClassName("no-comments");
+            if(noCommMsg.length>0){
+              noCommMsg[0].remove()
+            }
           }else{
             alert("Error: We couldn't complete the procedure. Try later");
           }
