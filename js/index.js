@@ -268,6 +268,9 @@ function openComment(postId) {
 
 function addCommentFormListener(){
   const form = document.getElementById("CommentForm");
+  if(form === null){
+    return;
+  }
   const container = document.getElementById("people-comment-container");
   const textArea = document.getElementById("write-comment");
 
@@ -318,7 +321,6 @@ window.onload = () => {
   postProcedure();
   commentProcedure();
   likeProcedure();
-  
 }
 
 
