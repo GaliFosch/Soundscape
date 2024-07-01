@@ -94,7 +94,11 @@ switch ($preview_type) {
         $users = $dbh->getUserFollowers($template["profile"]["Username"]);
         foreach ($users as $user) {
             $preview["title"] = $user["Username"];
-            $preview["image"] = $user["ProfileImage"];
+            if(!empty($user["ProfileImage"])){
+                $preview["image"] = $user["ProfileImage"];
+            }else{
+                $preview["image"] = "images/placeholder-image.jpg";
+            }
             $preview["alt"] = "Click to open the profile of the user";
             $preview["link"] = "profile.php?profile=" . $user["Username"];
             $previews[] = $preview;
@@ -104,7 +108,11 @@ switch ($preview_type) {
         $users = $dbh->getUsersFollowedByUser($template["profile"]["Username"]);
         foreach ($users as $user) {
             $preview["title"] = $user["Username"];
-            $preview["image"] = $user["ProfileImage"];
+            if(!empty($user["ProfileImage"])){
+                $preview["image"] = $user["ProfileImage"];
+            }else{
+                $preview["image"] = "images/placeholder-image.jpg";
+            }
             $preview["alt"] = "Click to open the profile of the user";
             $preview["link"] = "profile.php?profile=" . $user["Username"];
             $previews[] = $preview;
@@ -114,7 +122,11 @@ switch ($preview_type) {
         $users = $dbh->getMatchingUsers($query_str, $previews_to_show, $previews_to_skip);
         foreach ($users as $user) {
             $preview["title"] = $user["Username"];
-            $preview["image"] = $user["ProfileImage"];
+            if(!empty($user["ProfileImage"])){
+                $preview["image"] = $user["ProfileImage"];
+            }else{
+                $preview["image"] = "images/placeholder-image.jpg";
+            }
             $preview["alt"] = "Click to open the profile of the user";
             $preview["link"] = "profile.php?profile=" . $user["Username"];
             $previews[] = $preview;
@@ -170,7 +182,7 @@ switch ($preview_type) {
                 <?php if (isset($preview["image"])): ?>
                     <img class="picture" src="<?php echo $preview["image"]; ?>" alt="<?php echo $preview["alt"]; ?>"/>
                 <?php else: ?>
-                    <img class="picture" src="images/placeholder-image.jpg" alt="<?php echo $preview["alt"]; ?>"/>
+                    <img class="picture" src="images/song-cover-placeholder.png" alt="<?php echo $preview["alt"]; ?>"/>
                 <?php endif; ?>
                 <div class="preview-info">
                     <h2 class="preview-title"><?php echo $preview["title"]; ?></h2>
