@@ -182,6 +182,11 @@ article.people-like {
     padding: 0 1rem;
 }
 
+button.follow-button {
+    background: none;
+    border: none;
+}
+
 @media screen and (max-width: 768px) {
 
     footer.popover-comment {

@@ -99,9 +99,9 @@ if(checkLogin($dbh)) {
             </a>
         <?php if($creator["Username"] != $user["Username"]): ?>
              <?php if($dbh->isFollowing($_SESSION["username"], $creator["Username"])):?>
-                    <button id="follow - <?php echo $creator['Username']?>" type="button"><em id="follow" class="fa-solid fa-user-check"></em></button>
+                    <button id="follow - <?php echo $creator['Username']?>" type="button" class="follow-button"><em id="follow" class="fa-solid fa-user-check"></em></button>
                 <?php else:?>
-                    <button id="follow - <?php echo $creator['Username']?>" type="button"><em id="follow" class="fa-solid fa-user-plus"></em></button>
+                    <button id="follow - <?php echo $creator['Username']?>" type="button"class="follow-button"><em id="follow" class="fa-solid fa-user-plus"></em></button>
                 <?php endif?>
         <?php endif; ?>
     </article>
