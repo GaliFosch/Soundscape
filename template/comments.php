@@ -97,7 +97,7 @@ if(checkLogin($dbh)) {
         <a href="profile.php?profile=<?php echo $creator["Username"]; ?>" class="redirect">
                 <p><b><?php echo $creator["Username"]?></b></p>
             </a>
-        <?php if($creator["Username"] != $user["Username"]): ?>
+        <?php if(!empty($user) && $creator["Username"] != $user["Username"]): ?>
              <?php if($dbh->isFollowing($_SESSION["username"], $creator["Username"])):?>
                     <button id="follow - <?php echo $creator['Username']?>" type="button" class="follow-button"><em id="follow" class="fa-solid fa-user-check"></em></button>
                 <?php else:?>
