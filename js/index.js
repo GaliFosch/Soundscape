@@ -90,9 +90,7 @@ function commentProcedure() {
   comments.forEach((comm) => {
     comm.addEventListener("click", () => {
       let article = comm.closest("article");
-      console.log(article)
         let postId = article.id;
-        console.log(postId)
         if(!commentOpen) {
           openComment(postId);
         } else if(numComment==postId) {
@@ -252,9 +250,7 @@ function openComment(postId) {
         xhttp.onreadystatechange = function() {
           if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
               // Add requested previews to section
-              console.log(postId)
               let below = getSectionAbove(postId);
-              console.log(below)
               showPopover(this.responseText, below);
               numComment = postId;
               interactionViewerChanger();
@@ -311,7 +307,6 @@ function addCommentFormListener(){
 function getSectionAbove(queryPostID) {
     for (let i = 0; i < comments.length; i++) {
       let article = comments[i].closest("article");
-      console.log(article);
       let postId = article.id;
       if(queryPostID === postId) {
           return comments[i].closest('div');

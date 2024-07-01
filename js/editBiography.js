@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const textArea = document.getElementById("bio");
 
     editButton.addEventListener("click", ()=>{
-        console.log(value.innerText);
         textArea.innerText = value.innerText;
         form.style.display = formDispl;
         textArea.select();
