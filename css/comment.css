@@ -190,6 +190,7 @@ article.people-like {
 @media screen and (max-width: 768px) {
 
     footer.popover-comment {
+        display: fixed;
         background-color: #323232;
         height: -webkit-fill-available;
         width: -webkit-fill-available;
