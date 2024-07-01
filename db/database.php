@@ -760,7 +760,7 @@ class DatabaseHelper {
         }
     }
 
-    public function getPersonalizedHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
+    public function getPersonalizedHomeFeed($userID) {
 
         $artistQuery = "SELECT t1.*
                         FROM (
@@ -772,8 +772,8 @@ class DatabaseHelper {
                                 SELECT Following
                                 FROM follow
                                 WHERE Follower = ?
-                            )ORDER BY p.PostID DESC
-                            LIMIT ?, ? 
+                            )
+                            ORDER BY p.PostTimestamp DESC
                         )t1";
 
         $likedQuery = "SELECT t2.*
@@ -784,7 +784,6 @@ class DatabaseHelper {
                             WHERE u.Username != ?
                             AND p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
                             ORDER BY p.NumLike DESC
-                             LIMIT ?, ?
                         ) t2";
 
         $genreQuery = "SELECT t3.*
@@ -802,53 +801,52 @@ class DatabaseHelper {
                         )
                         AND u.Username != ?
                         AND p.PostTimestamp >= DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 7 DAY)
-                    LIMIT ?, ?
+                        ORDER BY p.PostTimestamp DESC
                     )t3";
         
+        $generalQuery = $this->getGeneralHomeFeed($userID);
+
         $finalQuery = "SELECT * FROM (
                         ($artistQuery) 
                         UNION
                         ($likedQuery) 
                         UNION
                         ($genreQuery) 
+                        UNION
+                        ($generalQuery)
                     ) subquery";
     
 
         $stmt = $this->db->prepare($finalQuery);
-        $stmt->bind_param("siisiissii", $userID, $nToSkip, $nToShow, $userID, $nToSkip, $nToShow, $userID, $userID, $nToSkip, $nToShow);
+        $stmt->bind_param("sssss", $userID, $userID, $userID, $userID, $userID);
         if($stmt->execute()) {
             $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            if(count($result)<1) {
-                $result = $this->getGeneralHomeFeed($userID, $nToShow, $nToSkip);
-            }
             return $result;
         } else {
-            return $this->getGeneralHomeFeed($userID, $nToShow, $nToSkip);
+            return $this->getGeneralHomeFeed($userID);
         }
     }
 
-    public function getGeneralHomeFeed($userID, $nToShow =  ALL, $nToSkip = 0) {
+    public function getGeneralHomeFeed($userID) {
        $query=null;
+       $stmt = null;
         if($userID!=null) {
-        $query = "SELECT *
-                    FROM post
+        $query = "SELECT t4.*
+                    FROM(
+                    SELECT post.*
+                    FROM post 
                     INNER JOIN user ON post.Username = user.Username
                     AND user.Username != ?
-                    ORDER BY user.NumFollower DESC
-                    LIMIT ?, ?";
-        $stmt =  $this->db->prepare($query);
-        $stmt->bind_param("sii", $userID, $nToSkip, $nToShow);
+                    ORDER BY post.PostTimestamp DESC
+                    )t4";
+        return $query;
        } else {
         $query = "SELECT *
                     FROM post
                     INNER JOIN user ON post.Username = user.Username
-                    ORDER BY user.NumFollower DESC
-                    LIMIT ?, ?";
+                    ORDER BY post.PostTimestamp DESC";
         $stmt =  $this->db->prepare($query);
-        $stmt->bind_param("ii", $nToSkip, $nToShow);
        }
-       
-        
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
