@@ -182,7 +182,7 @@ article.people-like {
     padding: 0 1rem;
 }
 
-button.follow-button {
+.people-like > button.follow-button {
     background: none;
     border: none;
 }
