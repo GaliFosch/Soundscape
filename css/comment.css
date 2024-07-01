@@ -108,15 +108,16 @@ section.comment-text {
     flex-direction: column;
 }
 
-form {
+.user-comment form {
     width: -webkit-fill-available;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-button {
+.comment-form button {
     background: none;
+    background-color: transparent;
     color: inherit;
     border: none;
 }
@@ -165,7 +166,7 @@ article.people-comment, article.people-like {
     align-self: flex-start;
     padding: 0;
     width: fit-content;
-    font-size: 0.6em;
+    font-size: 0.8em;
 }
 
 .likes {
@@ -185,12 +186,10 @@ article.people-like {
 
     footer.popover-comment {
         background-color: #323232;
-        position: fixed;
         height: -webkit-fill-available;
         width: -webkit-fill-available;
         top: 3rem;
         left: 0;
-        display: block;
         margin: 0;
         display: flex;
         overflow-y: scroll;

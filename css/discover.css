@@ -51,12 +51,13 @@ main {
     opacity: 0.8;
 }
 
-.preview, .preview > a {
-    width: 15%;
+.preview {
+    width: 9rem;
+    height: 13rem;
 }
 
 .preview {
-    display: inline;
+    display: inline-block;
     text-align: center;
     margin-left: 2rem;
     vertical-align: top;
@@ -73,6 +74,11 @@ main {
     width: 7rem;
     height: 7rem;
     object-fit: cover;
+}
+
+.preview-title, .author, .track-length {
+    text-align: center;
+    text-overflow: ellipsis;
 }
 
 .preview-title {
@@ -108,10 +114,18 @@ main {
     font-size: 1rem;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 992px) and (max-width: 1200px) {
 
     header > form, main {
-        padding-left: 2.5rem;
+        padding-left: 3rem;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+
+    header > form, main {
+        padding-left: 4rem;
     }
 
 }
@@ -132,10 +146,6 @@ main {
     #discover-title, .search-results > h1, .discover-section > h2 {
         margin-top: 0;
         margin-left: 1.5rem;
-    }
-
-    .preview, .preview > a {
-        width: 33%;
     }
 
     .preview-info {

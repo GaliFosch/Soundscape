@@ -12,21 +12,77 @@ function likeProcedure() {
     heart.addEventListener(("click"), ()=> {  
       let article = heart.closest("article");
       let postId = article.id;
-      let xhttp;    
+      let xhttp;
       xhttp = new XMLHttpRequest();
       xhttp.open("GET", "template/like_handler.php?post="+postId, true);
       xhttp.onreadystatechange = function() {
         if ((this.readyState === XMLHttpRequest.DONE) && (this.status === 200)) {
-
             if(this.responseText==="change") {
               heart.classList.toggle('fa-solid');
               heart.classList.toggle('fa-regular');
-            }
+              toggleLikeArticle();
+            }     
         }
       }
       xhttp.send();
     });
   });
+}
+
+function toggleLikeArticle(){
+  const likeContainer =  document.getElementsByClassName("likes");
+  let username = "";
+  let userImage = "";
+  if(likeContainer.length>0){
+    let container = likeContainer[0];
+    fetch("process_get_user.php")
+      .then(response=>response.json())
+      .then(data=>{
+        username = data.user.Username;
+        userImage = data.user.ProfileImage;
+      })
+      .finally(()=>{
+        const userLike = document.getElementById(username);
+        if(userLike!==null){
+          userLike.remove();
+          const likeCounter = document.getElementsByClassName("like-changer-section")[0].getElementsByTagName("p")[0];
+          likeCounter.innerText = parseInt(likeCounter.innerText) -1;
+          if(container.children.length === 0){
+            const el = document.createElement("p");
+            el.classList.add("no-likes");
+            el.innerText = "Looks like no one left a like yet. Be the first!";
+            container.appendChild(el);
+          }
+        }else{
+          let noLike = document.getElementsByClassName("no-likes");
+          if(noLike.length>0){
+            noLike[0].remove();
+          }
+          const likeCounter = document.getElementsByClassName("like-changer-section")[0].getElementsByTagName("p")[0];
+          likeCounter.innerText = parseInt(likeCounter.innerText) +1;
+
+          const el = document.createElement("article");
+          el.classList.add("people-like");
+          el.id = username;
+          const img = document.createElement("img");
+          if(userImage!== null){
+            img.src = userImage;
+          }else{
+            img.src = "images/placeholder-image.jpg";
+          }
+          img.classList.add("profile-picture");
+          img.alt="Comment creator profile image";
+          el.appendChild(img);
+
+          const name = document.createElement("a");
+          name.href = "profile.php?profile=" + username;
+          name.classList.add("redirect");
+          name.innerHTML = "<p><b>" + username + "</b></p>";
+          el.appendChild(name);
+          container.insertBefore(el, container.firstChild);
+        }
+      })
+  }
 }
 
 function commentProcedure() {
@@ -118,7 +174,10 @@ function addCloseListener() {
     closeComment.addEventListener("click", () => {
         commentFocus.remove();
         commentOpen = false;
-        document.querySelector('body').style.overflow = "scroll";
+        const body = document.getElementsByTagName("body")[0];
+        if(body.style.overflow === "hidden" ){
+          body.style.overflow = "";
+        }
     });
   }
 };
@@ -131,31 +190,35 @@ function addSelectedListener() {
   let selected = document.querySelector(".selected");
 
   heart.addEventListener("click", () => {
-    selected.style.borderBottom = "0 solid";
-  selected.querySelector("p").color = "#FFF";
-  selected.querySelector("em").color = "#FFF";
-
-    comment.classList.toggle('selected');
-    heart.classList.toggle('selected');
-
-    let sel = document.querySelector(".selected");
-    sel.style.borderBottom = "0.2rem solid #E91E63";
-
-    selected = sel;
+    if(!heart.classList.contains("selected")){
+      selected.style.borderBottom = "0 solid";
+      selected.querySelector("p").color = "#FFF";
+      selected.querySelector("em").color = "#FFF";
+  
+      comment.classList.toggle('selected');
+      heart.classList.toggle('selected');
+  
+      let sel = document.querySelector(".selected");
+      sel.style.borderBottom = "0.2rem solid #E91E63";
+      
+      selected = sel;
+    }
   });
 
   comment.addEventListener("click", () => {
-    selected.style.borderBottom = "0 solid";
-  selected.querySelector("p").color = "#FFF";
-  selected.querySelector("em").color = "#FFF";
-
-    comment.classList.toggle('selected');
-    heart.classList.toggle('selected');
-
-    let sel = document.querySelector(".selected");
-    sel.style.borderBottom = "0.2rem solid #1D70AD";
-
-    selected = sel;
+    if(!comment.classList.contains("selected")){
+      selected.style.borderBottom = "0 solid";
+      selected.querySelector("p").color = "#FFF";
+      selected.querySelector("em").color = "#FFF";
+  
+      comment.classList.toggle('selected');
+      heart.classList.toggle('selected');
+  
+      let sel = document.querySelector(".selected");
+      sel.style.borderBottom = "0.2rem solid #1D70AD";
+  
+      selected = sel;
+    }
   });
   
 };
@@ -196,10 +259,48 @@ function openComment(postId) {
               if(window.innerWidth<768) {
                 document.querySelector('body').style.overflow = "hidden";
               }
+              addCommentFormListener();
           }
       }
         xhttp.send();
       commentOpen=true;
+}
+
+function addCommentFormListener(){
+  const form = document.getElementById("CommentForm");
+  const container = document.getElementById("people-comment-container");
+  const textArea = document.getElementById("write-comment");
+
+  const commentCounter = document.getElementsByClassName("comment-changer-section")[0]
+                                    .getElementsByTagName("p")[0];
+  console.log(commentCounter);
+  form.addEventListener("submit", (event)=>{
+      event.preventDefault();
+      let path = form.action;
+      let formData = new FormData(form);
+      fetch(path,{
+        method: 'POST',
+        body: formData
+      })
+        .then(response=>response.text())
+        .then(data => {
+          if(data != "false"){
+            const el = document.createElement("article");
+            el.classList.add("people-comment");
+            el.innerHTML = data;
+            container.insertBefore(el, container.firstChild);
+            textArea.value = "";
+            commentCounter.innerText = parseInt(commentCounter.innerText) + 1;
+            
+            const noCommMsg = document.getElementsByClassName("no-comments");
+            if(noCommMsg.length>0){
+              noCommMsg[0].remove()
+            }
+          }else{
+            alert("Error: We couldn't complete the procedure. Try later");
+          }
+        })
+  })
 }
 
 //This code deals with the finding of the nearest section, under which the comment section is to open
@@ -217,6 +318,7 @@ window.onload = () => {
   postProcedure();
   commentProcedure();
   likeProcedure();
+  
 }
 
 

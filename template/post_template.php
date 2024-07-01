@@ -19,15 +19,15 @@
         ?>
         <div class="imgSection">
             <div class="imgContainer">
-                <em class="fa-solid fa-angle-left previous"></em>
+                <em class="fa-solid fa-angle-left previous" aria-hidden="true"></em>
                 <?php foreach($imgs as $img):?>
                     <img src="<?php echo $img["PostImage"]; ?>" alt=""/>
                 <?php endforeach;?>
-                <em class="fa-solid fa-angle-right next"></em>
+                <em class="fa-solid fa-angle-right next" aria-hidden="true"></em>
             </div>
             <footer>
                 <?php foreach($imgs as $img):?>
-                    <em class="fa-solid fa-circle dot"></em>
+                    <em class="fa-solid fa-circle dot" aria-hidden="true"></em>
                 <?php endforeach;?>
             </footer>
         </div>
@@ -54,7 +54,7 @@
                 </a>
                 </section>
                 <a href="player.php?trackid=<?php echo $track["TrackID"]; ?>" aria-label="Play track on player" title="Play track on player">
-                    <em class="fa-solid fa-play"></em>
+                    <em class="fa-solid fa-play" aria-hidden="true"></em>
                 </a>
             </section>
         <!--POST WITH PLAYLIST-->
@@ -87,15 +87,15 @@
         <?php endif; ?>
 
         <div class="post-interaction">
-            <em class="fa-regular fa-message fa-fw"></em>
+            <em class="fa-regular fa-message fa-fw" aria-hidden="true" title="Open comments"></em>
             <?php if(checkLogin($dbh)): ?>
                 <?php if($dbh->hasUserLiked($post['PostID'], $_SESSION['username'])): ?>
-                    <em class="fa-solid fa-heart fa-fw article"></em>
+                    <em class="fa-solid fa-heart fa-fw article" aria-hidden="true" title="You have liked this post"></em>
                 <?php else: ?>
-                    <em class="fa-regular fa-heart fa-fw article"></em>
+                    <em class="fa-regular fa-heart fa-fw article" aria-hidden="true" title="Like this post"></em>
                 <?php endif; ?>
             <?php else: ?>
-                <em class="fa-regular fa-heart fa-fw article"></em>
+                <em class="fa-regular fa-heart fa-fw article" aria-hidden="true"></em>
             <?php endif; ?>
         </div>
 

@@ -40,9 +40,9 @@ header h2{
     border: 0.3rem solid #323232;
 }
 
-button, main form input[type="submit"]{
-    margin-left: auto;
-    margin-right: 25%;
+button.profile-button, 
+    main form input[type="submit"], 
+    main form input[type="file"]::file-selector-button{
     color: black;
     background-color: #E28AB9;
     border-style: none;
@@ -142,7 +142,7 @@ main {
     font-size: 1.2rem;
 }
 
-#Counts p {
+#followerCount, #followingCount {
     text-align: center;
     margin: 0;
     font-size: 1.2rem;
@@ -153,6 +153,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 0.5rem;
 }
 
 #Biography header h3{
@@ -183,6 +184,7 @@ main {
     border: 2px solid white;
     border-radius: 1rem;
     padding-left: 0.5rem;
+    resize: none;
 }
 
 #Biography div{
@@ -193,7 +195,7 @@ main > section {
     margin-top: 1.5rem;
 }
 
-main > section:not(#posts-section) p {
+main > section > div p {
     text-align: left;
     margin-top: 2rem;
     color: rgba(255, 255, 255, 0.7);
@@ -214,7 +216,7 @@ main>section a{
     text-decoration: none;
 }
 
-main>section article:not(.post-article){
+main>section article.card{
     display: inline-block;
     width: 9rem;
     height: 10rem;
@@ -222,7 +224,7 @@ main>section article:not(.post-article){
     background-color: transparent;
 }
 
-main>section article:not(.post-article) img{
+article.card img{
     display: block;
     width: 7rem;
     height: 7rem;

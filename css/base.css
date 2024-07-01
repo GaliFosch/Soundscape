@@ -102,6 +102,10 @@ nav .fa-solid {
     margin: 0 5% 0 0;
 }
 
+nav .fa-user {
+    margin-right: 3%;
+}
+
 .fa-bars {
     justify-self: start;
 }

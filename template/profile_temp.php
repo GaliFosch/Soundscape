@@ -26,11 +26,11 @@
     <?php if($template["isProfileLogged"]):?>
         <div id="ImageEditContainer">
             <form action="#" id="ImageEditForm" enctype="multipart/form-data">
-                <label for="img">Insert your new profile image</label>
+                <label for="NewImg">Insert your new profile image</label>
                 <input type="file" name="img" id="NewImg" accept="img/*" required/>
                 <div>
                     <input type="submit" value="Confirm">
-                    <button id="UndoImgEdit">Cancel</button>
+                    <button id="UndoImgEdit" class="profile-button">Cancel</button>
                 </div>
             </form>
         </div>
@@ -39,15 +39,15 @@
         <?php if($template["isUserLogged"]):?>
             <div>
                 <?php if($dbh->isFollowing($_SESSION["username"], $template["profile"]["Username"])):?>
-                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check"></em>Following</button>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-check" aria-hidden="true"></em>Following</button>
                 <?php else:?>
-                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus"></em>Follow</button>
+                    <button id="follow-button" type="button"><em id="follow" class="fa-solid fa-user-plus" aria-hidden="true"></em>Follow</button>
                 <?php endif?>
             </div>
             <script src="js/follow.js"></script>
         <?php else:?>
             <div>
-                <a href="login.php" title="Log in or register to follow this user"><em id="follow" class="fa-solid fa-user-plus"></em></a>
+                <a href="login.php" title="Log in or register to follow this user"><em id="follow" class="fa-solid fa-user-plus" aria-hidden="true"></em></a>
             </div>
         <?php endif?>
     <?php endif;?>
@@ -68,7 +68,7 @@
         <header>
             <h3>Biography</h3>
             <?php if($template["isProfileLogged"]):?>
-                <button id="EditBiograpy">Edit</button>
+                <button id="EditBiograpy" class="profile-button">Edit</button>
             <?php endif?>
         </header>
         <p>
@@ -77,10 +77,10 @@
         <?php if($template["isProfileLogged"]):?>
             <form action="#" id="BiographyForm">
                 <label for="bio" hidden>Biography</label>
-                <textarea name="bio" id="bio" placehilder="Write your Biograpy here" required></textarea>
+                <textarea name="bio" id="bio" placeholder="Write your biography here" rows="5" required></textarea>
                 <div>
                     <input type="submit" value="Confirm"/>
-                    <button id="bioEditUndo">Cancel</button>
+                    <button id="bioEditUndo" class="profile-button">Cancel</button>
                 </div>
             </form>
             <script src="js/editBiography.js"></script>
@@ -97,7 +97,7 @@
         <div>
             <?php if (count($tracks) != 0): ?>
                 <?php foreach ($tracks as $track): ?>
-                    <article>
+                    <article class="card">
                         <a href="player.php?trackid=<?php echo $track["TrackID"]?>">
                             <?php
                                 if (isset($track["CoverImage"])) {
@@ -126,7 +126,7 @@
         <div>
             <?php if (count($albums) != 0): ?>
                 <?php foreach ($albums as $album): ?>
-                    <article>
+                    <article class="card">
                         <a href="<?php echo 'playlist.php?id=' . $album["PlaylistID"]; ?>">
                             <?php
                                 if (!empty($album["CoverImage"])) {
@@ -155,7 +155,7 @@
         <div>
             <?php if (count($playlists) != 0): ?>
                 <?php foreach ($playlists as $playlist): ?>
-                    <article>
+                    <article class="card">
                         <a href="<?php echo 'playlist.php?id=' . $playlist["PlaylistID"]; ?>">
                             <?php
                                 if (!empty($playlist["CoverImage"])) {
@@ -182,4 +182,5 @@
         </header>
         <?php require("post_template.php"); ?>
     </section>
+    <script src="js/index.js"></script>
 </main>

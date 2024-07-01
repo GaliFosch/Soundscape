@@ -50,7 +50,7 @@ $_SESSION["selected-tracks-ids"] = array();
     <form id="track-search-form" action="#" method="GET" class="comment filter-by-selected-collection-type" autocomplete="off">
         <input id="track-search" type="search" name="track" placeholder="Search for song"/>
         <input id="add-track-button" type="button" value="Add" />
-        <em class="fa-solid fa-plus"></em>
+        <em class="fa-solid fa-plus" aria-hidden="true" title="Add track to the list of selected tracks"></em>
     </form>
     <!-- List of suggested tracks -->
     <div class="track-suggestions-section">
