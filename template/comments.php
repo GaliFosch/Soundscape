@@ -24,7 +24,7 @@ if(checkLogin($dbh)) {
         <p><?php echo sizeof($comments) ?></p>
     </section>
     <div class="separator"></div>
-    <section class=" like-changer-section">   
+    <section class="like-changer-section">   
         <em class="fa-regular fa-heart fa-fw like-changer"></em>
         <p><?php echo sizeof($likes) ?></p>
     </section>
@@ -32,11 +32,11 @@ if(checkLogin($dbh)) {
 </section>
 
 <div class="comments">
-    <?php if(checkLogin($dbh)): ?>
+    <?php if(!empty($user)): ?>
     <!--Inserisci il tuo commento-->
     <section class="user-comment">
         <form class="comment-form" action="process_comment.php?post=<?php echo $postID; ?>" method="POST" id="CommentForm">
-            <?php if ($user["ProfileImage"] != null): ?>
+            <?php if (!empty($user["ProfileImage"])): ?>
                     <img class="profile-picture comment-form" src="<?php echo $user["ProfileImage"]; ?>" alt="User profile image"/>
                 <?php else: ?>
                     <img class="profile-picture comment-form" src="images/placeholder-image.jpg" alt="User profile image"/>
