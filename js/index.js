@@ -187,18 +187,18 @@ function addCloseListener() {
 function addSelectedListener() {
   let heart = document.querySelector(".like-changer-section");
   let comment = document.querySelector(".comment-changer-section");
-  let selected = document.querySelector(".selected");
+  let selected = document.querySelector(".selected-interaction");
 
   heart.addEventListener("click", () => {
-    if(!heart.classList.contains("selected")){
+    if(!heart.classList.contains("selected-interaction")){
       selected.style.borderBottom = "0 solid";
       selected.querySelector("p").color = "#FFF";
       selected.querySelector("em").color = "#FFF";
   
-      comment.classList.toggle('selected');
-      heart.classList.toggle('selected');
+      comment.classList.toggle('selected-interaction');
+      heart.classList.toggle('selected-interaction');
   
-      let sel = document.querySelector(".selected");
+      let sel = document.querySelector(".selected-interaction");
       sel.style.borderBottom = "0.2rem solid #E91E63";
       
       selected = sel;
@@ -206,15 +206,15 @@ function addSelectedListener() {
   });
 
   comment.addEventListener("click", () => {
-    if(!comment.classList.contains("selected")){
+    if(!comment.classList.contains("selected-interaction")){
       selected.style.borderBottom = "0 solid";
       selected.querySelector("p").color = "#FFF";
       selected.querySelector("em").color = "#FFF";
   
-      comment.classList.toggle('selected');
-      heart.classList.toggle('selected');
+      comment.classList.toggle('selected-interaction');
+      heart.classList.toggle('selected-interaction');
   
-      let sel = document.querySelector(".selected");
+      let sel = document.querySelector(".selected-interaction");
       sel.style.borderBottom = "0.2rem solid #1D70AD";
   
       selected = sel;
@@ -268,6 +268,9 @@ function openComment(postId) {
 
 function addCommentFormListener(){
   const form = document.getElementById("CommentForm");
+  if(form === null){
+    return;
+  }
   const container = document.getElementById("people-comment-container");
   const textArea = document.getElementById("write-comment");
 
@@ -318,7 +321,6 @@ window.onload = () => {
   postProcedure();
   commentProcedure();
   likeProcedure();
-  
 }
 
 

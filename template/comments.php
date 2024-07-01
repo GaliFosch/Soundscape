@@ -19,7 +19,7 @@ if(checkLogin($dbh)) {
 
 <em class="fa-solid fa-xmark close-comment"></em>
 <section class="interaction-changer">
-    <section class="comment-changer-section selected">
+    <section class="comment-changer-section selected-interaction">
         <em class="fa-regular fa-message fa-fw comment-changer"></em>
         <p><?php echo sizeof($comments) ?></p>
     </section>
@@ -97,7 +97,7 @@ if(checkLogin($dbh)) {
         <a href="profile.php?profile=<?php echo $creator["Username"]; ?>" class="redirect">
                 <p><b><?php echo $creator["Username"]?></b></p>
             </a>
-        <?php if($creator["Username"] != $user["Username"]): ?>
+        <?php if(!empty($user) && $creator["Username"] != $user["Username"]): ?>
              <?php if($dbh->isFollowing($_SESSION["username"], $creator["Username"])):?>
                     <button id="follow - <?php echo $creator['Username']?>" type="button" class="follow-button"><em id="follow" class="fa-solid fa-user-check"></em></button>
                 <?php else:?>
