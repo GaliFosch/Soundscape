@@ -44,7 +44,7 @@
                 <?php if ($track["CoverImage"] != null): ?>
                     <img class="song" src="<?php echo $track["CoverImage"]; ?>" alt="Song cover image"/>
                 <?php else: ?>
-                    <img class="song" src="images/song-cover-placeholder.jpg" alt="Song cover image"/>
+                    <img class="song" src="images/song-cover-placeholder.png" alt="Song cover image"/>
                 <?php endif; ?>
                 <!--Inner section delle info della music-->
                 <section class="music-info">
@@ -63,7 +63,7 @@
             <section class="playlistSection">
                 <a href="playlist.php?id=<?php echo $playlist["PlaylistID"];?>">
                     <?php if(empty($playlist["CoverImage"])): ?>
-                        <img class="cover-image" src="images/song-cover-placeholder.jpg" alt="User profile image"/>
+                        <img class="cover-image" src="images/song-cover-placeholder.png" alt="User profile image"/>
                     <?php else: ?>
                         <img class="cover-image" src="<?php echo $playlist["CoverImage"]; ?>" alt="User profile image"/>
                     <?php endif;?>
