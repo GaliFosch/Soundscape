@@ -63,19 +63,19 @@ em.comment-changer, .like-changer-section>em.like-changer {
     color: #FFF;
 }
 
-.comment-changer-section.selected {
+.comment-changer-section.selected-interaction {
     border-bottom: 0.2rem solid #1D70AD;
 }
 
-.comment-changer-section.selected>em, .comment-changer-section.selected>p {
+.comment-changer-section.selected-interaction>em, .comment-changer-section.selected-interaction>p {
     color: #1D70AD;
 }
 
-.like-changer-section.selected {
+.like-changer-section.selected-interaction {
     border-bottom: 0.2rem solid #E91E63;
 }
 
-.like-changer-section.selected>em, .like-changer-section.selected>p {
+.like-changer-section.selected-interaction>em, .like-changer-section.selected-interaction>p {
     color: #E91E63;
 }
 

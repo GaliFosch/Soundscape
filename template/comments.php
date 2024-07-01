@@ -19,7 +19,7 @@ if(checkLogin($dbh)) {
 
 <em class="fa-solid fa-xmark close-comment"></em>
 <section class="interaction-changer">
-    <section class="comment-changer-section selected">
+    <section class="comment-changer-section selected-interaction">
         <em class="fa-regular fa-message fa-fw comment-changer"></em>
         <p><?php echo sizeof($comments) ?></p>
     </section>
