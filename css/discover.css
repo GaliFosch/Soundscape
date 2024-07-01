@@ -52,20 +52,16 @@ main {
 }
 
 .preview {
-    width: 9rem;
-    height: 13rem;
-}
-
-.preview {
     display: inline-block;
     text-align: center;
     margin-left: 2rem;
     vertical-align: top;
+    width: 9rem;
+    height: 13rem;
 }
 
 .preview > a {
     text-decoration: none;
-    display: inline-block;
     margin-bottom: 1rem;
 }
 
@@ -79,6 +75,8 @@ main {
 .preview-title, .author, .track-length {
     text-align: center;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .preview-title {

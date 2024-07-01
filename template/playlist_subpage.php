@@ -3,7 +3,7 @@
         <?php if (isset($template["playlist"]["CoverImage"])): ?>
             <img id="cover-image" src="<?php echo $template["playlist"]["CoverImage"]; ?>" alt="" />
         <?php else: ?>
-            <img id="cover-image" src="images/placeholder-image.jpg" alt="" />
+            <img id="cover-image" src="images/song-cover-placeholder.png" alt="" />
         <?php endif; ?>
         <div class="playlist-details">
             <h1 id="title"><?php echo $template["playlist"]["Name"]; ?></h1>

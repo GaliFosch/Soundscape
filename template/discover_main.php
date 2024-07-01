@@ -48,7 +48,7 @@
                             <?php if (isset($track["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $track["CoverImage"]; ?>" alt="Track cover image"/>
                             <?php else: ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="Track cover image"/>
+                                <img class="picture" src="images/song-cover-placeholder.png" alt="Track cover image"/>
                             <?php endif; ?>
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $track["Name"]; ?></h3>
@@ -78,7 +78,7 @@
                             <?php if (isset($album["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $album["CoverImage"]; ?>" alt="Album cover image"/>
                             <?php else: ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="Album cover image"/>
+                                <img class="picture" src="images/song-cover-placeholder.png" alt="Album cover image"/>
                             <?php endif; ?>
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $album["Name"]; ?></h3>
@@ -108,7 +108,7 @@
                             <?php if (isset($playlist["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="Playlist cover image"/>
                             <?php else: ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="Playlist cover image"/>
+                                <img class="picture" src="images/song-cover-placeholder.png" alt="Playlist cover image"/>
                             <?php endif; ?>
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $playlist["Name"]; ?></h3>
@@ -145,7 +145,7 @@
                             <?php if (isset($track["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $track["CoverImage"]; ?>" alt="Track cover image"/>
                             <?php else: ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="Track cover image"/>
+                                <img class="picture" src="images/song-cover-placeholder.png" alt="Track cover image"/>
                             <?php endif; ?>
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $track["Name"]; ?></h3>
@@ -217,7 +217,7 @@
                             <?php if (isset($playlist["CoverImage"])): ?>
                                 <img class="picture" src="<?php echo $playlist["CoverImage"]; ?>" alt="Playlist cover image"/>
                             <?php else: ?>
-                                <img class="picture" src="images/placeholder-image.jpg" alt="Playlist cover image"/>
+                                <img class="picture" src="images/song-cover-placeholder.png" alt="Playlist cover image"/>
                             <?php endif; ?>
                             <div class="preview-info">
                                 <h3 class="preview-title"><?php echo $playlist["Name"]; ?></h3>
