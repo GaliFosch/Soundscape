@@ -77,7 +77,7 @@
         <?php if($template["isProfileLogged"]):?>
             <form action="#" id="BiographyForm">
                 <label for="bio" hidden>Biography</label>
-                <textarea name="bio" id="bio" placehilder="Write your Biograpy here" rows="5" required></textarea>
+                <textarea name="bio" id="bio" placeholder="Write your biography here" rows="5" required></textarea>
                 <div>
                     <input type="submit" value="Confirm"/>
                     <button id="bioEditUndo" class="profile-button">Cancel</button>
